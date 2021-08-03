@@ -165,3 +165,4 @@ class StarterSite extends Timber\Site {
 }
 
 new StarterSite();
+require_once( __DIR__ . '/component-setup.php' );
