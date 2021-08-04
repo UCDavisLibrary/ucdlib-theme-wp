@@ -4,11 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "wp-scripts start editor.js --output-path=../static/editor-js",
+    "dist": "wp-scripts build editor.js --output-path=../static/editor-js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ucd-lib/theme-sass": "^5.0.5"
+    "@polymer/iron-icon": "^3.0.1",
+    "@polymer/iron-icons": "^3.0.1",
+    "@ucd-lib/theme-sass": "^5.0.5",
+    "@wordpress/blocks": "^11.0.0",
+    "@wordpress/rich-text": "^5.0.0"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^17.1.0"
   }
 }
