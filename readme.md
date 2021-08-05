@@ -1,8 +1,9 @@
 # UC Davis Theme WP Components
 
-Wordpress dynamic Gutenberg components based off of the [UC Davis Theme](https://github.com/ucd-library/ucdlib-theme). To be used with a [Timber-based](https://upstatement.com/timber/) Wordpress theme or plugin.
+Wordpress dynamic Gutenberg components based off of the [UC Davis Theme](https://github.com/ucd-library/ucdlib-theme). 
 
 ## How to use in a wordpress theme
+This library is meant to be used in a Wordpress theme or plugin that can render [twigs](https://twig.symfony.com/) like [Timber](https://upstatement.com/timber/).
 
 ### Enqueue Styles
 Many of these components require that the UC Davis styles are present on the public and editor portions of your site. Here, we are just importing directly from the `@ucd-lib/theme-sass` npm package:
