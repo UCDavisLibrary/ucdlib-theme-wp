@@ -5,7 +5,7 @@ import styleClasses from "./styles";
 const name = 'ucd-theme/heading';
 const settings = {
   api_version: 2,
-	title: "Page Heading",
+	title: "Section Heading",
 	description: "Introduce new sections and organize content to help users understand your page structure.",
 	icon: html`<iron-icon icon='bookmark'></iron-icon>`,
 	category: 'text',

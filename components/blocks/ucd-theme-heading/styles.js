@@ -1,39 +1,38 @@
 export default [
   {
     name: 'primary',
-    label: 'H2 Primary',
-    isDefault: true
+    label: 'Section Title (Primary)'
   },
   {
     name: 'secondary',
-    label: 'H2 Secondary'
+    label: 'Section Title (Secondary)'
   },
   {
     name: 'auxiliary',
-    label: 'H2 Auxiliary'
+    label: 'Section Title (Auxiliary)'
   },
   {
     name: 'highlight',
-    label: 'H2 Highlight'
+    label: 'Section Title (Highlight)'
   },
   {
     name: 'underline',
-    label: 'H2 Underline'
+    label: 'Section Title (Underline)'
   },
   {
     name: 'weighted',
-    label: 'H2 Weighted'
+    label: 'Section Title (Weighted)'
   }, 
   {
     name: 'weighted-underline',
-    label: 'H2 Weighted with Underline'
+    label: 'Section Title (Weighted with Underline)'
   },
   {
     name: 'invert',
-    label: 'H2 White text'
+    label: 'Section Title (White text)'
   },
   {
     name: 'invert-box',
-    label: 'H2 White Text on Blue Background'
+    label: 'Section Title (White Text on Blue Background)'
   }
 ];

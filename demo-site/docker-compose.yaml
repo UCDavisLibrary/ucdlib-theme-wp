@@ -9,6 +9,7 @@ services:
     build: .
     volumes:
       - ./demo-theme:/var/www/html/wp-content/themes/demo-theme
+      - ../components:/var/www/html/wp-content/ucd-theme-components
     ports:
        - "8000:80"
     environment:

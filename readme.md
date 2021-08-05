@@ -25,11 +25,13 @@ add_editor_style( "../src/node_modules/@ucd-lib/theme-sass/style.css" );
 ```
 
 ### Importing the components into your JS bundle
-To register the components, you have to import the files into your block_editor_assets JS bundle. TODO: push package to npm.
-``` bash
+To register the components, you have to import the files into your `block_editor_assets` JS bundle.
+
+First, install this package with npm:
+```
 npm i @ucd-lib/theme-wp-elements
 ```
-and then
+and then register the components and formats in your editor JS:
 ```javascript
 import { registerBlockType } from '@wordpress/blocks';
 import { registerFormatType } from '@wordpress/rich-text';
@@ -45,6 +47,8 @@ UcdThemeBlocks.forEach(block => {
 
 It is up to you how you want to bundle your code, you can use [Wordpress's default process](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/) or build your own.
 
+Next, enqueue your bundled editor script:
+
 ```php
 // add component bundle to editor
 add_action( 'enqueue_block_editor_assets', function(){
@@ -58,7 +62,45 @@ add_action( 'enqueue_block_editor_assets', function(){
 ```
 
 ### Setting up the render (save) functions
-All of these components are [dynamic blocks](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/), which means that they need a server-side rendering callback in order to display on public-facing pages. Every component has a `twig-template` attribute, which maps to its corresponding template file in this repo. You will need to register a `render_callback` function for each component that calls `Timber::render` on its `twig-template`.
+All of these components are [dynamic blocks](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/), which means that they need a server-side rendering callback in order to display on public-facing pages. This repo contains corresponding template files for each block. First, make sure Timber can find these files:
+```php
+Timber::$dirname = array_merge(Timber::$dirname, array('../src/node_modules/@ucd-lib/theme-wp-elements/views'));
+```
+Next, we have to do a couple of hacks because all of Gutenberg's functionality is not fleshed out yet:
+1. ensure that the name of the block is available to the render function
+   1. https://github.com/WordPress/gutenberg/issues/4671
+2. Strip out the WP enforced "is-style" class prefix for custom styles
+   1. https://github.com/WordPress/gutenberg/issues/11763 
+```php
+add_action( 'render_block_data', function( $block, $source_block ){
+	$block['attrs']['_name'] = $block['blockName'];
+
+    if ( array_key_exists('className', $block['attrs'])) {
+        $block['attrs']['className'] = UCDThemeRemoveStylePrefix($block['blockName'], $block['attrs']['className']);
+    }
+	return $block;
+}, 10, 2 );
+```
+Finally, we need to register a render callback tbat will map each block to its twig template:
+```php
+require_once("../src/node_modules/@ucd-lib/theme-wp-elements/registry.php");
+add_action('init', function(){
+  global $UCD_THEME_COMPONENTS;
+  foreach ($UCD_THEME_COMPONENTS as $name => $block) {
+    register_block_type(
+      $name, 
+      array(
+        'api_version' => 2, 
+        'render_callback' => function($block_attributes, $context){
+          global $UCD_THEME_COMPONENTS;
+          ob_start();
+          Timber::render( $UCD_THEME_COMPONENTS[$block_attributes['_name']]['twig'], $block_attributes );
+          return ob_get_clean();
+        })
+    );
+  }
+});
+```
 
 ## Contributing to this repo
 ### Demo App
