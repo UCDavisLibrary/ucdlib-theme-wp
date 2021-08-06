@@ -82,7 +82,7 @@ add_action( 'render_block_data', function( $block, $source_block ){
 	return $block;
 }, 10, 2 );
 ```
-Finally, we need to register a render callback tbat will map each block to its twig template:
+Finally, we need to register a render callback that will map each block to its twig template:
 ```php
 require_once("../src/node_modules/@ucd-lib/theme-wp-elements/registry.php");
 add_action('init', function(){
@@ -95,7 +95,7 @@ add_action('init', function(){
         'render_callback' => function($block_attributes, $context){
           global $UCD_THEME_COMPONENTS;
           ob_start();
-          Timber::render( $UCD_THEME_COMPONENTS[$block_attributes['_name']]['twig'], $block_attributes );
+          Timber::render( $UCD_THEME_COMPONENTS[$block_attributes['_name']]['twig'], array("attributes" => $block_attributes) );
           return ob_get_clean();
         })
     );
@@ -104,16 +104,25 @@ add_action('init', function(){
 ```
 
 ## Contributing to this repo
-### Demo App
+### Demo app
 To see the components in action, launch the demo app:
 ```bash
 cd demo-site
 docker compose up
 ```
-Then start your watch script:
-```
-bash cd src
-npm install
+Then install npm packages in `components` and `demo-site/src` and start the watch process in `demo-site/src` with:
+``` bash 
 npm run watch
 ```
 and go to localhost:8000.
+
+### Making a component
+1. Make a new directory in `components/blocks`
+2. Compose your [edit function](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit).
+   1. To avoid writing in jsx, we use the [htm package](https://www.npmjs.com/package/htm) to write in plain javascript.
+3. In your `index.js` file, export an array with the block name and registration settings: `export default { name, settings };`
+4. Import your component and add it to the exported array in `components/blocks/index.js`
+5. Make the view template in `views/ucd-theme-blocks`
+   1. Access each of your block attributes in the `attributes` context array: `{{attributes.yourBlockAttribute}}`
+   2. If there is potential value to your block being reusable outside of the Gutenberg editor, [make it a macro](https://twig.symfony.com/doc/3.x/tags/macro.html) in `views/ucd-theme-macros` and then import it into your view file.
+6. Map your block name to its view template in the `$UCD_THEME_COMPONENTS` array in `components/registry.php`

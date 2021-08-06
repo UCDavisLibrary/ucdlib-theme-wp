@@ -58,10 +58,9 @@ add_action('init', function(){
         'render_callback' => function($block_attributes, $context){
           global $UCD_THEME_COMPONENTS;
           ob_start();
-          Timber::render( $UCD_THEME_COMPONENTS[$block_attributes['_name']]['twig'], $block_attributes );
+          Timber::render( $UCD_THEME_COMPONENTS[$block_attributes['_name']]['twig'], array("attributes" => $block_attributes) );
           return ob_get_clean();
         })
     );
   }
-
 });
