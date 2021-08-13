@@ -64,3 +64,5 @@ add_action('init', function(){
     );
   }
 });
+
+add_action('block_categories_all', 'UCDThemeAddBlockCategories', 10,2);

@@ -82,7 +82,7 @@ add_action( 'render_block_data', function( $block, $source_block ){
 	return $block;
 }, 10, 2 );
 ```
-Finally, we need to register a render callback that will map each block to its twig template:
+Next, register a render callback that will map each block to its twig template:
 ```php
 require_once("../src/node_modules/@ucd-lib/theme-wp-elements/registry.php");
 add_action('init', function(){
@@ -101,6 +101,10 @@ add_action('init', function(){
     );
   }
 });
+```
+And register the custom block categories:
+```php
+add_action('block_categories_all', 'UCDThemeAddBlockCategories', 10,2);
 ```
 
 ## Contributing to this repo
