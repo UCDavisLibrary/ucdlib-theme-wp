@@ -1,1 +1,12 @@
-<p>I'm a button link</p>
+{% from 'ucd-theme-macros/links.twig' import button %}
+{% set modifiers = [] %}
+{% if attributes.size %}
+    {% set modifiers = modifiers.merge([attributes.size])%}
+{% endif %}
+{% if attributes.shape %}
+    {% set modifiers = modifiers.merge([attributes.shape])%}
+{% endif %}
+{% if attributes.display %}
+    {% set modifiers = modifiers.merge([attributes.display])%}
+{% endif %}
+{{ button(attributes.content, attributes.href, attributes.newTab, modifiers )}}

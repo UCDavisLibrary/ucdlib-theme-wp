@@ -120,13 +120,20 @@ npm run watch
 ```
 and go to localhost:8000.
 
-### Making a component
+### Making a Gutenberg component
 1. Make a new directory in `components/blocks`
 2. Compose your [edit function](https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit).
    1. To avoid writing in jsx, we use the [htm package](https://www.npmjs.com/package/htm) to write in plain javascript.
+   2. Wordpress uses [React Hooks](https://reactjs.org/docs/hooks-overview.html), so you should use function, not class components.
 3. In your `index.js` file, export an array with the block name and registration settings: `export default { name, settings };`
 4. Import your component and add it to the exported array in `components/blocks/index.js`
 5. Make the view template in `views/ucd-theme-blocks`
    1. Access each of your block attributes in the `attributes` context array: `{{attributes.yourBlockAttribute}}`
    2. If there is potential value to your block being reusable outside of the Gutenberg editor, [make it a macro](https://twig.symfony.com/doc/3.x/tags/macro.html) in `views/ucd-theme-macros` and then import it into your view file.
 6. Map your block name to its view template in the `$UCD_THEME_COMPONENTS` array in `components/registry.php`
+
+### Using Web Components
+If a component doesn't exist as a  [Wordpress Reusable Component](https://developer.wordpress.org/block-editor/reference-guides/components/), you can use Lit web components within your Gutenberg blocks by following [this pattern](https://www.tderflinger.com/en/litelement-react-app). Instead of importing directly from React, use the `@wordpress/element` package:
+```javascript
+import { useRef, useEffect } from "@wordpress/element";
+```

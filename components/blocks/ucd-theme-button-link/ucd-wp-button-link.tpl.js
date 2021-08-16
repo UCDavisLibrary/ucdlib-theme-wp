@@ -15,6 +15,7 @@ export function styles() {
       font-weight: inherit;
       font-family: inherit;
       color: inherit;
+      background-color: inherit;
       padding: 0;
       margin: 0;
       min-width: 5px;
@@ -41,12 +42,4 @@ return html`
       placeholder="Write text...">
   </a>
 </p>
-
-<p>
-  <a class=${classMap(this._getClasses())}>
-    Hi there
-  </a>
-</p>
-
-
 `;}

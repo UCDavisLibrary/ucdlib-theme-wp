@@ -1,0 +1,17 @@
+{# This file contains functions to display stylized link #}
+
+{# Constructs a link styled like a button
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=viewall-atoms-buttons
+#}
+{% macro button(content, href, new_tab = false, modifiers = "") %}
+  {% if modifiers %}
+    {% if modifiers is not iterable %}
+      {% set modifiers = modifiers|split(" ") %}
+    {% endif %}
+    {% if modifiers is iterable %}
+    
+      {% set modifiers = modifiers|map(m => 'btn--'~m)|join(" ") %}
+    {% endif %}
+  {% endif %}
+  <p><a class="btn {{modifiers}}">{{content}}</a></p>
+{% endmacro %}

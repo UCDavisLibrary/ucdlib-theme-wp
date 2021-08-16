@@ -5,7 +5,11 @@ export default class UcdWpButtonLink extends LitElement {
 
   static get properties() {
     return {
-      text: {type: String}
+      text: {type: String},
+      size: {type: String},
+      shape: {type: String},
+      display: {type: String},
+      altStyle: {type: String, attribute: 'alt-style'}
     };
   }
 
@@ -17,12 +21,21 @@ export default class UcdWpButtonLink extends LitElement {
     super();
     this.render = render.bind(this);
     this.text = "";
+    this.size = "";
+    this.shape = "";
+    this.display = "";
+    this.altStyle = "";
   }
 
   _getClasses(){
     let base = "btn";
     let classes = {};
     classes[base] = true;
+
+    const modifiers = [ this.size, this.shape, this.display, this.altStyle];
+    modifiers.forEach((m) => {
+      if ( m ) classes[`${base}--${m}`] = true;
+    })
 
     return classes;
   }
@@ -36,8 +49,13 @@ export default class UcdWpButtonLink extends LitElement {
 
   _onInput(e){
     let text = e.target.value || "";
-    console.log(text.length);
     this.text = text;
+
+    this.dispatchEvent(new CustomEvent('text-change', {
+      detail : {value: e.target.value}
+    }));
+
+
   }
 
 }

@@ -1,5 +1,6 @@
 import { html } from "../../utils";
 import Edit from './edit';
+import styleClasses from "./styles";
 
 const name = 'ucd-theme/button-link';
 const settings = {
@@ -20,9 +21,26 @@ const settings = {
     href: {
       type: 'string',
       default: ""
+    },
+    newTab: {
+      type: 'boolean',
+      default: false
+    },
+    size: {
+      type: 'string',
+      default: ""
+    },
+    shape: {
+      type: 'string',
+      default: ''
+    },
+    display: {
+      type: 'string',
+      default: ''
     }
   },
-	edit: Edit
+	edit: Edit,
+    styles: styleClasses
 };
 
 export default { name, settings };
