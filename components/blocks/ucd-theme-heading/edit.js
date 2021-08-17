@@ -1,28 +1,17 @@
-import { html } from "../../utils";
+import { html, extractStyleModifiers } from "../../utils";
 import { RichText, useBlockProps, BlockControls } from '@wordpress/block-editor';
-import styleClasses from "./styles";
+import { ToolbarDropdownMenu } from '@wordpress/components';
 
 export default ({ attributes, setAttributes }) => {
   const blockProps = useBlockProps();
-  let classes = styleClasses.map(c => {
-    if ( styleIsApplied(c.name, blockProps.className) ) {
-      return `heading--${c.name}`;
-    }
-    return "";
-  })
-  classes = classes.join(" ");
+  let classes = extractStyleModifiers(blockProps.className)
+  classes = classes.split(" ").map(c => `heading--${c}`).join(" ");
+  const levelControls = getHeaderLevels().map(level => Object({title: level.tag, onClick: () => {setAttributes({level: level.level})}}));
   
   return html`
     <div ...${ blockProps }>
       <${BlockControls} group="block">
-      <select 
-          value=${attributes.level}
-          onChange=${(e) => setAttributes({level: parseInt(e.target.value)})}
-          >
-        ${getHeaderLevels().map(header => html`
-          <option value=${header.level} key=${header.level}>${header.tag}</option>`
-        )}
-        </select>
+        <${ToolbarDropdownMenu} icon=${html`<span>h${attributes.level}</span>`} label="Change header level" controls=${levelControls}/> 
       </${BlockControls}>
       <${RichText}  
         tagName=${'h'+ attributes.level}
@@ -35,10 +24,6 @@ export default ({ attributes, setAttributes }) => {
         />
     </div>
   `;
-}
-  
-const styleIsApplied = (styleName, classes) => {
-  return classes.includes(`is-style-${styleName}`)
 }
 
 const getHeaderLevels = () => {

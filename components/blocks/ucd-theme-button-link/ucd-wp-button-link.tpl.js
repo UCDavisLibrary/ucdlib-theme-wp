@@ -2,6 +2,7 @@ import { html, css } from 'lit';
 import {classMap} from 'lit/directives/class-map.js';
 import {styleMap} from 'lit/directives/style-map.js';
 import buttonStyles from "@ucd-lib/theme-sass/2_base_class/_buttons.css.js";
+import linkStyles from "@ucd-lib/theme-sass/1_base_html/_links.css.js";
 
 export function styles() {
   const elementStyles = css`
@@ -23,9 +24,13 @@ export function styles() {
     input:focus {
       border: none;
     }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
   `;
 
   return [
+    linkStyles,
     buttonStyles,
     elementStyles];
 }

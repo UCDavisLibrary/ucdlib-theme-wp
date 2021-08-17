@@ -2,16 +2,45 @@
 
 {# Constructs a link styled like a button
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=viewall-atoms-buttons
+kwargs:
+  content (string) - link text - required.
+  href (string) - link url
+  newTab (boolean) - link will open in new tab
+  modifiers (string) - space delimited list of style modifiers without the btn-- prefix. 
+    Takes precedence over the following individually listed modifiers:
+  size (string) - size modifier
+  shape (string) - shape modifier
+  display (string) - display modifier
+  altStyle (string) - alternative theme style modifier
+
 #}
-{% macro button(content, href, new_tab = false, modifiers = "") %}
-  {% if modifiers %}
-    {% if modifiers is not iterable %}
-      {% set modifiers = modifiers|split(" ") %}
+{% macro button(kwargs) %}
+
+  {% if kwargs is iterable and kwargs.content %}
+    {% set classes = "btn" %}
+
+    {% if kwargs.href %}
+      {% set href = "href='"~kwargs.href~"'" %}
     {% endif %}
-    {% if modifiers is iterable %}
-    
-      {% set modifiers = modifiers|map(m => 'btn--'~m)|join(" ") %}
+
+    {% if kwargs.newTab %}
+      {% set target = "target='_blank'" %}
     {% endif %}
+
+    {% if kwargs.modifiers %}
+      {% set classes = classes ~ " " ~ kwargs.modifiers|split(" ")|map(m => "btn--"~m)|join(" ") %}
+    {% else %}
+      {% for m in [kwargs.size, kwargs.shape, kwargs.display, kwargs.altStyle] %}
+        {% if m %}
+          {% set classes = classes ~ " btn--" ~ m %}
+        {% endif %}
+      {% endfor %}
+      {% if kwargs.className %}
+        {% set classes = classes ~ " btn--" ~ kwargs.className|replace({'is-style-': ''}) %}
+      {% endif %}
+    {% endif %}
+
+    <p><a {{href}} {{target}} class="{{classes}}">{{kwargs.content}}</a></p>
   {% endif %}
-  <p><a class="btn {{modifiers}}">{{content}}</a></p>
+  
 {% endmacro %}
