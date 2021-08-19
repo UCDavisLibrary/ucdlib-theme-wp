@@ -1,8 +1,9 @@
 <?php
 
 $UCD_THEME_COMPONENTS = array(
+  "ucd-theme/button-link" => array("twig" => "ucd-theme-blocks/button-link.twig"),
   "ucd-theme/heading" => array("twig" => "ucd-theme-blocks/heading.twig"),
-  "ucd-theme/button-link" => array("twig" => "ucd-theme-blocks/button-link.twig")
+  "ucd-theme/marketing-highlight" => array("twig" => "ucd-theme-blocks/marketing-highlight.twig")
 );
 
 // hack to remove is-style class prefix
@@ -22,7 +23,12 @@ function UCDThemeAddBlockCategories( $block_categories, $editor_context ){
             'slug'  => 'ucd-links',
             'title' => 'Stylized Links',
             'icon'  => null,
-        )
+        ),
+        array(
+          'slug'  => 'ucd-cards',
+          'title' => 'Cards and Panels',
+          'icon'  => null,
+      ),
     );
   }
   return $block_categories;
