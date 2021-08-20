@@ -15,7 +15,6 @@ function ToolbarColorPicker({
   if ( !buttonLabel ) buttonLabel = "Apply Brand Color";
   if ( !popoverTitle ) popoverTitle = "UC Davis Colors";
   if ( !valueKey ) valueKey = 'slug';
-
   if ( !colors ) colors = Object.values(categoryBrands).map(c => Object({name: c.title, slug: c.id, color: c.hex}));
 
   const [ isOpen, setIsOpen ] = useState( false );
@@ -33,7 +32,8 @@ function ToolbarColorPicker({
 
   const buttonIcon = () => {
     if ( value ) {
-      return html`<${ColorIndicator} colorValue=${ _value().color } />`;
+      //return html`<${ColorIndicator} colorValue=${ _value().color } />`;
+      return html`<span className="component-color-indicator" style=${{background: _value().color, marginLeft: 0}}></span>`;
     }
     return html`<iron-icon icon="editor:format-color-fill"></iron-icon>`;
   }
