@@ -49,6 +49,8 @@ return html`
           <span>${this.title}</span>
         `}
       </h3>
+
+      <span class="${this._prefix}__cta">Call to Action</span>
     </div>
   </a>
 `;}

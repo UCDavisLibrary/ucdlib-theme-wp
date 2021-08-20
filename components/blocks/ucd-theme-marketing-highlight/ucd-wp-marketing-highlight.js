@@ -11,7 +11,9 @@ export default class UcdWpMarketingHighlight extends LitElement {
       featured: {type: Boolean},
       color: {type: String},
       canEditTitle: {type: Boolean, attribute: "can-edit-title"},
-      title: {type: String}
+      title: {type: String},
+      canEditExcerpt: {type: Boolean, attribute: "cand-edit-excerpt"},
+      excerpt: {type: String}
     }
   }
 
@@ -32,10 +34,13 @@ export default class UcdWpMarketingHighlight extends LitElement {
     this.color = "";
     this.canEditTitle = false;
     this.title = "";
+    this.canEditExcerpt = false;
+    this.excerpt = "";
   }
 
   updated( props ){
     if ( props.has('title') && !this.title ) this.canEditTitle = true;
+    if ( props.has('excerpt') && !this.excerpt ) this.canEditExcerpt = true;
   }
 
   _getBaseClasses(){

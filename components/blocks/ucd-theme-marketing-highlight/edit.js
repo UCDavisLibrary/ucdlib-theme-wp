@@ -57,6 +57,7 @@ export default ( props ) => {
 
     if ( attributes.featured ) p.featured = "true";
     if ( attributes.brandColor ) p.color = attributes.brandColor;
+    if ( attributes.href ) p.href = attributes.href;
 
     return p
   }
