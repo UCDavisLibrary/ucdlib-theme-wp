@@ -1,5 +1,5 @@
 import { html } from "../../utils";
-import { imagePicker, ToolbarColorPicker } from "../../block-components";
+import { ImagePicker, ToolbarColorPicker } from "../../block-components";
 import "./ucd-wp-marketing-highlight";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { useSelect } from "@wordpress/data";
@@ -27,14 +27,6 @@ export default ( props ) => {
   }
   const onRemoveImage = () => {
     setAttributes({imageId: 0});
-  }
-  const imagePickerSettings = {
-    imageId: attributes.imageId,
-    image,
-    onSelect: onSelectImage,
-    onRemove: onRemoveImage,
-    helpText: "Use a 4:3 image for best results",
-    panelAttributes: {title: 'Custom Card Image'}
   }
 
   // set up link picker
@@ -84,7 +76,14 @@ export default ( props ) => {
         />
       </${BlockControls}>
       <${InspectorControls}>
-        ${ imagePicker(imagePickerSettings) }
+        <${ImagePicker} 
+          imageId=${attributes.imageId}
+          image=${image}
+          onSelect=${onSelectImage}
+          onRemove=${onRemoveImage}
+          helpText="Use a 4:3 image for best results"
+          panelAttributes=${{title: 'Custom Card Image'}}
+        />
       </${InspectorControls}>
       <ucd-wp-marketing-highlight ...${ mainEleProps() }
       ></ucd-wp-marketing-highlight>

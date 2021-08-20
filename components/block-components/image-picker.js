@@ -2,22 +2,21 @@ import { html } from "../utils";
 import { PanelBody, PanelRow, Button, ResponsiveWrapper } from "@wordpress/components";
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 
-export default ( kwargs ) => {
+function ImagePicker({
+  imageId,
+  image,
+  onSelect,
+  onRemove,
+  helpText,
+  panelAttributes
+}){
 
-  const imageId = kwargs.imageId;
-  const image = kwargs.image
-  const onSelect = kwargs.onSelect;
-  const onRemove = kwargs.onRemove;
-  const helpText = kwargs.helpText;
-
-  let attrs = {
-    panel: {
-      title: "Image",
-      initialOpen: true
-    }
+  const _panelAttributes = {
+    title: "Image",
+    initialOpen: true
   }
-  if ( typeof kwargs.panelAttributes === 'object' && !Array.isArray(kwargs.panelAttributes) ) {
-    Object.assign(attrs.panel, kwargs.panelAttributes);
+  if ( typeof panelAttributes === 'object' && !Array.isArray(panelAttributes) ) {
+    Object.assign(_panelAttributes, panelAttributes);
   }
 
   const uploadButton = ({open}) => html`
@@ -42,7 +41,7 @@ export default ( kwargs ) => {
   `;
 
   return html`
-  <${PanelBody} title=${attrs.panel.title} initialOpen=${attrs.panel.initialOpen}>
+  <${PanelBody} title=${_panelAttributes.title} initialOpen=${_panelAttributes.initialOpen}>
     <div className="editor-post-featured-image">
       <${MediaUploadCheck}>
         <${MediaUpload}
@@ -80,3 +79,5 @@ export default ( kwargs ) => {
   </${PanelBody}>
 `;
 }
+
+export default ImagePicker
