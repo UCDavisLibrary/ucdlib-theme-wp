@@ -32,6 +32,10 @@ const settings = {
     featured: {
       type: "boolean",
       default: false
+    },
+    brandColor: {
+      type: "string",
+      default: ""
     }
   },
   edit: Edit,

@@ -1,6 +1,7 @@
 import { html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import marketingHighlightStyles from "@ucd-lib/theme-sass/4_component/_marketing-highlight.css.js";
+import brandStyles from "@ucd-lib/theme-sass/4_component/_category-brand.css.js"
 
 export function styles() {
   const elementStyles = css`
@@ -29,6 +30,7 @@ export function styles() {
 
   return [
     marketingHighlightStyles,
+    brandStyles,
     elementStyles
   ];
 }

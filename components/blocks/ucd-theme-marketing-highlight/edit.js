@@ -1,8 +1,8 @@
 import { html } from "../../utils";
-import { imagePicker } from "../../block-components";
+import { imagePicker, ToolbarColorPicker } from "../../block-components";
 import "./ucd-wp-marketing-highlight";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { withSelect } from "@wordpress/data";
+import { useSelect } from "@wordpress/data";
 import { ToolbarButton, Dropdown } from "@wordpress/components";
 import { link } from '@wordpress/icons';
 
@@ -10,9 +10,16 @@ import { link } from '@wordpress/icons';
 const {__experimentalLinkControl } = wp.blockEditor;
 const LinkControl = __experimentalLinkControl;
 
-const MarketingHighlight = ( props ) => {
+export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
+
+  // retrieve needed wp data
+  const {image, post} = useSelect((select) => {
+    const image = attributes.imageId ? select('core').getMedia(attributes.imageId) : undefined;
+    const post = attributes.post.id ? select('core').getEntityRecord('postType', attributes.post.type, attributes.post.id) : undefined;
+    return { image, post };
+  });
 
   // set up image picker
   const onSelectImage = (image) => {
@@ -23,7 +30,7 @@ const MarketingHighlight = ( props ) => {
   }
   const imagePickerSettings = {
     imageId: attributes.imageId,
-    image: props.image,
+    image,
     onSelect: onSelectImage,
     onRemove: onRemoveImage,
     helpText: "Use a 4:3 image for best results",
@@ -48,10 +55,16 @@ const MarketingHighlight = ( props ) => {
     return html`<${LinkControl} value=${value} onChange=${onHrefChange}/>`;
   }
 
+  // set up color picker
+  const onColorChange = (value) => {
+    setAttributes( {brandColor: value ? value.slug : "" } );
+  }
+
   const mainEleProps = () => {
     let p = {};
 
     if ( attributes.featured ) p.featured = "true";
+    if ( attributes.brandColor ) p.color = attributes.brandColor;
 
     return p
   }
@@ -65,6 +78,10 @@ const MarketingHighlight = ( props ) => {
           onClick=${ () => {setAttributes({'featured': !attributes.featured})}} 
           isPressed=${attributes.featured}
           label="Toggle 'Featured' Display Setting"/>
+        <${ToolbarColorPicker} 
+          onChange=${onColorChange}
+          value=${attributes.brandColor}
+        />
       </${BlockControls}>
       <${InspectorControls}>
         ${ imagePicker(imagePickerSettings) }
@@ -75,9 +92,3 @@ const MarketingHighlight = ( props ) => {
 
   `;
 };
-
-export default withSelect((select, props) => {
-  const image = props.attributes.imageId ? select('core').getMedia(props.attributes.imageId) : undefined;
-  const post = props.attributes.post.id ? select('core').getEntityRecord('postType', props.attributes.post.type, props.attributes.post.id) : undefined;
-  return { image, post };
-})(MarketingHighlight);

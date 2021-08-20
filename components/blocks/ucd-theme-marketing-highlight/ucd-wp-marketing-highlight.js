@@ -42,7 +42,7 @@ export default class UcdWpMarketingHighlight extends LitElement {
     let classes = {};
     classes[this._prefix] = true;
     classes[`${this._prefix}--featured`] = this.featured
-    classes[`${this._prefix}--${this.color}`] = this.color ? true : false;
+    classes[`category-brand--${this.color}`] = this.color ? true : false;
 
     return classes;
   }

@@ -133,7 +133,7 @@ and go to localhost:8000.
 6. Map your block name to its view template in the `$UCD_THEME_COMPONENTS` array in `components/registry.php`
 
 ### Using Web Components
-If a component doesn't exist as a  [Wordpress Reusable Component](https://developer.wordpress.org/block-editor/reference-guides/components/), or [Block Editor component](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components) you can use Lit web components within your Gutenberg blocks by following [this pattern](https://www.tderflinger.com/en/litelement-react-app). Instead of importing directly from React, use the `@wordpress/element` package:
+If a component doesn't exist as a  [Wordpress Reusable Component](https://developer.wordpress.org/block-editor/reference-guides/components/) or [Block Editor component](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components), you can use Lit web components within your Gutenberg blocks by following [this pattern](https://www.tderflinger.com/en/litelement-react-app). Instead of importing directly from React, use the `@wordpress/element` package:
 ```javascript
 import { useRef, useEffect } from "@wordpress/element";
 ```
