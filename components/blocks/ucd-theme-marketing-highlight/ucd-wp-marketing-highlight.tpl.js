@@ -37,7 +37,7 @@ export function styles() {
 
 export function render() { 
 return html`
-  <a href=${this.href} class=${classMap(this._getBaseClasses())} @click=${e => e.preventDefault()}>
+  <a class=${classMap(this._getBaseClasses())}>
     <div class="${this._prefix}__body">
       <h3 class="${this._prefix}__title">
         ${this.canEditTitle ? html`
@@ -49,6 +49,13 @@ return html`
           <span>${this.title}</span>
         `}
       </h3>
+      <p>
+        ${this.canEditExcerpt ? html`
+          <ucd-wp-textarea></ucd-wp-textarea>
+        ` : html`
+          <span>${this.excerpt}</span>
+        `}
+      </p>
 
       <span class="${this._prefix}__cta">
         <ucd-wp-inline-input 

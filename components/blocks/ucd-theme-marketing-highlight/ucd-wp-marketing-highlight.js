@@ -1,6 +1,7 @@
 import { LitElement } from 'lit';
 import {render, styles} from "./ucd-wp-marketing-highlight.tpl.js";
 import "../../block-components/ucd-wp-inline-input/ucd-wp-inline-input";
+import "../../block-components/ucd-wp-textarea/ucd-wp-textarea";
 
 export default class UcdWpMarketingHighlight extends LitElement {
 

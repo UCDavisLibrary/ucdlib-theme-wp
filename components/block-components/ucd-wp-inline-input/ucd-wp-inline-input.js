@@ -7,7 +7,7 @@ export default class UcdWpInlineInput extends LitElement {
     return {
       value: {type: String},
       placeholder: {type: String},
-      inputClass: {type: String}
+      inputClass: {type: String, attribute: "input-class"}
     }
   }
 
