@@ -5,6 +5,7 @@ import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/bloc
 import { useSelect } from "@wordpress/data";
 import { ToolbarButton, Dropdown } from "@wordpress/components";
 import { link } from '@wordpress/icons';
+import { useRef, useEffect } from "@wordpress/element";
 
 // Still experimental component. Looks to be close to release though.
 const {__experimentalLinkControl } = wp.blockEditor;
@@ -13,12 +14,30 @@ const LinkControl = __experimentalLinkControl;
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
+  const mainEleRef = useRef();
 
   // retrieve needed wp data
   const {image, post} = useSelect((select) => {
     const image = attributes.imageId ? select('core').getMedia(attributes.imageId) : undefined;
     const post = attributes.post.id ? select('core').getEntityRecord('postType', attributes.post.type, attributes.post.id) : undefined;
     return { image, post };
+  });
+
+  // Listen to changes in component body
+  const onMainEleUpdated = (e) => {
+    console.log(e);
+  }
+  useEffect(() => {
+    let mainEle = null;
+    if ( mainEleRef.current ) {
+      mainEleRef.current.addEventListener('updated', onMainEleUpdated);
+      mainEle = mainEleRef.current;
+    }
+    return () => {
+      if ( mainEle ) {
+        mainEle.removeEventListener('updated', onMainEleUpdated);
+      }
+    };
   });
 
   // set up image picker
@@ -53,11 +72,19 @@ export default ( props ) => {
   }
 
   const mainEleProps = () => {
-    let p = {};
+    let p = {ref: mainEleRef, "button-text": attributes.buttonText};
 
     if ( attributes.featured ) p.featured = "true";
     if ( attributes.brandColor ) p.color = attributes.brandColor;
     if ( attributes.href ) p.href = attributes.href;
+
+    if ( post ) p['has-default-content'] = "true";
+    if ( attributes.title ){
+      p.title = attributes.title;
+      p['can-edit-title'] = "true";
+    } else if ( post && post.title && post.title.rendered ){
+      p.title = post.title.rendered;
+    }
 
     return p
   }

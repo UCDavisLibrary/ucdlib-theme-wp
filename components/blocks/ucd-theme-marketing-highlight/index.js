@@ -36,6 +36,18 @@ const settings = {
     brandColor: {
       type: "string",
       default: ""
+    },
+    title: {
+      type: "string",
+      default: ""
+    },
+    excerpt: {
+      type: "string",
+      default: ""
+    },
+    buttonText: {
+      type: "string",
+      default: "More Info"
     }
   },
   edit: Edit,

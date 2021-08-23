@@ -16,7 +16,7 @@ export default class UcdWpMarketingHighlight extends LitElement {
       title: {type: String},
       canEditExcerpt: {type: Boolean, attribute: "cand-edit-excerpt"},
       excerpt: {type: String},
-      buttonText: {type: String}
+      buttonText: {type: String, attribute: "button-text"}
     }
   }
 
@@ -58,6 +58,11 @@ export default class UcdWpMarketingHighlight extends LitElement {
 
   _onButtonTextInput(e){
     this.buttonText = e.target.value || "";
+    this._dispatch();
+  }
+
+  _dispatch(){
+    this.dispatchEvent(new CustomEvent('updated'));
   }
 
 }
