@@ -1,5 +1,6 @@
 import { LitElement } from 'lit';
 import {render, styles} from "./ucd-wp-button-link.tpl.js";
+import "../../block-components/ucd-wp-inline-input/ucd-wp-inline-input";
 
 export default class UcdWpButtonLink extends LitElement {
 
@@ -40,12 +41,6 @@ export default class UcdWpButtonLink extends LitElement {
     return classes;
   }
 
-  _getInputStyles(){
-    let styles = {};
-    let width = this.text.length > 0 ? this.text.length : 13;
-    styles.width = width + "ch";
-    return styles;
-  }
 
   _onInput(e){
     let text = e.target.value || "";

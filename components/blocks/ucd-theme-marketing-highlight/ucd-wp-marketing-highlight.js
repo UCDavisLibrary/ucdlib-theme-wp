@@ -1,5 +1,6 @@
 import { LitElement } from 'lit';
 import {render, styles} from "./ucd-wp-marketing-highlight.tpl.js";
+import "../../block-components/ucd-wp-inline-input/ucd-wp-inline-input";
 
 export default class UcdWpMarketingHighlight extends LitElement {
 
@@ -13,7 +14,8 @@ export default class UcdWpMarketingHighlight extends LitElement {
       canEditTitle: {type: Boolean, attribute: "can-edit-title"},
       title: {type: String},
       canEditExcerpt: {type: Boolean, attribute: "cand-edit-excerpt"},
-      excerpt: {type: String}
+      excerpt: {type: String},
+      buttonText: {type: String}
     }
   }
 
@@ -36,6 +38,7 @@ export default class UcdWpMarketingHighlight extends LitElement {
     this.title = "";
     this.canEditExcerpt = false;
     this.excerpt = "";
+    this.buttonText = "More info";
   }
 
   updated( props ){
@@ -50,6 +53,10 @@ export default class UcdWpMarketingHighlight extends LitElement {
     classes[`category-brand--${this.color}`] = this.color ? true : false;
 
     return classes;
+  }
+
+  _onButtonTextInput(e){
+    this.buttonText = e.target.value || "";
   }
 
 }

@@ -1,6 +1,5 @@
 import { html, css } from 'lit';
 import {classMap} from 'lit/directives/class-map.js';
-import {styleMap} from 'lit/directives/style-map.js';
 import buttonStyles from "@ucd-lib/theme-sass/2_base_class/_buttons.css.js";
 import linkStyles from "@ucd-lib/theme-sass/1_base_html/_links.css.js";
 
@@ -39,12 +38,10 @@ export function render() {
 return html`
 <p>
   <a class=${classMap(this._getClasses())}>
-    <input 
-      style=${styleMap(this._getInputStyles())}
-      type="text" 
-      @input=${this._onInput}
-      .value=${this.text}
-      placeholder="Write text...">
+    <ucd-wp-inline-input 
+        @input=${this._onInput}
+        .value=${this.text}>
+    </ucd-wp-inline-input>
   </a>
 </p>
 `;}

@@ -50,7 +50,12 @@ return html`
         `}
       </h3>
 
-      <span class="${this._prefix}__cta">Call to Action</span>
+      <span class="${this._prefix}__cta">
+        <ucd-wp-inline-input 
+          @input=${this._onButtonTextInput} 
+          .value=${this.buttonText}>
+        </ucd-wp-inline-input>
+      </span>
     </div>
   </a>
 `;}
