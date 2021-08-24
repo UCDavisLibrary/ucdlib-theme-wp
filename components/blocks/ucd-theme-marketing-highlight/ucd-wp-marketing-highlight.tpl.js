@@ -40,23 +40,13 @@ return html`
   <a class=${classMap(this._getBaseClasses())}>
     <div class="${this._prefix}__body">
       <h3 class="${this._prefix}__title">
-        ${this.canEditTitle ? html`
         <input 
-          type="text" 
-          .value=${this.title}
-          placeholder="Write a title...">
-        ` : html`
-          <span>${this.title}</span>
-        `}
+            type="text" 
+            @input=${this._onTitleInput}
+            .value=${this.title}
+            placeholder="Write a title...">
       </h3>
-      <p>
-        ${this.canEditExcerpt ? html`
-          <ucd-wp-textarea></ucd-wp-textarea>
-        ` : html`
-          <span>${this.excerpt}</span>
-        `}
-      </p>
-
+      <p><ucd-wp-textarea .value=${this.excerpt} @input=${this._onExcerptInput}></ucd-wp-textarea></p>
       <span class="${this._prefix}__cta">
         <ucd-wp-inline-input 
           @input=${this._onButtonTextInput} 

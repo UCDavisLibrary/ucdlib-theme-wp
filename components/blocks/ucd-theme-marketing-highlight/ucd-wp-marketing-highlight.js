@@ -9,12 +9,9 @@ export default class UcdWpMarketingHighlight extends LitElement {
     return {
       href: {type: String},
       src: {type: String},
-      hasDefaultContent: {type: Boolean, attribute: "has-default-content"},
       featured: {type: Boolean},
       color: {type: String},
-      canEditTitle: {type: Boolean, attribute: "can-edit-title"},
       title: {type: String},
-      canEditExcerpt: {type: Boolean, attribute: "cand-edit-excerpt"},
       excerpt: {type: String},
       buttonText: {type: String, attribute: "button-text"}
     }
@@ -32,19 +29,11 @@ export default class UcdWpMarketingHighlight extends LitElement {
 
     this.href = "";
     this.src = "";
-    this.hasDefaultContent = false;
     this.featured = false;
     this.color = "";
-    this.canEditTitle = false;
     this.title = "";
-    this.canEditExcerpt = false;
     this.excerpt = "";
     this.buttonText = "More info";
-  }
-
-  updated( props ){
-    if ( props.has('title') && !this.title ) this.canEditTitle = true;
-    if ( props.has('excerpt') && !this.excerpt ) this.canEditExcerpt = true;
   }
 
   _getBaseClasses(){
@@ -58,11 +47,26 @@ export default class UcdWpMarketingHighlight extends LitElement {
 
   _onButtonTextInput(e){
     this.buttonText = e.target.value || "";
-    this._dispatch();
+    this._dispatch('buttonText');
   }
 
-  _dispatch(){
-    this.dispatchEvent(new CustomEvent('updated'));
+  _onTitleInput(e){
+    this.title = e.target.value || "";
+    this._dispatch('title');
+  }
+
+  _onExcerptInput(e){
+    this.excerpt = e.target.value || "";
+    this._dispatch('excerpt');
+  }
+
+  _dispatch(prop){
+    let detail = {}
+    if ( prop ) {
+      detail.propName = prop;
+      detail.propValue = this[prop];
+    }
+    this.dispatchEvent(new CustomEvent('updated', {detail}));
   }
 
 }
