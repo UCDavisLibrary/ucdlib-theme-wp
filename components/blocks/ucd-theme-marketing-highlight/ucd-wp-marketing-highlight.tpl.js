@@ -38,6 +38,11 @@ export function styles() {
 export function render() { 
 return html`
   <a class=${classMap(this._getBaseClasses())}>
+    ${this.imgSrc ? html`
+      <div class="${this._prefix}__image">
+        <img src=${this.imgSrc} alt=${this.imgAlt} width="640" height="480">
+      </div>
+    ` : html``}
     <div class="${this._prefix}__body">
       <h3 class="${this._prefix}__title">
         <input 

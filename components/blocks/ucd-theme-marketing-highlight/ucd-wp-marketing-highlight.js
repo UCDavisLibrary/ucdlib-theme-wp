@@ -8,7 +8,10 @@ export default class UcdWpMarketingHighlight extends LitElement {
   static get properties() {
     return {
       href: {type: String},
-      src: {type: String},
+      imgSrc: {type: String, attribute: "img-src"},
+      imgAlt: {type: String, attribute: "img-alt"},
+      badge: {type: String},
+      hideBadge: {type: Boolean, attribute: "hide-badge"},
       featured: {type: Boolean},
       color: {type: String},
       title: {type: String},
@@ -28,12 +31,15 @@ export default class UcdWpMarketingHighlight extends LitElement {
     this._prefix = "marketing-highlight";
 
     this.href = "";
-    this.src = "";
+    this.imgSrc = "";
+    this.imgAlt = "";
     this.featured = false;
     this.color = "";
     this.title = "";
     this.excerpt = "";
     this.buttonText = "More info";
+    this.badge = "";
+    this.hideBadge = false;
   }
 
   _getBaseClasses(){
