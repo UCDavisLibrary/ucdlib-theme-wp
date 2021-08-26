@@ -7,7 +7,9 @@ export default class UcdWpInlineInput extends LitElement {
     return {
       value: {type: String},
       placeholder: {type: String},
-      inputClass: {type: String, attribute: "input-class"}
+      inputClass: {type: String, attribute: "input-class"},
+      minus: {type: Number},
+      plus: {type: Number}
     }
   }
 
@@ -17,6 +19,8 @@ export default class UcdWpInlineInput extends LitElement {
     this.value = "";
     this.placeholder = "Write text...";
     this.inputClass = "";
+    this.minus = 0;
+    this.plus = 0;
   }
 
   createRenderRoot() {
@@ -26,6 +30,8 @@ export default class UcdWpInlineInput extends LitElement {
   _getStyles(){
     let styles = {};
     let width = this.value.length > 0 ? this.value.length : this.placeholder.length;
+    if ( this.minus ) width = width - this.minus;
+    if ( this.plus ) width = width + this.plus;
     styles.width = width + "ch";
     return styles;
   }

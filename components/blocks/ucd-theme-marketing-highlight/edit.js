@@ -1,5 +1,5 @@
 import { html } from "../../utils";
-import { ImagePicker, ToolbarColorPicker, ToolbarPostReset } from "../../block-components";
+import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarSectionDisplay } from "../../block-components";
 import "./ucd-wp-marketing-highlight";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { decodeEntities } from "@wordpress/html-entities";
@@ -18,16 +18,19 @@ export default ( props ) => {
   const mainEleRef = useRef();
 
   // retrieve needed wp data
-  const {image, post, postTitle, postExcerpt} = useSelect((select) => {
-    const image = attributes.imageId ? select('core').getMedia(attributes.imageId) : undefined;
+  const {customImage, post, postTitle, postExcerpt, postImage} = useSelect((select) => {
+    const customImage = attributes.imageId ? select('core').getMedia(attributes.imageId) : undefined;
     const post = attributes.post.id ? select('core').getEntityRecord('postType', attributes.post.type, attributes.post.id) : undefined;
     const postTitle = post && post.title && post.title.rendered ? post.title.rendered : undefined;
+    let postImage = undefined;
+    if ( post && post.featured_media ) postImage = select('core').getMedia(post.featured_media);
     let postExcerpt = undefined;
     if ( post && post.excerpt && post.excerpt.rendered ) {
       postExcerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
       postExcerpt = decodeEntities(postExcerpt).replace(/(?:\r\n|\r|\n)/g, '');
     }
-    return { image, post, postTitle, postExcerpt };
+    
+    return { customImage, post, postTitle, postExcerpt, postImage };
   });
 
   // Listen to changes in component body
@@ -35,7 +38,6 @@ export default ( props ) => {
     const propName = e.detail.propName;
     const propValue = e.detail.propValue;
     let reset = false;
-    console.log(e);
     if ( propName === 'title'){
       if ( propValue === postTitle ) reset = true;
     } else if (propName === 'excerpt') {
@@ -82,6 +84,21 @@ export default ( props ) => {
       {slug: 'excerpt', isDisabled: !attributes.excerpt}]
   })();
 
+  // set up section hider
+  const onSectionToggle = (section) => {
+    let attrs = {};
+    let attr = `hide${section.slug.charAt(0).toUpperCase() + section.slug.slice(1)}`;
+    attrs[attr] = !attributes[attr];
+    setAttributes(attrs);
+  }
+  const cardSections = (() => {
+    return [
+      {slug: 'badge', title: "Badge", icon: "picture-in-picture-alt", isHidden: attributes.hideBadge},
+      {slug: 'excerpt', isHidden: attributes.hideExcerpt}, 
+      {slug: 'button', isHidden: attributes.hideButton}
+    ]
+  })();
+
   // set up link picker
   const onHrefChange = (value) => {
     setAttributes({
@@ -111,6 +128,11 @@ export default ( props ) => {
     if ( attributes.featured ) p.featured = "true";
     if ( attributes.brandColor ) p.color = attributes.brandColor;
     if ( attributes.href ) p.href = attributes.href;
+    if ( attributes.hideTitle ) p['hide-title'] = "true";
+    if ( attributes.hideExcerpt ) p['hide-excerpt'] = "true";
+    if ( attributes.hideBadge ) p['hide-badge'] = "true";
+    if ( attributes.hideButton ) p['hide-button'] = "true";
+    if ( attributes.badge ) p['badge'] = attributes.badge;
 
     if ( attributes.title ){
       p.title = attributes.title;
@@ -123,6 +145,12 @@ export default ( props ) => {
     } else if ( postExcerpt ){
       p.excerpt = postExcerpt;
     } else {p.excerpt = ""}
+
+    if ( customImage ) {
+      p['img-src'] = customImage.source_url;
+    } else if ( postImage ){
+      p['img-src'] = postImage.source_url;
+    }
 
     return p
   }
@@ -140,6 +168,10 @@ export default ( props ) => {
           onChange=${onColorChange}
           value=${attributes.brandColor}
         />
+        <${ToolbarSectionDisplay}
+          sections=${cardSections}
+          onChange=${onSectionToggle}
+        />
         ${post && html`
           <${ToolbarPostReset}
             postProps=${postParts}
@@ -150,7 +182,7 @@ export default ( props ) => {
       <${InspectorControls}>
         <${ImagePicker} 
           imageId=${attributes.imageId}
-          image=${image}
+          image=${customImage}
           onSelect=${onSelectImage}
           onRemove=${onRemoveImage}
           helpText="Use a 4:3 image for best results"

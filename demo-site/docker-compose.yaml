@@ -10,6 +10,7 @@ services:
     volumes:
       - ./demo-theme:/var/www/html/wp-content/themes/demo-theme
       - ../components:/var/www/html/wp-content/ucd-theme-components
+      - media-uploads:/var/www/html/wp-content/uploads
     ports:
        - "8000:80"
     environment:
@@ -36,3 +37,4 @@ services:
 
 volumes:
   db-data:
+  media-uploads: {}

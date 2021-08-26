@@ -45,9 +45,25 @@ const settings = {
       type: "string",
       default: ""
     },
+    badge: {
+      type: "string",
+      default: ""
+    },
     buttonText: {
       type: "string",
       default: "More Info"
+    },
+    hideBadge: {
+      type: "boolean",
+      default: false
+    },
+    hideExcerpt: {
+      type: "boolean",
+      default: false
+    },
+    hideButton: {
+      type: "boolean",
+      default: false
     }
   },
   edit: Edit,

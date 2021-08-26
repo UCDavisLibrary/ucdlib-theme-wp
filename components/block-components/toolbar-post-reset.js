@@ -1,4 +1,4 @@
-import { html } from "../utils";
+import { html, iconDefaults } from "../utils";
 import { ToolbarDropdownMenu } from '@wordpress/components';
 
 function ToolbarPostReset({
@@ -17,17 +17,17 @@ function ToolbarPostReset({
 
     const iconStyle = {marginRight: "5px"};
     if (p.slug === 'title') {
-      control.icon = html`<iron-icon icon="bookmark" style=${iconStyle}></iron-icon>`;
+      control.icon = html`<iron-icon icon="${iconDefaults.title}" style=${iconStyle}></iron-icon>`;
       control.title = "Post Title";
     } else if (p.slug === 'image') {
-      control.icon = html`<iron-icon icon="editor:insert-photo" style=${iconStyle}></iron-icon>`;
+      control.icon = html`<iron-icon icon="${iconDefaults.image}" style=${iconStyle}></iron-icon>`;
       control.title = "Featured Image";
     } else if (p.slug === 'excerpt') {
-      control.icon = html`<iron-icon icon="editor:text-fields" style=${iconStyle}></iron-icon>`;
+      control.icon = html`<iron-icon icon="${iconDefaults.excerpt}" style=${iconStyle}></iron-icon>`;
       control.title = "Post Excerpt";
     }
 
-    if ( p.icon ) control.icon = p.icon;
+    if ( p.icon ) control.icon = html`<iron-icon icon="${p.icon}" style=${iconStyle}></iron-icon>`;
     if ( p.title ) control.title = p.title;
     if ( p.isDisabled ) control.isDisabled = true;
 

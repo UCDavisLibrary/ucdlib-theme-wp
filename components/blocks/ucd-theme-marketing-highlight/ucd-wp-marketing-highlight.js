@@ -12,6 +12,9 @@ export default class UcdWpMarketingHighlight extends LitElement {
       imgAlt: {type: String, attribute: "img-alt"},
       badge: {type: String},
       hideBadge: {type: Boolean, attribute: "hide-badge"},
+      hideTitle: {type: Boolean, attribute: "hide-title"},
+      hideExcerpt: {type: Boolean, attribute: "hide-excerpt"},
+      hideButton: {type: Boolean, attribute: "hide-button"},
       featured: {type: Boolean},
       color: {type: String},
       title: {type: String},
@@ -40,6 +43,9 @@ export default class UcdWpMarketingHighlight extends LitElement {
     this.buttonText = "More info";
     this.badge = "";
     this.hideBadge = false;
+    this.hideExcerpt = false;
+    this.hideTitle = false;
+    this.hideButton = false;
   }
 
   _getBaseClasses(){
@@ -59,6 +65,10 @@ export default class UcdWpMarketingHighlight extends LitElement {
   _onTitleInput(e){
     this.title = e.target.value || "";
     this._dispatch('title');
+  }
+  _onBadgeInput(e){
+    this.badge = e.target.value || "";
+    this._dispatch('badge');
   }
 
   _onExcerptInput(e){
