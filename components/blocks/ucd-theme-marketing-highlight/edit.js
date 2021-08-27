@@ -6,7 +6,7 @@ import { decodeEntities } from "@wordpress/html-entities";
 import { useSelect } from "@wordpress/data";
 import { ToolbarButton, Dropdown } from "@wordpress/components";
 import { link } from '@wordpress/icons';
-import { useRef, useEffect } from "@wordpress/element";
+import { useRef, useEffect, useCallback, useState } from "@wordpress/element";
 
 // Still experimental component. Looks to be close to release though.
 const {__experimentalLinkControl } = wp.blockEditor;
@@ -16,6 +16,9 @@ export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
   const mainEleRef = useRef();
+
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), []);
 
   // retrieve needed wp data
   const {customImage, post, postTitle, postExcerpt, postImage} = useSelect((select) => {
@@ -29,7 +32,7 @@ export default ( props ) => {
       postExcerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
       postExcerpt = decodeEntities(postExcerpt).replace(/(?:\r\n|\r|\n)/g, '');
     }
-    
+    console.log(customImage);
     return { customImage, post, postTitle, postExcerpt, postImage };
   });
 
@@ -184,7 +187,9 @@ export default ( props ) => {
           imageId=${attributes.imageId}
           image=${customImage}
           onSelect=${onSelectImage}
+
           onRemove=${onRemoveImage}
+          defaultImageId=${postImage && !attributes.imageId ? postImage.id : 0}
           helpText="Use a 4:3 image for best results"
           panelAttributes=${{title: 'Custom Card Image'}}
         />

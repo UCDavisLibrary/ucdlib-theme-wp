@@ -1,13 +1,19 @@
 import { html } from "../utils";
 import { PanelBody, PanelRow, Button, ResponsiveWrapper } from "@wordpress/components";
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
+import { useState } from '@wordpress/element';
+import { useSelect, useDispatch, dispatch } from "@wordpress/data";
+import apiFetch from '@wordpress/api-fetch';
+import { store as noticesStore } from '@wordpress/notices';
 
 function ImagePicker({
   imageId,
   image,
   onSelect,
   onRemove,
+  onClose,
   helpText,
+  defaultImageId,
   panelAttributes
 }){
 
@@ -17,6 +23,48 @@ function ImagePicker({
   }
   if ( typeof panelAttributes === 'object' && !Array.isArray(panelAttributes) ) {
     Object.assign(_panelAttributes, panelAttributes);
+  }
+
+  const { createErrorNotice } = useDispatch( noticesStore );
+  const [ cloneInProgress, setCloneInProgress ] = useState( false );
+
+
+  const { defaultImage } = useSelect( (select) => {
+    let defaultImage = undefined;
+    if ( defaultImageId ) defaultImage = select('core').getMedia(defaultImageId);
+
+    return { defaultImage }
+  });
+
+  const onRefresh = () => {
+    if ( imageId ) dispatch('core').saveMedia(imageId);
+  }
+
+  const onClone = () => {
+    setCloneInProgress(true);
+    const attrs = {
+      src: defaultImage.source_url,
+      modifiers: [{type: 'rotate', args: {angle: 0}}]
+    };
+    apiFetch({			
+      path: `/wp/v2/media/${ defaultImage.id }/edit`,
+      method: 'POST',
+      data: attrs,})
+			.then( ( response ) => {
+        onSelect(response);
+			} )
+			.catch( ( error ) => {
+          createErrorNotice(
+          `Could not clone image: ${error.message}`,
+          {
+						id: 'image-editing-error',
+						type: 'snackbar',
+					}
+        )
+			} )
+			.finally( () => {
+        setCloneInProgress(false);
+			} );
   }
 
   const uploadButton = ({open}) => html`
@@ -46,6 +94,7 @@ function ImagePicker({
       <${MediaUploadCheck}>
         <${MediaUpload}
           onSelect=${onSelect}
+          onClose=${onClose}
           value=${imageId}
           allowedTypes=${['image']}
           render=${uploadButton}
@@ -57,6 +106,7 @@ function ImagePicker({
           <${MediaUpload}
             title="Replace Image"
             onSelect=${onSelect}
+            onClose=${onClose}
             value=${imageId}
             allowedTypes=${['image']}
             render=${replaceButton}
@@ -71,6 +121,25 @@ function ImagePicker({
             isLink 
             isDestructive
           >Remove Image
+          </${Button}>
+        </${MediaUploadCheck}>
+      `}
+
+      ${imageId != 0 && html`
+        <${Button} 
+          isLink
+          onClick=${onRefresh}
+        >Resync Image
+        </${Button}>
+      `}
+
+      ${defaultImage && html`
+        <${MediaUploadCheck}>
+          <${Button} 
+            isSecondary
+            onClick=${onClone}
+            disabled=${cloneInProgress}
+          >Clone Default Image
           </${Button}>
         </${MediaUploadCheck}>
       `}
