@@ -84,7 +84,7 @@ add_action( 'render_block_data', function( $block, $source_block ){
 ```
 Next, register a render callback that will map each block to its twig template:
 ```php
-require_once("../src/node_modules/@ucd-lib/theme-wp-elements/registry.php");
+require_once("../src/node_modules/@ucd-lib/theme-wp-elements/server-scripts/registry.php");
 add_action('init', function(){
   global $UCD_THEME_COMPONENTS;
   foreach ($UCD_THEME_COMPONENTS as $name => $block) {

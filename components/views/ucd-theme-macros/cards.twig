@@ -1,0 +1,21 @@
+{# This file contains functions to display site cards #}
+
+{#
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-marketing-highlight
+kwargs:
+  post {Timber\Post} - A post on this site.
+  image {Timber\Image} - A preview image. Will override 'post' featured image
+  href {String} - Url for card link. Will override 'post' permalink
+  newTab {Boolean} - Opens card link in new tab
+  badge {String} - Text for badge that overlays card image
+  hideBadge {Boolean} - Hides the badge image overlay
+  excerpt {String} - Body/preview text of card. Will override 'post' excerpt
+  hideExcerpt {Boolean} - Hides the excerpt text
+  buttonText {String} - Innertext of card button
+  hideButton {Boolean} - Hides card button
+  featured {Boolean} - Use the alternative "featured" design
+  brandColor {String} - UCD alt color slug
+#}
+{% macro marketing_highlight( kwargs ) %}
+  {{dump(kwargs)}}
+{% endmacro %}

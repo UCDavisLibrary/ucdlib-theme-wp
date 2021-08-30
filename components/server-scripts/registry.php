@@ -1,9 +1,12 @@
 <?php
+require_once(__DIR__ . "/transformations.php");
 
 $UCD_THEME_COMPONENTS = array(
   "ucd-theme/button-link" => array("twig" => "ucd-theme-blocks/button-link.twig"),
   "ucd-theme/heading" => array("twig" => "ucd-theme-blocks/heading.twig"),
-  "ucd-theme/marketing-highlight" => array("twig" => "ucd-theme-blocks/marketing-highlight.twig")
+  "ucd-theme/marketing-highlight" => array(
+    "twig" => "ucd-theme-blocks/marketing-highlight.twig", 
+    "transform" => UCDThemeBlockTransformations::marketingHighlight())
 );
 
 // hack to remove is-style class prefix

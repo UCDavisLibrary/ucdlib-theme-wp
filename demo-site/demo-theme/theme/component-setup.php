@@ -47,7 +47,7 @@ add_action( 'render_block_data', function( $block, $source_block ){
 }, 10, 2 );
 
 
-require_once("/var/www/html/wp-content/ucd-theme-components/registry.php");
+require_once("/var/www/html/wp-content/ucd-theme-components/server-scripts/registry.php");
 add_action('init', function(){
   global $UCD_THEME_COMPONENTS;
   foreach ($UCD_THEME_COMPONENTS as $name => $block) {

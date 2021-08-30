@@ -6,7 +6,7 @@ import { decodeEntities } from "@wordpress/html-entities";
 import { useSelect } from "@wordpress/data";
 import { ToolbarButton, Dropdown } from "@wordpress/components";
 import { link } from '@wordpress/icons';
-import { useRef, useEffect, useCallback, useState } from "@wordpress/element";
+import { useRef, useEffect } from "@wordpress/element";
 
 // Still experimental component. Looks to be close to release though.
 const {__experimentalLinkControl } = wp.blockEditor;
@@ -16,9 +16,6 @@ export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
   const mainEleRef = useRef();
-
-  const [, updateState] = useState();
-  const forceUpdate = useCallback(() => updateState({}), []);
 
   // retrieve needed wp data
   const {customImage, post, postTitle, postExcerpt, postImage} = useSelect((select) => {
