@@ -6,7 +6,7 @@ $UCD_THEME_COMPONENTS = array(
   "ucd-theme/heading" => array("twig" => "ucd-theme-blocks/heading.twig"),
   "ucd-theme/marketing-highlight" => array(
     "twig" => "ucd-theme-blocks/marketing-highlight.twig", 
-    "transform" => UCDThemeBlockTransformations::marketingHighlight())
+    "transform" => "UCDThemeBlockTransformations::marketingHighlight")
 );
 
 // hack to remove is-style class prefix
@@ -36,3 +36,4 @@ function UCDThemeAddBlockCategories( $block_categories, $editor_context ){
   }
   return $block_categories;
 }
+?>

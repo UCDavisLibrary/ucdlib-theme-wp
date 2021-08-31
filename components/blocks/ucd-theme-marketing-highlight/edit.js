@@ -102,7 +102,7 @@ export default ( props ) => {
   // set up link picker
   const onHrefChange = (value) => {
     setAttributes({
-      href: value.url,
+      href: value.kind === 'post-type' ? "" : value.url,
       newTab: value.opensInNewTab ? true : false,
       post: value.kind === 'post-type' ? {id: value.id, type: value.type} : {}
     });
@@ -127,7 +127,7 @@ export default ( props ) => {
 
     if ( attributes.featured ) p.featured = "true";
     if ( attributes.brandColor ) p.color = attributes.brandColor;
-    if ( attributes.href ) p.href = attributes.href;
+    if ( attributes.href || post ) p.href = attributes.href ? attributes.href : post.link;
     if ( attributes.hideTitle ) p['hide-title'] = "true";
     if ( attributes.hideExcerpt ) p['hide-excerpt'] = "true";
     if ( attributes.hideBadge ) p['hide-badge'] = "true";

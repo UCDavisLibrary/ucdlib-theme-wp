@@ -4,7 +4,9 @@
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-marketing-highlight
 kwargs:
   post {Timber\Post} - A post on this site.
-  image {Timber\Image} - A preview image. Will override 'post' featured image
+  imageId {Number} - Id of an image. Will override 'post' featured image
+  image {Timber\Image} - A preview image. Will override 'post' featured image and imageId
+  title {String} - The card title. Will override 'post' title
   href {String} - Url for card link. Will override 'post' permalink
   newTab {Boolean} - Opens card link in new tab
   badge {String} - Text for badge that overlays card image
@@ -17,5 +19,49 @@ kwargs:
   brandColor {String} - UCD alt color slug
 #}
 {% macro marketing_highlight( kwargs ) %}
-  {{dump(kwargs)}}
+
+  {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.post_excerpt %}
+  {% set buttonText = kwargs.buttonText ? kwargs.buttonText : "More Info" %}
+  {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  {% if kwargs.image %}
+    {% set src = kwargs.image.src %}
+    {% set alt = kwargs.image.alt %}
+  {% elseif kwargs.imageId %}
+    {% set i = Image(kwargs.imageId) %}
+    {% set src = i.src %}
+    {% set alt = i.alt %}
+  {% elseif kwargs.post.thumbnail %}
+    {% set src = kwargs.post.thumbnail.src %}
+    {% set alt = kwargs.post.thumbnail.alt %}
+  {% endif %}
+
+  {% set classes = 'marketing-highlight' %}
+  {% if kwargs.featured %}
+    {% set classes = classes ~ " marketing-highlight--featured" %}
+  {% endif %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
+  {% endif %}
+
+
+  <a href="{{href}}" class="{{classes}}" {{target}}>
+    <div class="marketing-highlight__body">
+      <div class="marketing-highlight__image">
+        <img src="{{src}}" alt="{{alt}}" width="640" height="480" loading="lazy" />
+        {% if kwargs.badge and not kwargs.hideBadge %}
+          <h3 class="marketing-highlight__type"><span>{{kwargs.badge}}</span></h3>
+        {% endif %}
+      </div>
+      <h3 class="marketing-highlight__title">{{title}}</h3>
+      {% if excerpt and not kwargs.hideExcerpt %}
+        <p>{{excerpt}}</p>
+      {% endif %}
+      {% if buttonText and not kwargs.hideButton %}
+        <span class="marketing-highlight__cta">{{buttonText}}</span>
+      {% endif %}
+    </div>
+  </a>
 {% endmacro %}

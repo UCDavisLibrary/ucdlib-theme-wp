@@ -69,6 +69,7 @@ class StarterSite extends Timber\Site {
 	}
 	/** This is where you can register custom post types. */
 	public function register_post_types() {
+		add_post_type_support( 'page', 'excerpt' );
 
 	}
 	/** This is where you can register custom taxonomies. */

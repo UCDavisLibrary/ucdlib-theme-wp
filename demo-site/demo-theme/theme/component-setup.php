@@ -57,8 +57,12 @@ add_action('init', function(){
         'api_version' => 2, 
         'render_callback' => function($block_attributes, $context){
           global $UCD_THEME_COMPONENTS;
+          $meta = $UCD_THEME_COMPONENTS[$block_attributes['_name']];
+          if ( array_key_exists("transform", $meta) ){
+            $block_attributes = call_user_func($meta['transform'], $block_attributes);
+          }
           ob_start();
-          Timber::render( $UCD_THEME_COMPONENTS[$block_attributes['_name']]['twig'], array("attributes" => $block_attributes) );
+          Timber::render( $meta['twig'], array("attributes" => $block_attributes) );
           return ob_get_clean();
         })
     );

@@ -3,7 +3,7 @@
 Wordpress dynamic Gutenberg components based off of the [UC Davis Theme](https://github.com/ucd-library/ucdlib-theme). 
 
 ## How to use in a wordpress theme
-This library is meant to be used in a Wordpress theme or plugin that can render [twigs](https://twig.symfony.com/) like [Timber](https://upstatement.com/timber/).
+This library is meant to be used in a Wordpress theme or plugin uses [Timber](https://upstatement.com/timber/), which is a Wordpress "plugin" that can render [twigs](https://twig.symfony.com/). As a result, it should be added as a composer dependency.
 
 ### Enqueue Styles
 Many of these components require that the UC Davis styles are present on the public and editor portions of your site. Here, we are just importing directly from the `@ucd-lib/theme-sass` npm package:
@@ -82,7 +82,7 @@ add_action( 'render_block_data', function( $block, $source_block ){
 	return $block;
 }, 10, 2 );
 ```
-Next, register a render callback that will map each block to its twig template:
+Next, register a render callback that will map each block to its twig template and attribute ransform function:
 ```php
 require_once("../src/node_modules/@ucd-lib/theme-wp-elements/server-scripts/registry.php");
 add_action('init', function(){
@@ -94,8 +94,12 @@ add_action('init', function(){
         'api_version' => 2, 
         'render_callback' => function($block_attributes, $context){
           global $UCD_THEME_COMPONENTS;
+          $meta = $UCD_THEME_COMPONENTS[$block_attributes['_name']];
+          if ( array_key_exists("transform", $meta) ){
+            $block_attributes = call_user_func($meta['transform'], $block_attributes);
+          }
           ob_start();
-          Timber::render( $UCD_THEME_COMPONENTS[$block_attributes['_name']]['twig'], array("attributes" => $block_attributes) );
+          Timber::render( $meta['twig'], array("attributes" => $block_attributes) );
           return ob_get_clean();
         })
     );
