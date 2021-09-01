@@ -36,7 +36,11 @@ kwargs:
   {% elseif kwargs.post.thumbnail %}
     {% set src = kwargs.post.thumbnail.src %}
     {% set alt = kwargs.post.thumbnail.alt %}
+  {% else %}
+    {% set src = DefaultImage('marketing-highlight') %}
   {% endif %}
+  {% set src = DefaultImage('marketing-highlight') %}
+   
 
   {% set classes = 'marketing-highlight' %}
   {% if kwargs.featured %}
@@ -49,7 +53,7 @@ kwargs:
 
   <a href="{{href}}" class="{{classes}}" {{target}}>
     <div class="marketing-highlight__body">
-      <div class="marketing-highlight__image">
+      <div class="marketing-highlight__image aspect--4x3">
         <img src="{{src}}" alt="{{alt}}" width="640" height="480" loading="lazy" />
         {% if kwargs.badge and not kwargs.hideBadge %}
           <h3 class="marketing-highlight__type"><span>{{kwargs.badge}}</span></h3>

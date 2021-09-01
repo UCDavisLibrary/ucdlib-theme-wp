@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { html, BlockSettings } from "../../utils";
 import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarSectionDisplay } from "../../block-components";
 import "./ucd-wp-marketing-highlight";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
@@ -29,7 +29,6 @@ export default ( props ) => {
       postExcerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
       postExcerpt = decodeEntities(postExcerpt).replace(/(?:\r\n|\r|\n)/g, '');
     }
-    console.log(customImage);
     return { customImage, post, postTitle, postExcerpt, postImage };
   });
 
@@ -113,7 +112,12 @@ export default ( props ) => {
     `;
   }
   const hrefContent = () => {
-    const value = {url: attributes.href, opensInNewTab: attributes.newTab}
+    let value = {opensInNewTab: attributes.newTab};
+    if ( attributes.href ) {
+      value.url = attributes.href;
+    } else if ( post && post.link ) {
+      value.url = post.link
+    }
     return html`<${LinkControl} value=${value} onChange=${onHrefChange}/>`;
   }
 
@@ -150,6 +154,8 @@ export default ( props ) => {
       p['img-src'] = customImage.source_url;
     } else if ( postImage ){
       p['img-src'] = postImage.source_url;
+    } else {
+      p['img-src'] = BlockSettings.getImage('marketing-highlight');
     }
 
     return p

@@ -2,7 +2,7 @@ import { html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import marketingHighlightStyles from "@ucd-lib/theme-sass/4_component/_marketing-highlight.css.js";
 import brandStyles from "@ucd-lib/theme-sass/4_component/_category-brand.css.js"
-import imageAspectStyles from "../../shared-styles/image-aspect-ratio";
+import imageAspectStyles from "@ucd-lib/theme-sass/6_utility/_u-aspect.css.js";
 
 export function styles() {
   const elementStyles = css`
@@ -54,7 +54,6 @@ return html`
           <ucd-wp-inline-input 
             id="badge-input"
             @input=${this._onBadgeInput} 
-            minus="2"
             .value=${this.badge}>
           </ucd-wp-inline-input>
         </h3>

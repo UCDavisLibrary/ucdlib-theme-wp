@@ -10,6 +10,7 @@ services:
     volumes:
       - ./demo-theme:/var/www/html/wp-content/themes/demo-theme
       - ../components:/var/www/html/wp-content/ucd-theme-components
+      - ../components/ucd-img-defaults:/var/www/html/wp-content/ucd-img-defaults
       - media-uploads:/var/www/html/wp-content/uploads
     ports:
        - "8000:80"

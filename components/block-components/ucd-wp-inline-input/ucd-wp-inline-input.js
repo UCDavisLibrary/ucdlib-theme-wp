@@ -29,8 +29,9 @@ export default class UcdWpInlineInput extends LitElement {
 
   _getStyles(){
     let styles = {};
-    let width = this.value.length > 0 ? this.value.length : this.placeholder.length;
-    if ( this.minus ) width = width - this.minus;
+    let value = this.value ? this.value : "";
+    let width = value.length > 0 ? value.length : this.placeholder.length;
+    if ( this.minus && width > this.minus ) width = width - this.minus;
     if ( this.plus ) width = width + this.plus;
     styles.width = width + "ch";
     return styles;
@@ -38,7 +39,7 @@ export default class UcdWpInlineInput extends LitElement {
 
   _onInput() {
     this.dispatchEvent(new Event('input', {
-      value: e.target.value
+      value: e.target.value ? e.target.value : ""
     }));
   }
 
