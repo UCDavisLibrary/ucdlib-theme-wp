@@ -63,53 +63,21 @@ add_action( 'enqueue_block_editor_assets', function(){
 ```
 
 ### Setting up the render (save) functions
-All of these components are [dynamic blocks](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/), which means that they need a server-side rendering callback in order to display on public-facing pages. This repo contains corresponding template files for each block. First, make sure Timber can find these files:
-```php
-Timber::$dirname = array_merge(Timber::$dirname, array('../src/node_modules/@ucd-lib/theme-wp-elements/views'));
-```
-Next, we have to do a couple of hacks because all of Gutenberg's functionality is not fleshed out yet:
-1. ensure that the name of the block is available to the render function
-   1. https://github.com/WordPress/gutenberg/issues/4671
-2. Strip out the WP enforced "is-style" class prefix for custom styles
-   1. https://github.com/WordPress/gutenberg/issues/11763 
-```php
-add_action( 'render_block_data', function( $block, $source_block ){
-	$block['attrs']['_name'] = $block['blockName'];
+All of these components are [dynamic blocks](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/), which means that they need a server-side rendering callback in order to display on public-facing pages. This repo contains corresponding template files for each block.
 
-    if ( array_key_exists('className', $block['attrs'])) {
-        $block['attrs']['className'] = UCDThemeRemoveStylePrefix($block['blockName'], $block['attrs']['className']);
-    }
-	return $block;
-}, 10, 2 );
-```
-Next, register a render callback that will map each block to its twig template and attribute ransform function:
+First, copy the `ucd-img-defaults` directory into `wp-content`. 
+
+Next, import the script and instantiate the class AFTER you set up Timber:
 ```php
-require_once("../src/node_modules/@ucd-lib/theme-wp-elements/server-scripts/registry.php");
-add_action('init', function(){
-  global $UCD_THEME_COMPONENTS;
-  foreach ($UCD_THEME_COMPONENTS as $name => $block) {
-    register_block_type(
-      $name, 
-      array(
-        'api_version' => 2, 
-        'render_callback' => function($block_attributes, $context){
-          global $UCD_THEME_COMPONENTS;
-          $meta = $UCD_THEME_COMPONENTS[$block_attributes['_name']];
-          if ( array_key_exists("transform", $meta) ){
-            $block_attributes = call_user_func($meta['transform'], $block_attributes);
-          }
-          ob_start();
-          Timber::render( $meta['twig'], array("attributes" => $block_attributes) );
-          return ob_get_clean();
-        })
-    );
-  }
-});
+ require_once("path~to~package/server-scripts/index.php");
+ new UCDThemeBlocks( "ucd-components" );
 ```
-And register the custom block categories:
-```php
-add_action('block_categories_all', 'UCDThemeAddBlockCategories', 10,2);
-```
+The first class argument should be the slug of your block editor script used in `wp_enqueue_script` above.
+
+The second optional argument allows you to override default settings, such as the location of the default block images.
+
+
+
 
 ## Contributing to this repo
 ### Demo app
@@ -131,10 +99,10 @@ and go to localhost:8000.
    2. Wordpress uses [React Hooks](https://reactjs.org/docs/hooks-overview.html), so you should use function, not class components.
 3. In your `index.js` file, export an array with the block name and registration settings: `export default { name, settings };`
 4. Import your component and add it to the exported array in `components/blocks/index.js`
-5. Make the view template in `views/ucd-theme-blocks`
+5. Make the view template in `views/blocks`
    1. Access each of your block attributes in the `attributes` context array: `{{attributes.yourBlockAttribute}}`
-   2. If there is potential value to your block being reusable outside of the Gutenberg editor, [make it a macro](https://twig.symfony.com/doc/3.x/tags/macro.html) in `views/ucd-theme-macros` and then import it into your view file.
-6. Map your block name to its view template in the `$UCD_THEME_COMPONENTS` array in `components/registry.php`
+   2. If there is potential value to your block being reusable outside of the Gutenberg editor, [make it a macro](https://twig.symfony.com/doc/3.x/tags/macro.html) in `views/macros` and then import it into your view file.
+6. Map your block name to its view template in the `$registry` array in the `UCDThemeBlocks` class, along with any attribute transformations or default images that are needed.
 
 ### Using Web Components
 If a component doesn't exist as a  [Wordpress Reusable Component](https://developer.wordpress.org/block-editor/reference-guides/components/) or [Block Editor component](https://github.com/WordPress/gutenberg/tree/trunk/packages/block-editor/src/components), you can use Lit web components within your Gutenberg blocks by following [this pattern](https://www.tderflinger.com/en/litelement-react-app). Instead of importing directly from React, use the `@wordpress/element` package:
