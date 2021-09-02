@@ -21,7 +21,7 @@ kwargs:
 {% macro marketing_highlight( kwargs ) %}
 
   {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
-  {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.post_excerpt %}
+  {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
   {% set buttonText = kwargs.buttonText ? kwargs.buttonText : "More Info" %}
   {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
