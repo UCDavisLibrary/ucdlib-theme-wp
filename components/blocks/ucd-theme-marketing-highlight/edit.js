@@ -1,9 +1,7 @@
-import { html, BlockSettings } from "../../utils";
+import { html, BlockSettings, SelectUtils } from "../../utils";
 import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarSectionDisplay } from "../../block-components";
 import "./ucd-wp-marketing-highlight";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { decodeEntities } from "@wordpress/html-entities";
-import { useSelect } from "@wordpress/data";
 import { ToolbarButton, Dropdown } from "@wordpress/components";
 import { link } from '@wordpress/icons';
 import { useRef, useEffect } from "@wordpress/element";
@@ -18,19 +16,7 @@ export default ( props ) => {
   const mainEleRef = useRef();
 
   // retrieve needed wp data
-  const {customImage, post, postTitle, postExcerpt, postImage} = useSelect((select) => {
-    const customImage = attributes.imageId ? select('core').getMedia(attributes.imageId) : undefined;
-    const post = attributes.post.id ? select('core').getEntityRecord('postType', attributes.post.type, attributes.post.id) : undefined;
-    const postTitle = post && post.title && post.title.rendered ? post.title.rendered : undefined;
-    let postImage = undefined;
-    if ( post && post.featured_media ) postImage = select('core').getMedia(post.featured_media);
-    let postExcerpt = undefined;
-    if ( post && post.excerpt && post.excerpt.rendered ) {
-      postExcerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
-      postExcerpt = decodeEntities(postExcerpt).replace(/(?:\r\n|\r|\n)/g, '');
-    }
-    return { customImage, post, postTitle, postExcerpt, postImage };
-  });
+  const {customImage, post, postTitle, postExcerpt, postImage} = SelectUtils.card(attributes);
 
   // Listen to changes in component body
   const onMainEleUpdated = (e) => {

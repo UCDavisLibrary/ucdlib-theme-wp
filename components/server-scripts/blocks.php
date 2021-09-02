@@ -34,7 +34,12 @@ class UCDThemeBlocks {
     "ucd-theme/marketing-highlight" => array(
       "twig" => "@ucd/blocks/marketing-highlight.twig",
       "img" => "640x480.png",
-      "transform" => "UCDThemeBlockTransformations::marketingHighlight")
+      "transform" => "UCDThemeBlockTransformations::marketingHighlight"
+    ),
+    "ucd-theme/poster" => array(
+      "twig" => "@ucd/blocks/poster.twig",
+      "img" => "1280x720.png"
+    )
   );
 
   /**
