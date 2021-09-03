@@ -3,7 +3,7 @@
 Wordpress dynamic Gutenberg components based off of the [UC Davis Theme](https://github.com/ucd-library/ucdlib-theme). 
 
 ## How to use in a wordpress theme
-This library is meant to be used in a Wordpress theme or plugin uses [Timber](https://upstatement.com/timber/), which is a Wordpress "plugin" that can render [twigs](https://twig.symfony.com/). As a result, it should be added as a composer dependency.
+This library is meant to be used in a Wordpress theme or plugin that uses [Timber 2.0](https://upstatement.com/timber/), which is a composer dependency that can render [twigs](https://twig.symfony.com/).
 
 ### Enqueue Styles
 Many of these components require that the UC Davis styles are present on the public and editor portions of your site. Here, we are just importing directly from the `@ucd-lib/theme-sass` npm package:
@@ -65,7 +65,7 @@ add_action( 'enqueue_block_editor_assets', function(){
 ### Setting up the render (save) functions
 All of these components are [dynamic blocks](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/creating-dynamic-blocks/), which means that they need a server-side rendering callback in order to display on public-facing pages. This repo contains corresponding template files for each block.
 
-First, copy the `ucd-img-defaults` directory into `wp-content`. 
+First, copy the `ucd-img-defaults` directory into `wp-content`, so that the blocks can access their default featured photos (if applicable). 
 
 Next, import the script and instantiate the class AFTER you set up Timber:
 ```php

@@ -1,4 +1,4 @@
-import { html, iconDefaults } from "../utils";
+import { html, UCDIcons } from "../utils";
 import { ToolbarDropdownMenu } from '@wordpress/components';
 
 function ToolbarPostReset({
@@ -17,13 +17,13 @@ function ToolbarPostReset({
 
     const iconStyle = {marginRight: "5px"};
     if (p.slug === 'title') {
-      control.icon = html`<iron-icon icon="${iconDefaults.title}" style=${iconStyle}></iron-icon>`;
+      control.icon = UCDIcons.render("post.title", {style:iconStyle});
       control.title = "Post Title";
     } else if (p.slug === 'image') {
-      control.icon = html`<iron-icon icon="${iconDefaults.image}" style=${iconStyle}></iron-icon>`;
+      control.icon = UCDIcons.render("post.thumbnail", {style:iconStyle});
       control.title = "Featured Image";
     } else if (p.slug === 'excerpt') {
-      control.icon = html`<iron-icon icon="${iconDefaults.excerpt}" style=${iconStyle}></iron-icon>`;
+      control.icon = UCDIcons.render("post.excerpt", {style:iconStyle});
       control.title = "Post Excerpt";
     }
 

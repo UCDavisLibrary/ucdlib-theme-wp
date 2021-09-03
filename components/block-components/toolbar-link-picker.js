@@ -1,4 +1,4 @@
-import { html, iconDefaults } from "../utils";
+import { html, UCDIcons } from "../utils";
 
 function ToolbarLinkPicker(){
   return html``;

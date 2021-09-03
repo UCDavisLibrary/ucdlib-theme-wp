@@ -1,4 +1,4 @@
-import { html, BlockSettings } from "../../utils";
+import { html, BlockSettings, SelectUtils } from "../../utils";
 import "./ucd-wp-poster";
 import { useRef, useEffect } from "@wordpress/element";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';

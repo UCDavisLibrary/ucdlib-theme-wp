@@ -1,6 +1,6 @@
 import { html } from "./html.js";
 import { extractStyleModifiers } from "./styles.js";
-import { iconDefaults } from "./icon-defaults";
+import UCDIcons from "./icon-defaults";
 import BlockSettings from "./settings.js";
 import SelectUtils from "./select.js";
 
@@ -9,4 +9,4 @@ export {
   extractStyleModifiers,
   BlockSettings,
   SelectUtils,
-  iconDefaults };
+  UCDIcons };

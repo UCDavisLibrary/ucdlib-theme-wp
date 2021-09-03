@@ -1,4 +1,4 @@
-import { html, iconDefaults } from "../utils";
+import { html, UCDIcons } from "../utils";
 import { ToolbarDropdownMenu } from '@wordpress/components';
 
 function ToolbarSectionDisplay({sections=[], onChange}){
@@ -13,13 +13,13 @@ function ToolbarSectionDisplay({sections=[], onChange}){
     control.onClick = () => onSelect(s.slug);
     const iconStyle = {marginRight: "5px"};
     if (s.slug === 'title') {
-      control.icon = html`<iron-icon icon="${iconDefaults.title}" style=${iconStyle}></iron-icon>`;
+      control.icon = UCDIcons.render("post.title", {style:iconStyle});
       control.title = "Title";
     } else if (s.slug === 'excerpt') {
-      control.icon = html`<iron-icon icon="${iconDefaults.excerpt}" style=${iconStyle}></iron-icon>`;
+      control.icon = UCDIcons.render("post.excerpt", {style:iconStyle});
       control.title = "Excerpt";
     } else if (s.slug === 'button') {
-      control.icon = html`<iron-icon icon="${iconDefaults.button}" style=${iconStyle}></iron-icon>`;
+      control.icon = UCDIcons.render("button", {style:iconStyle});
       control.title = "Button";
     }
 
@@ -36,7 +36,7 @@ function ToolbarSectionDisplay({sections=[], onChange}){
   })
   return html`
     <${ToolbarDropdownMenu} 
-      icon=${html`<iron-icon icon="${iconDefaults.visibility}"></iron-icon>`}
+      icon=${UCDIcons.render("visibility")}
       label="Hide/Show Select Sections"
       controls=${controls}
     />
