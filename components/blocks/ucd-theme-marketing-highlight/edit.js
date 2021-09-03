@@ -1,9 +1,8 @@
 import { html, BlockSettings, SelectUtils } from "../../utils";
-import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarSectionDisplay } from "../../block-components";
+import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarSectionDisplay, ToolbarLinkPicker } from "../../block-components";
 import "./ucd-wp-marketing-highlight";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { ToolbarButton, Dropdown } from "@wordpress/components";
-import { link } from '@wordpress/icons';
+import { ToolbarButton } from "@wordpress/components";
 import { useRef, useEffect } from "@wordpress/element";
 
 // Still experimental component. Looks to be close to release though.
@@ -92,20 +91,17 @@ export default ( props ) => {
       post: value.kind === 'post-type' ? {id: value.id, type: value.type} : {}
     });
   }
-  const hrefButton = ({ isOpen, onToggle }) => {
-    return html`
-      <${ToolbarButton} onClick=${ onToggle } aria-expanded=${ isOpen } icon=${link} label="Link to a Webpage"/>
-    `;
-  }
-  const hrefContent = () => {
+  const hrefContent = (() => {
     let value = {opensInNewTab: attributes.newTab};
     if ( attributes.href ) {
       value.url = attributes.href;
     } else if ( post && post.link ) {
-      value.url = post.link
+      value.url = post.link;
+      value.kind = 'post-type';
+      value.type = post.type;
     }
-    return html`<${LinkControl} value=${value} onChange=${onHrefChange}/>`;
-  }
+    return value;
+  })();
 
   // set up color picker
   const onColorChange = (value) => {
@@ -150,7 +146,7 @@ export default ( props ) => {
   return html`
     <div ...${ blockProps }>
       <${BlockControls} group="block">
-        <${Dropdown} position="bottom right" renderToggle=${hrefButton} renderContent=${hrefContent}/>
+        <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
         <${ToolbarButton} 
           icon=${html`<iron-icon icon="invert-colors"></iron-icon>`} 
           onClick=${ () => {setAttributes({'featured': !attributes.featured})}} 
