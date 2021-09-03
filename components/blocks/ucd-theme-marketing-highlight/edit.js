@@ -5,10 +5,6 @@ import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/bloc
 import { ToolbarButton } from "@wordpress/components";
 import { useRef, useEffect } from "@wordpress/element";
 
-// Still experimental component. Looks to be close to release though.
-const {__experimentalLinkControl } = wp.blockEditor;
-const LinkControl = __experimentalLinkControl;
-
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();

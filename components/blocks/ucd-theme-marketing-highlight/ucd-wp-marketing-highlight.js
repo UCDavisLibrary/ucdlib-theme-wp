@@ -1,9 +1,11 @@
 import { LitElement } from 'lit';
 import {render, styles} from "./ucd-wp-marketing-highlight.tpl.js";
+import { MainComponentElement, Mixin } from '../../utils';
 import "../../block-components/ucd-wp-inline-input/ucd-wp-inline-input";
 import "../../block-components/ucd-wp-textarea/ucd-wp-textarea";
 
-export default class UcdWpMarketingHighlight extends LitElement {
+export default class UcdWpMarketingHighlight extends Mixin(LitElement)
+  .with(MainComponentElement) {
 
   static get properties() {
     return {
@@ -59,30 +61,21 @@ export default class UcdWpMarketingHighlight extends LitElement {
 
   _onButtonTextInput(e){
     this.buttonText = e.target.value || "";
-    this._dispatch('buttonText');
+    this.dispatchUpdate('buttonText');
   }
 
   _onTitleInput(e){
     this.title = e.target.value || "";
-    this._dispatch('title');
+    this.dispatchUpdate('title');
   }
   _onBadgeInput(e){
     this.badge = e.target.value || "";
-    this._dispatch('badge');
+    this.dispatchUpdate('badge');
   }
 
   _onExcerptInput(e){
     this.excerpt = e.target.value || "";
-    this._dispatch('excerpt');
-  }
-
-  _dispatch(prop){
-    let detail = {}
-    if ( prop ) {
-      detail.propName = prop;
-      detail.propValue = this[prop];
-    }
-    this.dispatchEvent(new CustomEvent('updated', {detail}));
+    this.dispatchUpdate('excerpt');
   }
 
 }

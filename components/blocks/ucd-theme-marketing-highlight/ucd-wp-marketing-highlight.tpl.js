@@ -1,5 +1,6 @@
 import { html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { StyleUtils } from '../../utils';
 import marketingHighlightStyles from "@ucd-lib/theme-sass/4_component/_marketing-highlight.css.js";
 import brandStyles from "@ucd-lib/theme-sass/4_component/_category-brand.css.js"
 import imageAspectStyles from "@ucd-lib/theme-sass/6_utility/_u-aspect.css.js";
@@ -8,21 +9,6 @@ export function styles() {
   const elementStyles = css`
     :host {
       display: block;
-    }
-    input {
-      border: none;
-      text-align: inherit;
-      font-size: inherit;
-      font-weight: inherit;
-      font-family: inherit;
-      color: inherit;
-      background-color: inherit;
-      padding: 0;
-      margin: 0;
-      width: 100%;
-    }
-    input:focus {
-      border: none;
     }
     *, *:before, *:after {
       box-sizing: inherit;
@@ -39,6 +25,7 @@ export function styles() {
     marketingHighlightStyles,
     brandStyles,
     imageAspectStyles,
+    StyleUtils.CssUnstyledInput,
     elementStyles
   ];
 }

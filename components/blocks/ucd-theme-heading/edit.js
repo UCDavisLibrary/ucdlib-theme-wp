@@ -1,10 +1,10 @@
-import { html, extractStyleModifiers } from "../../utils";
+import { html, StyleUtils } from "../../utils";
 import { RichText, useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { ToolbarDropdownMenu } from '@wordpress/components';
 
 export default ({ attributes, setAttributes }) => {
   const blockProps = useBlockProps();
-  let classes = extractStyleModifiers(blockProps.className)
+  let classes = StyleUtils.extractStyleModifiers(blockProps.className)
   classes = classes.split(" ").map(c => `heading--${c}`).join(" ");
   const levelControls = getHeaderLevels().map(level => Object({title: level.tag, onClick: () => {setAttributes({level: level.level})}}));
   

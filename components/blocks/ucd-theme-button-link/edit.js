@@ -1,4 +1,4 @@
-import { html, extractStyleModifiers } from "../../utils";
+import { html, StyleUtils } from "../../utils";
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { ToolbarButton, Dropdown, ToolbarDropdownMenu } from '@wordpress/components';
 import { link } from '@wordpress/icons';
@@ -12,7 +12,7 @@ const LinkControl = __experimentalLinkControl;
 export default ({ attributes, setAttributes }) => {
   const blockProps = useBlockProps();
   const buttonLinkRef = useRef();
-  const altStyle = extractStyleModifiers( blockProps.className );
+  const altStyle = StyleUtils.extractStyleModifiers( blockProps.className );
   const sizeControls = [
     {title: "Small", onClick: () => {setAttributes({size: 'sm'})}},
     {title: "Medium", onClick: () => {setAttributes({size: ''})}},
