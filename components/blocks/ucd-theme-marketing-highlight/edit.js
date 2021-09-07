@@ -56,10 +56,13 @@ export default ( props ) => {
       setAttributes({title: ""});
     } else if (part.slug === 'excerpt') {
       setAttributes({excerpt: ""});
+    } else if (part.slug === 'thumbnail') {
+      setAttributes({imageId: 0});
     }
   }
   const postParts = (() => {
     return [
+      {slug: "thumbnail", isDisabled: !attributes.imageId && !postImage},
       {slug: 'title', isDisabled: !attributes.title}, 
       {slug: 'excerpt', isDisabled: !attributes.excerpt}]
   })();

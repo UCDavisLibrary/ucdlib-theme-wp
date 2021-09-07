@@ -69,6 +69,54 @@ kwargs:
   </a>
 {% endmacro %}
 
+{#
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=organisms-branding-poster-vm
+kwargs:
+  post {Timber\Post} - A post on this site.
+  imageId {Number} - Id of an image. Will override 'post' featured image
+  image {Timber\Image} - A preview image. Will override 'post' featured image and imageId
+  title {String} - The card title. Will override 'post' title
+  href {String} - Url for card link. Will override 'post' permalink
+  newTab {Boolean} - Opens card link in new tab
+  excerpt {String} - Body/preview text of card. Will override 'post' excerpt
+  brandColor {String} - UCD alt color slug
+#}
 {% macro poster( kwargs ) %}
-  <p>I'm a poster</p>
+  {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
+  {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  {% if kwargs.image %}
+    {% set src = kwargs.image.src %}
+    {% set alt = kwargs.image.alt %}
+  {% elseif kwargs.imageId %}
+    {% set i = Image(kwargs.imageId) %}
+    {% set src = i.src %}
+    {% set alt = i.alt %}
+  {% elseif kwargs.post.thumbnail %}
+    {% set src = kwargs.post.thumbnail.src %}
+    {% set alt = kwargs.post.thumbnail.alt %}
+  {% else %}
+    {% set src = DefaultImage('poster') %}
+  {% endif %}
+
+  {% set classes = 'vm-poster' %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
+  {% endif %}
+
+  <a href="{{href}}" class="{{classes}}" {{target}}>
+    <div class="aspect--16x9">
+      <img src="{{src}}" alt="{{alt}}" width="1280" height="720" loading="lazy" />
+    </div>
+    <div class="vm-poster__body">
+      <div class="vm-poster__body-text">
+        <h2 class="vm-poster__title">{{title}}</h2>
+        <p>{{excerpt}}</p>
+      </div>
+    </div>
+  </a>
+
+
 {% endmacro %}

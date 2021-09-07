@@ -29,7 +29,7 @@ class UCDThemeBlocks {
    * Meta for each block goes here.
    */
   public static $registry = array(
-    "ucd-theme/button-link" => array("twig" => "@ucd/button-link.twig"),
+    "ucd-theme/button-link" => array("twig" => "@ucd/blocks/button-link.twig"),
     "ucd-theme/heading" => array("twig" => "@ucd/blocks/heading.twig"),
     "ucd-theme/marketing-highlight" => array(
       "twig" => "@ucd/blocks/marketing-highlight.twig",
@@ -38,7 +38,8 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/poster" => array(
       "twig" => "@ucd/blocks/poster.twig",
-      "img" => "1280x720.png"
+      "img" => "1280x720.png",
+      "transform" => "UCDThemeBlockTransformations::poster"
     )
   );
 
@@ -57,9 +58,9 @@ class UCDThemeBlocks {
       array_push(
           $block_categories,
           array(
-              'slug'  => 'ucd-links',
-              'title' => 'Stylized Links',
-              'icon'  => null,
+            'slug'  => 'ucd-links',
+            'title' => 'Stylized Links',
+            'icon'  => null,
           ),
           array(
             'slug'  => 'ucd-cards',
@@ -125,6 +126,7 @@ class UCDThemeBlocks {
     // Hack to make block name available in render function
     // Is planned in: https://github.com/WordPress/gutenberg/issues/4671
     // But, as of WP Version 5.8, not implemented 
+
     $block['attrs']['_name'] = $block['blockName'];
 
     // hack to remove is-style class prefix

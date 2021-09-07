@@ -19,7 +19,7 @@ function ToolbarPostReset({
     if (p.slug === 'title') {
       control.icon = UCDIcons.render("post.title", {style:iconStyle});
       control.title = "Post Title";
-    } else if (p.slug === 'image') {
+    } else if (p.slug === 'thumbnail' || p.slug === 'image') {
       control.icon = UCDIcons.render("post.thumbnail", {style:iconStyle});
       control.title = "Featured Image";
     } else if (p.slug === 'excerpt') {

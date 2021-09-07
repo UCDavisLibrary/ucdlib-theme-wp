@@ -3,7 +3,6 @@ import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarLinkPicker } 
 import "./ucd-wp-poster";
 import { useRef, useEffect } from "@wordpress/element";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { ToolbarButton, Dropdown } from "@wordpress/components";
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -67,6 +66,31 @@ export default ( props ) => {
     setAttributes( {brandColor: value ? value.slug : "" } );
   }
 
+  // set up image picker
+  const onSelectImage = (image) => {
+    setAttributes({imageId: image.id});
+  }
+  const onRemoveImage = () => {
+    setAttributes({imageId: 0});
+  }
+
+  // set up post reset
+  const onPostReset = (part) => {
+    if ( part.slug === 'title') {
+      setAttributes({title: ""});
+    } else if (part.slug === 'excerpt') {
+      setAttributes({excerpt: ""});
+    } else if (part.slug === 'thumbnail') {
+      setAttributes({imageId: 0});
+    }
+  }
+  const postParts = (() => {
+    return [
+      {slug: "thumbnail", isDisabled: !attributes.imageId || !postImage},
+      {slug: 'title', isDisabled: !attributes.title}, 
+      {slug: 'excerpt', isDisabled: !attributes.excerpt}]
+  })();
+
   const mainEleProps = () => {
     let p = {ref: mainEleRef};
 
@@ -104,7 +128,25 @@ export default ( props ) => {
           onChange=${onColorChange}
           value=${attributes.brandColor}
         />
+      ${post && html`
+        <${ToolbarPostReset}
+          postProps=${postParts}
+          onChange=${onPostReset}
+          />
+      `}
     </${BlockControls}>
+    <${InspectorControls}>
+      <${ImagePicker} 
+        imageId=${attributes.imageId}
+        image=${customImage}
+        onSelect=${onSelectImage}
+
+        onRemove=${onRemoveImage}
+        defaultImageId=${postImage && !attributes.imageId ? postImage.id : 0}
+        helpText="Use a 4:3 image for best results"
+        panelAttributes=${{title: 'Custom Card Image'}}
+      />
+    </${InspectorControls}>
     <ucd-wp-poster ...${ mainEleProps() }></ucd-wp-poster>
   </div>
   `;

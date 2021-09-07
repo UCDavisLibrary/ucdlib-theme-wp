@@ -18,6 +18,9 @@ export function styles() {
       height: auto;
       border-style: none;
     }
+    .vm-poster__body-text {
+      width: 100%;
+    }
   `;
 
   return [

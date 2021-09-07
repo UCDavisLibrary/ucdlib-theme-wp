@@ -17,7 +17,7 @@ export default class SelectUtils {
         postExcerpt = decodeEntities(postExcerpt).replace(/(?:\r\n|\r|\n)/g, '');
       }
       return { customImage, post, postTitle, postExcerpt, postImage };      
-    });
+    }, [attributes.imageId, attributes.post.id]);
 
   }
 }
