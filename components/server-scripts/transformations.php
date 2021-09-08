@@ -4,21 +4,36 @@
 // See 'transform' property in $UCD_THEME_COMPONENTS array.
 class UCDThemeBlockTransformations {
 
-  public static function marketingHighlight($attrs=array()) {
+  /**
+   * Retrieves post object and saves in "post" attribute.
+   */
+  public static function getPost($attrs=array()){
     $new = array();
-    if ( array_key_exists('post', $attrs) && array_key_exists('id', $attrs['post']) ) {
-      $post_id = $attrs['post']['id'];
-      $new['post'] = Timber::get_post( $post_id );
+    if ( array_key_exists('post', $attrs) ) {
+      if ( is_array($attrs['post']) && array_key_exists('id', $attrs['post'])  ){
+        $post_id = $attrs['post']['id'];
+      }
+    } 
+    elseif ( array_key_exists('postId', $attrs) ) {
+      $post_id = $attrs['postId'];
     }
-    $attrs = array_merge($attrs, $new);
+
+    if ( isset($post_id) ) {
+      $new['post'] = Timber::get_post( $post_id );
+      $attrs = array_merge($attrs, $new);
+    }
     return $attrs;
   }
 
-  public static function poster($attrs=array()){
+  /**
+   * Strips is-style prefix from block classlist
+   * Necessary until this issue is implemented: 
+   *  https://github.com/WordPress/gutenberg/issues/11763
+   */
+  public static function removeStylePrefix($attrs=array()){
     $new = array();
-    if ( array_key_exists('post', $attrs) && array_key_exists('id', $attrs['post']) ) {
-      $post_id = $attrs['post']['id'];
-      $new['post'] = Timber::get_post( $post_id );
+    if ( array_key_exists('className', $attrs) ) {
+      $new['className'] = str_replace("is-style-","", $attrs['className']);
     }
     $attrs = array_merge($attrs, $new);
     return $attrs;

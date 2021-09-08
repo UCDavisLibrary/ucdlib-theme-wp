@@ -19,8 +19,10 @@ export default ( props ) => {
     const propValue = e.detail.propValue;
     let reset = false;
     if ( propName === 'title'){
+      if (!propValue ) return;
       if ( propValue === postTitle ) reset = true;
     } else if (propName === 'excerpt') {
+      if (!propValue ) return;
       if ( propValue === postExcerpt ) reset = true;
     }
     

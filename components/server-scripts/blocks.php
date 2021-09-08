@@ -20,7 +20,6 @@ class UCDThemeBlocks {
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
     add_filter( 'timber/locations', array($this, 'add_timber_locations') );
     add_action( 'enqueue_block_editor_assets', array( $this, "enqueue_block_editor_assets" ), 100 );
-    add_action( 'render_block_data', array( $this, 'render_block_data'), 10, 2 );
     add_action( 'init', array( $this, 'register_blocks'));
     add_action('block_categories_all', array($this, 'addCategories'), 10,2);
   }
@@ -29,17 +28,23 @@ class UCDThemeBlocks {
    * Meta for each block goes here.
    */
   public static $registry = array(
-    "ucd-theme/button-link" => array("twig" => "@ucd/blocks/button-link.twig"),
-    "ucd-theme/heading" => array("twig" => "@ucd/blocks/heading.twig"),
+    "ucd-theme/button-link" => array(
+      "twig" => "@ucd/blocks/button-link.twig", 
+      "transform" => array("removeStylePrefix")
+    ),
+    "ucd-theme/heading" => array(
+      "twig" => "@ucd/blocks/heading.twig", 
+      "transform" => array("removeStylePrefix")
+    ),
     "ucd-theme/marketing-highlight" => array(
       "twig" => "@ucd/blocks/marketing-highlight.twig",
       "img" => "640x480.png",
-      "transform" => "UCDThemeBlockTransformations::marketingHighlight"
+      "transform" => array("getPost")
     ),
     "ucd-theme/poster" => array(
       "twig" => "@ucd/blocks/poster.twig",
       "img" => "1280x720.png",
-      "transform" => "UCDThemeBlockTransformations::poster"
+      "transform" => array("getPost")
     )
   );
 
@@ -108,34 +113,34 @@ class UCDThemeBlocks {
 
   /**
    * Renders designated Twig and applies attribute transformations for a registered block
+   * We need access to the block name to determine what twig to render. 
+   * This api is in flux, so keep an eye on:
+   *  https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md
+   *  https://github.com/WordPress/gutenberg/issues/4671
+   *  https://github.com/WordPress/gutenberg/issues/21797
+   *  https://github.com/WordPress/gutenberg/pull/21925
+   *  
    */
-  public function render_callback($block_attributes, $context) {
-    $meta = self::$registry[$block_attributes['_name']];
+  public function render_callback($block_attributes, $content, $block) {
+    $blockName = $block->name;
+    if ( !$blockName ) return;
+    $meta = self::$registry[$blockName];
+    // Apply any transformations to block attributes specified in registry
     if ( array_key_exists("transform", $meta) ){
-      $block_attributes = call_user_func($meta['transform'], $block_attributes);
+      if ( is_array($meta['transform']) ) {
+        $transformations = $meta['transform'];
+      }
+      else {
+        $transformations = array($meta['transform']);
+      }
+      foreach ($transformations as $transformation) {
+        $block_attributes = call_user_func("UCDThemeBlockTransformations::" . $transformation, $block_attributes);
+      }
     }
+
     ob_start();
     Timber::render( $meta['twig'], array("attributes" => $block_attributes) );
     return ob_get_clean();
-  }
-
-  /**
-   * Intercepts and modifies block data before it is sent to render function
-   */
-  public function render_block_data( $block, $source_block ) {
-    // Hack to make block name available in render function
-    // Is planned in: https://github.com/WordPress/gutenberg/issues/4671
-    // But, as of WP Version 5.8, not implemented 
-
-    $block['attrs']['_name'] = $block['blockName'];
-
-    // hack to remove is-style class prefix
-    // https://github.com/WordPress/gutenberg/issues/11763
-    if ( array_key_exists('className', $block['attrs'])) {
-      $block['attrs']['className'] = self::removeStylePrefix($block['blockName'], $block['attrs']['className']);
-    }
-
-    return $block;
   }
 
   /**
@@ -168,16 +173,6 @@ class UCDThemeBlocks {
     if ( !array_key_exists('img--' . $slug, $this->settings) ) return "";
     $img = $this->settings['img--' . $slug];
     return $this->settings['imgBase'] . $img;
-  }
-
-  /**
-   * Strips is-style prefix from gutenberg block classlist
-   */
-  public static function removeStylePrefix($name, $classes){
-    if (strpos($name, 'ucd-theme/') === 0) {
-      $classes = str_replace("is-style-","",$classes);
-    }
-    return $classes;
   }
 }
 
