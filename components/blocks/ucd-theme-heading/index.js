@@ -11,7 +11,8 @@ const settings = {
 	category: 'text',
 	keywords: [ 'heading', 'header' ],
   supports: {
-    "html": false
+    "html": false,
+    "anchor": true
   },
   attributes: {
     content: {
@@ -21,6 +22,10 @@ const settings = {
     level: {
       type: 'number',
       default: 2
+    },
+    anchor: {
+      type: "string",
+      default: ""
     }
 
   },
