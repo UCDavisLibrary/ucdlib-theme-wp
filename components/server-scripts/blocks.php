@@ -45,7 +45,8 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/poster.twig",
       "img" => "1280x720.png",
       "transform" => array("getPost")
-    )
+    ),
+    "ucd-theme/poster-list" => array("twig" => "@ucd/blocks/poster-list.twig")
   );
 
   /**
@@ -71,7 +72,12 @@ class UCDThemeBlocks {
             'slug'  => 'ucd-cards',
             'title' => 'Cards and Panels',
             'icon'  => null,
-        ),
+          ),
+          array(
+            'slug'  => 'ucd-layout',
+            'title' => 'Layouts',
+            'icon'  => null,
+          ),
       );
     }
     return $block_categories;
@@ -113,18 +119,24 @@ class UCDThemeBlocks {
 
   /**
    * Renders designated Twig and applies attribute transformations for a registered block
-   * We need access to the block name to determine what twig to render. 
-   * This api is in flux, so keep an eye on:
+   * 
+   * NOTE:
+   * We need access to the block name to determine what twig to render.
+   * Third 'block' arg is not part of documentation:
    *  https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md
+   * Looks like this wp api is in flux, so this approach might break in the future:
    *  https://github.com/WordPress/gutenberg/issues/4671
    *  https://github.com/WordPress/gutenberg/issues/21797
    *  https://github.com/WordPress/gutenberg/pull/21925
    *  
    */
   public function render_callback($block_attributes, $content, $block) {
+    
+    // Retrieve metadata from registry
     $blockName = $block->name;
     if ( !$blockName ) return;
     $meta = self::$registry[$blockName];
+
     // Apply any transformations to block attributes specified in registry
     if ( array_key_exists("transform", $meta) ){
       if ( is_array($meta['transform']) ) {
@@ -138,8 +150,9 @@ class UCDThemeBlocks {
       }
     }
 
+    // Render twig
     ob_start();
-    Timber::render( $meta['twig'], array("attributes" => $block_attributes) );
+    Timber::render( $meta['twig'], array("attributes" => $block_attributes, "content" => $content) );
     return ob_get_clean();
   }
 

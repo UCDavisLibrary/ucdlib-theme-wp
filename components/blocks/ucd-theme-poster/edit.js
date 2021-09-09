@@ -6,7 +6,7 @@ import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/bloc
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
-  const blockProps = useBlockProps();
+  const blockProps = useBlockProps({className: "vm-poster"});
   const mainEleRef = useRef();
 
   // retrieve needed wp data
@@ -149,7 +149,7 @@ export default ( props ) => {
         panelAttributes=${{title: 'Custom Card Image'}}
       />
     </${InspectorControls}>
-    <ucd-wp-poster ...${ mainEleProps() }></ucd-wp-poster>
+    <ucd-wp-poster ...${ mainEleProps()}></ucd-wp-poster>
   </div>
   `;
 }
