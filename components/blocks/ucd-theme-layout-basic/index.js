@@ -7,11 +7,12 @@ const settings = {
   api_version: 2,
 	title: "Content with Sidebar",
 	description: "Arrange content side-by-side with a sidebar",
-	icon: html`<iron-icon icon='view-column'></iron-icon>`,
+	icon: html`<iron-icon icon='view-array'></iron-icon>`,
 	category: 'ucd-layout',
 	keywords: [ "grid", "column", "content", "sidebar" ],
   supports: {
-    "html": false
+    "html": false,
+    "anchor": true
   },
   attributes: {
     hasSecondSidebar: {
@@ -21,6 +22,26 @@ const settings = {
     sideBarLocation: {
       type: "string",
       default: "left"
+    },
+    mobileOrderContent: {
+      type: "number",
+      default: 1
+    },
+    mobileOrderSidebar1: {
+      type: "number",
+      default: 2
+    },
+    mobileOrderSidebar2: {
+      type: "number",
+      default: 3
+    },
+    modifier: {
+      type: "string",
+      default: ""
+    },
+    anchor: {
+      type: "string",
+      default: ""
     }
   },
   edit: Edit,

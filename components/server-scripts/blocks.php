@@ -46,7 +46,9 @@ class UCDThemeBlocks {
       "img" => "1280x720.png",
       "transform" => array("getPost")
     ),
-    "ucd-theme/poster-list" => array("twig" => "@ucd/blocks/poster-list.twig")
+    "ucd-theme/poster-list" => array("twig" => "@ucd/blocks/poster-list.twig"),
+    "ucd-theme/layout-basic" => array("twig" => "@ucd/blocks/layout-basic.twig"),
+    "ucd-theme/column" => array("twig" => "@ucd/blocks/layout-column.twig")
   );
 
   /**
