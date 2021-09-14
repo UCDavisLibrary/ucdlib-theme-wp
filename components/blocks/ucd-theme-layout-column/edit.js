@@ -14,6 +14,7 @@ export default ( props ) => {
   } );
   const innerBlocksProps = useInnerBlocksProps( blockProps, {
     orientation: "vertical",
+    templateLock: false,
     renderAppender: InnerBlocks.ButtonBlockAppender
   } );
 

@@ -13,7 +13,8 @@ const settings = {
 	keywords: [ "grid", "column", "content", "sidebar", "column" ],
   supports: {
     "html": false,
-    "anchor": true
+    "anchor": true,
+    "reusable": false
   },
   attributes: {
     layoutClass: {

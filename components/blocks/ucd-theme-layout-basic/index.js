@@ -23,18 +23,6 @@ const settings = {
       type: "string",
       default: "left"
     },
-    mobileOrderContent: {
-      type: "number",
-      default: 1
-    },
-    mobileOrderSidebar1: {
-      type: "number",
-      default: 2
-    },
-    mobileOrderSidebar2: {
-      type: "number",
-      default: 3
-    },
     modifier: {
       type: "string",
       default: ""
