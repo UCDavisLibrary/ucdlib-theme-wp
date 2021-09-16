@@ -1,0 +1,7 @@
+{% set classMap = { 2: 'l-2col', 3: 'l-3col', 4: 'l-4col' } %}
+{% set baseClass = classMap[attributes.columnCt] ? classMap[attributes.columnCt] : 'l-2col' %}
+{% set classes = baseClass %}
+{% if attributes.modifier %}
+  {% set classes = classes ~ " " ~ baseClass ~ "--" ~ attributes.modifier %}
+{% endif %}
+<div {{attributes.anchor ? "id='"~attributes.anchor~"'"}} class="{{classes}}">{{content}}</div>

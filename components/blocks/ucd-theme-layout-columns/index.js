@@ -2,22 +2,24 @@ import { html } from "../../utils";
 import Edit from './edit';
 import Save from "./save";
 
-const name = 'ucd-theme/column';
+const name = 'ucd-theme/layout-columns';
 const settings = {
   api_version: 2,
-	title: "Column",
-  parent: ["ucd-theme/layout-basic", "ucd-theme/layout-columns"],
-	description: "A column used by layout blocks",
-	icon: html`<iron-icon icon='view-carousel'></iron-icon>`,
+	title: "Columns",
+	description: "Arrange content into 2-4 columns",
+	icon: html`<iron-icon icon='view-array'></iron-icon>`,
 	category: 'ucd-layout',
-	keywords: [ "grid", "column", "content", "sidebar", "column" ],
+	keywords: [ "grid", "column", "content", "columns" ],
   supports: {
     "html": false,
-    "anchor": true,
-    "reusable": false
+    "anchor": true
   },
   attributes: {
-    layoutClass: {
+    columnCt: {
+      type: "number",
+      default: 2
+    },
+    modifier: {
       type: "string",
       default: ""
     },

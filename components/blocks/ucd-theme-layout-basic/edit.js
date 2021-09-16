@@ -1,13 +1,19 @@
 import classnames from 'classnames';
 
 import { html } from "../../utils";
-import { useDispatch, useSelect, withDispatch } from '@wordpress/data';
+import { withDispatch } from '@wordpress/data';
 import { useBlockProps,
   InspectorControls, 
   __experimentalUseInnerBlocksProps as useInnerBlocksProps,
   store as blockEditorStore,
 } from '@wordpress/block-editor';
-import { PanelBody, RangeControl, ToggleControl, Button, ButtonGroup, BaseControl } from '@wordpress/components';
+import { 
+  PanelBody, 
+  ToggleControl, 
+  Button, 
+  ButtonGroup, 
+  BaseControl 
+} from '@wordpress/components';
 import { Fragment } from "@wordpress/element";
 
 import {
@@ -73,8 +79,9 @@ function Columns( {
             checked=${attributes.hasSecondSidebar}
             onChange=${() => setLayout("hasSecondSidebar", !attributes.hasSecondSidebar)}
           />
-          <${BaseControl} id="sidebar-location" label="Sidebar Location" help="Position relative to main content">
-            <${ButtonGroup} id="sidebar-location">
+          <${BaseControl} help="Position relative to main content">
+            <${BaseControl.VisualLabel}>Number of Columns</${BaseControl.VisualLabel}>
+            <${ButtonGroup}>
               <${Button} 
                 variant="primary"
                 onClick=${() => setLayout("sideBarLocation", 'left')}
