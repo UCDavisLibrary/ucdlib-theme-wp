@@ -21,8 +21,8 @@ import {
 } from '@wordpress/blocks';
 
 const defaultTemplate = [
-  ['ucd-theme/column', {layoutClass: "l-content"}],
-  ['ucd-theme/column', {layoutClass: "l-sidebar-first"}]
+  ['ucd-theme/column', {layoutClass: "l-content", forbidWidthEdit: true}],
+  ['ucd-theme/column', {layoutClass: "l-sidebar-first", forbidWidthEdit: true}]
 ];
 
 function Columns( {
@@ -123,7 +123,7 @@ export default withDispatch(( dispatch, ownProps, registry ) =>  ({
     }
 
     if ( innerBlocks.length == 2 && sidebarExists ) {
-      innerBlocks.push( createBlock('ucd-theme/column', {layoutClass: "l-sidebar-second"}) );
+      innerBlocks.push( createBlock('ucd-theme/column', {layoutClass: "l-sidebar-second", forbidWidthEdit: true}) );
     } else if(innerBlocks.length == 3 && !sidebarExists) {
       innerBlocks = innerBlocks.filter(b => b.attributes.layoutClass != "l-sidebar-second");
     }

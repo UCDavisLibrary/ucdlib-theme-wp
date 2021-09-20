@@ -1,1 +1,8 @@
-<div {{attributes.anchor ? "id='"~attributes.anchor~"'"}} class="{{attributes.layoutClass}}">{{content}}</div>
+{% set classes = [] %}
+{% if attributes.layoutClass %}
+    {% set classes = [attributes.layoutClass] %}
+{% endif %}
+{% if attributes.widthClass %}
+    {% set classes = classes|merge([attributes.widthClass]) %}
+{% endif %}
+<div {{attributes.anchor ? "id='"~attributes.anchor~"'"}} {{classes ? "class='"~classes|join(' ')~"'"}}>{{content}}</div>

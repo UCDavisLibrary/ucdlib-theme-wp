@@ -21,8 +21,8 @@ import {
 } from '@wordpress/blocks';
 
 const defaultTemplate = [
-  ['ucd-theme/column', {layoutClass: "l-first"}],
-  ['ucd-theme/column', {layoutClass: "l-second"}]
+  ['ucd-theme/column', {layoutClass: "l-first", forbidWidthEdit: true}],
+  ['ucd-theme/column', {layoutClass: "l-second", forbidWidthEdit: true}]
 ];
 
 function Columns( {
@@ -149,7 +149,7 @@ export default withDispatch(( dispatch, ownProps, registry ) =>  ({
       let columnsToAdd = newColumnCt - oldColumnCt;
       for (let i = 1; i < columnsToAdd + 1; i++) {
         innerBlocks.push( 
-          createBlock('ucd-theme/column', {layoutClass: `l-${classMap[oldColumnCt + i]}`}) );
+          createBlock('ucd-theme/column', {layoutClass: `l-${classMap[oldColumnCt + i]}`, forbidWidthEdit: true}) );
       }
     } else if( oldColumnCt > newColumnCt ){
       let columnsToRemove = [...Array(oldColumnCt - newColumnCt).keys()].map(i => `l-${classMap[oldColumnCt - i]}`)
