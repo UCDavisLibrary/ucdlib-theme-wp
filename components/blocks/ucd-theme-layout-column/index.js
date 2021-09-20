@@ -9,7 +9,8 @@ const settings = {
   parent: [
     "ucd-theme/layout-basic", 
     "ucd-theme/layout-columns", 
-    "ucd-theme/layout-container"],
+    "ucd-theme/layout-container", 
+    "ucd-theme/layout-quad"],
 	description: "A column used by layout blocks",
 	icon: html`<iron-icon icon='view-carousel'></iron-icon>`,
 	category: 'ucd-layout',

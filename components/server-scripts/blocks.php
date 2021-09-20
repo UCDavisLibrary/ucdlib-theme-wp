@@ -50,7 +50,8 @@ class UCDThemeBlocks {
     "ucd-theme/layout-basic" => array("twig" => "@ucd/blocks/layout-basic.twig"),
     "ucd-theme/column" => array("twig" => "@ucd/blocks/layout-column.twig"),
     "ucd-theme/layout-columns" => array("twig" => "@ucd/blocks/layout-columns.twig"),
-    "ucd-theme/layout-container" => array("twig" => "@ucd/blocks/layout-container.twig")
+    "ucd-theme/layout-container" => array("twig" => "@ucd/blocks/layout-container.twig"),
+    "ucd-theme/layout-quad" => array("twig" => "@ucd/blocks/layout-quad.twig")
   );
 
   /**

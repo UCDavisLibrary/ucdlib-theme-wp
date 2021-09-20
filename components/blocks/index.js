@@ -4,6 +4,7 @@ import layoutColumn from "./ucd-theme-layout-column";
 import layoutColumns from "./ucd-theme-layout-columns";
 import LayoutContainer from "./ucd-theme-layout-container";
 import layoutBasic from "./ucd-theme-layout-basic";
+import layoutQuad from "./ucd-theme-layout-quad";
 import marketingHighlight from "./ucd-theme-marketing-highlight";
 import poster from "./ucd-theme-poster";
 import postList from "./ucd-theme-poster-list";
@@ -15,6 +16,7 @@ export default [
   layoutColumns,
   LayoutContainer,
   layoutBasic,
+  layoutQuad,
   marketingHighlight,
   poster,
   postList
