@@ -79,6 +79,7 @@ export default ( props ) => {
   const cardSections = (() => {
     return [
       {slug: 'badge', title: "Badge", icon: "picture-in-picture-alt", isHidden: attributes.hideBadge},
+      {slug: "title", isHidden: attributes.hideTitle},
       {slug: 'excerpt', isHidden: attributes.hideExcerpt}, 
       {slug: 'button', isHidden: attributes.hideButton}
     ]

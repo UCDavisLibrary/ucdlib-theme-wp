@@ -53,6 +53,10 @@ const settings = {
       type: "string",
       default: "More Info"
     },
+    hideTitle: {
+      type: "boolean",
+      default: false
+    },
     hideBadge: {
       type: "boolean",
       default: false

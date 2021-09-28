@@ -29,6 +29,7 @@ export default ( props ) => {
 
   const blockProps = useBlockProps( {
     className: classes,
+    style: {width: '100%'}
   } );
 
   const innerBlocksProps = useInnerBlocksProps( blockProps, {

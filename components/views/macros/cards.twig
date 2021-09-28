@@ -7,6 +7,7 @@ kwargs:
   imageId {Number} - Id of an image. Will override 'post' featured image
   image {Timber\Image} - A preview image. Will override 'post' featured image and imageId
   title {String} - The card title. Will override 'post' title
+  hideTitle {Boolean} - Hides the card title.
   href {String} - Url for card link. Will override 'post' permalink
   newTab {Boolean} - Opens card link in new tab
   badge {String} - Text for badge that overlays card image
@@ -51,21 +52,26 @@ kwargs:
 
 
   <a href="{{href}}" class="{{classes}}" {{target}}>
-    <div class="marketing-highlight__body">
-      <div class="marketing-highlight__image aspect--4x3">
-        <img src="{{src}}" alt="{{alt}}" width="640" height="480" loading="lazy" />
-        {% if kwargs.badge and not kwargs.hideBadge %}
-          <h3 class="marketing-highlight__type"><span>{{kwargs.badge}}</span></h3>
-        {% endif %}
-      </div>
-      <h3 class="marketing-highlight__title">{{title}}</h3>
-      {% if excerpt and not kwargs.hideExcerpt %}
-        <p>{{excerpt}}</p>
-      {% endif %}
-      {% if buttonText and not kwargs.hideButton %}
-        <span class="marketing-highlight__cta">{{buttonText}}</span>
+    <div class="marketing-highlight__image aspect--4x3">
+      <img src="{{src}}" alt="{{alt}}" width="640" height="480" loading="lazy" />
+      {% if kwargs.badge and not kwargs.hideBadge %}
+        <h3 class="marketing-highlight__type"><span>{{kwargs.badge}}</span></h3>
       {% endif %}
     </div>
+    {% if not (kwargs.hideTitle and kwargs.hideExcerpt and kwargs.hideButton) %}
+      <div class="marketing-highlight__body">
+        {% if title and not kwargs.hideTitle %}
+          <h3 class="marketing-highlight__title">{{title}}</h3>
+        {% endif %}
+        {% if excerpt and not kwargs.hideExcerpt %}
+          <p>{{excerpt}}</p>
+        {% endif %}
+        {% if buttonText and not kwargs.hideButton %}
+          <span class="marketing-highlight__cta">{{buttonText}}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
   </a>
 {% endmacro %}
 
