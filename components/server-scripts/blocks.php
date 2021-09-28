@@ -41,6 +41,11 @@ class UCDThemeBlocks {
       "img" => "640x480.png",
       "transform" => array("getPost")
     ),
+    "ucd-theme/marketing-highlight-horizontal" => array(
+      "twig" => "@ucd/blocks/marketing-highlight-horizontal.twig",
+      "img" => "1280x720.png",
+      "transform" => array("getPost")
+    ),
     "ucd-theme/poster" => array(
       "twig" => "@ucd/blocks/poster.twig",
       "img" => "1280x720.png",
@@ -55,7 +60,8 @@ class UCDThemeBlocks {
   );
 
   /**
-   * Will be used unless overridden by user settings on construction
+   * Will be used unless overridden by user settings on construction.
+   * Some settings are also dynamically constructed from registry array.
    */
   public static $default_settings = array(
     "imgBase" => "/wp-content/ucd-img-defaults/"

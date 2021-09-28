@@ -12,6 +12,7 @@
      "tahoe", "strawberry", "sage", "poppy"
    ),
    "color--marketing-highlight" => "pallete--alt",
+   "color--marketing-highlight-horizontal" => "pallete--alt",
    "color--poster" => "pallete--alt"
   );
  new UCDThemeBlocks( $editorScriptSlug, $blockSettings );

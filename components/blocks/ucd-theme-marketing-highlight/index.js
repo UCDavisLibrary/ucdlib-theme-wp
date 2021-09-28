@@ -8,7 +8,7 @@ const settings = {
 	description: "Preview content on another webpage with an attention-grabbing card.",
 	icon: html`<iron-icon icon='star'></iron-icon>`,
 	category: 'ucd-cards',
-	keywords: [ 'marketing', 'highlight', 'post', 'page' ],
+	keywords: [ 'marketing', 'highlight', 'post', 'page', "link" ],
   supports: {
     "html": false
   },

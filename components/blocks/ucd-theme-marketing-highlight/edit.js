@@ -64,7 +64,7 @@ export default ( props ) => {
   }
   const postParts = (() => {
     return [
-      {slug: "thumbnail", isDisabled: !attributes.imageId && !postImage},
+      {slug: "thumbnail", isDisabled: !attributes.imageId || !postImage},
       {slug: 'title', isDisabled: !attributes.title}, 
       {slug: 'excerpt', isDisabled: !attributes.excerpt}]
   })();
