@@ -156,6 +156,7 @@ export default ( props ) => {
         <${ToolbarColorPicker} 
           onChange=${onColorChange}
           value=${attributes.brandColor}
+          ucdBlock="marketing-highlight"
         />
         <${ToolbarSectionDisplay}
           sections=${cardSections}

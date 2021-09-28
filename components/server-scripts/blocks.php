@@ -97,10 +97,21 @@ class UCDThemeBlocks {
     } else {
       $settings = self::$default_settings;
     }
+
+    // merge settings from block registry
     foreach (self::$registry as $slug => $meta) {
-      $imgProp = 'img--' . explode("/", $slug)[1];
+      $shortSlug = explode("/", $slug)[1];
+
+      // default image
+      $imgProp = 'img--' . $shortSlug;
       if ( array_key_exists('img', $meta) && !array_key_exists($imgProp, $settings) ) {
         $settings[$imgProp] = $meta["img"];
+      }
+
+      // custom color palette
+      $colorProp = "color--" . $shortSlug;
+      if ( array_key_exists('color', $meta) && !array_key_exists($colorProp, $settings) ) {
+        $settings[$colorProp] = $meta["color"];
       }
     }
     $this->settings = $settings;

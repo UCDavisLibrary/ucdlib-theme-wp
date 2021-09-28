@@ -1,3 +1,5 @@
+import { categoryBrands } from "@ucd-lib/theme-sass/colors";
+
 export default class BlockSettings {
   static settings = window.UCDBlockSettings;
 
@@ -10,5 +12,19 @@ export default class BlockSettings {
     if ( !image ) return; 
     if ( this.settings.imgBase ) image = `${this.settings.imgBase}${image}`;
     return image;
+  }
+
+  static getBlockColors(blockSlug) {
+    if ( !blockSlug || !this.settings[`color--${blockSlug}`] ) return Object.values(categoryBrands);
+    let colors = [];
+    if ( Array.isArray(this.settings[`color--${blockSlug}`]) ) {
+      colors = this.settings[`color--${blockSlug}`];
+    } else {
+      colors = this.settings[this.settings[`color--${blockSlug}`]];
+      if ( !colors ) return Object.values(categoryBrands);
+    }
+
+    return Object.values(categoryBrands).filter(c => colors.includes(c.id));
+    
   }
 }

@@ -7,7 +7,14 @@
  // Pass an array into the class to override default settings
  require_once("/var/www/html/wp-content/ucd-theme-components/server-scripts/index.php");
  $editorScriptSlug = "ucd-components";
- new UCDThemeBlocks( $editorScriptSlug );
+ $blockSettings = array(
+   "pallete--alt" => array(
+     "tahoe", "strawberry", "sage", "poppy"
+   ),
+   "color--marketing-highlight" => "pallete--alt",
+   "color--poster" => "pallete--alt"
+  );
+ new UCDThemeBlocks( $editorScriptSlug, $blockSettings );
 
  // add component bundle to editor
 add_action( 'enqueue_block_editor_assets', function(){

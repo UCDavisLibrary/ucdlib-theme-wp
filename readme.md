@@ -74,7 +74,7 @@ Next, import the script and instantiate the class AFTER you set up Timber:
 ```
 The first class argument should be the slug of your block editor script used in `wp_enqueue_script` above.
 
-The second optional argument allows you to override default settings, such as the location of the default block images.
+The second optional argument allows you to override default settings, such as the location of the default block images. See [Settings Section](#settings) for options.
 
 
 
@@ -109,3 +109,21 @@ If a component doesn't exist as a  [Wordpress Reusable Component](https://develo
 ```javascript
 import { useRef, useEffect } from "@wordpress/element";
 ```
+
+## Settings
+Pass in an associative array as the second argument during class instantiation to customize certain behavior:
+
+```php
+ require_once("path~to~package/server-scripts/index.php");
+ $mySettings = array("setting_1" => "something custom");
+ new UCDThemeBlocks( "ucd-components", $mySettings );
+```
+
+The following are recognized keys:
+
+| Setting Key | Description |
+| ----------- | ----------- |
+| `img-base` | Path to image directory on your server |
+| `img--<block-shortslug>` | The default image for a block, if applicable. Will be combined with the `img-base` when the href is constructed. e.g. `img--marketing-highlight` will override the default image for the marketing-highlight block.
+| `pallete--<slug>` | A subset of the UCD color scheme. e.g. `array('tahoe', 'gunrock', 'strawberry')`. Can be referenced by `color--<block-shortslug>` setting.
+| `color--<block-shortslug>` | Limit the color palette for a specific block. If value is a string, will assume it is a reference to a `pallete--<slug>` setting. You can also pass in an array of strings representing the UCD colors. |

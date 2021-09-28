@@ -1,7 +1,6 @@
-import { html } from "../utils";
+import { html, BlockSettings } from "../utils";
 import { ColorPalette, ToolbarButton, Popover, MenuGroup, ColorIndicator } from '@wordpress/components';
 import { useState, Fragment } from '@wordpress/element';
-import { categoryBrands } from "@ucd-lib/theme-sass/colors";
 
 function ToolbarColorPicker({
   buttonLabel,
@@ -9,13 +8,14 @@ function ToolbarColorPicker({
   onChange,
   colors,
   value,
-  valueKey
+  valueKey,
+  ucdBlock
 }){
 
   if ( !buttonLabel ) buttonLabel = "Apply Brand Color";
   if ( !popoverTitle ) popoverTitle = "UC Davis Colors";
   if ( !valueKey ) valueKey = 'slug';
-  if ( !colors ) colors = Object.values(categoryBrands).map(c => Object({name: c.title, slug: c.id, color: c.hex}));
+  if ( !colors ) colors = BlockSettings.getBlockColors(ucdBlock).map(c => Object({name: c.title, slug: c.id, color: c.hex}));
 
   const [ isOpen, setIsOpen ] = useState( false );
 

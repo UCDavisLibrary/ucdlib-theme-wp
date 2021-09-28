@@ -129,6 +129,7 @@ export default ( props ) => {
       <${ToolbarColorPicker} 
           onChange=${onColorChange}
           value=${attributes.brandColor}
+          ucdBlock="poster"
         />
       ${post && html`
         <${ToolbarPostReset}
