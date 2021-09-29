@@ -1,4 +1,4 @@
-{# This file contains functions to display stylized link #}
+{# This file contains functions to display stylized links #}
 
 {# Constructs a link styled like a button
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=viewall-atoms-buttons
@@ -43,4 +43,55 @@ kwargs:
     <p><a {{href}} {{target}} class="{{classes}}">{{kwargs.content}}</a></p>
   {% endif %}
   
+{% endmacro %}
+
+{#
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-marketing-highlight-horizontal
+kwargs:
+  post {Timber\Post} - A post on this site.
+  imageId {Number} - Id of an image. Will override 'post' featured image
+  image {Timber\Image} - A preview image. Will override 'post' featured image and imageId
+  title {String} - The card title. Will override 'post' title
+  hideTitle {Boolean} - Hides the card title.
+  href {String} - Url for card link. Will override 'post' permalink
+  newTab {Boolean} - Opens card link in new tab
+  brandColor {String} - UCD alt color slug
+#}
+{% macro marketing_highlight_horizontal( kwargs ) %}
+
+  {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  {% if kwargs.image %}
+    {% set src = kwargs.image.src %}
+    {% set alt = kwargs.image.alt %}
+  {% elseif kwargs.imageId %}
+    {% set i = Image(kwargs.imageId) %}
+    {% set src = i.src %}
+    {% set alt = i.alt %}
+  {% elseif kwargs.post.thumbnail %}
+    {% set src = kwargs.post.thumbnail.src %}
+    {% set alt = kwargs.post.thumbnail.alt %}
+  {% else %}
+    {% set src = DefaultImage('marketing-highlight-horizontal') %}
+  {% endif %}
+   
+
+  {% set classes = 'marketing-highlight-horizontal' %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
+  {% endif %}
+
+
+  <a href="{{href}}" class="{{classes}}" {{target}}>
+    <div class="marketing-highlight-horizontal__image aspect--16x9">
+      <img src="{{src}}" alt="{{alt}}" width="640" height="480" loading="lazy" />
+    </div>
+    {% if not kwargs.hideTitle %}
+      <div class="marketing-highlight-horizontal__body">
+        <h3 class="marketing-highlight-horizontal__title">{{title}}</h3>
+      </div>
+    {% endif %}
+  </a>
 {% endmacro %}
