@@ -18,6 +18,11 @@ export default class SelectUtils {
       }
       return { customImage, post, postTitle, postExcerpt, postImage };      
     }, [attributes.imageId, attributes.post.id]);
+  }
 
+  static selectedBlock() {
+    return useSelect( ( select ) => {
+      return select( 'core/block-editor' ).getSelectedBlock();
+    }, [] );
   }
 }

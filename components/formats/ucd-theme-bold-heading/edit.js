@@ -1,26 +1,28 @@
-import { html } from "../../utils";
-import { RichTextToolbarButton, BlockControls } from '@wordpress/block-editor';
+import { html, SelectUtils } from "../../utils";
+import { BlockControls } from '@wordpress/block-editor';
 import { toggleFormat } from '@wordpress/rich-text';
-import { Toolbar, ToolbarButton } from '@wordpress/components';
+import { ToolbarButton } from '@wordpress/components';
 
 export default (props) => {
+  const selectedBlock = SelectUtils.selectedBlock();
+  if ( selectedBlock && selectedBlock.name !== 'ucd-theme/heading' ) {
+    return null;
+  }
+  const allowedClasses = ['is-style-weighted-underline', 'is-style-weighted']
+  if ( selectedBlock.attributes && !allowedClasses.includes(selectedBlock.attributes.className) ){
+    return null;
+  }
+
   return html`
-    <${BlockControls}>
-      <${Toolbar}> 
+    <${BlockControls} group="block">
         <${ToolbarButton}
           icon=${() => html`<iron-icon icon="editor:format-bold"></iron-icon>`}
-          label="Apply Bold If 'Weighted' Style is Selected"
+          label="Apply Bold"
           isActive=${ props.isActive }
           onClick=${() => {
-            props.onChange(
-              toggleFormat( 
-                props.value, 
-                {type: name} 
-              )
-            );
+            props.onChange(toggleFormat( props.value, {type: 'ucd-theme/bold-heading'} ));
           }}
         />
-      </${Toolbar}>
     </${BlockControls}>
   `;
 }

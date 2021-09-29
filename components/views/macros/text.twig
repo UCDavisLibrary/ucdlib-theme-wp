@@ -1,17 +1,23 @@
 {# 
 Constructs a single heading element
-Args:
+kwargs:
   content: the heading text
   level: the heading level (i.e. 1,2,3,4,5, or 6)
-  modifier: optional patternlab style modifier (i.e. 'underline')
-  id: optional element id
+  className: optional patternlab style modifier (i.e. 'underline')
+  anchor: optional element id
 #}
-{% macro heading(content, level, modifier = "", id = "") %}
-  {% if modifier %}
-    {% set modifier = "heading--"~modifier %}
+{% macro heading( kwargs={}) %}
+  {% set class = [] %}
+  {% if kwargs.className %}
+    {% set class = class|merge(["heading--"~kwargs.className]) %}
   {% endif %}
-  {% if level not in [1,2,3,4,5,6,"1","2","3","4","5","6"] %}
+  {% if kwargs.textAlign and kwargs.textAlign != "left" %}
+    {% set class = class|merge(["u-text-align--"~kwargs.textAlign])%}
+  {% endif %}
+  {% if kwargs.level in [1,2,3,4,5,6,"1","2","3","4","5","6"] %}
+    {% set level=kwargs.level %}
+  {% else %}
     {% set level=2 %}
   {% endif %}
-  <h{{level}} {{modifier ? "class='"~modifier~"'"}} {{id ? "id='"~id~"'"}}>{{content}}</h{{level}}>
+  <h{{level}} {{class ? "class='"~class|join(' ')~"'"}} {{kwargs.anchor ? "id='"~kwargs.anchor~"'"}}>{{kwargs.content}}</h{{level}}>
 {% endmacro %}

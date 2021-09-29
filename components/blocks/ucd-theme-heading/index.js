@@ -23,6 +23,10 @@ const settings = {
       type: 'number',
       default: 2
     },
+    textAlign: {
+      type: "string",
+      default: "left"
+    },
     anchor: {
       type: "string",
       default: ""
