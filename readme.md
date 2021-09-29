@@ -86,9 +86,13 @@ To see the components in action, launch the demo app:
 cd demo-site
 docker compose up
 ```
-Then install npm packages in `components` and `demo-site/src` and start the watch process in `demo-site/src` with:
+Then install npm packages in `components` and `demo-site/src` and start the watch process for the editor in `demo-site/src` with:
 ``` bash 
 npm run watch
+```
+and for the public with:
+```bash
+npm run watch-public
 ```
 and go to localhost:8000.
 
@@ -125,5 +129,5 @@ The following are recognized keys:
 | ----------- | ----------- |
 | `img-base` | Path to image directory on your server |
 | `img--<block-shortslug>` | The default image for a block, if applicable. Will be combined with the `img-base` when the href is constructed. e.g. `img--marketing-highlight` will override the default image for the marketing-highlight block.
-| `pallete--<slug>` | A subset of the UCD color scheme. e.g. `array('tahoe', 'gunrock', 'strawberry')`. Can be referenced by `color--<block-shortslug>` setting.
-| `color--<block-shortslug>` | Limit the color palette for a specific block. If value is a string, will assume it is a reference to a `pallete--<slug>` setting. You can also pass in an array of strings representing the UCD colors. |
+| `palette--<slug>` | A subset of the UCD color scheme. e.g. `array('tahoe', 'gunrock', 'strawberry')`. Can be referenced by `color--<block-shortslug>` setting.
+| `color--<block-shortslug>` | Limit the color palette for a specific block. If value is a string, will assume it is a reference to a `palette--<slug>` setting. You can also pass in an array of strings representing the UCD colors. |

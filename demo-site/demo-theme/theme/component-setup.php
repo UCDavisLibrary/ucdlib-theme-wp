@@ -8,12 +8,12 @@
  require_once("/var/www/html/wp-content/ucd-theme-components/server-scripts/index.php");
  $editorScriptSlug = "ucd-components";
  $blockSettings = array(
-   "pallete--alt" => array(
-     "tahoe", "strawberry", "sage", "poppy"
+   "palette--alt" => array(
+     "primary", "admin-blue", "rose", "secondary", "sage", "arboretum", "tahoe", "thiebaud-icing"
    ),
-   "color--marketing-highlight" => "pallete--alt",
-   "color--marketing-highlight-horizontal" => "pallete--alt",
-   "color--poster" => "pallete--alt"
+   "color--marketing-highlight" => "palette--alt",
+   "color--marketing-highlight-horizontal" => "palette--alt",
+   "color--poster" => "palette--alt"
   );
  new UCDThemeBlocks( $editorScriptSlug, $blockSettings );
 
@@ -35,6 +35,13 @@ add_action( 'wp_enqueue_scripts', function(){
     get_theme_root_uri() . "/demo-theme/src/node_modules/@ucd-lib/theme-sass/style.css", 
     array(), 
     "0.0.9" );
+  wp_enqueue_script(
+    "public-bundle",
+    get_theme_root_uri() . "/demo-theme/static/public-js/bundle.js",
+    array(),
+    "0.0.9",
+    true
+  );
 });
 
 // Add ucd styles to editor

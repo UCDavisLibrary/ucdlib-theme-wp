@@ -1,0 +1,20 @@
+{# This file contains functions to display site menus #}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-primary-nav
+https://ucdlib-theme-demo-akwemh35fa-uc.a.run.app/#ucd-theme-primary-nav
+kwargs:
+  menu {Timber\Menu} - A registered Timber Menu
+  navType {String} - Component attribute
+  styleModifiers {String} - Component attribute
+#}
+{% macro primary_nav(kwargs={}) %}
+  {% if kwargs.menu %}
+    {% set navType = kwargs.navType ? "nav-type='" ~ kwargs.navType ~ "'" : "" %}
+    {% set styleModifiers = kwargs.styleModifiers ? "style-modifiers='" ~ kwargs.styleModifiers ~ "'" : "" %}
+
+    <ucd-theme-primary-nav {{navType}} {{styleModifiers}}>
+
+    </ucd-theme-primary-nav>
+  {% endif %}
+{% endmacro %}
