@@ -36,6 +36,10 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/heading.twig", 
       "transform" => array("removeStylePrefix")
     ),
+    "ucd-theme/image-landscape" => array(
+      "twig" => "@ucd/blocks/image-landscape.twig", 
+      "transform" => array("getImage")
+    ),
     "ucd-theme/marketing-highlight" => array(
       "twig" => "@ucd/blocks/marketing-highlight.twig",
       "img" => "640x480.png",
@@ -64,7 +68,11 @@ class UCDThemeBlocks {
    * Some settings are also dynamically constructed from registry array.
    */
   public static $default_settings = array(
-    "imgBase" => "/wp-content/ucd-img-defaults/"
+    "imgBase" => "/wp-content/ucd-img-defaults/",
+    "imgByAspectRatio" => array(
+      "4x3" => "640x480.png",
+      "16x9" => "1280x720.png"
+    )
   );
 
   /**
@@ -198,6 +206,7 @@ class UCDThemeBlocks {
    */
   public function add_to_twig( $twig ){
     $twig->addFunction( new Twig\TwigFunction( 'DefaultImage', array( $this, 'getBlockImageDefault' ) ) );
+    $twig->addFunction( new Twig\TwigFunction( 'DefaultImageByAspectRatio', array( $this, 'getImageByAspectRatio' ) ) );
 		return $twig;
   }
 
@@ -207,6 +216,18 @@ class UCDThemeBlocks {
   public function getBlockImageDefault($slug){
     if ( !array_key_exists('img--' . $slug, $this->settings) ) return "";
     $img = $this->settings['img--' . $slug];
+    return $this->settings['imgBase'] . $img;
+  }
+
+  /**
+   * Retrieves url of default image for a given aspect ratio
+   */
+  public function getImageByAspectRatio($aspectRatio){
+    if ( 
+      !array_key_exists("imgByAspectRatio", $this->settings) ||
+      !array_key_exists($aspectRatio, $this->settings["imgByAspectRatio"])
+    ) return "";
+    $img = $this->settings["imgByAspectRatio"][$aspectRatio];
     return $this->settings['imgBase'] . $img;
   }
 }

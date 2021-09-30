@@ -1,0 +1,37 @@
+{# This file contains functions to display media #}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=atoms-landscape-16x9
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=atoms-landscape-4x3
+kwargs:
+  image {Timber\Image} - An image object. Takes precendence over ImageId
+  imageId {Number} - WP Media ID
+  aspectRatio {String} - A recognized aspect ratio in format wxh
+#}
+{% macro image_landscape(kwargs={}) %}
+  
+  {% if kwargs.image %}
+    {% set src = kwargs.image.src %}
+    {% set alt = kwargs.image.alt %}
+  {% elseif kwargs.imageId %}
+    {% set i = Image(kwargs.imageId) %}
+    {% set src = i.src %}
+    {% set alt = i.alt %}
+  {% else %}
+    {% set src = DefaultImageByAspectRatio(kwargs.aspectRatio) %}
+    {% set alt = "" %}
+  {% endif %}
+
+  {% if kwargs.aspectRatio == '4x3' %}
+    {% set width = "640" %}
+    {% set height = "480" %}
+  {% elseif kwargs.aspectRatio == '16x9' %}
+    {% set width = "1280" %}
+    {% set height = "720" %}
+  {% endif %}
+
+  <div class="aspect--{{kwargs.aspectRatio}}">
+    <img src="{{src}}" alt="{{alt}}" width="{{width}}" height="{{height}}" loading="lazy" />
+  </div>
+
+{% endmacro %}

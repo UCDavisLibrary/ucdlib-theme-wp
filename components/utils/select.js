@@ -20,6 +20,13 @@ export default class SelectUtils {
     }, [attributes.imageId, attributes.post.id]);
   }
 
+  static image(imageId) {
+    return useSelect( ( select ) => {
+      const Image = imageId ? select('core').getMedia(imageId) : undefined;
+      return Image;
+    }, [imageId] );
+  }
+
   static selectedBlock() {
     return useSelect( ( select ) => {
       return select( 'core/block-editor' ).getSelectedBlock();

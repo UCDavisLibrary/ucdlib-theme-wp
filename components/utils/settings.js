@@ -14,6 +14,16 @@ export default class BlockSettings {
     return image;
   }
 
+  static getImageByAspectRatio(aspectRatio){
+    let image;
+    if ( this.settings.imgByAspectRatio && this.settings.imgByAspectRatio[aspectRatio]){
+      image = this.settings.imgByAspectRatio[aspectRatio];
+    }
+    if ( !image ) return;
+    if ( this.settings.imgBase ) image = `${this.settings.imgBase}${image}`;
+    return image;
+  }
+
   static getBlockColors(blockSlug) {
     if ( !blockSlug || !this.settings[`color--${blockSlug}`] ) return Object.values(categoryBrands);
     let colors = [];

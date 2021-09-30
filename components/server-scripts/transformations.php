@@ -26,6 +26,20 @@ class UCDThemeBlockTransformations {
   }
 
   /**
+   * Retrieves image object and saves in "image" attribute
+   */
+  public static function getImage($attrs=array()){
+    $new = array();
+
+    if ( array_key_exists('imageId', $attrs) ){
+      $new['image'] = new Timber\Image($attrs['imageId']);
+      $attrs = array_merge($attrs, $new);
+    }
+
+    return $attrs;
+  }
+
+  /**
    * Strips is-style prefix from block classlist
    * Necessary until this issue is implemented: 
    *  https://github.com/WordPress/gutenberg/issues/11763
