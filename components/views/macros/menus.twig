@@ -14,6 +14,31 @@ kwargs:
     {% set styleModifiers = kwargs.styleModifiers ? "style-modifiers='" ~ kwargs.styleModifiers ~ "'" : "" %}
 
     <ucd-theme-primary-nav {{navType}} {{styleModifiers}}>
+      {% for item in kwargs.menu.items %}
+        
+        {% if item.children %}
+          <ul link-text="{{item.title}}" href="{{item.link}}">
+          {% for child in item.children %}
+
+            {% if child.children and kwargs.navType != "mega" %}
+              <ul link-text="{{child.title}}" href="{{child.link}}">
+                {% for grandchild in child.children %}
+                  <li><a href="{{ grandchild.link }}" {{ grandchild.is_target_blank ? 'target="_blank"' }}>{{ grandchild.title }}</a></li>
+                {% endfor %}
+              </ul>
+
+            {% else %}
+              <li><a href="{{ child.link }}" {{ child.is_target_blank ? 'target="_blank"' }}>{{ child.title }}</a></li>
+            {% endif %}
+
+          {% endfor %}
+          </ul>
+
+        {% else %}
+          <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
+        {% endif %}
+        
+      {% endfor %}
 
     </ucd-theme-primary-nav>
   {% endif %}

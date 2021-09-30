@@ -85,8 +85,14 @@ class StarterSite extends Timber\Site {
 		$context['foo']   = 'bar';
 		$context['stuff'] = 'I am a value set in your functions.php file';
 		$context['notes'] = 'These values are available everytime you call Timber::context();';
-		$context['menu']  = new Timber\Menu();
+		$context['menu'] = array();
+		$context['menu']['primary'] = new Timber\Menu('primary');
 		$context['site']  = $this;
+
+		# New theme organization, while cleaner, has some annoying side effects.
+		# https://github.com/timber/starter-theme/issues/105
+		$context['static_uri'] = dirname( get_template_directory_uri() ) . "/static";
+		
 		return $context;
 	}
 

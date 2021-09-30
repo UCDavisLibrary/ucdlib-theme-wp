@@ -1,3 +1,4 @@
+
 {% block html_head_container %}
 
 {% include 'html-header.twig' %}
@@ -10,29 +11,13 @@
 		<a class="skip-link screen-reader-text" href="#content">{{ _e( 'Skip to content') }}</a>
 		<header class="header" >
 			{% block header %}
+			{% from '@ucd/macros/menus.twig' import primary_nav %}
 			<ucd-theme-header
   				site-name="{{site.name}}"
-  				figure-src="/img/book-logo.png">
-
-				<ucd-theme-primary-nav>
-					<ul link-text="Books" href="#">
-					<li><a href="#">Biographies</a></li>
-					<li><a href="#">Fantasy</a></li>
-					<li><a href="#">Mystery</a></li>
-					</ul>
-					<a href=#>Magazines</a>
-					<a href="#">Journals</a>
-				</ucd-theme-primary-nav>
+  				figure-src="{{static_uri ~ "/img/book-logo.png"}}">
+				{{primary_nav({menu: menu.primary})}}
 
 			</ucd-theme-header>
-				<div class="wrapper">
-					<h1 class="hdr-logo" role="banner">
-						<a class="hdr-logo-link" href="{{site.url}}" rel="home">{{site.name}}</a>
-					</h1>
-					<nav id="nav-main" class="nav-main" role="navigation">
-						{% include "menu.twig" with {'items': menu.get_items} %}
-					</nav><!-- #nav -->
-				</div>
 			{% endblock %}
 		</header>
 
