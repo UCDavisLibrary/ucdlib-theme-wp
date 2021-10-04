@@ -9,6 +9,8 @@ export default class UCDIcons{
     button: "check-box-outline-blank",
     link: "link",
 
+    selected: "check-circle",
+
     post: {
       title: "bookmark",
       excerpt: "editor:text-fields",

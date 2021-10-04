@@ -1,0 +1,21 @@
+{
+  "name": "public-src",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack --config webpack-watch.config.js --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ucd-lib/theme-elements": "0.0.3",
+    "@ucd-lib/theme-sass": "^5.0.12"
+  },
+  "devDependencies": {
+    "@ucd-lib/cork-app-build": "^0.2.0",
+    "fs-extra": "^10.0.0",
+    "webpack": "^5.55.1",
+    "webpack-cli": "^4.8.0"
+  }
+}

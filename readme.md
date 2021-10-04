@@ -92,7 +92,8 @@ npm run watch
 ```
 and for the public with:
 ```bash
-npm run watch-public
+cd ../public-src
+npm run watch
 ```
 and go to localhost:8000.
 
