@@ -4,6 +4,7 @@ import ToolbarColorPicker from "./toolbar-color-picker";
 import ToolbarPostReset from "./toolbar-post-reset";
 import ToolbarSectionDisplay from "./toolbar-section-display";
 import ToolbarPaddingPicker from "./toolbar-padding-picker";
+import ToolbarVerticalAlignPicker from "./toolbar-vertical-align-picker";
 
 export { 
   ImagePicker, 
@@ -11,4 +12,5 @@ export {
   ToolbarSectionDisplay,
   ToolbarPaddingPicker,
   ToolbarLinkPicker,
+  ToolbarVerticalAlignPicker,
   ToolbarPostReset }

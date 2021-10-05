@@ -1,46 +1,46 @@
 import { html, UCDIcons } from "../utils";
 import { ToolbarDropdownMenu } from '@wordpress/components';
 
-function ToolbarPaddingPicker({
+function ToolbarVerticalAlignPicker({
   value,
   onChange,
   defaultValue
 }){
 
-  if ( !defaultValue ) defaultValue = "default";
+  if ( !defaultValue ) defaultValue = "top";
 
   const onSelect = (slug) => {
     onChange(controls.filter(c => c.slug === slug)[0]);
   }
 
   const controls = [
-    {slug: "small", label: "Small", class: ".o-box--small"},
-    {slug: "default", label: "Medium", class: ""},
-    {slug: "large", label: "Large", class: ".o-box--large"},
-    {slug: "flush", label: "None", class: ".o-box--flush"}
-  ].map(v => {
+    {slug: "top", label: "Align Top"},
+    {slug: "middle", label: "Align Middle"},
+    {slug: "bottom", label: "Align Bottom"},
+  ].map(c => {
     let out = {
-      title: v.label,
-      onClick: () => onSelect(v.slug)
+      title: c.label,
+      onClick: () => onSelect(c.slug)
     };
     const iconStyle = {marginRight: "5px"};
 
-    if ( v.slug === value ){
+    if ( c.slug === value ){
       out.icon = UCDIcons.render("selected", {style:iconStyle});
       out.isDisabled = true;
-    } else if( v.slug === defaultValue ){
+    } else if( c.slug === defaultValue ){
       out.icon = UCDIcons.render("selected", {style:iconStyle});
       out.isDisabled = true;     
     }
     return out;
   })
+  
   return html`
     <${ToolbarDropdownMenu} 
-      icon=${html`<iron-icon icon="select-all"></iron-icon>`}
-      label="Set Padding"
+      icon=${html`<iron-icon icon="editor:vertical-align-center"></iron-icon>`}
+      label="Set Vertical Alignment"
       controls=${controls}
     />
   `;
 }
 
-export default ToolbarPaddingPicker;
+export default ToolbarVerticalAlignPicker;
