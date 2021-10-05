@@ -5,4 +5,9 @@
 {% if attributes.widthClass %}
     {% set classes = classes|merge([attributes.widthClass]) %}
 {% endif %}
+{% if attributes.verticalAlign == "center" %}
+    {% set classes = classes|merge(["u-space-my--auto"]) %}
+{% elseif attributes.verticalAlign == "center" %}
+    {% set classes = classes|merge(["u-space-mt--auto"]) %}
+{% endif %}
 <div {{attributes.anchor ? "id='"~attributes.anchor~"'"}} {{classes ? "class='"~classes|join(' ')~"'"}}>{{content}}</div>

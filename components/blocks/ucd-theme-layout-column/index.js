@@ -36,6 +36,10 @@ const settings = {
     widthClass: {
       type: "string",
       default: ""
+    },
+    verticalAlign: {
+      type: "string",
+      default: "top"
     }
   },
   edit: Edit,

@@ -2,8 +2,10 @@ import classnames from 'classnames';
 
 import { html } from "../../utils";
 import { useBlockProps,
+  BlockControls,
   InspectorControls, 
   InnerBlocks,
+  BlockVerticalAlignmentControl,
   __experimentalUseInnerBlocksProps as useInnerBlocksProps, 
 } from '@wordpress/block-editor';
 import { 
@@ -17,7 +19,9 @@ export default ( props ) => {
 
   const classes = classnames({
     [`${attributes.layoutClass}`]: attributes.layoutClass,
-    [`${attributes.widthClass}`]: attributes.widthClass
+    [`${attributes.widthClass}`]: attributes.widthClass,
+    'u-space-my--auto': attributes.verticalAlign === 'center',
+    'u-space-mt--auto': attributes.verticalAlign === 'bottom'
   });
 
   const widthOptions = [
@@ -40,6 +44,12 @@ export default ( props ) => {
 
   return html`
     <${Fragment}>
+      <${BlockControls} group="block">
+        <${BlockVerticalAlignmentControl} 
+              value=${attributes.verticalAlign}
+              onChange=${verticalAlign => setAttributes({verticalAlign})}
+              />
+      </${BlockControls}>
       <${InspectorControls}>
         <${PanelBody}>
           ${(!attributes.forbidWidthEdit) && html`

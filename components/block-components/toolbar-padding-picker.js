@@ -8,6 +8,7 @@ function ToolbarPaddingPicker({
 }){
 
   if ( !defaultValue ) defaultValue = "default";
+  const selectedValue = value ? value : defaultValue;
 
   const onSelect = (slug) => {
     onChange(controls.filter(c => c.slug === slug)[0]);
@@ -20,18 +21,17 @@ function ToolbarPaddingPicker({
     {slug: "flush", label: "None", class: ".o-box--flush"}
   ].map(v => {
     let out = {
+      slug: v.slug,
       title: v.label,
       onClick: () => onSelect(v.slug)
     };
     const iconStyle = {marginRight: "5px"};
 
-    if ( v.slug === value ){
+    if ( v.slug === selectedValue ){
       out.icon = UCDIcons.render("selected", {style:iconStyle});
       out.isDisabled = true;
-    } else if( v.slug === defaultValue ){
-      out.icon = UCDIcons.render("selected", {style:iconStyle});
-      out.isDisabled = true;     
-    }
+    } 
+
     return out;
   })
   return html`

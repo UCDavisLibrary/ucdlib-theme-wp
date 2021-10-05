@@ -1,0 +1,6 @@
+{% set classes = ["o-box"] %}
+{% if attributes.padding %}
+    {% set classes = classes|merge(["o-box--"~attributes.padding]) %}
+{% endif %}
+
+<div {{classes ? "class='"~classes|join(' ')~"'"}}>{{content}}</div>
