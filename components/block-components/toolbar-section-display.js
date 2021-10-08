@@ -12,6 +12,8 @@ function ToolbarSectionDisplay({sections=[], onChange}){
 
     control.onClick = () => onSelect(s.slug);
     const iconStyle = {marginRight: "5px"};
+    
+    // default values
     if (s.slug === 'title') {
       control.icon = UCDIcons.render("post.title", {style:iconStyle});
       control.title = "Title";
@@ -21,8 +23,18 @@ function ToolbarSectionDisplay({sections=[], onChange}){
     } else if (s.slug === 'button') {
       control.icon = UCDIcons.render("button", {style:iconStyle});
       control.title = "Button";
+    } else if (s.slug === 'image') {
+      control.icon = UCDIcons.render("post.thumbnail", {style:iconStyle});
+      control.title = "Image";
+    } else if (s.slug === 'byline') {
+      control.icon = UCDIcons.render("author", {style:iconStyle});
+      control.title = "Byline";
+    } else if (s.slug === 'categories') {
+      control.icon = UCDIcons.render("taxonomy.category", {style:iconStyle});
+      control.title = "Categories";
     }
 
+    // override default values if applicable
     if ( s.icon ) control.icon = html`<iron-icon icon="${s.icon}" style=${iconStyle}></iron-icon>`;
     if ( s.title ) control.title = s.title;
     if ( s.isHidden ) {

@@ -10,12 +10,17 @@ export default class UCDIcons{
     link: "link",
 
     selected: "check-circle",
+    author: "perm-identity",
 
     post: {
       title: "bookmark",
       excerpt: "editor:text-fields",
       thumbnail: 'editor:insert-photo',
       link: "link"
+    },
+
+    taxonomy: {
+      category: "label"
     }
   }
 

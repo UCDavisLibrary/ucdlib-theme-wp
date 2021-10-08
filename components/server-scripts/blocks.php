@@ -61,7 +61,12 @@ class UCDThemeBlocks {
     "ucd-theme/layout-columns" => array("twig" => "@ucd/blocks/layout-columns.twig"),
     "ucd-theme/layout-container" => array("twig" => "@ucd/blocks/layout-container.twig"),
     "ucd-theme/layout-quad" => array("twig" => "@ucd/blocks/layout-quad.twig"),
-    "ucd-theme/object-box" => array("twig" => "@ucd/blocks/object-box.twig")
+    "ucd-theme/object-box" => array("twig" => "@ucd/blocks/object-box.twig"),
+    "ucd-theme/teaser" => array(
+      "twig" => "@ucd/blocks/teaser.twig",
+      "img" => "135x135.png",
+      "transform" => array("getPost")
+    ),
   );
 
   /**
@@ -71,6 +76,7 @@ class UCDThemeBlocks {
   public static $default_settings = array(
     "imgBase" => "/wp-content/ucd-img-defaults/",
     "imgByAspectRatio" => array(
+      "1x1" => "135x135.png",
       "4x3" => "640x480.png",
       "16x9" => "1280x720.png"
     )
