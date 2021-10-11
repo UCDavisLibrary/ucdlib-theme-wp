@@ -12,6 +12,8 @@ export default ( props ) => {
 
   // retrieve needed wp data
   const {customImage, post, postTitle, postExcerpt, postImage} = SelectUtils.card(attributes);
+  const authorId = post ? post.author : 0;
+  const author = SelectUtils.user(authorId);
 
   // Listen to changes in component body
   const onMainEleUpdated = (e) => {
@@ -87,11 +89,16 @@ export default ( props ) => {
 
   // set up link picker
   const onHrefChange = (value) => {
-    setAttributes({
+    let attrs = {
       href: value.kind === 'post-type' ? "" : value.url,
       newTab: value.opensInNewTab ? true : false,
       post: value.kind === 'post-type' ? {id: value.id, type: value.type} : {}
-    });
+    }
+    if ( value.kind === 'post-type' && value.type == 'post' ) {
+      attrs.hideByline = false;
+      attrs.hideCategories = false;
+    }
+    setAttributes(attrs);
   }
   const hrefContent = (() => {
     let value = {opensInNewTab: attributes.newTab};
@@ -132,6 +139,15 @@ export default ( props ) => {
     } else if ( postExcerpt ){
       p.excerpt = postExcerpt;
     } else {p.excerpt = ""}
+
+    if ( author ) {
+      p.author = author.first_name && author.last_name ? `${author.first_name} ${author.last_name}` : author.name;
+    }
+
+    if ( post ) {
+      const dateOptions = { year: "numeric", month: "long", day: "numeric" };
+      p.date = new Date(post.date_gmt + "Z").toLocaleDateString('en-US', dateOptions);
+    }
 
     if ( customImage ) {
       p['img-src'] = customImage.source_url;

@@ -8,9 +8,15 @@ export default class SelectUtils {
       if (!attributes) return {};
       const customImage = attributes.imageId ? select('core').getMedia(attributes.imageId) : undefined;
       const post = attributes.post.id ? select('core').getEntityRecord('postType', attributes.post.type, attributes.post.id) : undefined;
-      const postTitle = post && post.title && post.title.rendered ? post.title.rendered : undefined;
+      
+      let postTitle = undefined;
+      if ( post && post.title && post.title.rendered ) {
+        postTitle = decodeEntities(post.title.rendered);
+      }
+
       let postImage = undefined;
       if ( post && post.featured_media ) postImage = select('core').getMedia(post.featured_media);
+      
       let postExcerpt = undefined;
       if ( post && post.excerpt && post.excerpt.rendered ) {
         postExcerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
@@ -31,5 +37,12 @@ export default class SelectUtils {
     return useSelect( ( select ) => {
       return select( 'core/block-editor' ).getSelectedBlock();
     }, [] );
+  }
+
+  static user(userId) {
+    return useSelect( (select) => {
+      const User = userId ? select('core').getEntityRecord('root', 'user', userId) : undefined;
+      return User;
+    } , [userId]);
   }
 }

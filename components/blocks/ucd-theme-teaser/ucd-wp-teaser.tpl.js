@@ -1,6 +1,7 @@
 import { html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { StyleUtils } from '../../utils';
+import headingsStyles from "@ucd-lib/theme-sass/1_base_html/_headings.css.js";
 import teaserStyles from "@ucd-lib/theme-sass/4_component/_vm-teaser.css.js"
 import brandStyles from "@ucd-lib/theme-sass/4_component/_category-brand.css.js"
 
@@ -13,9 +14,15 @@ export function styles() {
       width: 135px;
       height: 135px;
     }
+    .vm-teaser__figure img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   `;
 
   return [
+    headingsStyles,
     teaserStyles,
     brandStyles,
     StyleUtils.CssUnstyledInput,
@@ -45,6 +52,16 @@ return html`
           <span>${this.title}</span>
         `}
       </a></h3>
+      ${!this.hideByline ? html`
+        <ul class="vm-teaser__byline">
+          ${this.author ? html`
+            <li><span class="byline">by ${this.author}</span></li>
+          ` : html``}
+          ${this.date ? html`
+            <li>${this.date}</li>
+          ` : html``}
+        </ul>
+      ` : html``}
 
       ${!this.hideExcerpt ? html`
         <div class="vm-teaser__summary">

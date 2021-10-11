@@ -13,7 +13,8 @@
    ),
    "color--marketing-highlight" => "palette--alt",
    "color--marketing-highlight-horizontal" => "palette--alt",
-   "color--poster" => "palette--alt"
+   "color--poster" => "palette--alt",
+   "color--teaser" => "palette--alt"
   );
  new UCDThemeBlocks( $editorScriptSlug, $blockSettings );
 

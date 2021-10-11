@@ -13,6 +13,9 @@ export default class UcdWpTeaser extends Mixin(LitElement)
       imgSrc: {type: String, attribute: "img-src"},
       hideImage: {type: Boolean, attribute: "hide-image"},
       hideExcerpt: {type: Boolean, attribute: "hide-excerpt"},
+      hideByline: {type: Boolean, attribute: "hide-byline"},
+      author: {type: String},
+      date: {type: String},
       featured: {type: Boolean},
       color: {type: String},
       title: {type: String},
@@ -37,8 +40,11 @@ export default class UcdWpTeaser extends Mixin(LitElement)
     this.color = "";
     this.title = "";
     this.excerpt = "";
+    this.author = "";
+    this.date = "";
     this.hideExcerpt = false;
     this.hideImage = false;
+    this.hideByline = false;
     this.editable = false;
   }
 
