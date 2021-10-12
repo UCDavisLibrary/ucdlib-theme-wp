@@ -40,6 +40,21 @@ class UCDThemeBlockTransformations {
   }
 
   /**
+   * Retrieves author object and save in "author" attribute
+   */
+  public static function getAuthor($attrs=array()){
+    $new = array();
+
+    if ( array_key_exists('post', $attrs) ) {
+      var_dump($attrs['post']);
+      if ( is_object($attrs['post']) ) {
+
+      }
+    }
+    return $attrs;
+  }
+
+  /**
    * Strips is-style prefix from block classlist
    * Necessary until this issue is implemented: 
    *  https://github.com/WordPress/gutenberg/issues/11763

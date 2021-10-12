@@ -14,6 +14,8 @@ export default class UcdWpTeaser extends Mixin(LitElement)
       hideImage: {type: Boolean, attribute: "hide-image"},
       hideExcerpt: {type: Boolean, attribute: "hide-excerpt"},
       hideByline: {type: Boolean, attribute: "hide-byline"},
+      hideCategories: {type: Boolean, attribute: "hide-categories"},
+      categories: {type: Array},
       author: {type: String},
       date: {type: String},
       featured: {type: Boolean},
@@ -45,7 +47,9 @@ export default class UcdWpTeaser extends Mixin(LitElement)
     this.hideExcerpt = false;
     this.hideImage = false;
     this.hideByline = false;
+    this.hideCategories = false;
     this.editable = false;
+    this.categories = [];
   }
 
   _getBaseClasses(){

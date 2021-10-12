@@ -23,8 +23,8 @@ export function styles() {
 
   return [
     headingsStyles,
-    teaserStyles,
     brandStyles,
+    teaserStyles,
     StyleUtils.CssUnstyledInput,
     elementStyles
   ];
@@ -52,6 +52,7 @@ return html`
           <span>${this.title}</span>
         `}
       </a></h3>
+
       ${!this.hideByline ? html`
         <ul class="vm-teaser__byline">
           ${this.author ? html`
@@ -60,6 +61,16 @@ return html`
           ${this.date ? html`
             <li>${this.date}</li>
           ` : html``}
+        </ul>
+      ` : html``}
+
+      ${!this.hideCategories && this.categories.length ? html`
+        <ul class="vm-teaser__categories">
+          ${this.categories.map(c => html`
+            <li class="vm-teaser__cat-marker ${c.color}">
+              <a href=${c.link}>${c.name}</a>
+            </li>
+          `)}
         </ul>
       ` : html``}
 

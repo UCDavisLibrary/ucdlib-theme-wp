@@ -65,7 +65,7 @@ class UCDThemeBlocks {
     "ucd-theme/teaser" => array(
       "twig" => "@ucd/blocks/teaser.twig",
       "img" => "135x135.png",
-      "transform" => array("getPost")
+      "transform" => array("getPost", "getImage")
     ),
   );
 

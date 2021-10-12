@@ -14,6 +14,8 @@ export default ( props ) => {
   const {customImage, post, postTitle, postExcerpt, postImage} = SelectUtils.card(attributes);
   const authorId = post ? post.author : 0;
   const author = SelectUtils.user(authorId);
+  const categoryIds = post ? post.categories : [];
+  const categories = SelectUtils.categoriesById(categoryIds);
 
   // Listen to changes in component body
   const onMainEleUpdated = (e) => {
@@ -82,7 +84,7 @@ export default ( props ) => {
     return [
       {slug: "image", isHidden: attributes.hideImage},
       {slug: "byline", isHidden: attributes.hideByline, isDisabled: !post},
-      {slug: "categories", isHidden: attributes.hideCategories, isDisabled: !post || post.type != 'post'},
+      {slug: "categories", isHidden: attributes.hideCategories, isDisabled: !post || post.type != 'post' || !post.categories.length},
       {slug: 'excerpt', isHidden: attributes.hideExcerpt}
     ]
   })();
@@ -142,6 +144,10 @@ export default ( props ) => {
 
     if ( author ) {
       p.author = author.first_name && author.last_name ? `${author.first_name} ${author.last_name}` : author.name;
+    }
+
+    if ( categories && categories.length ) {
+      p.categories = JSON.stringify(categories.map(c => Object({link: c.link, name: c.name, color: c.themeColor})));
     }
 
     if ( post ) {

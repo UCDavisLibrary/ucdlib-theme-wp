@@ -45,4 +45,18 @@ export default class SelectUtils {
       return User;
     } , [userId]);
   }
+
+  static category(termId) {
+    return useSelect( (select) => {
+      const Term = termId ? select('core').getEntityRecord('taxonomy', 'category', termId) : undefined;
+      return Term;
+    } , [termId]);  
+  }
+
+  static categoriesById(termIds) {
+    return useSelect( (select) => {
+      const Terms = termIds && termIds.length ? select('core').getEntityRecords('taxonomy', 'category', {per_page: -1, include: termIds}) : [];
+      return Terms;
+    } , [termIds]);  
+  }
 }

@@ -8,6 +8,7 @@ class UCDThemeMetaData {
     add_action('category_edit_form_fields', array($this, 'display_taxonomy_color'), 10, 2);
     add_action('edited_category', array($this, 'save_taxonomy_color'), 10, 2);
     add_action('create_category', array($this, 'save_taxonomy_color'), 10, 2);
+    add_filter( 'rest_prepare_category', array($this, 'api_taxonomy_color'), 10, 3);
   }
 
   /**
@@ -32,6 +33,15 @@ class UCDThemeMetaData {
       return;
     }
     update_term_meta($term_id, 'theme-color', sanitize_text_field($_POST['theme-color']));
+  }
+
+  /**
+   * Displays theme color in category rest api
+   */
+  function api_taxonomy_color($response, $term, $request){
+    $color = get_term_meta($term->term_id, 'theme-color', true);
+    $response->data['themeColor'] = $color ?: '';
+    return $response;
   }
 }
 
