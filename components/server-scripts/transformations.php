@@ -40,17 +40,22 @@ class UCDThemeBlockTransformations {
   }
 
   /**
-   * Retrieves author object and save in "author" attribute
+   * Retrieves recent posts and saves in "posts" attribute
    */
-  public static function getAuthor($attrs=array()){
+  public static function getRecentPosts($attrs=array()){
     $new = array();
+    $postCt = 5;
 
-    if ( array_key_exists('post', $attrs) ) {
-      var_dump($attrs['post']);
-      if ( is_object($attrs['post']) ) {
-
-      }
+    if ( array_key_exists('postCt', $attrs) ){
+      $postCt = $attrs['postCt'];
     }
+
+    $new['posts'] = Timber::get_posts(array(
+      'post_type'=> 'post',
+      'posts_per_page'=> $attrs['postCt']
+    ));
+    $attrs = array_merge($attrs, $new);
+    
     return $attrs;
   }
 

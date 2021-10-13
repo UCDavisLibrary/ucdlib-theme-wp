@@ -53,6 +53,34 @@ export default class SelectUtils {
     } , [termId]);  
   }
 
+  static posts(query = {}, extra_fields=[]) {
+    return useSelect( (select) => {
+      let posts = select('core').getEntityRecords('postType', 'post', query);
+      if (!posts) posts = [];
+
+      if ( extra_fields.length ){
+        posts = posts.map(p => {
+          if ( extra_fields.includes('image') ){
+            if ( p.featured_media ) p.image = select('core').getMedia(p.featured_media);
+          }
+
+          if ( extra_fields.includes('author') ){
+            if ( p.author ) p.authorData = select('core').getEntityRecord('root', 'user', p.author);
+          }
+
+          if ( extra_fields.includes('categories') ){
+            if ( p.categories && p.categories.length ) {
+              p.categoriesData = select('core').getEntityRecords('taxonomy', 'category', {per_page: 100, include: p.categories});
+            }
+          }
+          return p;
+        })
+      }
+
+      return posts;
+    }, [query, extra_fields] )
+  }
+
   static categoriesById(termIds) {
     return useSelect( (select) => {
       const Terms = termIds && termIds.length ? select('core').getEntityRecords('taxonomy', 'category', {per_page: -1, include: termIds}) : [];

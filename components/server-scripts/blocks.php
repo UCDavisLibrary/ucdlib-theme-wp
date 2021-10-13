@@ -62,6 +62,10 @@ class UCDThemeBlocks {
     "ucd-theme/layout-container" => array("twig" => "@ucd/blocks/layout-container.twig"),
     "ucd-theme/layout-quad" => array("twig" => "@ucd/blocks/layout-quad.twig"),
     "ucd-theme/object-box" => array("twig" => "@ucd/blocks/object-box.twig"),
+    "ucd-theme/recent-posts" => array(
+      "twig" => "@ucd/blocks/recent-posts.twig",
+      "transform" => array("getRecentPosts")
+    ),
     "ucd-theme/teaser" => array(
       "twig" => "@ucd/blocks/teaser.twig",
       "img" => "135x135.png",
@@ -104,6 +108,11 @@ class UCDThemeBlocks {
             'title' => 'Layouts',
             'icon'  => null,
           ),
+          array(
+            'slug'  => 'ucd-query',
+            'title' => 'Queries',
+            'icon'  => null,
+          )
       );
     }
     return $block_categories;

@@ -41,7 +41,7 @@ return html`
     </div>
     ` : html``}
     <div class="vm-teaser__body">
-      <h3 class="vm-teaser__title"><a href="#">
+      <h3 class="vm-teaser__title"><a>
         ${this.editable ? html`
           <input 
             type="text" 

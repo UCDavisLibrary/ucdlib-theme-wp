@@ -11,6 +11,7 @@ import marketingHighlightHorizontal from "./ucd-theme-marketing-highlight-horizo
 import objectBox from "./ucd-theme-object-box";
 import poster from "./ucd-theme-poster";
 import posterList from "./ucd-theme-poster-list";
+import recentPosts from "./ucd-theme-recent-posts";
 import teaser from "./ucd-theme-teaser";
 
 export default [
@@ -27,5 +28,6 @@ export default [
   objectBox,
   poster,
   posterList,
+  recentPosts,
   teaser
 ];

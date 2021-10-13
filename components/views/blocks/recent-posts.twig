@@ -1,0 +1,4 @@
+{% from '@ucd/macros/cards.twig' import teaser %}
+{% for post in attributes.posts %}
+  {{ teaser( attributes|merge({post})) }}
+{% endfor %}
