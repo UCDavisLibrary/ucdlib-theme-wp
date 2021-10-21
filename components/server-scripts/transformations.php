@@ -52,10 +52,10 @@ class UCDThemeBlockTransformations {
 
     $new['posts'] = Timber::get_posts(array(
       'post_type'=> 'post',
-      'posts_per_page'=> $attrs['postCt']
+      'posts_per_page'=> $postCt
     ));
     $attrs = array_merge($attrs, $new);
-    
+
     return $attrs;
   }
 

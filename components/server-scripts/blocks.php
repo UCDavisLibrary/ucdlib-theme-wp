@@ -18,7 +18,7 @@ class UCDThemeBlocks {
     $this->set_settings($settings);
 
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
-    add_filter( 'timber/locations', array($this, 'add_timber_locations') );
+    //add_filter( 'timber/locations', array($this, 'add_timber_locations') );
     add_action( 'enqueue_block_editor_assets', array( $this, "enqueue_block_editor_assets" ), 100 );
     add_action( 'init', array( $this, 'register_blocks'));
     add_action('block_categories_all', array($this, 'addCategories'), 10,2);
@@ -200,14 +200,6 @@ class UCDThemeBlocks {
     ob_start();
     Timber::render( $meta['twig'], array("attributes" => $block_attributes, "content" => $content) );
     return ob_get_clean();
-  }
-
-  /**
-   * Adds twig files under the @ucd namespace
-   */
-  public function add_timber_locations($paths){
-    $paths['ucd'] = array(dirname(__DIR__, 1) . "/views");
-    return $paths;
   }
 
   /**

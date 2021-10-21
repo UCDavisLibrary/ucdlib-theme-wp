@@ -1,0 +1,15 @@
+{% extends getUcdTemplate('base') %}
+
+{% block content %}
+  <p>This is the defaul homepage! It's a work in progress. 
+  In most cases, an adminstrator will pick a specific page to be the homepage, so this template won't be used.
+  But we need one anyway.
+  </p>
+    {#
+	{% for post in posts %}
+		{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
+	{% endfor %}
+	
+	{% include 'partial/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
+    #}
+{% endblock %}

@@ -1,7 +1,7 @@
 
 {% block html_head_container %}
 
-{% include 'html-header.twig' %}
+{% include getUcdPartial('html-header') %}
 	{% block head %}
 	{% endblock %}
 	</head>
@@ -22,22 +22,6 @@
 		</header>
 
 
-		{#
-		<section id="content" role="main" class="content-wrapper">
-			{% if title %}<h1>{{title}}</h1>{% endif %}
-			<div class="wrapper {{sidebar_class}}">
-				{% block content %}
-					Sorry, no content
-				{% endblock %}
-			</div>
-			{% if sidebar %}
-				<aside class="layout-sidebar">
-					{{sidebar}}
-				</aside>
-			{% endif %}
-		</section>
-		#}
-
 		<main id="content" class="l-main">
 			<div class="l-container">
 				<div class="l-content">
@@ -51,7 +35,7 @@
 
 		{% block footer %}
 			<footer id="footer">
-				{% include 'footer.twig' %}
+				{% include getUcdPartial('footer') %}
 			</footer>
 			{{ function('wp_footer') }}
 		{% endblock %}

@@ -10,4 +10,7 @@
  */
 
 $context = Timber::context();
-Timber::render( '404.twig', $context );
+$views = $GLOBALS['UcdSite']->views;
+$templates = array( $views->getTemplate('404') );
+
+Timber::render( $templates, $context );

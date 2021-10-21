@@ -1,4 +1,4 @@
-{% from '@ucd/macros/cards.twig' import teaser %}
+{% from getUcdMacro('cards') import teaser %}
 {% for post in attributes.posts %}
   {{ teaser( attributes|merge({post})) }}
 {% endfor %}

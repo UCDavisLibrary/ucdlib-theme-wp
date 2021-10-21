@@ -22,7 +22,9 @@
  */
 
 $context = Timber::context();
+$context['post'] = new Timber\Post();
+$views = $GLOBALS['UcdSite']->views;
 
-$timber_post     = new Timber\Post();
-$context['post'] = $timber_post;
-Timber::render( array( 'page-' . $timber_post->post_name . '.twig', 'page.twig' ), $context );
+$templates = array( $views->getTemplate('page') );
+
+Timber::render( $templates, $context );
