@@ -5,7 +5,7 @@
 
 $context = Timber::context();
 $context['category'] = Timber::get_term();
-$context['posts'] = new Timber\PostQuery();
+$context['posts'] = Timber::get_posts();
 
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('single-category'));

@@ -1,15 +1,11 @@
 <?php
 /**
- * The template for displaying 404 pages (Not Found)
- *
- * Methods for TimberHelper can be found in the /functions sub-directory
- *
- * @package  WordPress
- * @subpackage  Timber
- * @since    Timber 0.1
+ * The template for displaying 404 pages
  */
 
 $context = Timber::context();
+echo "this is a true 404";
+status_header(404); 
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('404') );
 
