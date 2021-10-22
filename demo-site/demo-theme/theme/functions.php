@@ -5,7 +5,7 @@ if ( ! class_exists( 'Timber' ) ) return;
 
 // instantiate the site
 require_once( __DIR__ . '/includes/classes/site.php' );
-$GLOBALS['UcdSite'] = new StarterSite();
+$GLOBALS['UcdSite'] = new UcdThemeSite();
 require_once( __DIR__ . '/component-setup.php' );
 
 

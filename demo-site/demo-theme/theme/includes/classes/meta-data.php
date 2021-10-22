@@ -1,8 +1,8 @@
 <?php
 
 class UCDThemeMetaData {
-  function __construct(){
 
+  function __construct(){
     // Assign a UCD theme color to a category
     add_action('category_add_form_fields', array($this, 'display_taxonomy_color'), 10, 2);
     add_action('category_edit_form_fields', array($this, 'display_taxonomy_color'), 10, 2);
