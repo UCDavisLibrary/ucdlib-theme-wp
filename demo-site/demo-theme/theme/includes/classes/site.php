@@ -1,6 +1,8 @@
 <?php
 require_once( __DIR__ . '/views.php' );
 require_once( __DIR__ . '/meta-data.php' );
+require_once( __DIR__ . '/customizer.php' );
+require_once( __DIR__ . '/menu.php' );
 
 /**
  * The primary site class.
@@ -23,8 +25,14 @@ class UcdThemeSite extends Timber\Site {
     // Register view paths with theme
     $this->views = new UCDThemeViews();
 
-    // Set up extra site/taxonomy metadata fields
+    // Extra site/taxonomy metadata fields
     new UCDThemeMetaData();
+
+    // User-editable theme options
+    new UcdThemeCustomizer();
+
+    // Menu locations
+    new UcdThemeMenu();
   
     // Hook onto actions and filters
     add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
@@ -50,11 +58,8 @@ class UcdThemeSite extends Timber\Site {
      * @param string $context context['this'] Being the Twig's {{ this }}.
      */
     public function add_to_context( $context ) {
-      $context['foo']   = 'bar';
-      $context['stuff'] = 'I am a value set in your functions.php file';
-      $context['notes'] = 'These values are available everytime you call Timber::context();';
-      $context['menu'] = array();
-      $context['menu']['primary'] = new Timber\Menu('primary');
+      
+      # site
       $context['site']  = $this;
   
       # New theme organization, while cleaner, has some annoying side effects.
@@ -116,6 +121,7 @@ class UcdThemeSite extends Timber\Site {
       );
   
       add_theme_support( 'menus' );
+      add_theme_support( 'custom-logo' );
     }
     
   

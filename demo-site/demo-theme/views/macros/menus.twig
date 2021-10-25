@@ -43,3 +43,18 @@ kwargs:
     </ucd-theme-primary-nav>
   {% endif %}
 {% endmacro %}
+
+{# 
+Renders a series of 'a' tags in a format expected by ucdlib navigation elements
+kwargs: 
+  menu {Timber\Menu} - A registered Timber Menu
+#}
+{% macro flat_list(kwargs={}) %}
+ 
+ {% if kwargs.menu %}
+  {% for item in kwargs.menu.items %}
+    <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
+  {% endfor %}
+ {% endif %}
+
+{% endmacro %}

@@ -1,0 +1,41 @@
+{% import getUcdMacro('menus') as menu_twigs %}
+
+{% set default_bar = theme.theme_mod('sf_branding_bar') %}
+{% set logo_id = theme.theme_mod('custom_logo') %}
+
+<ucd-theme-header
+  site-name="{{default_bar and site.name ? site.name : ''}}"
+  slogan="{{default_bar and site.description ? site.description : ''}}"
+  figure-src="{{default_bar and logo_id ? Image(logo_id).src : ''}}">
+
+  {% if not default_bar %}
+    <ucdlib-branding-bar
+      site-name="{{site.name}}"
+      slogan="{{site.description}}">
+      
+      {% if menu.brandingBar %}
+        {% for item in menu.brandingBar.items %}
+          <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
+        {% endfor %}
+      {% endif %}
+
+    </ucdlib-branding-bar>
+  {% endif %}
+
+  {% if menu.primary %}
+    {{ menu_twigs.primary_nav({menu: menu.primary}) }}
+  {% endif %}
+
+  {% if menu.quickLinks %}
+    {% set quickLinksMods = [] %}
+    {% if theme.theme_mod('quickLinks_two_col') %}
+      {% set quickLinksMods = quickLinksMods|merge(['two-columns'])%}
+    {% endif %}
+    <ucd-theme-quick-links 
+      {{ quickLinksMods ? 'style-modifiers="' ~ quickLinksMods|join(' ')  ~ '"' }}
+      title="{{menu.quickLinks.name}}">
+      {{ menu_twigs.flat_list({menu: menu.quickLinks}) }}
+    </ucd-theme-quick-links>
+  {% endif %}
+  
+</ucd-theme-header>

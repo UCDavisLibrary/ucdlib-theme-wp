@@ -21,6 +21,11 @@
  // add component bundle to editor
 add_action( 'enqueue_block_editor_assets', function(){
   global $editorScriptSlug;
+
+  // customizer not working properly when editor bundle is loaded.
+  // TODO: figure out why?? 2021-10-25
+  if ( get_current_screen()->id  == 'customize' ) return;
+  
   wp_enqueue_script(
     $editorScriptSlug , 
     get_theme_root_uri() . "/demo-theme/static/editor-js/editor.js", 

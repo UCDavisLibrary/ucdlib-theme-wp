@@ -10,12 +10,7 @@
   <a href="#main-content" class="u-hidden--visually">Skip to main content</a>
 		
   {% block header %}
-    {% from getUcdMacro('menus') import primary_nav %}
-    <ucd-theme-header
-        site-name="{{site.name}}"
-        figure-src="{{static_uri ~ "/img/book-logo.png"}}">
-      {{primary_nav({menu: menu.primary})}}
-    </ucd-theme-header>
+    {% include getUcdPartial('header') %}
 	{% endblock %}
 
 
