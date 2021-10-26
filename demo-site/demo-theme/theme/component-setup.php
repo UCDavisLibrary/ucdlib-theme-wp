@@ -28,7 +28,7 @@ add_action( 'enqueue_block_editor_assets', function(){
   
   wp_enqueue_script(
     $editorScriptSlug , 
-    get_theme_root_uri() . "/demo-theme/static/editor-js/editor.js", 
+    get_theme_root_uri() . "/demo-theme/assets/editor-js/editor.js", 
     array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post', 'wp-element', 'wp-editor', 'wp-rich-text' ), 
     "0.0.9", 
     true);
@@ -43,7 +43,7 @@ add_action( 'wp_enqueue_scripts', function(){
     "0.0.9" );
   wp_enqueue_script(
     "public-bundle",
-    get_theme_root_uri() . "/demo-theme/static/public-js/bundle.js",
+    get_theme_root_uri() . "/demo-theme/assets/public-js/bundle.js",
     array(),
     "0.0.9",
     true

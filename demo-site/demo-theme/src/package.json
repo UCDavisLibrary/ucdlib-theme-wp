@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "wp-scripts start editor.js --output-path=../static/editor-js",
-    "dist": "wp-scripts build editor.js --output-path=../static/editor-js"
+    "watch": "wp-scripts start editor.js --output-path=../assets/editor-js",
+    "dist": "wp-scripts build editor.js --output-path=../assets/editor-js"
   },
   "author": "",
   "license": "ISC",

@@ -58,3 +58,40 @@ kwargs:
  {% endif %}
 
 {% endmacro %}
+
+{# 
+Renders a footer nav.
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-footer-nav
+kwargs: 
+  menu {Timber\Menu} - A registered Timber Menu
+#}
+{% macro footer_nav(kwargs={}) %}
+  {% if kwargs.menu %}
+    <div class="footer-nav">
+      <ul class="menu">
+        {% for item in kwargs.menu.items %}
+          <li>
+            <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-info-copyright
+kwargs: 
+  menu {Timber\Menu} - A registered Timber Menu
+#}
+{% macro list_pipe(kwargs={}) %}
+  {% if kwargs.menu %}
+      <ul class="list--pipe">
+        {% for item in kwargs.menu.items %}
+          <li>
+            <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+  {% endif %}
+{% endmacro %}

@@ -1,15 +1,38 @@
 <?php
 
 /**
- * Wire up view locations.
+ * Wire up view locations and hooks.
  */
 class UCDThemeViews {
   public function __construct() {
     $this->ns = "ucd";
     $this->dir = dirname(get_stylesheet_directory(), 1) . "/views";
 
-    add_filter( 'timber/locations', array($this, 'add_timber_locations') );
-    add_filter( 'timber/twig', array( $this, 'add_twig_functions' ) );
+    add_filter( 'timber/locations', array($this, 'add_timber_locations'), 4 );
+    add_filter( 'timber/twig', array( $this, 'add_twig_functions' ), 4 );
+    add_filter( 'timber/context', array( $this, 'addTwigHooks' ), 4);
+  }
+
+  // Gives plugins the ability to render a twig partial at certain locations
+  // by appending property arrays within 'twigHooks'
+  public function addTwigHooks($context){
+    
+    $context['twigHooks'] = array();
+
+    // footer hooks
+    $context['twigHooks']['footer'] = array();
+    $context['twigHooks']['footer']['columns'] = array(
+      array(),
+      array(),
+      array(),
+      array(),
+      array()
+    );
+    $context['twigHooks']['footer']['postColumns'] = array();
+    $context['twigHooks']['footer']['postSpacer'] = array();
+    $context['twigHooks']['footer']['bottom'] = array();
+
+    return $context;
   }
 
   /**

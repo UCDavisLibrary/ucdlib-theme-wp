@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs-extra');
 //const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-let preview = '../static/public-js';
+let preview = '../assets/public-js';
 let previewFolder = path.join(__dirname, preview);
 if( fs.existsSync(previewFolder) ) {
   fs.removeSync(previewFolder);

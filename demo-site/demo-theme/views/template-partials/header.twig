@@ -14,9 +14,7 @@
       slogan="{{site.description}}">
       
       {% if menu.brandingBar %}
-        {% for item in menu.brandingBar.items %}
-          <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
-        {% endfor %}
+        {{ menu_twigs.flat_list({menu: menu.brandingBar}) }}
       {% endif %}
 
     </ucdlib-branding-bar>
@@ -31,6 +29,9 @@
     {% if theme.theme_mod('quickLinks_two_col') %}
       {% set quickLinksMods = quickLinksMods|merge(['two-columns'])%}
     {% endif %}
+      {% if theme.theme_mod('quickLinks_highlight') %}
+        {% set quickLinksMods = quickLinksMods|merge(['highlight'])%}
+      {% endif %}
     <ucd-theme-quick-links 
       {{ quickLinksMods ? 'style-modifiers="' ~ quickLinksMods|join(' ')  ~ '"' }}
       title="{{menu.quickLinks.name}}">

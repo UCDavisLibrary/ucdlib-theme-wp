@@ -23,7 +23,7 @@ if ( ! class_exists( 'Timber' ) ) {
 	add_filter(
 		'template_include',
 		function( $template ) {
-			return dirname( get_stylesheet_directory() ) . '/static/no-timber.html';
+			return dirname( get_stylesheet_directory() ) . '/assets/html/no-timber.html';
 		}
 	);
 	return;
@@ -32,5 +32,4 @@ if ( ! class_exists( 'Timber' ) ) {
 /**
  * Timber settings
  */
-//Timber::$dirname = array( '../views' );
 Timber::$autoescape = false;

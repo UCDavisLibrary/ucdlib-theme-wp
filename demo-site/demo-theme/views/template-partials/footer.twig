@@ -1,1 +1,90 @@
-Copyright {{"now"|date('Y')}}
+{% from getUcdMacro('menus') import footer_nav, list_pipe %}
+
+{% set hide_column_1 = theme.theme_mod('footer_hide_column_1') %}
+
+<footer class="l-footer footer dark-background">
+  <div class="l-container">
+    <div class="flex-footer">
+
+    {% if not hide_column_1 %}
+      {% set site_credits_text = theme.theme_mod('site_credits_text') %}
+      {% set site_credits_logo = theme.theme_mod('site_credits_logo') %}
+
+      <div class="flex-footer__item">
+
+        {% if site_credits_text %}
+
+          {% if site_credits_logo %}
+            {% set site_credits_logo = Image(site_credits_logo) %}
+            {% set logo_href = theme.theme_mod('site_credits_logo_href') %}
+            {% set logo_width = theme.theme_mod('site_credits_logo_width') %}
+            <div class="site-credits__logo">
+              <a {{logo_href ? "href='" ~ logo_href ~ "'"}}>
+                <img {{logo_width ? "width='" ~ logo_width ~ "'"}} loading="lazy" src="{{site_credits_logo.src}}" class="site-logo" alt="{{site_credits_logo.alt ? site_credits_logo : 'Site Logo'}}" />
+              </a>
+            </div>
+          {% endif %}
+
+          <div class="site-credits">
+            <p>{{site_credits_text}}</p>
+          </div>
+        {% else %}
+          {% if theme.theme_mod('footer_column_1_header') %}
+            <h2>{{theme.theme_mod('footer_column_1_header')}}</h2>
+          {% endif %}
+          {{ footer_nav({menu: menu.footerCol1}) }}
+        {% endif %}
+
+        {% for temp in twigHooks.footer.columns[0] %}
+          {% include temp %}
+        {% endfor %}
+
+      </div>
+    {% endif %}
+
+    {% for col_index in [2,3,4,5] %}
+      {% if not theme.theme_mod('footer_hide_column_' ~ col_index) %}
+        <div class="flex-footer__item">
+          {% if theme.theme_mod('footer_column_'~ col_index ~'_header') %}
+            <h2>{{theme.theme_mod('footer_column_'~ col_index ~'_header')}}</h2>
+          {% endif %}
+
+          {{ footer_nav({menu: menu['footerCol'~col_index]}) }}
+
+          {% for temp in twigHooks.footer.columns[col_index] %}
+            {% include temp %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    </div> {# .flex-footer #}
+
+    {% for temp in twigHooks.footer.postColumns %}
+      {% include temp %}
+    {% endfor %}
+
+    <div class="footer-spacer">
+      <div class="footer-spacer__logo">
+        <a href="https://www.ucdavis.edu/">
+          <img src="{{siteUris.img}}/sf/aggie-logo-white.svg" class="ucd-logo" alt="UC Davis footer logo" loading="lazy" width="180" height="140">
+        </a>
+      </div>
+    </div>
+
+    {% for temp in twigHooks.footer.postSpacer %}
+      {% include temp %}
+    {% endfor %}
+
+    <div class="uc-footer">
+      <p><a href="https://www.ucdavis.edu/">University of California, Davis</a>, One Shields Avenue, Davis, CA 95616 | 530-752-1011</p>
+      {{ list_pipe({menu: menu.copyright}) }}
+      <p>Copyright © The Regents of the University of California, Davis campus. All rights reserved.</p>
+    </div>
+
+    {% for temp in twigHooks.footer.bottom %}
+      {% include temp %}
+    {% endfor %}
+  </div> {# .l-container #}
+
+</footer>

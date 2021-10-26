@@ -11,7 +11,13 @@ class UcdThemeMenu {
     $this->menuLocations = array(
       "primary" => "Header (Primary)",
       "brandingBar" => "Header (Branding Bar)",
-      "quickLinks" => "Header (Quick Links)"
+      "quickLinks" => "Header (Quick Links)",
+      "footerCol1" => "Footer (Column 1)",
+      "footerCol2" => "Footer (Column 2)",
+      "footerCol3" => "Footer (Column 3)",
+      "footerCol4" => "Footer (Column 4)",
+      "footerCol5" => "Footer (Column 5)",
+      "copyright" => "Footer (Copyright)"
     );
     add_filter( 'timber/context', array( $this, 'add_to_context' ) );
     add_action( 'after_setup_theme', array( $this, 'register' ) );

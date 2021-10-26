@@ -36,7 +36,7 @@ class UcdThemeSite extends Timber\Site {
   
     // Hook onto actions and filters
     add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
-    add_filter( 'timber/context', array( $this, 'add_to_context' ) );
+    add_filter( 'timber/context', array( $this, 'add_to_context' ), 4);
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
     add_action( 'init', array( $this, 'register_post_types' ) );
     add_action( 'init', array( $this, 'register_taxonomies' ) );
@@ -64,7 +64,10 @@ class UcdThemeSite extends Timber\Site {
   
       # New theme organization, while cleaner, has some annoying side effects.
       # https://github.com/timber/starter-theme/issues/105
-      $context['static_uri'] = dirname( get_template_directory_uri() ) . "/static";
+      $context['siteUris'] = array(
+        'assets' => dirname( get_template_directory_uri() ) . "/assets",
+        'img' => dirname( get_template_directory_uri() ) . "/assets/img"
+      );
       
       return $context;
     }
