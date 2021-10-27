@@ -35,9 +35,7 @@
           {{ footer_nav({menu: menu.footerCol1}) }}
         {% endif %}
 
-        {% for temp in twigHooks.footer.columns[0] %}
-          {% include temp %}
-        {% endfor %}
+        {% include getUcdHook('footer') with {'hook': 'column_1'} %}
 
       </div>
     {% endif %}
@@ -51,18 +49,14 @@
 
           {{ footer_nav({menu: menu['footerCol'~col_index]}) }}
 
-          {% for temp in twigHooks.footer.columns[col_index] %}
-            {% include temp %}
-          {% endfor %}
+          {% include getUcdHook('footer') with {'hook': 'column_'~col_index} %}
         </div>
       {% endif %}
     {% endfor %}
 
     </div> {# .flex-footer #}
 
-    {% for temp in twigHooks.footer.postColumns %}
-      {% include temp %}
-    {% endfor %}
+    {% include getUcdHook('footer') with {'hook': 'postColumns'} %}
 
     <div class="footer-spacer">
       <div class="footer-spacer__logo">
@@ -72,9 +66,7 @@
       </div>
     </div>
 
-    {% for temp in twigHooks.footer.postSpacer %}
-      {% include temp %}
-    {% endfor %}
+    {% include getUcdHook('footer') with {'hook': 'postSpacer'} %}
 
     <div class="uc-footer">
       <p><a href="https://www.ucdavis.edu/">University of California, Davis</a>, One Shields Avenue, Davis, CA 95616 | 530-752-1011</p>
@@ -82,9 +74,7 @@
       <p>Copyright © The Regents of the University of California, Davis campus. All rights reserved.</p>
     </div>
 
-    {% for temp in twigHooks.footer.bottom %}
-      {% include temp %}
-    {% endfor %}
+    {% include getUcdHook('footer') with {'hook': 'bottom'} %}
   </div> {# .l-container #}
 
 </footer>

@@ -9,6 +9,42 @@ class UCDThemeMetaData {
     add_action('edited_category', array($this, 'save_taxonomy_color'), 10, 2);
     add_action('create_category', array($this, 'save_taxonomy_color'), 10, 2);
     add_filter( 'rest_prepare_category', array($this, 'api_taxonomy_color'), 10, 3);
+
+    // Subtitle on news items
+    add_action( 'add_meta_boxes', array($this, 'add_subTitle') );
+    add_action( 'save_post', array($this, 'save_subTitle') );  
+
+
+  }
+
+  /**
+   * Renders input box for adding a subtitle to a post
+   */
+  function add_subTitle(){
+    add_meta_box(
+      'ucd_subtitle', 
+      'SubTitle',
+      array($this, 'render_subTitle'),
+      'post',
+      'side'
+    );
+  }
+
+  function render_subTitle( $post ){
+    $context = array(
+      'value' => get_post_meta( $post->ID, 'ucd_subtitle', true )
+    );
+    Timber::render( "@ucd/admin/subtitle.twig", $context );
+  }
+
+  function save_subTitle( $post_id ) {
+    if ( array_key_exists( 'ucd_subtitle', $_POST ) ) {
+        update_post_meta(
+            $post_id,
+            'ucd_subtitle',
+            $_POST['ucd_subtitle']
+        );
+    }
   }
 
   /**

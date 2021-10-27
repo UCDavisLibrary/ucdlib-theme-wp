@@ -21,16 +21,18 @@ class UCDThemeViews {
 
     // footer hooks
     $context['twigHooks']['footer'] = array();
-    $context['twigHooks']['footer']['columns'] = array(
-      array(),
-      array(),
-      array(),
-      array(),
-      array()
-    );
+    $context['twigHooks']['footer']['column_1'] = array();
+    $context['twigHooks']['footer']['column_2'] = array();
+    $context['twigHooks']['footer']['column_3'] = array();
+    $context['twigHooks']['footer']['column_4'] = array();
+    $context['twigHooks']['footer']['column_5'] = array();
     $context['twigHooks']['footer']['postColumns'] = array();
     $context['twigHooks']['footer']['postSpacer'] = array();
     $context['twigHooks']['footer']['bottom'] = array();
+
+    // post (news item) hooks
+    $context['twigHooks']['post'] = array();
+    $context['twigHooks']['post']['sidebarTop'] = array();
 
     return $context;
   }
@@ -72,6 +74,13 @@ class UCDThemeViews {
   }
 
   /**
+   * Returns namespaced path of a set of twig hooks
+   */
+  public function getHook($template){
+    return '@' . $this->ns . "/template-partials/hooks/" . $template . ".twig";
+  }
+
+  /**
    * Adds view-getter functions to twig context
    */
   public function add_twig_functions( $twig ){
@@ -79,6 +88,7 @@ class UCDThemeViews {
     $twig->addFunction( new Twig\TwigFunction( 'getUcdPartial', array( $this, 'getPartial' ) ) );
     $twig->addFunction( new Twig\TwigFunction( 'getUcdMacro', array( $this, 'getMacro' ) ) );
     $twig->addFunction( new Twig\TwigFunction( 'getUcdBlock', array( $this, 'getBlock' ) ) );
+    $twig->addFunction( new Twig\TwigFunction( 'getUcdHook', array( $this, 'getHook' ) ) );
     return $twig;
   }
 }

@@ -1,0 +1,56 @@
+{% extends getUcdTemplate('base') %}
+{% from getUcdMacro('links') import tag_list %}
+
+{% block page_title %}
+{% endblock %}
+
+{% block content_container %}
+  <div class="l-container {{ theme.theme_mod('layout_post_sidebar_flipped') ? 'l-basic--flipped' : 'l-basic' }}">
+    
+    <div class="l-content">
+      <div class="panel o-box">
+
+        {% if post.thumbnail %}
+          <div class="figcaption--left">
+            <figure class="u-block">
+              <div class="aspect--16x9">
+                <img src="{{post.thumbnail.src|resize(1280, 720)}}" alt="16x9 Image" loading="lazy" width="1280" height="720">
+              </div>
+            {% if post.thumbnail.caption %}
+              <figcaption class="u-block">{{ post.thumbnail.caption }}</figcaption>
+            {% endif %}
+            </figure>
+          </div>
+        {% endif %}
+
+        <h1 class="article__title">{{ title }}</h1>
+        {% if post.meta('ucd_subtitle') %}
+          <h2 class="article__subtitle">{{ post.meta('ucd_subtitle') }}</h2>
+        {% endif %}
+
+        <ul class="list--pipe byline byline--italic">
+          <li>{{post.author.name}}</li>
+          <li>{{ post.date }}</li>
+        </ul>
+
+        <div class="u-clearfix">
+          {{post.content}}
+        </div>
+
+        {% if post.tags %}
+          <h2 class="heading--auxiliary">Tags</h2>
+          {{ tag_list({"terms": post.tags}) }}
+        {% endif %}
+        
+      </div>
+      
+    </div>
+
+    <div class="l-sidebar-second">
+      {% include getUcdHook('post') with {'hook': 'sidebarTop'} %}
+      <p>I'm a sidebar</p>
+    </div>
+
+  </div>
+  
+{% endblock %}

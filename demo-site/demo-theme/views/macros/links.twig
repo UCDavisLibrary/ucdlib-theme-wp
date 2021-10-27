@@ -95,3 +95,44 @@ kwargs:
     {% endif %}
   </a>
 {% endmacro %}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-tags
+kwargs:
+  term: {Timber\Term} - A term on this site
+  text: {String} - Link text - will override term name
+  href: {String} - Link url - will override term url
+#}
+{% macro tag( kwargs={} ) %}
+
+  {% if kwargs.term %}
+    {% set text = kwargs.term.name %}
+    {% set href = kwargs.term.link %}
+  {% endif %}
+
+  {% if kwargs.text %}
+    {% set text = kwargs.text %}
+  {% endif %}
+
+  {% if kwargs.href %}
+    {% set href = kwargs.href %}
+  {% endif %}
+
+  {% if text and href %}
+    <a href="{{ href }}" class="tags__tag">{{ text }}</a>
+  {% endif %}
+
+{% endmacro %}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-tags
+kwargs:
+  terms: {Array of Timber\Term} - Terms on this site
+#}
+{% macro tag_list( kwargs={} ) %}
+  {% if kwargs.terms is iterable %}
+    {% for term in kwargs.terms %}
+      {{ _self.tag({term}) }}
+    {% endfor %}
+  {% endif %}
+{% endmacro %}

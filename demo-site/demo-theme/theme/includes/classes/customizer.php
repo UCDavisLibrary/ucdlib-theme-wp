@@ -13,6 +13,7 @@ class UcdThemeCustomizer {
   public function register($wp_customize){
     $this->header($wp_customize);
     $this->footer($wp_customize);
+    $this->layout($wp_customize);
   }
 
   // header customizations
@@ -56,7 +57,6 @@ class UcdThemeCustomizer {
 
   // Footer customizations
   public function footer($wp_customize){
-
 
     $wp_customize->add_panel( 'footer', array(
       'title' => 'Footer',
@@ -127,5 +127,26 @@ class UcdThemeCustomizer {
       ));
     }
 
+  }
+
+  // Layout menu
+  public function layout($wp_customize){
+    $wp_customize->add_panel( 'layout', array(
+      'title' => 'Page/Post Layouts',
+      'description' => "Customize page layout options such as sidebar location."
+    ));
+
+    // posts
+    $wp_customize->add_section( 'layout_post', array(
+      'title' => 'Post',
+      'panel' => 'layout'
+    ));
+    $wp_customize->add_setting('layout_post_sidebar_flipped');
+    $wp_customize->add_control('layout_post_sidebar_flipped', array(
+      'type' => "checkbox",
+      'section' => 'layout_post',
+      'label' => 'Flip the sidbar location',
+      'description' => 'Sidebar will display on the right'
+    ));
   }
 }

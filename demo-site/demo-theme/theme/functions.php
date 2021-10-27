@@ -7,6 +7,3 @@ if ( ! class_exists( 'Timber' ) ) return;
 require_once( __DIR__ . '/includes/classes/site.php' );
 $GLOBALS['UcdSite'] = new UcdThemeSite();
 require_once( __DIR__ . '/component-setup.php' );
-
-
-

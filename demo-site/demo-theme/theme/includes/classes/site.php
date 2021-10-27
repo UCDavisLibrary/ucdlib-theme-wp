@@ -25,7 +25,7 @@ class UcdThemeSite extends Timber\Site {
     // Register view paths with theme
     $this->views = new UCDThemeViews();
 
-    // Extra site/taxonomy metadata fields
+    // Non-customizer server-side metadata fields
     new UCDThemeMetaData();
 
     // User-editable theme options
