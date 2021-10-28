@@ -29,7 +29,7 @@ class UcdThemeSite extends Timber\Site {
     new UCDThemeMetaData();
 
     // User-editable theme options
-    new UcdThemeCustomizer();
+    $this->customizer = new UcdThemeCustomizer();
 
     // Menu locations
     new UcdThemeMenu();

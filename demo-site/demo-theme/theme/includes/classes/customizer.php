@@ -7,6 +7,12 @@
 class UcdThemeCustomizer {
 
   public function __construct() {
+    $this->sidebar_panels = array(
+      'person_card',
+      'people_list',
+      'categories',
+      'related_articles'
+    );
     add_action( 'customize_register', array( $this, 'register' ) );
   }
 
@@ -148,5 +154,21 @@ class UcdThemeCustomizer {
       'label' => 'Flip the sidbar location',
       'description' => 'Sidebar will display on the right'
     ));
+    $i = 0;
+    foreach ($this->sidebar_panels as $panel) {
+      $wp_customize->add_setting('layout_post_sidebar_' . $panel . "_hide");
+      $wp_customize->add_control('layout_post_sidebar_' . $panel . "_hide", array(
+        'type' => "checkbox",
+        'section' => 'layout_post',
+        'label' => 'Hide the ' . $panel . " panel",
+      ));
+      $wp_customize->add_setting('layout_post_sidebar_' . $panel . "_order", array("default" => $i));
+      $wp_customize->add_control('layout_post_sidebar_' . $panel . "_order", array(
+        'type' => "number",
+        'section' => 'layout_post',
+        'label' => 'Order of the ' . $panel . " panel",
+      ));
+      $i++;
+    }
   }
 }

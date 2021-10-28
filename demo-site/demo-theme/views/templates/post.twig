@@ -1,5 +1,6 @@
 {% extends getUcdTemplate('base') %}
-{% from getUcdMacro('links') import tag_list %}
+{% from getUcdMacro('links') import tag_list, category_filter %}
+{% from getUcdMacro('placeholders') import sidebar_placeholder %}
 
 {% block page_title %}
 {% endblock %}
@@ -48,7 +49,25 @@
 
     <div class="l-sidebar-second">
       {% include getUcdHook('post') with {'hook': 'sidebarTop'} %}
-      <p>I'm a sidebar</p>
+
+      {% for panel in sidebar_panels %}
+        {% if not panel.hide %}
+          <div class="panel o-box">
+            {% if panel.slug == 'person_card' %}
+              {{sidebar_placeholder(panel.slug)}}
+            {% elseif panel.slug == 'people_list' %}
+              {{sidebar_placeholder(panel.slug)}}
+            {% elseif panel.slug == 'categories' %}
+              {{ category_filter({'terms': categories}) }}
+            {% elseif panel.slug == 'related_articles' %}
+              {{sidebar_placeholder(panel.slug)}}
+            {% endif %}
+          </div>
+        {% endif %}
+        
+      {% endfor %}
+
+      {% include getUcdHook('post') with {'hook': 'sidebarBottom'} %}
     </div>
 
   </div>

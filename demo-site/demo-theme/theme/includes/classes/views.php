@@ -33,6 +33,7 @@ class UCDThemeViews {
     // post (news item) hooks
     $context['twigHooks']['post'] = array();
     $context['twigHooks']['post']['sidebarTop'] = array();
+    $context['twigHooks']['post']['sidebarBottom'] = array();
 
     return $context;
   }

@@ -136,3 +136,27 @@ kwargs:
     {% endfor %}
   {% endif %}
 {% endmacro %}
+
+{#
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-category-filter
+kwargs:
+  terms: {Array of Timber\Term} - Terms on this site
+  queriedTerm: {Timber\Term} - The current queried term
+#}
+{% macro category_filter( kwargs={} ) %}
+  {% if kwargs.terms is iterable %}
+    <ul class="category-filter">
+      {% for term in kwargs.terms %}
+        {% set brandColor = term.meta('theme-color') %}
+        {% if kwargs.queriedTerm %}
+          {% if term.taxonomy == kwargs.queriedTerm.taxonomy and term.id == kwargs.queriedTerm.id %}
+            {% set isActiveLink = true %}
+          {% endif %}
+        {% endif %}
+        <li class="category-filter__list-item {{isActiveLink ? 'category-filter__list-item--active'}} {{ brandColor ? 'category-brand--'~brandColor }}">
+          <a href="{{ term.link }}" class="category-filter__link">{{ term.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
