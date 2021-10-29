@@ -53,6 +53,9 @@
       {% for panel in sidebar_panels %}
         {% if not panel.hide %}
           <div class="panel o-box">
+            {% if panel.title %}
+              <h2 class="panel__title">{{ panel.title }}</h2>
+            {% endif %}
             {% if panel.slug == 'person_card' %}
               {{sidebar_placeholder(panel.slug)}}
             {% elseif panel.slug == 'people_list' %}

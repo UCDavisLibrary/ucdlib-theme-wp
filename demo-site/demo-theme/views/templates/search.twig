@@ -1,9 +1,13 @@
-{# see `archive.twig` for an alternative strategy of extending templates #}
 {% extends getUcdTemplate('base') %}
+
+{% from getUcdMacro('links') import pagination %}
 
 {% block content %}
   <p>Posts on this page: {{ posts|length }}</p>
-  <p>Has pagination:
-  {{posts.pagination.pages is not empty ? 'true' : 'false'}}
-  </p>
+  {% for post in posts %}
+    {{dump(post.title)}}
+  {% endfor %}
+
+  {{ pagination({"pagination": posts.pagination}) }}
+
 {% endblock %}

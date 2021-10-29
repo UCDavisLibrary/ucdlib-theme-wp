@@ -127,16 +127,7 @@ class UcdThemeSite extends Timber\Site {
       add_theme_support( 'custom-logo' );
     }
     
-  
-    /** This Would return 'foo bar!'.
-     *
-     * @param string $text being 'foo', then returned 'foo bar!'.
-     */
-    public function myfoo( $text ) {
-      $text .= ' bar!';
-      return $text;
-    }
-  
+
   
   
     /** This is where you can add your own functions to twig.
@@ -145,7 +136,26 @@ class UcdThemeSite extends Timber\Site {
      */
     public function add_to_twig( $twig ) {
       $twig->addExtension( new Twig\Extension\StringLoaderExtension() );
-      $twig->addFilter( new Twig\TwigFilter( 'myfoo', array( $this, 'myfoo' ) ) );
+      
+      // Gets pagenum_link object from Timber\Pagination pages object
+      $twig->addFilter( new Twig\TwigFilter( 'pagenum_link', function($pages){
+        $link = '';
+        $out = array('path' => '/', 'query' => '');
+        foreach ($pages as $page) {
+          if ( array_key_exists('link', $page) ){
+            $link = $page['link'];
+            break;
+          }
+        }
+        if ( !$link ) return $out;
+
+        $link = preg_replace( '/page\/[0-9]\//', '', $link );
+        $link = parse_url($link);
+        if ( array_key_exists('path', $link) ) $out['path'] = $link['path'];
+        if ( array_key_exists('query', $link) ) $out['query'] = $link['query'];
+        return $out;
+
+      } ) );
   
       return $twig;
     }

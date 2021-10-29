@@ -4,8 +4,10 @@
  */
 
 $context = Timber::context();
-$context['tag'] = Timber::get_term();
-$context['posts'] = Timber::get_posts();
+$context['term'] = Timber::get_term();
+$context['title'] = $context['term']->name;
+$context['brandColor'] = $context['term']->meta('brand-color');
+$context['breadcrumbs'] = true;
 
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('single-term'));

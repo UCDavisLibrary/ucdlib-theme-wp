@@ -10,14 +10,16 @@
 
 $context = Timber::context();
 
+$title = ucwords(get_theme_mod('layout_posts_title', 'Posts'));
+
 if ( is_day() ) {
-	$context['title'] = 'Archive: ' . get_the_date( 'D M Y' );
+	$context['title'] = $title . ' from ' . get_the_date( 'D M Y' );
 } elseif ( is_month() ) {
-	$context['title'] = 'Archive: ' . get_the_date( 'M Y' );
+	$context['title'] = $title . ' from ' . get_the_date( 'M Y' );
 } elseif ( is_year() ) {
-	$context['title'] = 'Archive: ' . get_the_date( 'Y' );
+	$context['title'] = $title . ' from ' . get_the_date( 'Y' );
 } 
-$context['posts'] = Timber::get_posts();
+
 
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('date-archive'));

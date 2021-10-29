@@ -7,11 +7,11 @@
  */
 
 $context = Timber::context();
-$context['posts'] = Timber::get_posts();
 
 $page_for_posts_id = get_option('page_for_posts');
 if ( $page_for_posts_id ) {
   $page_for_posts = Timber::get_post( $page_for_posts_id );
+  $context['page_for_posts'] = $page_for_posts;
   $context['title'] = $page_for_posts->title();
 } else {
   // Todo: make homepage title option

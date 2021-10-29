@@ -13,9 +13,10 @@ if ( $context['post']->post_type == 'post' ) {
   // Get sidebar panels
   $sidebar_panels = array();
   $i = 0;
-  foreach ($GLOBALS['UcdSite']->customizer->sidebar_panels as $panel_id) {
+  foreach ($GLOBALS['UcdSite']->customizer->sidebar_panels as $panel_id => $panel_meta) {
     $panel = array(
       "slug" => $panel_id,
+      "title" => get_theme_mod('layout_post_sidebar_' . $panel_id . "_title", $panel_meta['defaultTitle']),
       "hide" => get_theme_mod('layout_post_sidebar_' . $panel_id . "_hide"),
       "order" => intval(get_theme_mod('layout_post_sidebar_' . $panel_id . "_order", $i))
     );

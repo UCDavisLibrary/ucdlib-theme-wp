@@ -1,6 +1,32 @@
 {% extends getUcdTemplate('base') %}
 
-{% block content %}
-  {{dump(category)}}
-  <p>Posts on this page: {{ posts|length }}</p>
+{% from getUcdMacro('cards') import teaser %}
+{% from getUcdMacro('links') import pagination, category_filter %}
+
+{% block content_container %}
+  <div class="l-container {{not hideSidebar ? 'l-basic'}}{{rightSidebar and not hideSidebar ? '--flipped'}}">
+    <div class="l-content">
+      <div class="panel o-box">
+        {% if posts %}
+          {% for post in posts %}
+            {{ teaser({post}) }}
+          {% endfor %}
+
+          {{ pagination({"pagination": posts.pagination}) }}
+        {% else %}
+          <div class="alert">No {{title}} posts found!</div>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if not hideSidebar %}
+      <div class="l-sidebar-second">
+        <div class="panel o-box">
+          <h2 class="panel__title">Categories</h2>
+            {{ category_filter({'terms': categories, 'queriedTerm': term}) }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
 {% endblock %}

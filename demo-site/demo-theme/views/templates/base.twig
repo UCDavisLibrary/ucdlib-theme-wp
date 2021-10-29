@@ -1,3 +1,4 @@
+{% from getUcdMacro('placeholders') import breadcrumbs as render_crumbs %}
 
 {% block html_head_container %}
   {% include getUcdPartial('html-header') %}
@@ -16,10 +17,15 @@
 
 		<main id="main-content" class="l-main">
       {% block page_title %}
-        {% if title %}<h1 class="page-title">{{title}}</h1>{% endif %}
+        {% if title %}
+          <h1 class="page-title {{brandColor ? 'category-brand--'~brandColor }}">{{title}}</h1>
+        {% endif %}
       {% endblock %}
 
       {% block breadcrumbs %}
+        {% if breadcrumbs %}
+          {{render_crumbs()}}
+        {% endif %}
       {% endblock %}
 
       {% block content_container %}

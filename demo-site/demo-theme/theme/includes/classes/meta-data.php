@@ -4,9 +4,9 @@ class UCDThemeMetaData {
 
   function __construct(){
     // Assign a UCD theme color to a category
-    add_action('category_add_form_fields', array($this, 'display_taxonomy_color'), 10, 2);
-    add_action('category_edit_form_fields', array($this, 'display_taxonomy_color'), 10, 2);
-    add_action('edited_category', array($this, 'save_taxonomy_color'), 10, 2);
+    add_action('category_add_form_fields', array($this, 'display_taxonomy_color'), 4, 1);
+    add_action('category_edit_form_fields', array($this, 'display_taxonomy_color'), 4, 1);
+    add_action('edited_category', array($this, 'save_taxonomy_color'), 4, 1);
     add_action('create_category', array($this, 'save_taxonomy_color'), 10, 2);
     add_filter( 'rest_prepare_category', array($this, 'api_taxonomy_color'), 10, 3);
 
@@ -56,7 +56,7 @@ class UCDThemeMetaData {
       'term' => $term
     );
     if ( is_object($term) ) {
-      $context['selected_color'] = get_term_meta($term->term_id, 'theme-color', true);
+      $context['selected_color'] = get_term_meta($term->term_id, 'brand-color', true);
     }
     Timber::render( "@ucd/admin/category_colors.twig", $context );
   }
@@ -65,18 +65,18 @@ class UCDThemeMetaData {
    * Saves theme color for a taxonomy term
    */
   function save_taxonomy_color($term_id){
-    if (!isset($_POST['theme-color'])) {
+    if (!isset($_POST['brand-color'])) {
       return;
     }
-    update_term_meta($term_id, 'theme-color', sanitize_text_field($_POST['theme-color']));
+    update_term_meta($term_id, 'brand-color', sanitize_text_field($_POST['brand-color']));
   }
 
   /**
    * Displays theme color in category rest api
    */
   function api_taxonomy_color($response, $term, $request){
-    $color = get_term_meta($term->term_id, 'theme-color', true);
-    $response->data['themeColor'] = $color ?: '';
+    $color = get_term_meta($term->term_id, 'brand-color', true);
+    $response->data['brandColor'] = $color ?: '';
     return $response;
   }
 }

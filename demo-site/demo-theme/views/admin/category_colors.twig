@@ -1,9 +1,9 @@
 {% macro label() %}
-  <label for="theme-color">Theme Color</label>
+  <label for="brand-color">Brand Color</label>
 {% endmacro %}
 
 {% macro input(selected_color) %}
-  <input type="text" size="40" value="{{selected_color}}" id="theme-color" name="theme-color">
+  <input type="text" size="40" value="{{selected_color}}" id="brand-color" name="brand-color">
   <p class="description">Must be a recognized UCD theme branding class e.g. 'putah-creek'</p>
 {% endmacro %}
 

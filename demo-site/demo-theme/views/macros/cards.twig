@@ -184,7 +184,7 @@ kwargs:
   <article class="{{classes}}" {{target}}>
     {% if not kwargs.hideImage %}
       <div class="vm-teaser__figure category" style="{{imgContainerStyles}}">
-        <a>
+        <a href="{{href}}">
           <img src="{{src}}" alt="{{alt}}" style="{{imgStyles}}" width="135" height="135" loading="lazy" />
         </a>
       </div>
@@ -205,9 +205,11 @@ kwargs:
       {% if categories and not kwargs.hideCategories %}
         <ul class="vm-teaser__categories">
         {% for category in categories %}
-          <li class="vm-teaser__cat-marker {{category.meta('theme-color')}}">
-            <a href="{{category.link}}">{{category.name}}</a>
-          </li>
+          {% if category.id != 1 %}
+            <li class="vm-teaser__cat-marker {{category.meta('brand-color')}}">
+              <a href="{{category.link}}">{{category.name}}</a>
+            </li>
+          {% endif %}
         {% endfor %}
         </ul>
       {% endif %}

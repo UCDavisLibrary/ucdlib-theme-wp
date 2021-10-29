@@ -144,12 +144,14 @@ kwargs:
   queriedTerm: {Timber\Term} - The current queried term
 #}
 {% macro category_filter( kwargs={} ) %}
+  
   {% if kwargs.terms is iterable %}
     <ul class="category-filter">
       {% for term in kwargs.terms %}
-        {% set brandColor = term.meta('theme-color') %}
+        {% set isActiveLink = false %}
+        {% set brandColor = term.meta('brand-color') %}
         {% if kwargs.queriedTerm %}
-          {% if term.taxonomy == kwargs.queriedTerm.taxonomy and term.id == kwargs.queriedTerm.id %}
+          {% if term.taxonomy == kwargs.queriedTerm.taxonomy and term.term_id == kwargs.queriedTerm.term_id %}
             {% set isActiveLink = true %}
           {% endif %}
         {% endif %}
@@ -158,5 +160,31 @@ kwargs:
         </li>
       {% endfor %}
     </ul>
+  {% endif %}
+{% endmacro %}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-pagination
+kwargs:
+  pagination { Timber\Pagination } - Pagination object
+
+#}
+{% macro pagination( kwargs={} ) %}
+  {% if kwargs.pagination %}
+    {% set pagination = kwargs.pagination %}
+  {% else %}
+    {% set pagination = kwargs %}
+  {% endif %}
+
+  {% if pagination and pagination.pages is not empty %}
+    {% set pagenum_link = pagination.pages|pagenum_link %}
+    <ucd-theme-pagination
+      current-page="{{pagination.current}}"
+      max-pages="{{pagination.pages|last.name}}"
+      base-path="{{pagenum_link.path ~ 'page/'}}"
+      query-params="{{pagenum_link.query}}"
+      xs-screen
+      ellipses>
+    </ucd-theme-pagination>
   {% endif %}
 {% endmacro %}

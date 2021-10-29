@@ -1,5 +1,18 @@
 {% extends getUcdTemplate('base') %}
 
+{% from getUcdMacro('cards') import teaser %}
+{% from getUcdMacro('links') import pagination %}
+
 {% block content %}
-  {{dump(term)}}
+  <div class="panel o-box">
+    {% if posts %}
+      {% for post in posts %}
+        {{ teaser({post}) }}
+      {% endfor %}
+
+      {{ pagination({"pagination": posts.pagination}) }}
+    {% else %}
+      <div class="alert">No {{title}} posts found!</div>
+    {% endif %}
+  </div>
 {% endblock %}
