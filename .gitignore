@@ -1,4 +1,4 @@
 node_modules
-demo-site/demo-theme/assets/editor-js
-demo-site/demo-theme/assets/public-js
+demo-site/demo-theme/assets/js/editor
+demo-site/demo-theme/assets/js/public
 .DS_Store

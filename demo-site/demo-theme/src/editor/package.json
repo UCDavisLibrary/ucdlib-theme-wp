@@ -1,0 +1,33 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "wp-scripts start index.js --output-path=../../assets/js/editor",
+    "dist": "wp-scripts build index.js --output-path=../../assets/js/editor"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@polymer/iron-icon": "^3.0.1",
+    "@polymer/iron-icons": "^3.0.1",
+    "@ucd-lib/theme-elements": "0.0.3",
+    "@ucd-lib/theme-sass": "^5.0.14",
+    "@wordpress/blocks": "^11.0.0",
+    "@wordpress/api-fetch": "^5.2.1",
+    "@wordpress/block-editor": "^7.0.2",
+    "@wordpress/components": "^15.0.0",
+    "@wordpress/data": "^6.0.0",
+    "@wordpress/element": "^4.0.0",
+    "@wordpress/html-entities": "^3.2.1",
+    "@wordpress/icons": "^5.0.0",
+    "@wordpress/notices": "^3.2.2",
+    "@wordpress/rich-text": "^5.0.2",
+    "classnames": "^2.3.1",
+    "htm": "^3.1.0"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^17.1.0"
+  }
+}

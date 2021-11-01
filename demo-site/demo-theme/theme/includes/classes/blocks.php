@@ -1,9 +1,8 @@
 <?php
+require_once( __DIR__ . '/block-transformations.php' );
 
 /** 
- * Primary class for this package. 
  * Handles server-side rendering of UCD blocks through WP actions and filters on class instantiation.
- * Depends on Timber, so make sure you set that up first.
  * 
  * @param string $editor_script_slug - The identifier for your editor JS script registered with WP
  * @param array $settings - Override any of the default settings
@@ -18,8 +17,7 @@ class UCDThemeBlocks {
     $this->set_settings($settings);
 
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
-    //add_filter( 'timber/locations', array($this, 'add_timber_locations') );
-    add_action( 'enqueue_block_editor_assets', array( $this, "enqueue_block_editor_assets" ), 100 );
+    add_action( 'enqueue_block_editor_assets', array( $this, "enqueue_block_editor_assets" ), 5 );
     add_action( 'init', array( $this, 'register_blocks'));
     add_action('block_categories_all', array($this, 'addCategories'), 10,2);
   }
@@ -78,7 +76,6 @@ class UCDThemeBlocks {
    * Some settings are also dynamically constructed from registry array.
    */
   public static $default_settings = array(
-    "imgBase" => "/wp-content/ucd-img-defaults/",
     "imgByAspectRatio" => array(
       "1x1" => "135x135.png",
       "4x3" => "640x480.png",
@@ -126,6 +123,10 @@ class UCDThemeBlocks {
       $settings = array_merge(self::$default_settings, $user_settings);
     } else {
       $settings = self::$default_settings;
+    }
+
+    if ( !array_key_exists('imgBase', $settings) ){
+      $settings["imgBase"] = dirname( get_template_directory_uri() ) . "/assets/img/block-defaults/";
     }
 
     // merge settings from block registry

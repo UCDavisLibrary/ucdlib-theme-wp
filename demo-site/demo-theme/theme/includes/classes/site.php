@@ -3,6 +3,8 @@ require_once( __DIR__ . '/views.php' );
 require_once( __DIR__ . '/meta-data.php' );
 require_once( __DIR__ . '/customizer.php' );
 require_once( __DIR__ . '/menu.php' );
+require_once( __DIR__ . '/blocks.php' );
+require_once( __DIR__ . '/enqueue.php' );
 
 /**
  * The primary site class.
@@ -22,6 +24,22 @@ class UcdThemeSite extends Timber\Site {
       "theme" => dirname(get_stylesheet_directory(), 1) . "/theme"
     );
 
+    $this->scripts = array(
+      "editor" => "ucd-components",
+      "public" => "ucd-public",
+      "publicStyles" => "ucd-public"
+    );
+
+    $this->blockSettings = array(
+      "palette--alt" => array(
+        "primary", "admin-blue", "rose", "secondary", "sage", "arboretum", "tahoe", "thiebaud-icing"
+      ),
+      "color--marketing-highlight" => "palette--alt",
+      "color--marketing-highlight-horizontal" => "palette--alt",
+      "color--poster" => "palette--alt",
+      "color--teaser" => "palette--alt"
+     );
+
     // Register view paths with theme
     $this->views = new UCDThemeViews();
 
@@ -31,8 +49,15 @@ class UcdThemeSite extends Timber\Site {
     // User-editable theme options
     $this->customizer = new UcdThemeCustomizer();
 
+    // Queue up scripts and styles
+    new UcdThemeEnqueue($this->scripts, $this->version);
+
     // Menu locations
     new UcdThemeMenu();
+
+    // Gutenberg blocks
+    $this->blockSettings = apply_filters('ucd-block-settings', $this->blockSettings);
+    new UCDThemeBlocks( $this->scripts['editor'], $this->blockSettings );
   
     // Hook onto actions and filters
     add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
@@ -125,6 +150,7 @@ class UcdThemeSite extends Timber\Site {
   
       add_theme_support( 'menus' );
       add_theme_support( 'custom-logo' );
+      add_theme_support( 'editor-styles' );
     }
     
 
