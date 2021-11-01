@@ -24,6 +24,18 @@
     {{ menu_twigs.primary_nav({menu: menu.primary}) }}
   {% endif %}
 
+  {% if not theme.theme_mod('search_hide') %}
+    <ucd-theme-search-popup>
+    {% if not theme.theme_mod('search_hide_default') %}
+      <ucd-theme-search-form
+        form-action="/"
+        form-method='GET'
+        query-param="s">
+      </ucd-theme-search-form>
+    {% endif %}
+    </ucd-theme-search-popup>
+  {% endif %}
+
   {% if menu.quickLinks %}
     {% set quickLinksMods = [] %}
     {% if theme.theme_mod('quickLinks_two_col') %}

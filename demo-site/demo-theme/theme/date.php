@@ -18,7 +18,8 @@ if ( is_day() ) {
 	$context['title'] = $title . ' from ' . get_the_date( 'M Y' );
 } elseif ( is_year() ) {
 	$context['title'] = $title . ' from ' . get_the_date( 'Y' );
-} 
+}
+$context['breadcrumbs'] = true;
 
 
 $views = $GLOBALS['UcdSite']->views;

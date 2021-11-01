@@ -220,3 +220,32 @@ kwargs:
   </article>
 
 {% endmacro %}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-search-result
+kwargs: 
+  post {Timber\Post} - A post on this site.
+  title {String} - The card title. Will override 'post' title
+  href {String} - Url for card link. Will override 'post' permalink
+  excerpt {String} - Body/preview text of card. Will override 'post' excerpt
+  hideByline {Boolean} - Hides the byline
+#}
+{% macro search_result( kwargs = {} ) %}
+  {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
+  {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
+  {% if kwargs.post.author.first_name and kwargs.post.author.last_name %}
+    {% set author = kwargs.post.author.first_name ~ " " ~ kwargs.post.author.last_name %}
+  {% else %}
+    {% set author = kwargs.post.author.name %}
+  {% endif %}
+
+  <div class="search-result">
+    <h3 class="search-result__title"><a href="{{ href }}">{{ title }}</a></h3>
+    <p>{{excerpt}}</p>
+    {% if author and not kwargs.hideByline %}
+      <div class="search-result__info">by {{author}} | {{kwargs.post.date}}</div>
+    {% endif %}
+  </div>
+
+{% endmacro %}

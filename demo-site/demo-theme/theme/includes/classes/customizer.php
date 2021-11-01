@@ -20,6 +20,7 @@ class UcdThemeCustomizer {
     $this->header($wp_customize);
     $this->footer($wp_customize);
     $this->layout($wp_customize);
+    $this->search($wp_customize);
   }
 
   // header customizations
@@ -133,6 +134,32 @@ class UcdThemeCustomizer {
       ));
     }
 
+  }
+
+  // search panel
+  public function search($wp_customize){
+    $wp_customize->add_panel( 'search', array(
+      'title' => 'Search',
+      'description' => "Customize site search"
+    ));
+    $wp_customize->add_section( 'search_general', array(
+      'title' => 'General',
+      'panel' => 'search'
+    ));
+    $wp_customize->add_setting('search_hide');
+    $wp_customize->add_control('search_hide', array(
+      'type' => "checkbox",
+      'section' => 'search_general',
+      'label' => 'Hide search popup in header.',
+      'description' => "If your site doesn't need search at all."
+    ));
+    $wp_customize->add_setting('search_hide_default');
+    $wp_customize->add_control('search_hide_default', array(
+      'type' => "checkbox",
+      'section' => 'search_general',
+      'label' => 'Hide default search header form',
+      'description' => 'If you want to wire up your own'
+    ));
   }
 
   // Layout menu

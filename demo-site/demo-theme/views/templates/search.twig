@@ -1,13 +1,26 @@
 {% extends getUcdTemplate('base') %}
 
 {% from getUcdMacro('links') import pagination %}
+{% from getUcdMacro('cards') import search_result %}
 
 {% block content %}
-  <p>Posts on this page: {{ posts|length }}</p>
-  {% for post in posts %}
-    {{dump(post.title)}}
-  {% endfor %}
-
-  {{ pagination({"pagination": posts.pagination}) }}
-
+  <div class="panel o-box">
+    <ucd-theme-search-form
+      value="{{search_query}}"
+      form-action="/"
+      form-method='GET'
+      query-param="s">
+    </ucd-theme-search-form>
+  </div>
+  <div class="panel o-box">
+    {% if found_posts %}
+      <h2 class="search-findings">Your search returned {{ found_posts }} results.</h2>
+      {% for post in posts %}
+        {{ search_result( {post} ) }}
+      {% endfor %}
+      {{ pagination({"pagination": posts.pagination}) }}
+    {% else %}
+      <div class="alert">No posts match your search!</div>
+    {% endif %}
+  </div>
 {% endblock %}
