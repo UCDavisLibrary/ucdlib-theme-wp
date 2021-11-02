@@ -1,0 +1,7 @@
+{% from getUcdMacro('links') import category_filter %}
+<div class="panel o-box">
+  {% if attributes.title %}
+    <h2 class="panel__title">{{attributes.title}}</h2>
+  {% endif %}
+  {{ category_filter({terms: attributes.categories, queriedTerm: attributes.queriedTerm}) }}
+</div>

@@ -181,30 +181,6 @@ class UcdThemeCustomizer {
       'label' => 'Flip the sidbar location',
       'description' => 'Sidebar will display on the right'
     ));
-    $i = 0;
-    foreach ($this->sidebar_panels as $panel_id => $panel_meta) {
-      $wp_customize->add_setting('layout_post_sidebar_' . $panel_id . "_hide");
-      $wp_customize->add_control('layout_post_sidebar_' . $panel_id . "_hide", array(
-        'type' => "checkbox",
-        'section' => 'layout_post',
-        'label' => 'Hide the ' . $panel_id . " panel",
-      ));
-      $wp_customize->add_setting('layout_post_sidebar_' . $panel_id . "_order", array("default" => $i));
-      $wp_customize->add_control('layout_post_sidebar_' . $panel_id . "_order", array(
-        'type' => "number",
-        'section' => 'layout_post',
-        'label' => 'Order of the ' . $panel_id . " panel",
-      ));
-      $wp_customize->add_setting('layout_post_sidebar_' . $panel_id . "_title", array(
-        "default" => $panel_meta['defaultTitle']
-      ));
-      $wp_customize->add_control('layout_post_sidebar_' . $panel_id . "_title", array(
-        'type' => "text",
-        'section' => 'layout_post',
-        'label' => 'Panel Title'
-      ));
-      $i++;
-    }
 
     // category
     $wp_customize->add_section( 'layout_category', array(
@@ -234,8 +210,48 @@ class UcdThemeCustomizer {
     $wp_customize->add_control('layout_posts_title', array(
       'type' => "text",
       'section' => 'layout_posts',
-      'label' => 'Custom Title',
-      'description' => "Defaults to 'posts'"
+      'label' => 'Custom Title for Post Type',
+      'description' => "e.g. 'news', 'articles', 'blog posts'. Defaults to 'posts'"
     ));
+    $wp_customize->add_setting('layout_posts_list_title', array('default' => "Latest News"));
+    $wp_customize->add_control('layout_posts_list_title', array(
+      'type' => "text",
+      'section' => 'layout_posts',
+      'label' => 'Custom Title for Latest News Section'
+    ));
+    $wp_customize->add_setting('layout_posts_sidebar_hide');
+    $wp_customize->add_control('layout_posts_sidebar_hide', array(
+      'type' => "checkbox",
+      'section' => 'layout_posts',
+      'label' => 'Hide the sidebar'
+    ));
+    $wp_customize->add_setting('layout_posts_sidebar_flipped');
+    $wp_customize->add_control('layout_posts_sidebar_flipped', array(
+      'type' => "checkbox",
+      'section' => 'layout_posts',
+      'label' => 'Flip the sidbar location',
+      'description' => 'Sidebar will display on the right'
+    ));
+
+    if ( get_option('page_for_posts') ) {
+      $wp_customize->add_setting('layout_posts_page_content', array('default' => "hide"));
+      $wp_customize->add_control('layout_posts_page_content', array(
+        'type' => "radio",
+        'section' => 'layout_posts',
+        'label' => "Page Content Location",
+        'description' => 'Where to display page_for_post content on page 1',
+        'choices' => array("hide" => "Don't Display", "top" => "Top of page", "bottom" => "Bottom of page")
+      ));
+
+    } else {
+      $wp_customize->add_setting('layout_posts_homepage_title');
+      $wp_customize->add_control('layout_posts_homepage_title', array(
+        'type' => "text",
+        'section' => 'layout_posts',
+        'label' => 'Custom Homepage Title',
+        'description' => "Used if posts archive is also homepage"
+      ));
+    }
+
   }
 }

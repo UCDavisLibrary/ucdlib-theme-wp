@@ -4,6 +4,7 @@
  */
 
 $context = Timber::context();
+$content['title'] = "Page Not Found";
 echo "this is a true 404";
 status_header(404); 
 $views = $GLOBALS['UcdSite']->views;

@@ -3,16 +3,39 @@
 {% from getUcdMacro('cards') import teaser %}
 {% from getUcdMacro('links') import pagination %}
 
-{% block content %}
-  <div class="panel o-box">
-    {% if posts %}
-      {% for post in posts %}
-        {{ teaser({post}) }}
-      {% endfor %}
+{% block content_container %}
+  <div class="l-container {{not hideSidebar ? 'l-basic'}}{{rightSidebar and not hideSidebar ? '--flipped'}}">
 
-      {{ pagination({"pagination": posts.pagination}) }}
-    {% else %}
-      <div class="alert">No posts found for specified date range!</div>
+    <div class="l-content">
+
+      <div class="panel o-box">
+        {% if latest_news_title %}
+          <h2 class="panel__title">{{latest_news_title}}</h2>
+        {% endif %}
+        <section class="latest-news">
+          {% if posts %}
+            {% for post in posts %}
+              {{ teaser({post}) }}
+            {% endfor %}
+
+            {{ pagination({"pagination": posts.pagination}) }}
+          {% else %}
+            <div class="alert">No posts found for specified date range!</div>
+          {% endif %}
+        </section>
+      </div>
+    </div>
+
+    {% if not hideSidebar %}
+      <div class="l-sidebar-second">
+        {% if sidebar %}
+          {{sidebar}}
+         {% else %}
+          {% include getUcdSidebarDefault('post-archive') %}
+         {% endif %} 
+      </div>
     {% endif %}
+
   </div>
+
 {% endblock %}

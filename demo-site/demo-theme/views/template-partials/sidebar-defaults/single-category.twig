@@ -1,0 +1,6 @@
+{% from getUcdMacro('links') import pagination, category_filter %}
+
+<div class="panel o-box">
+  <h2 class="panel__title">Categories</h2>
+    {{ category_filter({'terms': categories, 'queriedTerm': term}) }}
+</div>

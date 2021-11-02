@@ -82,6 +82,13 @@ class UCDThemeViews {
   }
 
   /**
+   * Returns namespaced path of a sidebar default template
+   */
+  public function getSidebarDefault($template){
+    return '@' . $this->ns . "/template-partials/sidebar-defaults/" . $template . ".twig";
+  }
+
+  /**
    * Adds view-getter functions to twig context
    */
   public function add_twig_functions( $twig ){
@@ -90,6 +97,7 @@ class UCDThemeViews {
     $twig->addFunction( new Twig\TwigFunction( 'getUcdMacro', array( $this, 'getMacro' ) ) );
     $twig->addFunction( new Twig\TwigFunction( 'getUcdBlock', array( $this, 'getBlock' ) ) );
     $twig->addFunction( new Twig\TwigFunction( 'getUcdHook', array( $this, 'getHook' ) ) );
+    $twig->addFunction( new Twig\TwigFunction( 'getUcdSidebarDefault', array( $this, 'getSidebarDefault' ) ) );
     return $twig;
   }
 }

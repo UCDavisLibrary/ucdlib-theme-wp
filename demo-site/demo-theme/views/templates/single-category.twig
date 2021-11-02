@@ -1,7 +1,7 @@
 {% extends getUcdTemplate('base') %}
 
 {% from getUcdMacro('cards') import teaser %}
-{% from getUcdMacro('links') import pagination, category_filter %}
+{% from getUcdMacro('links') import pagination %}
 
 {% block content_container %}
   <div class="l-container {{not hideSidebar ? 'l-basic'}}{{rightSidebar and not hideSidebar ? '--flipped'}}">
@@ -21,10 +21,11 @@
 
     {% if not hideSidebar %}
       <div class="l-sidebar-second">
-        <div class="panel o-box">
-          <h2 class="panel__title">Categories</h2>
-            {{ category_filter({'terms': categories, 'queriedTerm': term}) }}
-        </div>
+        {% if sidebar %}
+          {{sidebar}}
+         {% else %}
+          {% include getUcdSidebarDefault('single-category') %}
+         {% endif %} 
       </div>
     {% endif %}
   </div>

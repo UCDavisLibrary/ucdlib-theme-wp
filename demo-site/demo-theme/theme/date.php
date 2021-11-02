@@ -21,6 +21,25 @@ if ( is_day() ) {
 }
 $context['breadcrumbs'] = true;
 
+// sidebar content
+$context['sidebar'] = Timber::get_widgets( 'post-archive' );
+$context['hideSidebar'] = get_theme_mod('layout_posts_sidebar_hide');
+$context['rightSidebar'] = get_theme_mod('layout_posts_sidebar_flipped');
+
+if ( !$context['sidebar'] and !$context['hideSidebar'] ){
+  $context['categories'] = Timber::get_terms( array(
+    'taxonomy' => 'category',
+    'hide_empty' => true,
+    'exclude' => 1
+   ) );
+   $context['top_tags'] = Timber::get_terms( array(
+    'taxonomy' => 'post_tag',
+    'hide_empty' => true,
+    'orderby' => 'count',
+    'order' => 'DESC',
+    'number' => 10
+   ));
+}
 
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('date-archive'));

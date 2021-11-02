@@ -87,4 +87,13 @@ export default class SelectUtils {
       return Terms;
     } , [termIds]);  
   }
+
+  static categories(includeUncategorized=false) {
+    return useSelect( (select) => {
+      let query = {per_page: -1}
+      if ( !includeUncategorized ) query['exclude'] = 1;
+      const Terms = select('core').getEntityRecords('taxonomy', 'category', query);
+      return Terms;
+    } , [includeUncategorized]);  
+  }
 }

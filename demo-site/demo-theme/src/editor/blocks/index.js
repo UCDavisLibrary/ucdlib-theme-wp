@@ -1,4 +1,5 @@
 import buttonLink from "./ucd-theme-button-link";
+import categoryFilter from "./ucd-theme-category-filter";
 import heading from "./ucd-theme-heading";
 import imageLandscape from "./ucd-theme-image-landscape";
 import layoutColumn from "./ucd-theme-layout-column";
@@ -16,6 +17,7 @@ import teaser from "./ucd-theme-teaser";
 
 export default [
   buttonLink,
+  categoryFilter,
   heading,
   imageLandscape,
   layoutColumn,

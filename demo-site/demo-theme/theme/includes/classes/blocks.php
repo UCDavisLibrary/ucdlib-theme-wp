@@ -30,6 +30,10 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/button-link.twig", 
       "transform" => array("removeStylePrefix")
     ),
+    "ucd-theme/category-filter" => array(
+      "twig" => "@ucd/blocks/category-filter.twig", 
+      "transform" => array("getCategories")
+    ),
     "ucd-theme/heading" => array(
       "twig" => "@ucd/blocks/heading.twig", 
       "transform" => array("removeStylePrefix")

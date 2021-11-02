@@ -1,5 +1,5 @@
 {% extends getUcdTemplate('base') %}
-{% from getUcdMacro('links') import tag_list, category_filter %}
+{% from getUcdMacro('links') import tag_list %}
 {% from getUcdMacro('placeholders') import sidebar_placeholder %}
 
 {% block page_title %}
@@ -37,39 +37,29 @@
         <div class="u-clearfix">
           {{post.content}}
         </div>
+        
+        {% if post.categories %}
+          <h2 class="heading--auxiliary">Category</h2>
+          {{ tag_list({"terms": post.categories}) }}
+        {% endif %}
 
         {% if post.tags %}
           <h2 class="heading--auxiliary">Tags</h2>
           {{ tag_list({"terms": post.tags}) }}
         {% endif %}
-        
+
       </div>
       
     </div>
 
     <div class="l-sidebar-second">
       {% include getUcdHook('post') with {'hook': 'sidebarTop'} %}
-
-      {% for panel in sidebar_panels %}
-        {% if not panel.hide %}
-          <div class="panel o-box">
-            {% if panel.title %}
-              <h2 class="panel__title">{{ panel.title }}</h2>
-            {% endif %}
-            {% if panel.slug == 'person_card' %}
-              {{sidebar_placeholder(panel.slug)}}
-            {% elseif panel.slug == 'people_list' %}
-              {{sidebar_placeholder(panel.slug)}}
-            {% elseif panel.slug == 'categories' %}
-              {{ category_filter({'terms': categories}) }}
-            {% elseif panel.slug == 'related_articles' %}
-              {{sidebar_placeholder(panel.slug)}}
-            {% endif %}
-          </div>
+        {% if sidebar %}
+          {{sidebar}}
+        {% else %}
+          {% include getUcdSidebarDefault('single-post') %}
         {% endif %}
         
-      {% endfor %}
-
       {% include getUcdHook('post') with {'hook': 'sidebarBottom'} %}
     </div>
 

@@ -19,12 +19,14 @@ class UCDThemeEnqueue {
     
     // customizer not working properly when editor bundle is loaded.
     // TODO: figure out why?? 2021-10-25
-    if ( get_current_screen()->id  == 'customize' ) return;
+    //$adminScreens = array('widgets', 'customize');
+    $adminScreens = array( 'customize');
+    if ( in_array( get_current_screen()->id, $adminScreens ) ) return;
 
     wp_enqueue_script(
       $this->scripts['editor'], 
       $this->jsPath . "editor/index.js", 
-      array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post', 'wp-element', 'wp-editor', 'wp-rich-text' ), 
+      array(), 
       $this->version, 
       true);
   }

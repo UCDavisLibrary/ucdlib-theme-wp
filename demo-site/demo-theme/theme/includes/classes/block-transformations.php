@@ -26,6 +26,26 @@ class UCDThemeBlockTransformations {
   }
 
   /**
+   * Retrieves categories for site
+   */
+  public static function getCategories($attrs=array()){
+    $new = array();
+
+    // get all categories
+    $query = array('taxonomy' => 'category', 'hide_empty' => true, 'exclude' => 1);
+    if (array_key_exists('showUncategorized', $attrs) && $attrs['showUncategorized']){
+      unset($query['exclude']);
+    }
+    $new['categories'] = Timber::get_terms($query);
+
+    // check if we are on a category archive page
+    $new['queriedTerm'] = Timber::get_term();
+
+    $attrs = array_merge($attrs, $new);
+    return $attrs;
+  }
+
+  /**
    * Retrieves image object and saves in "image" attribute
    */
   public static function getImage($attrs=array()){

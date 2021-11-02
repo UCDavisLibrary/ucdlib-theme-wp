@@ -5,6 +5,8 @@ require_once( __DIR__ . '/customizer.php' );
 require_once( __DIR__ . '/menu.php' );
 require_once( __DIR__ . '/blocks.php' );
 require_once( __DIR__ . '/enqueue.php' );
+require_once( __DIR__ . '/sidebars.php' );
+
 
 /**
  * The primary site class.
@@ -58,6 +60,9 @@ class UcdThemeSite extends Timber\Site {
     // Gutenberg blocks
     $this->blockSettings = apply_filters('ucd-block-settings', $this->blockSettings);
     new UCDThemeBlocks( $this->scripts['editor'], $this->blockSettings );
+
+    // Register widget areas (sidebars)
+    new UcdThemeSidebars();
   
     // Hook onto actions and filters
     add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );

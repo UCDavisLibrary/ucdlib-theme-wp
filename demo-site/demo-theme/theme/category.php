@@ -8,6 +8,7 @@ $context['term'] = Timber::get_term();
 $context['title'] = $context['term']->name;
 $context['brandColor'] = $context['term']->meta('brand-color');
 $context['breadcrumbs'] = true;
+$context['sidebar'] = Timber::get_widgets( 'single-category' );
 $context['categories'] = Timber::get_terms( [
     'taxonomy' => 'category',
     'hide_empty' => true,

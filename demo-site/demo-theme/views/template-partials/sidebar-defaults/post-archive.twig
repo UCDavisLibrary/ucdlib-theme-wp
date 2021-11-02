@@ -1,0 +1,15 @@
+{% from getUcdMacro('links') import category_filter, tag_list %}
+
+{% if categories %}
+  <div class="panel o-box">
+    <h2 class="panel__title">Categories</h2>
+      {{ category_filter({'terms': categories}) }}
+  </div>
+{% endif %}
+
+{% if top_tags %}
+  <div class="panel o-box">
+    <h2 class="panel__title">Tags</h2>
+      {{ tag_list({'terms': top_tags}) }}
+  </div>
+{% endif %}
