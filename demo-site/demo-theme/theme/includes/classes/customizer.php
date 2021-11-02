@@ -7,12 +7,6 @@
 class UcdThemeCustomizer {
 
   public function __construct() {
-    $this->sidebar_panels = array(
-      'person_card' => array('defaultTitle' => ''),
-      'people_list' => array('defaultTitle' => 'People'),
-      'categories' => array('defaultTitle' => 'Categories'),
-      'related_articles' => array('defaultTitle' => 'Related Articles')
-    );
     add_action( 'customize_register', array( $this, 'register' ) );
   }
 
@@ -253,5 +247,23 @@ class UcdThemeCustomizer {
       ));
     }
 
+    // single author
+    $wp_customize->add_section( 'layout_author', array(
+      'title' => 'Author',
+      'panel' => 'layout'
+    ));
+    $wp_customize->add_setting('layout_author_sidebar_hide');
+    $wp_customize->add_control('layout_author_sidebar_hide', array(
+      'type' => "checkbox",
+      'section' => 'layout_author',
+      'label' => 'Hide the sidebar'
+    ));
+    $wp_customize->add_setting('layout_author_sidebar_flipped');
+    $wp_customize->add_control('layout_author_sidebar_flipped', array(
+      'type' => "checkbox",
+      'section' => 'layout_author',
+      'label' => 'Flip the sidbar location',
+      'description' => 'Sidebar will display on the right'
+    ));
   }
 }

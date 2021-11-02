@@ -1,5 +1,28 @@
 {% extends getUcdTemplate('base') %}
 
-{% block content %}
-  {{dump(author)}}
+{% from getUcdMacro('cards') import teaser %}
+{% from getUcdMacro('links') import pagination %}
+
+{% block content_container %}
+  <div class="l-container {{not hideSidebar ? 'l-basic'}}{{rightSidebar and not hideSidebar ? '--flipped'}}">
+
+    <div class="l-content">
+
+      <div class="panel o-box">
+        {{dump(author)}}
+      </div>
+    </div>
+
+    {% if not hideSidebar %}
+      <div class="l-sidebar-second">
+        {% if sidebar %}
+          {{sidebar}}
+         {% else %}
+          {% include getUcdSidebarDefault('single-author') %}
+         {% endif %} 
+      </div>
+    {% endif %}
+
+  </div>
+
 {% endblock %}

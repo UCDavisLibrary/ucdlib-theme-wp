@@ -32,5 +32,14 @@ class UcdThemeSidebars {
         'after_widget' => ''
       )
     );
+    register_sidebar(
+      array(
+        'id'            => 'single-author',
+        'name'          => "Single Author",
+        'description'   => "Widgets for a single site author",
+        'before_widget' => '',
+        'after_widget' => ''
+      )
+    );
   }
 }
