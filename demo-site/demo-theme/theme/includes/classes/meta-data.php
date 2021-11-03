@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Sets up extra metadata fields. 
+ * Will normally be saved in either the 'wp_termmeta', 'wp_postmeta', or 'wp_usermeta' tables
+ */
 class UCDThemeMetaData {
 
   function __construct(){
@@ -12,9 +16,61 @@ class UCDThemeMetaData {
 
     // Subtitle on news items
     add_action( 'add_meta_boxes', array($this, 'add_subTitle') );
-    add_action( 'save_post', array($this, 'save_subTitle') );  
+    add_action( 'save_post', array($this, 'save_subTitle') ); 
 
+    // Author/user metadata
+    $this->userContactFields = array(
+      "emailToDisplay" => array('slug' => 'email_to_display', 'label' => "Email Displayed to Public"),
+      "phone_1" => array('slug' => "phone_1", 'label' => "Phone 1"),
+      "phone_2" => array('slug' => "phone_2", 'label' => "Phone 2")
+    );
+    $this->userMetaFields = array(
+      "officeRoom" => array('slug' => 'office-room'),
+      "officeAddress" => array('slug' => 'office-address'),
+      "officeHours" => array('slug' => 'office-hours'),
+      "orgPositionTitle" => array('slug' => 'org-position-title'),
+      "orgUnit" => array('slug' => 'org-unit'),
+      "preferredPronouns" => array('slug' => 'preferred-pronouns')
+    );
+    add_filter( 'user_contactmethods', array($this, 'user_contactmethods'), 4 );
+    add_action( 'show_user_profile', array($this, 'add_user_meta'), 4 );
+    add_action( 'edit_user_profile', array($this, 'add_user_meta'), 4 );
+    add_action( 'personal_options_update', array($this, 'save_user_meta'), 4 );
+    add_action( 'edit_user_profile_update', array($this, 'save_user_meta'), 4 );
 
+  }
+
+  function add_user_meta($user){
+    $context = array();
+    foreach ($this->userMetaFields as $k => $v) {
+      $context[$k] = get_user_meta($user->ID, $v['slug'], true);
+    }
+    Timber::render( "@ucd/admin/user_profile.twig", $context );
+  }
+
+  function save_user_meta($user_id){
+
+    if ( ! current_user_can( 'edit_user', $user_id ) ) {
+   	 return false;
+    }
+
+    foreach ($this->userMetaFields as $k => $v) {
+      if ( isset( $_POST[$v['slug']] ) ) {
+        if ( $_POST[$v['slug']] ) {
+          update_user_meta( $user_id, $v['slug'], $_POST[$v['slug']] );
+        } else {
+          delete_user_meta( $user_id, $v['slug'] );
+        }
+      }
+    }
+
+  }
+
+  function user_contactmethods( $methods ){
+    foreach ($this->userContactFields as $k => $v) {
+      $methods[$v['slug']] = $v['label'];
+    }
+    return $methods;
   }
 
   /**

@@ -9,7 +9,65 @@
     <div class="l-content">
 
       <div class="panel o-box">
-        {{dump(author)}}
+
+          {% if profile_picture %}
+            <div class="u-align--right u-width--one-third">
+              <img src="{{profile_picture}}" alt="Profile Highlight Image" width="520" height="580" loading="lazy" />
+            </div>
+          {% endif %}
+          
+        {% if orgPositionTitle %}
+          {% for position in orgPositionTitle|split("\n") %}
+            {% set position = position|trim %}
+            {% if position %}
+              <h2 class="person__position-title">{{ position }}</h2>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+        {% if orgUnit %}
+          <ul class="unit-list">
+            {% for unit in orgUnit|split("\n") %}
+              {% set unit = unit|trim %}
+              {% if unit %}
+                <li>{{ unit }}</li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if preferredPronouns %}
+          <div class="person__pronoun">{{ preferredPronouns }}</div>
+        {% endif %}
+
+        <ul class="list--pipe u-space-mb">
+          {% if phone_1 %}
+            <li class="icon icon--phone">{{ phone_1 }}</li>
+          {% endif %}
+          {% if phone_2 %}
+            <li class="icon icon--phone">{{ phone_2 }}</li>
+          {% endif %}
+          {% if emailToDisplay %}
+            <li class="icon icon--link icon--envelope"><a href="mailto={{ emailToDisplay }}">{{ emailToDisplay }}</a></li>
+          {% endif %}
+          {% if author.user_url %}
+            <li class="icon icon--link icon--web"><a href="{{ author.user_url }}">{{ author.user_url }}</a></li>
+          {% endif %}
+          {% if officeRoom %}
+            <li class="icon icon--location">{{ officeRoom }}</li>
+          {% endif %}
+          {% if officeAddress %}
+            <li class="icon icon--map">{{ officeAddress }}</li>
+          {% endif %}
+        </ul>
+        {% if officeHours %}
+          <label for="office-hours">Office Hours</label>
+          <p id="office-hours">{{ officeHours|nl2br }}</p>
+        {% endif %}
+        {% if description %}
+          <p>{{ description|nl2br }}</p>
+        {% endif %}
+
       </div>
     </div>
 

@@ -6,6 +6,7 @@ require_once( __DIR__ . '/menu.php' );
 require_once( __DIR__ . '/blocks.php' );
 require_once( __DIR__ . '/enqueue.php' );
 require_once( __DIR__ . '/sidebars.php' );
+require_once( __DIR__ . '/user.php' );
 
 
 /**
@@ -46,7 +47,7 @@ class UcdThemeSite extends Timber\Site {
     $this->views = new UCDThemeViews();
 
     // Non-customizer server-side metadata fields
-    new UCDThemeMetaData();
+    $this->metaData = new UCDThemeMetaData();
 
     // User-editable theme options
     $this->customizer = new UcdThemeCustomizer();
@@ -70,9 +71,15 @@ class UcdThemeSite extends Timber\Site {
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
     add_action( 'init', array( $this, 'register_post_types' ) );
     add_action( 'init', array( $this, 'register_taxonomies' ) );
-  
+    add_filter( 'timber/user/classmap', array( $this, 'extend_user' ), 10, 2 );
     parent::__construct();
     }
+
+    public function extend_user($class, \WP_User $user){
+      return UcdThemeUser::class;
+    }
+
+
     /** This is where you can register custom post types. */
     public function register_post_types() {
       add_post_type_support( 'page', 'excerpt' );

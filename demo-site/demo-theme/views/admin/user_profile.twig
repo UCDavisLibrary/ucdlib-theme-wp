@@ -1,0 +1,37 @@
+{% macro textInput(id, label, value) %}
+  <tr>
+    <th><label for="{{id}}">{{label}}</label></th>
+    <td><input type="text" name="{{id}}" id="{{id}}" value="{{value}}" class="regular-text"></td>
+  </tr>
+{% endmacro %}
+
+{% macro textArea(id, label, value, description) %}
+  <tr>
+    <th><label for="{{id}}">{{label}}</label></th>
+    <td>
+      <textarea name="{{id}}" id="{{id}}" rows="5" cols="30">{{value}}</textarea>
+      {% if description %}
+        <p class="description">{{description}}</p>
+      {% endif %}
+    </td>
+    
+  </tr>
+{% endmacro %}
+
+<h3>Office Location</h3>
+<table class="form-table">
+  {{ _self.textInput('office-room', 'Room/Building', officeRoom) }}
+  {{ _self.textInput('office-address', 'Address', officeAddress) }}
+  {{ _self.textArea('office-hours', 'Office Hours', officeHours) }}
+</table>
+
+<h3>Organizational Info</h3>
+<table class="form-table">
+  {{ _self.textArea('org-position-title', 'Position Title', orgPositionTitle, "To add multiple positions, separate entries with line breaks.") }}
+  {{ _self.textArea('org-unit', 'Unit', orgUnit, "To add multiple units, separate entries with line breaks.") }}
+</table>
+
+<h3>About Yourself (additional)</h3>
+<table class="form-table">
+  {{ _self.textInput('preferred-pronouns', 'Preferred Pronouns', preferredPronouns) }}
+</table>
