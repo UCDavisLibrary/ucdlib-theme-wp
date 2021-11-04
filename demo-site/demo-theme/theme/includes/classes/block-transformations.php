@@ -52,7 +52,7 @@ class UCDThemeBlockTransformations {
     $new = array();
 
     if ( array_key_exists('imageId', $attrs) ){
-      $new['image'] = new Timber\Image($attrs['imageId']);
+      $new['image'] = Timber::get_post($attrs['imageId']);
       $attrs = array_merge($attrs, $new);
     }
 

@@ -17,6 +17,6 @@
     }
   ],
   "require": {
-    "timber/timber": "dev-2.x-term-factories"
+    "timber/timber": "^2.0.0"
   }
 }

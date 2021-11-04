@@ -29,11 +29,12 @@ class UcdThemeMenu {
 
   public function add_to_context( $context ) {
     $locations = get_nav_menu_locations();
+    $context['menu'] = array();
     foreach ($this->menuLocations as $slug => $label) {
       
       // add to context if location has menu data
       if ( array_key_exists($slug, $locations) && $locations[$slug] ) {
-        $context['menu'][$slug] = new Timber\Menu($slug);
+        $context['menu'][$slug] = Timber::get_menu($slug);
       }
       
     }

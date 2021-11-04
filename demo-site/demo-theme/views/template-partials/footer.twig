@@ -15,7 +15,7 @@
         {% if site_credits_text %}
 
           {% if site_credits_logo %}
-            {% set site_credits_logo = Image(site_credits_logo) %}
+            {% set site_credits_logo = get_post(site_credits_logo) %}
             {% set logo_href = theme.theme_mod('site_credits_logo_href') %}
             {% set logo_width = theme.theme_mod('site_credits_logo_width') %}
             <div class="site-credits__logo">

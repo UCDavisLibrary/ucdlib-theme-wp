@@ -67,7 +67,7 @@ kwargs:
     {% set src = kwargs.image.src %}
     {% set alt = kwargs.image.alt %}
   {% elseif kwargs.imageId %}
-    {% set i = Image(kwargs.imageId) %}
+    {% set i = get_post(kwargs.imageId) %}
     {% set src = i.src %}
     {% set alt = i.alt %}
   {% elseif kwargs.post.thumbnail %}

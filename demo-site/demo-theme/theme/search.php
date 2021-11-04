@@ -6,9 +6,7 @@ global $wp_query;
 $context = Timber::context();
 $context['title'] = 'Search results for ' . get_search_query();
 
-// pagination doesn't work for second syntax?
-$context['posts'] = new Timber\PostQuery();
-//$context['posts'] = Timber::get_posts($wp_query);
+$context['posts'] = Timber::get_posts($wp_query);
 
 $context['found_posts'] = $wp_query->found_posts;
 $context['breadcrumbs'] = true;

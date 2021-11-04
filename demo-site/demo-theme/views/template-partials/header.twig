@@ -6,7 +6,7 @@
 <ucd-theme-header
   site-name="{{default_bar and site.name ? site.name : ''}}"
   slogan="{{default_bar and site.description ? site.description : ''}}"
-  figure-src="{{default_bar and logo_id ? Image(logo_id).src : ''}}">
+  figure-src="{{default_bar and logo_id ? get_post(logo_id).src : ''}}">
 
   {% if not default_bar %}
     <ucdlib-branding-bar

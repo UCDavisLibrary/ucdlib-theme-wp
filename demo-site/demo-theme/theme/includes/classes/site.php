@@ -71,7 +71,7 @@ class UcdThemeSite extends Timber\Site {
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
     add_action( 'init', array( $this, 'register_post_types' ) );
     add_action( 'init', array( $this, 'register_taxonomies' ) );
-    add_filter( 'timber/user/classmap', array( $this, 'extend_user' ), 10, 2 );
+    add_filter( 'timber/user/class', array( $this, 'extend_user' ), 10, 2 );
     parent::__construct();
     }
 
