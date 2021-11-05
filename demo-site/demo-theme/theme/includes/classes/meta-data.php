@@ -132,7 +132,7 @@ class UCDThemeMetaData {
       'ucd_subtitle', 
       'SubTitle',
       array($this, 'render_subTitle'),
-      'post',
+      array('post', 'page'),
       'side'
     );
   }

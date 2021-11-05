@@ -1,14 +1,7 @@
 {% extends getUcdTemplate('base') %}
 
-{% block content %}
-	<div class="content-wrapper">
-		<article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
-			<section class="article-content">
-				<h1 class="article-h1">{{post.title}}</h1>
-				<div class="article-body">
-					{{post.content}}
-				</div>
-			</section>
-		</article>
-	</div><!-- /content-wrapper -->
+{% block content_container %}
+  <div class="l-container">
+    {{post.content}}
+  </div>
 {% endblock %}
