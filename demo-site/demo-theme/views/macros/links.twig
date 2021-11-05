@@ -167,7 +167,6 @@ kwargs:
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-pagination
 kwargs:
   pagination { Timber\Pagination } - Pagination object
-
 #}
 {% macro pagination( kwargs={} ) %}
   {% if kwargs.pagination %}
@@ -186,5 +185,24 @@ kwargs:
       xs-screen
       ellipses>
     </ucd-theme-pagination>
+  {% endif %}
+{% endmacro %}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=organisms-article-list
+kwargs:
+  href {String}: link
+  text: {String}: link text
+  brandColor {String} - UCD alt color slug
+#}
+{% macro view_all( kwargs={} ) %}
+  {% set text = kwargs.text ? kwargs.text : 'View All' %}
+  {% set classes = 'icon icon--circle-arrow-right' %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes ~ ' category-brand--' ~ kwargs.brandColor %}
+  {% endif %}
+
+  {% if kwargs.href %}
+    <a href="{{ kwargs.href }}" class="{{ classes }}">{{ text }}</a>
   {% endif %}
 {% endmacro %}

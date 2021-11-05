@@ -8624,6 +8624,20 @@ layout-columns:not(:defined) {
   top: 0;
 }
 
+.aspect--520x580 {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 112%;
+}
+
+.aspect--520x580 > img {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  object-fit: cover;
+}
+
 .clearfix:after,
 .u-clearfix:after {
   display: table;
@@ -9240,4 +9254,7 @@ layout-columns:not(:defined) {
   font-weight: 400;
   src: url(".../fonts/ryman-eco.woff2") format("woff2"), url(".../fonts/ryman-eco.woff") format("woff"), url(".../fonts/ryman-eco.svg#Ryman Eco") format("svg");
   unicode-range: U+0020-00FE;
+}
+a.icon--circle-arrow-right::before {
+  color: var(--category-brand, #73abdd);
 }

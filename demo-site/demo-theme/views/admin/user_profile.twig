@@ -1,21 +1,24 @@
-{% macro textInput(id, label, value) %}
-  <tr>
-    <th><label for="{{id}}">{{label}}</label></th>
-    <td><input type="text" name="{{id}}" id="{{id}}" value="{{value}}" class="regular-text"></td>
-  </tr>
+{% macro textInput(id, label, meta) %}
+  {% if not meta.hide %}
+    <tr>
+      <th><label for="{{id}}">{{label}}</label></th>
+      <td><input type="text" name="{{id}}" id="{{id}}" value="{{meta.value}}" class="regular-text"></td>
+    </tr>
+  {% endif %}
 {% endmacro %}
 
-{% macro textArea(id, label, value, description) %}
-  <tr>
-    <th><label for="{{id}}">{{label}}</label></th>
-    <td>
-      <textarea name="{{id}}" id="{{id}}" rows="5" cols="30">{{value}}</textarea>
-      {% if description %}
-        <p class="description">{{description}}</p>
-      {% endif %}
-    </td>
-    
-  </tr>
+{% macro textArea(id, label, meta, description) %}
+  {% if not meta.hide %}
+    <tr>
+      <th><label for="{{id}}">{{label}}</label></th>
+      <td>
+        <textarea name="{{id}}" id="{{id}}" rows="5" cols="30">{{meta.value}}</textarea>
+        {% if description %}
+          <p class="description">{{description}}</p>
+        {% endif %}
+      </td>
+    </tr>
+  {% endif %}
 {% endmacro %}
 
 <h3>Office Location</h3>
@@ -23,15 +26,39 @@
   {{ _self.textInput('office-room', 'Room/Building', officeRoom) }}
   {{ _self.textInput('office-address', 'Address', officeAddress) }}
   {{ _self.textArea('office-hours', 'Office Hours', officeHours) }}
+  {% include getUcdHook('admin-profile') with {'hook': 'office-location'} %}
 </table>
 
 <h3>Organizational Info</h3>
 <table class="form-table">
   {{ _self.textArea('org-position-title', 'Position Title', orgPositionTitle, "To add multiple positions, separate entries with line breaks.") }}
   {{ _self.textArea('org-unit', 'Unit', orgUnit, "To add multiple units, separate entries with line breaks.") }}
+  {% include getUcdHook('admin-profile') with {'hook': 'organizational-info'} %}
 </table>
 
 <h3>About Yourself (additional)</h3>
 <table class="form-table">
   {{ _self.textInput('preferred-pronouns', 'Preferred Pronouns', preferredPronouns) }}
+  {% if not profilePicture.hide %}
+    <tr>
+      <th><label for="profile-picture">Profile Picture</label></th>
+      <td>
+        <input type="file"
+          id="profile-picture" name="profile-picture"
+          accept="image/png, image/jpeg">
+        {% if profilePicture.value %}
+          {% set img = get_post(profilePicture.value) %}
+          <div style="width:20%;margin-top:10px;">
+            <div style="position: relative;width: 100%;overflow: hidden;padding-top: 112%;">
+              <img style="position: absolute;top: 0;height: 100%;object-fit: cover;" src="{{ img.src }}" />
+            </div>
+          </div>
+          <p><input type="submit" name="clear_profile_picture" class="button" value="Clear Profile Picture"></p>
+
+        {% endif %}
+        <p class="description">Will override your gravitar on public-facing pages. Should be 520x580.</p>
+      </td>
+    </tr>
+  {% endif %}
+  {% include getUcdHook('admin-profile') with {'hook': 'about-yourself'} %}
 </table>

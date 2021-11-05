@@ -13,14 +13,14 @@
           <h2 class="panel__title">{{latest_news_title}}</h2>
         {% endif %}
         <section class="latest-news">
-          {% if posts %}
+          {% if posts.found_posts %}
             {% for post in posts %}
               {{ teaser({post}) }}
             {% endfor %}
 
             {{ pagination({"pagination": posts.pagination}) }}
           {% else %}
-            <div class="alert">No posts found for specified date range!</div>
+            <div class="alert">No {{theme.theme_mod('layout_posts_title', 'posts')}} found for specified date range!</div>
           {% endif %}
         </section>
       </div>

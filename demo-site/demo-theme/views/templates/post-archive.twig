@@ -7,7 +7,7 @@
   <div class="l-container {{not hideSidebar ? 'l-basic'}}{{rightSidebar and not hideSidebar ? '--flipped'}}">
 
     <div class="l-content">
-      {% if not is_paged and page_for_posts.location == 'top' %}
+      {% if not is_paged and isBasicPostsQuery() and page_for_posts.location == 'top' %}
         <div class="panel o-box">
           {{ page_for_posts.post.content }}
         </div>
@@ -18,17 +18,21 @@
           <h2 class="panel__title">{{latest_news_title}}</h2>
         {% endif %}
         <section class="latest-news">
-          {% if posts %}
+          
+          {% if posts.found_posts %}
             {% for post in posts %}
               {{ teaser({post}) }}
             {% endfor %}
 
             {{ pagination({"pagination": posts.pagination}) }}
+          {% else %}
+            <div class="alert">No {{theme.theme_mod('layout_posts_title', 'posts')}} found!</div>
           {% endif %}
+
         </section>
       </div>
 
-      {% if not is_paged and page_for_posts.location == 'bottom' %}
+      {% if not is_paged and isBasicPostsQuery() and page_for_posts.location == 'bottom' %}
         <div class="panel o-box">
           {{ page_for_posts.post.content }}
         </div>

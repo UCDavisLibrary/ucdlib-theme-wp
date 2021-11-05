@@ -10,11 +10,15 @@
 
       <div class="panel o-box">
 
-          {% if profile_picture %}
-            <div class="u-align--right u-width--one-third">
-              <img src="{{profile_picture}}" alt="Profile Highlight Image" width="520" height="580" loading="lazy" />
+        {% if not theme.theme_mod('layout_author_picture_hide') and profilePictures.src %}
+          <div class="u-align--right u-width--one-third">
+            <div class="aspect--520x580">
+              <img src="{{profilePictures.src}}" alt="Profile Highlight Image" width="520" height="580" loading="lazy" />
             </div>
-          {% endif %}
+          </div>
+        {% endif %}
+
+        {% include getUcdHook('author') with {'hook': 'top'} %}
           
         {% if orgPositionTitle %}
           {% for position in orgPositionTitle|split("\n") %}
@@ -40,6 +44,8 @@
           <div class="person__pronoun">{{ preferredPronouns }}</div>
         {% endif %}
 
+        {% include getUcdHook('author') with {'hook': 'aboveContactList'} %}
+
         <ul class="list--pipe u-space-mb">
           {% if phone_1 %}
             <li class="icon icon--phone">{{ phone_1 }}</li>
@@ -64,9 +70,11 @@
           <label for="office-hours">Office Hours</label>
           <p id="office-hours">{{ officeHours|nl2br }}</p>
         {% endif %}
+        {% include getUcdHook('author') with {'hook': 'aboveDescription'} %}
         {% if description %}
           <p>{{ description|nl2br }}</p>
         {% endif %}
+        {% include getUcdHook('author') with {'hook': 'bottom'} %}
 
       </div>
     </div>

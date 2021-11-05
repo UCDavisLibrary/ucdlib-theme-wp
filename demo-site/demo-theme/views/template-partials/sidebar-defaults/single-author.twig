@@ -1,0 +1,19 @@
+{% from getUcdMacro('cards') import listing %}
+{% from getUcdMacro('links') import view_all %}
+
+<div class="panel o-box">
+  <h2 class="panel__title">Contributions</h2>
+  {% if posts.found_posts %}
+    <section class="article-list">
+      {% for post in posts %}
+        {{ listing({post}) }}
+      {% endfor %}
+      {% if posts.found_posts > 3 %}
+        {% set view_all_url = function('get_post_type_archive_link', 'post')~"?author="~author.id %}
+        {{ view_all({'href': view_all_url }) }}
+      {% endif %}
+    </section>
+  {% else %}
+    <div class="alert">{{author.name}} does not currently have any contributions.</div>
+  {% endif %}
+</div>

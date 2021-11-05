@@ -19,21 +19,36 @@ class UCDThemeViews {
     
     $context['twigHooks'] = array();
 
-    // footer hooks
-    $context['twigHooks']['footer'] = array();
-    $context['twigHooks']['footer']['column_1'] = array();
-    $context['twigHooks']['footer']['column_2'] = array();
-    $context['twigHooks']['footer']['column_3'] = array();
-    $context['twigHooks']['footer']['column_4'] = array();
-    $context['twigHooks']['footer']['column_5'] = array();
-    $context['twigHooks']['footer']['postColumns'] = array();
-    $context['twigHooks']['footer']['postSpacer'] = array();
-    $context['twigHooks']['footer']['bottom'] = array();
+    if ( is_admin() ){
+      // admin profile
+      $context['twigHooks']['admin-profile'] = array();
+      $context['twigHooks']['admin-profile']['office-location'] = array();
+      $context['twigHooks']['admin-profile']['organizational-info'] = array();
+      $context['twigHooks']['admin-profile']['about-yourself'] = array();
+    } else {
+      // footer hooks
+      $context['twigHooks']['footer'] = array();
+      $context['twigHooks']['footer']['column_1'] = array();
+      $context['twigHooks']['footer']['column_2'] = array();
+      $context['twigHooks']['footer']['column_3'] = array();
+      $context['twigHooks']['footer']['column_4'] = array();
+      $context['twigHooks']['footer']['column_5'] = array();
+      $context['twigHooks']['footer']['postColumns'] = array();
+      $context['twigHooks']['footer']['postSpacer'] = array();
+      $context['twigHooks']['footer']['bottom'] = array();
 
-    // post (news item) hooks
-    $context['twigHooks']['post'] = array();
-    $context['twigHooks']['post']['sidebarTop'] = array();
-    $context['twigHooks']['post']['sidebarBottom'] = array();
+      // post (news item) hooks
+      $context['twigHooks']['post'] = array();
+      $context['twigHooks']['post']['sidebarTop'] = array();
+      $context['twigHooks']['post']['sidebarBottom'] = array();
+
+      // single author page hooks
+      $context['twigHooks']['author'] = array();
+      $context['twigHooks']['author']['top'] = array();
+      $context['twigHooks']['author']['bottom'] = array();
+      $context['twigHooks']['author']['aboveDescription'] = array();
+      $context['twigHooks']['author']['aboveContactList'] = array();
+    }
 
     return $context;
   }

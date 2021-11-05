@@ -164,6 +164,24 @@ class UcdThemeSite extends Timber\Site {
       add_theme_support( 'custom-logo' );
       add_theme_support( 'editor-styles' );
     }
+
+    /**
+     * Checks if the "posts page" has additional query variables.
+     * Used to hide custom page content on first page (if applicable), so that just post archive is shown.
+     */
+    public function isBasicPostsQuery(){
+
+      global $wp_query;
+
+      if ( is_home() && is_main_query() ) {
+        $query_vars = array('author', 'cat', 'tag');
+        foreach ($query_vars as $q) {
+          if ( $wp_query->get($q) ) return false;
+        }
+        return true;
+      }
+      return false;
+    }
     
 
   
@@ -194,6 +212,8 @@ class UcdThemeSite extends Timber\Site {
         return $out;
 
       } ) );
+
+      $twig->addFunction( new Twig\TwigFunction( 'isBasicPostsQuery', array( $this, 'isBasicPostsQuery' ) ) );
   
       return $twig;
     }

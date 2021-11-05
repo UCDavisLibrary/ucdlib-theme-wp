@@ -1,0 +1,7 @@
+// things here should be moved to ucd-lib/theme-sass
+
+// used in see all links:
+//http://dev.webstyleguide.ucdavis.edu/redesign/?p=organisms-article-list
+a.icon--circle-arrow-right::before {
+  color: var(--category-brand, #73abdd);
+}

@@ -265,5 +265,11 @@ class UcdThemeCustomizer {
       'label' => 'Flip the sidbar location',
       'description' => 'Sidebar will display on the right'
     ));
+    $wp_customize->add_setting('layout_author_picture_hide');
+    $wp_customize->add_control('layout_author_picture_hide', array(
+      'type' => "checkbox",
+      'section' => 'layout_author',
+      'label' => 'Hide the profile picture'
+    ));
   }
 }
