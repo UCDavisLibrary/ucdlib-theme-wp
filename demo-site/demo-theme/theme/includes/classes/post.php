@@ -18,4 +18,22 @@ class UcdThemePost extends Timber\Post {
     $this->hide_breadcrumbs = get_post_meta($this->ID, 'ucd_hide_breadcrumbs', true);
     return $this->hide_breadcrumbs;
   }
+
+  protected $hide_author;
+  public function hide_author(){
+    if ( ! empty( $this->hide_author ) ) {
+      return $this->hide_author;
+    }
+    $this->hide_author = get_post_meta($this->ID, 'ucd_hide_author', true);
+    return $this->hide_author;
+  }
+
+  protected $brand_color;
+  public function brand_color(){
+    if ( ! empty( $this->brand_color ) ) {
+      return $this->brand_color;
+    }
+    $this->brand_color = get_post_meta($this->ID, 'ucd_brand_color', true);
+    return $this->brand_color;
+  }
 }

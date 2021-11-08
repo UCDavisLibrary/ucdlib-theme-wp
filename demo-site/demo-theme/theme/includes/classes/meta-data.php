@@ -63,6 +63,18 @@ class UCDThemeMetaData {
       'default' => '',
       'type' => 'string',
     ) );
+    register_post_meta( '', 'ucd_hide_author', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'default' => false,
+      'type' => 'boolean',
+    ) );
+    register_post_meta( '', 'ucd_brand_color', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'string',
+      'default' => ''
+    ) );
   }
 
   function add_user_meta($user){

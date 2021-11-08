@@ -1,5 +1,7 @@
+import { categoryBrands } from "@ucd-lib/theme-sass/colors";
+
 import { html, SelectUtils } from "../../utils";
-import { ToggleControl, TextControl } from '@wordpress/components';
+import { ToggleControl, TextControl, ColorPalette, BaseControl } from '@wordpress/components';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { useDispatch } from "@wordpress/data";
 
@@ -9,6 +11,28 @@ export default () => {
   const editPost = useDispatch( 'core/editor' ).editPost;
   const isPost = SelectUtils.isPost();
   const isPage = SelectUtils.isPage();
+  const colors = Object.values(categoryBrands).map(c => Object({name: c.title, slug: c.id, color: c.hex}));
+
+  const getColorObject = (val, key) => {
+    for (const color of colors) {
+      if ( color[key] === val ) return color;
+    }
+    return undefined;
+  }
+  const getSelectedColor = () => {
+    const c = getColorObject(meta.ucd_brand_color, 'slug');
+    if ( !c ) return undefined;
+    return c.color;
+  }
+  const onColorChange = (v) => {
+    let c;
+    if ( !v ) {
+      c = ""
+    } else {
+      c = getColorObject(v,'color').slug;
+    }
+    editPost({meta: {'ucd_brand_color': c}});
+  }
 
   return html`
     <${PluginDocumentSettingPanel}
@@ -18,22 +42,42 @@ export default () => {
         <${ToggleControl} 
           label="Hide Page Title"
           checked=${meta.ucd_hide_title}
-          onChange="${(ucd_hide_title) => {editPost({meta: {ucd_hide_title}})}}" />
+          onChange="${ucd_hide_title => {editPost({meta: {ucd_hide_title}})}}" />
       `}
       ${isPage && html`
         <${ToggleControl} 
           label="Hide Breadcrumbs"
           checked=${meta.ucd_hide_breadcrumbs}
-          onChange="${(ucd_hide_breadcrumbs) => {editPost({meta: {ucd_hide_breadcrumbs}})}}" />
+          onChange="${ucd_hide_breadcrumbs => {editPost({meta: {ucd_hide_breadcrumbs}})}}" />
       `}
+      <${ToggleControl} 
+        label="Hide Author"
+        checked=${meta.ucd_hide_author}
+        help="Byline for this post will be hidden site wide."
+        onChange="${ucd_hide_author => {editPost({meta: {ucd_hide_author}})}}"
+      />
       ${isPost && html`
         <${TextControl} 
           label="Subtitle Text"
           value=${meta.ucd_subtitle}
-          onChange="${(ucd_subtitle) => {editPost({meta: {ucd_subtitle}})}}"
+          onChange="${ucd_subtitle => {editPost({meta: {ucd_subtitle}})}}"
           help="Will be displayed under the post title."
         />
       `}
+      <${BaseControl} 
+        id="brand-color" 
+        label="Brand Color"
+        help="Give this post a custom decorative color."
+        >
+        <${ColorPalette} 
+          id="brand-color"
+          colors=${colors}
+          value=${ getSelectedColor() }
+          disableCustomColors
+          clearable
+          onChange=${onColorChange}
+        />
+      </${BaseControl}>
     </${PluginDocumentSettingPanel}>
   `;
 }

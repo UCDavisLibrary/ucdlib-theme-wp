@@ -198,7 +198,9 @@ kwargs:
           {% else %}
             {% set author = kwargs.post.author.name %}
           {% endif %}
-          <li><span class="byline">by {{author}}</span></li>
+          {% if not kwargs.post or (kwargs.post and not kwargs.post.hide_author) %}
+            <li><span class="byline">by {{author}}</span></li>
+          {% endif %}
           <li>{{kwargs.post.date}}</li>
         </ul>
       {% endif %}

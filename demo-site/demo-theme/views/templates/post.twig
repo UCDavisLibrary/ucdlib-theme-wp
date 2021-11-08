@@ -30,7 +30,9 @@
         {% endif %}
 
         <ul class="list--pipe byline byline--italic">
-          <li>{{post.author.name}}</li>
+          {% if not post.hide_author %}
+            <li>{{post.author.name}}</li>
+          {% endif %}
           <li>{{ post.date }}</li>
         </ul>
 

@@ -18,7 +18,12 @@
 		<main id="main-content" class="l-main">
       {% block page_title %}
         {% if title and not post.hide_title %}
-          <h1 class="page-title {{brandColor ? 'category-brand--'~brandColor }}">{{title}}</h1>
+          {% if brandColor %}
+            {% set colorClass = 'category-brand--'~brandColor %}
+          {% elseif post.brand_color %}
+            {% set colorClass = 'category-brand--'~post.brand_color %}
+          {% endif %}
+          <h1 class="page-title {{colorClass}}">{{title}}</h1>
         {% endif %}
       {% endblock %}
 
