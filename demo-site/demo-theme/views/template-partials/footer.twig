@@ -70,7 +70,16 @@
 
     <div class="uc-footer">
       <p><a href="https://www.ucdavis.edu/">University of California, Davis</a>, One Shields Avenue, Davis, CA 95616 | 530-752-1011</p>
-      {{ list_pipe({menu: menu.copyright}) }}
+      <ul class="list--pipe">
+        {% if menu.copyright %}
+          {% for item in menu.copyright.items %}
+            <li>
+              <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
+            </li>
+          {% endfor %}
+          <li><a href="{{ theme.get('ThemeURI') }}">Theme Version: {{theme.version}}</a></li>
+        {% endif %}
+      </ul>
       <p>Copyright © The Regents of the University of California, Davis campus. All rights reserved.</p>
     </div>
 

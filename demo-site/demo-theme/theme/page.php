@@ -5,6 +5,8 @@
 
 $context = Timber::context();
 $context['title'] = $context['post']->title();
+$context['breadcrumbs'] = true;
+
 $views = $GLOBALS['UcdSite']->views;
 
 $templates = array( $views->getTemplate('page') );

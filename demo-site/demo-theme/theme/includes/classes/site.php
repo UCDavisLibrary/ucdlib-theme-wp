@@ -7,6 +7,7 @@ require_once( __DIR__ . '/blocks.php' );
 require_once( __DIR__ . '/enqueue.php' );
 require_once( __DIR__ . '/sidebars.php' );
 require_once( __DIR__ . '/user.php' );
+require_once( __DIR__ . '/post.php' );
 
 
 /**
@@ -72,11 +73,21 @@ class UcdThemeSite extends Timber\Site {
     add_action( 'init', array( $this, 'register_post_types' ) );
     add_action( 'init', array( $this, 'register_taxonomies' ) );
     add_filter( 'timber/user/class', array( $this, 'extend_user' ), 10, 2 );
+    add_filter( 'timber/post/classmap', array($this, 'extend_post') );
     parent::__construct();
     }
 
     public function extend_user($class, \WP_User $user){
       return UcdThemeUser::class;
+    }
+
+    public function extend_post($classmap) {
+      $custom_classmap = array(
+        'page' => UcdThemePost::class,
+        'post' => UcdThemePost::class,
+      );
+
+    return array_merge( $classmap, $custom_classmap );
     }
 
 

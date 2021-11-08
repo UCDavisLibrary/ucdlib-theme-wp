@@ -14,9 +14,8 @@ class UCDThemeMetaData {
     add_action('create_category', array($this, 'save_taxonomy_color'), 10, 2);
     add_filter( 'rest_prepare_category', array($this, 'api_taxonomy_color'), 10, 3);
 
-    // Subtitle on news items
-    add_action( 'add_meta_boxes', array($this, 'add_subTitle') );
-    add_action( 'save_post', array($this, 'save_subTitle') ); 
+    // Register metadata fields handled by gutenberg
+    add_action('init', array($this, 'register_post_meta'));
 
     // Author/user metadata
     $this->userContactFields = array(
@@ -42,6 +41,28 @@ class UCDThemeMetaData {
       echo ' enctype="multipart/form-data"';
     });
 
+  }
+
+  function register_post_meta(){
+
+    register_post_meta( 'page', 'ucd_hide_title', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'default' => false,
+      'type' => 'boolean',
+    ) );
+    register_post_meta( 'page', 'ucd_hide_breadcrumbs', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'default' => false,
+      'type' => 'boolean',
+    ) );
+    register_post_meta( 'post', 'ucd_subtitle', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'default' => '',
+      'type' => 'string',
+    ) );
   }
 
   function add_user_meta($user){
@@ -122,36 +143,6 @@ class UCDThemeMetaData {
       $methods[$v['slug']] = $v['label'];
     }
     return $methods;
-  }
-
-  /**
-   * Renders input box for adding a subtitle to a post
-   */
-  function add_subTitle(){
-    add_meta_box(
-      'ucd_subtitle', 
-      'SubTitle',
-      array($this, 'render_subTitle'),
-      array('post', 'page'),
-      'side'
-    );
-  }
-
-  function render_subTitle( $post ){
-    $context = array(
-      'value' => get_post_meta( $post->ID, 'ucd_subtitle', true )
-    );
-    Timber::render( "@ucd/admin/subtitle.twig", $context );
-  }
-
-  function save_subTitle( $post_id ) {
-    if ( array_key_exists( 'ucd_subtitle', $_POST ) ) {
-        update_post_meta(
-            $post_id,
-            'ucd_subtitle',
-            $_POST['ucd_subtitle']
-        );
-    }
   }
 
   /**

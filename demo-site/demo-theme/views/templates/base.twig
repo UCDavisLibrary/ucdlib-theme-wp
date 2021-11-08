@@ -17,13 +17,13 @@
 
 		<main id="main-content" class="l-main">
       {% block page_title %}
-        {% if title %}
+        {% if title and not post.hide_title %}
           <h1 class="page-title {{brandColor ? 'category-brand--'~brandColor }}">{{title}}</h1>
         {% endif %}
       {% endblock %}
 
       {% block breadcrumbs %}
-        {% if breadcrumbs %}
+        {% if breadcrumbs and not post.hide_breadcrumbs %}
           {{render_crumbs()}}
         {% endif %}
       {% endblock %}

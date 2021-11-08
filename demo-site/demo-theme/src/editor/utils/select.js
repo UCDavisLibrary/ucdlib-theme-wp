@@ -46,6 +46,13 @@ export default class SelectUtils {
     } , [userId]);
   }
 
+  static meta() {
+    return useSelect( (select) => {
+      const meta = select('core/editor').getEditedPostAttribute('meta');
+      return meta ? meta : {};
+    }, [])
+  }
+
   static category(termId) {
     return useSelect( (select) => {
       const Term = termId ? select('core').getEntityRecord('taxonomy', 'category', termId) : undefined;
@@ -95,5 +102,19 @@ export default class SelectUtils {
       const Terms = select('core').getEntityRecords('taxonomy', 'category', query);
       return Terms;
     } , [includeUncategorized]);  
+  }
+
+  static isPost(){
+    return useSelect( (select) => {
+      const postType = select('core/editor').getCurrentPost().type;
+      return postType == 'post';
+    })
+  }
+
+  static isPage(){
+    return useSelect( (select) => {
+      const postType = select('core/editor').getCurrentPost().type;
+      return postType == 'page';
+    })
   }
 }
