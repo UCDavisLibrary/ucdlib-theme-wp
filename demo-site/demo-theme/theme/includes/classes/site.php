@@ -4,7 +4,7 @@ require_once( __DIR__ . '/meta-data.php' );
 require_once( __DIR__ . '/customizer.php' );
 require_once( __DIR__ . '/menu.php' );
 require_once( __DIR__ . '/blocks.php' );
-require_once( __DIR__ . '/enqueue.php' );
+require_once( __DIR__ . '/assets.php' );
 require_once( __DIR__ . '/sidebars.php' );
 require_once( __DIR__ . '/user.php' );
 require_once( __DIR__ . '/post.php' );
@@ -54,7 +54,7 @@ class UcdThemeSite extends Timber\Site {
     $this->customizer = new UcdThemeCustomizer();
 
     // Queue up scripts and styles
-    new UcdThemeEnqueue($this->scripts, $this->version);
+    $this->assets = new UcdThemeAssets($this->scripts, $this->version);
 
     // Menu locations
     new UcdThemeMenu();
@@ -109,13 +109,6 @@ class UcdThemeSite extends Timber\Site {
       
       # site
       $context['site']  = $this;
-  
-      # New theme organization, while cleaner, has some annoying side effects.
-      # https://github.com/timber/starter-theme/issues/105
-      $context['siteUris'] = array(
-        'assets' => dirname( get_template_directory_uri() ) . "/assets",
-        'img' => dirname( get_template_directory_uri() ) . "/assets/img"
-      );
       
       return $context;
     }

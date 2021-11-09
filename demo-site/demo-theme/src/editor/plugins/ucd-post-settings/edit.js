@@ -50,6 +50,13 @@ export default () => {
           checked=${meta.ucd_hide_breadcrumbs}
           onChange="${ucd_hide_breadcrumbs => {editPost({meta: {ucd_hide_breadcrumbs}})}}" />
       `}
+      ${isPost && html`
+        <${ToggleControl} 
+          label="Featured Post"
+          checked=${meta.ucd_featured}
+          help="Post teaser will have brand color background on news lists."
+          onChange="${ucd_featured => {editPost({meta: {ucd_featured}})}}" />
+      `}
       <${ToggleControl} 
         label="Hide Author"
         checked=${meta.ucd_hide_author}

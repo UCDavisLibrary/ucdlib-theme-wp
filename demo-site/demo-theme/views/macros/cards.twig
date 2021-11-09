@@ -144,6 +144,7 @@ kwargs:
   hideImage {Boolean} - Hides the image
   hideByline {Boolean} - Hides the byline
   hideCategories {Boolean} - Hides the categories
+  partOfQuery {Boolean} - Post is part of a wp query instead of manually seleted by user.
 #}
 {% macro teaser( kwargs = {}) %}
 
@@ -172,6 +173,13 @@ kwargs:
     {% set classes = classes ~ " vm-teaser--featured" %}
     {% if kwargs.brandColor %}
       {% set classes = classes ~ " " ~ kwargs.brandColor %}
+    {% endif %}
+  {% elseif kwargs.partOfQuery %}
+    {% if kwargs.post.featured %}
+      {% set classes = classes ~ " vm-teaser--featured" %}
+      {% if kwargs.post.brand_color %}
+        {% set classes = classes ~ " " ~ kwargs.post.brand_color %}
+      {% endif %}
     {% endif %}
   {% endif %}
 

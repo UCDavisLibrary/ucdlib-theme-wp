@@ -28,6 +28,15 @@ class UcdThemePost extends Timber\Post {
     return $this->hide_author;
   }
 
+  protected $featured;
+  public function featured(){
+    if ( ! empty( $this->featured ) ) {
+      return $this->featured;
+    }
+    $this->featured = get_post_meta($this->ID, 'ucd_featured', true);
+    return $this->featured;
+  }
+
   protected $brand_color;
   public function brand_color(){
     if ( ! empty( $this->brand_color ) ) {

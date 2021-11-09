@@ -15,7 +15,7 @@
         <section class="latest-news">
           {% if posts.found_posts %}
             {% for post in posts %}
-              {{ teaser({post}) }}
+              {{ teaser({post, partOfQuery: true}) }}
             {% endfor %}
 
             {{ pagination({"pagination": posts.pagination}) }}

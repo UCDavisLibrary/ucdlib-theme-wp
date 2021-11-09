@@ -9,7 +9,7 @@
       <div class="panel o-box">
         {% if posts %}
           {% for post in posts %}
-            {{ teaser({post}) }}
+            {{ teaser({post, partOfQuery: true}) }}
           {% endfor %}
 
           {{ pagination({"pagination": posts.pagination}) }}

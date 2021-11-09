@@ -63,6 +63,12 @@ class UCDThemeMetaData {
       'default' => '',
       'type' => 'string',
     ) );
+    register_post_meta( 'post', 'ucd_featured', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'default' => false,
+      'type' => 'boolean',
+    ) );
     register_post_meta( '', 'ucd_hide_author', array(
       'show_in_rest' => true,
       'single' => true,
