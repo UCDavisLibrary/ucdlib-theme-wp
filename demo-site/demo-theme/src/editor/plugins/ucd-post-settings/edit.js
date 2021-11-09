@@ -1,6 +1,4 @@
-import { categoryBrands } from "@ucd-lib/theme-sass/colors";
-
-import { html, SelectUtils } from "../../utils";
+import { html, SelectUtils, BlockSettings } from "../../utils";
 import { ToggleControl, TextControl, ColorPalette, BaseControl } from '@wordpress/components';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { useDispatch } from "@wordpress/data";
@@ -11,7 +9,7 @@ export default () => {
   const editPost = useDispatch( 'core/editor' ).editPost;
   const isPost = SelectUtils.isPost();
   const isPage = SelectUtils.isPage();
-  const colors = Object.values(categoryBrands).map(c => Object({name: c.title, slug: c.id, color: c.hex}));
+  const colors = BlockSettings.getBlockColors('teaser').map(c => Object({name: c.title, slug: c.id, color: c.hex}));
 
   const getColorObject = (val, key) => {
     for (const color of colors) {

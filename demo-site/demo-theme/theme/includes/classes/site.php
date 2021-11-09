@@ -34,6 +34,16 @@ class UcdThemeSite extends Timber\Site {
       "publicStyles" => "ucd-public"
     );
 
+    $this->blockSettings = array();
+    foreach (UCDThemeBlocks::$registry as $slug => $meta) {
+      if ( !array_key_exists('hasBrandColors', $meta) || !$meta['hasBrandColors']) continue;
+      $shortSlug = explode("/", $slug)[1];
+      $customColors = get_theme_mod('colors_blocks_' . $shortSlug, false);
+      if (!$customColors || !is_array($customColors) || !count($customColors) ) continue;
+      $this->blockSettings['color--' . $shortSlug] = $customColors;
+    }
+
+    /*
     $this->blockSettings = array(
       "palette--alt" => array(
         "primary", "admin-blue", "rose", "secondary", "sage", "arboretum", "tahoe", "thiebaud-icing"
@@ -43,6 +53,7 @@ class UcdThemeSite extends Timber\Site {
       "color--poster" => "palette--alt",
       "color--teaser" => "palette--alt"
      );
+     */
 
     // Register view paths with theme
     $this->views = new UCDThemeViews();

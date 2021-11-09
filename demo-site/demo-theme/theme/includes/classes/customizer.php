@@ -1,4 +1,5 @@
 <?php
+require_once( __DIR__ . '/customizer-multi-select.php' );
 /**
  * Sets up theme customization menu options:
  * Appearance > Customize
@@ -15,6 +16,7 @@ class UcdThemeCustomizer {
     $this->footer($wp_customize);
     $this->layout($wp_customize);
     $this->search($wp_customize);
+    $this->colors($wp_customize);
   }
 
   // header customizations
@@ -271,5 +273,63 @@ class UcdThemeCustomizer {
       'section' => 'layout_author',
       'label' => 'Hide the profile picture'
     ));
+  }
+
+  public function colors($wp_customize){
+    $colors = array(
+      "admin-blue" => "Admin Blue",
+      "rec-pool" => "Rec Pool",
+      "tahoe" => "Tahoe",
+      "gunrock" => "Gunrock",
+      "bodega" => "Bodega",
+      "rain" => "Rain",
+      "arboretum" => "Arboretum",
+      "putah-creek" => "Putah Creek",
+      "delta" => "Delta",
+      "farmers-market" => "Farmers Market",
+      "sage" => "Sage",
+      "quad" => "Quad",
+      "redwood" => "Redwood",
+      "golden-state" => "Golden State",
+      "sunflower" => "Sunflower",
+      "poppy" => "Poppy",
+      "california" => "California",
+      "rose" => "Rose",
+      "strawberry" => "Strawberry",
+      "double-decker" => "Double Decker",
+      "merlot" => "Merlot",
+      "thiebaud-icing" => "Thiebaud Icing",
+      "redbud" => "Redbud",
+      "pinot" => "Pinot",
+      "cabernet" => "Cabernet",
+      "primary" => "Primary",
+      "secondary" => "Secondary"
+    );
+
+    $wp_customize->add_section( 'colors_blocks', array(
+      'title' => 'Block Palettes',
+      'panel' => 'colors'
+    ));
+
+    $blocks_with_colors = array(
+      array("slug" => "teaser", "label" => "Teaser Block Palette", "description" => 'Also used as color palette for "featured" post.'),
+      array("slug" => "marketing-highlight", "label" => "Marketing Highlight Block Palette"),
+      array("slug" => "marketing-highlight-horizontal", "label" => "Marketing Highlight (Horizontal) Block Palette"),
+      array("slug" => "marketing-highlight-poster", "label" => "Poster Block Palette")
+    );
+    foreach ($blocks_with_colors as $block) {
+      $name = 'colors_blocks_' . $block['slug'];
+      $wp_customize->add_setting($name, array('default' => array()));
+      $wp_customize->add_control(
+        new UcdThemeCustomizerMultiSelect($wp_customize, $name, array(
+          'type' => "select",
+          'choices' => $colors,
+          'section' => 'colors',
+          'label' => $block['label'],
+          'description' => array_key_exists('description', $block) ? $block['description'] : '')
+      ));
+    }
+
+
   }
 }

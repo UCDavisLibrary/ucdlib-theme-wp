@@ -45,17 +45,20 @@ class UCDThemeBlocks {
     "ucd-theme/marketing-highlight" => array(
       "twig" => "@ucd/blocks/marketing-highlight.twig",
       "img" => "640x480.png",
-      "transform" => array("getPost")
+      "transform" => array("getPost"),
+      "hasBrandColors" => true
     ),
     "ucd-theme/marketing-highlight-horizontal" => array(
       "twig" => "@ucd/blocks/marketing-highlight-horizontal.twig",
       "img" => "1280x720.png",
-      "transform" => array("getPost")
+      "transform" => array("getPost"),
+      "hasBrandColors" => true
     ),
     "ucd-theme/poster" => array(
       "twig" => "@ucd/blocks/poster.twig",
       "img" => "1280x720.png",
-      "transform" => array("getPost")
+      "transform" => array("getPost"),
+      "hasBrandColors" => true
     ),
     "ucd-theme/poster-list" => array("twig" => "@ucd/blocks/poster-list.twig"),
     "ucd-theme/layout-basic" => array("twig" => "@ucd/blocks/layout-basic.twig"),
@@ -71,7 +74,8 @@ class UCDThemeBlocks {
     "ucd-theme/teaser" => array(
       "twig" => "@ucd/blocks/teaser.twig",
       "img" => "135x135.png",
-      "transform" => array("getPost", "getImage")
+      "transform" => array("getPost", "getImage"),
+      "hasBrandColors" => true
     ),
   );
 
