@@ -45,4 +45,13 @@ class UcdThemePost extends Timber\Post {
     $this->brand_color = get_post_meta($this->ID, 'ucd_brand_color', true);
     return $this->brand_color;
   }
+
+  protected $is_sticky;
+  public function is_sticky(){
+    if ( ! empty( $this->is_sticky ) ) {
+      return $this->is_sticky;
+    }
+    $this->is_sticky = is_sticky($this->ID);
+    return $this->is_sticky;
+  }
 }

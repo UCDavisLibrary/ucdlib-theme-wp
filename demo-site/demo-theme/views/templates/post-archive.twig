@@ -1,7 +1,7 @@
 {% extends getUcdTemplate('base') %}
 
 {% from getUcdMacro('cards') import teaser %}
-{% from getUcdMacro('links') import pagination %}
+{% from getUcdMacro('links') import pagination, marketing_highlight_horizontal %}
 
 {% block content_container %}
   <div class="l-container {{not hideSidebar ? 'l-basic'}}{{rightSidebar and not hideSidebar ? '--flipped'}}">
@@ -13,7 +13,17 @@
         </div>
       {% endif %}
 
+      {% for post in posts %}
+        {% if post.is_sticky %}
+        <div class="panel o-box">
+          {{marketing_highlight_horizontal({post, brandColor: post.brand_color})}}
+        </div>
+
+        {% endif %}
+      {% endfor %}
+
       <div class="panel o-box">
+
         {% if latest_news_title %}
           <h2 class="panel__title">{{latest_news_title}}</h2>
         {% endif %}
@@ -21,7 +31,9 @@
           
           {% if posts.found_posts %}
             {% for post in posts %}
-              {{ teaser({post, partOfQuery: true}) }}
+              {% if not post.is_sticky %}
+                {{ teaser({post, partOfQuery: true}) }}
+              {% endif %}
             {% endfor %}
 
             {{ pagination({"pagination": posts.pagination}) }}
