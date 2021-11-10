@@ -7,6 +7,7 @@ import { registerPlugin } from '@wordpress/plugins';
 import UcdThemeBlocks from "./blocks";
 import UcdThemeRichTextFormats from "./formats";
 import UcdThemePlugins from "./plugins";
+import unRegisterCore from "./exclude";
 
 
 UcdThemeRichTextFormats.forEach(fmt => {
@@ -19,4 +20,6 @@ UcdThemeBlocks.forEach(block => {
 
 UcdThemePlugins.forEach(plugin => {
   registerPlugin( plugin.name, plugin.settings );
-})
+});
+
+unRegisterCore();

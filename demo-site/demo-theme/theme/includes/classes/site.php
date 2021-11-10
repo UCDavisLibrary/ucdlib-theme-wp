@@ -8,6 +8,7 @@ require_once( __DIR__ . '/assets.php' );
 require_once( __DIR__ . '/sidebars.php' );
 require_once( __DIR__ . '/user.php' );
 require_once( __DIR__ . '/post.php' );
+require_once( __DIR__ . '/comments.php' );
 
 
 /**
@@ -43,18 +44,6 @@ class UcdThemeSite extends Timber\Site {
       $this->blockSettings['color--' . $shortSlug] = $customColors;
     }
 
-    /*
-    $this->blockSettings = array(
-      "palette--alt" => array(
-        "primary", "admin-blue", "rose", "secondary", "sage", "arboretum", "tahoe", "thiebaud-icing"
-      ),
-      "color--marketing-highlight" => "palette--alt",
-      "color--marketing-highlight-horizontal" => "palette--alt",
-      "color--poster" => "palette--alt",
-      "color--teaser" => "palette--alt"
-     );
-     */
-
     // Register view paths with theme
     $this->views = new UCDThemeViews();
 
@@ -76,7 +65,10 @@ class UcdThemeSite extends Timber\Site {
 
     // Register widget areas (sidebars)
     new UcdThemeSidebars();
-  
+
+    // Remove comments
+    new UcdThemeComments();
+
     // Hook onto actions and filters
     add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
     add_filter( 'timber/context', array( $this, 'add_to_context' ), 4);

@@ -92,32 +92,77 @@ class UCDThemeBlocks {
   );
 
   /**
+   * Core blocks to unregister. 
+   * Most because they are redundant of a ucd block.
+   */
+  public static $excluded_core_blocks = array(
+    "core/buttons",
+    "core/button",
+    "core/calendar",
+    "core/categories",
+    "core/columns",
+    "core/column",
+    "core/group",
+    "core/latest-comments",
+    "core/latest-posts",
+    "core/loginout",
+    "core/nextpage",
+    "core/post-content",
+    "core/post-date",
+    "core/post-excerpt",
+    "core/post-featured-image",
+    "core/page-list",
+    "core/post-template",
+    "core/post-terms",
+    "core/post-title",
+    "core/site-logo",
+    "core/spacer",
+    "core/site-tagline",
+    "core/site-title",
+    "core/tag-cloud",
+    "core/query",
+    "core/query-pagination",
+    "core/query-pagination-next",
+    "core/query-pagination-numbers",
+    "core/query-pagination-previous",
+    "core/query-title",
+    "core/search",
+  );
+
+  /**
    * Custom block categories
    */
   public function addCategories($block_categories, $editor_context){
-    if ( ! empty( $editor_context->post ) ) {
+    $customCategories = array(
+      array(
+        'slug'  => 'ucd-links',
+        'title' => 'Stylized Links',
+        'icon'  => null,
+      ),
+      array(
+        'slug'  => 'ucd-cards',
+        'title' => 'Cards and Panels',
+        'icon'  => null,
+      ),
+      array(
+        'slug'  => 'ucd-layout',
+        'title' => 'Layouts',
+        'icon'  => null,
+      ),
+      array(
+        'slug'  => 'ucd-query',
+        'title' => 'Queries',
+        'icon'  => null,
+      )
+    );
+      
+    $textIndex = array_search('text', array_column($block_categories, 'slug'));
+    if ( $textIndex !== false) {
+      array_splice( $block_categories, $textIndex+1, 0, $customCategories );
+    } else {
       array_push(
-          $block_categories,
-          array(
-            'slug'  => 'ucd-links',
-            'title' => 'Stylized Links',
-            'icon'  => null,
-          ),
-          array(
-            'slug'  => 'ucd-cards',
-            'title' => 'Cards and Panels',
-            'icon'  => null,
-          ),
-          array(
-            'slug'  => 'ucd-layout',
-            'title' => 'Layouts',
-            'icon'  => null,
-          ),
-          array(
-            'slug'  => 'ucd-query',
-            'title' => 'Queries',
-            'icon'  => null,
-          )
+        $block_categories,
+        ...$customCategories
       );
     }
     return $block_categories;
@@ -153,6 +198,8 @@ class UCDThemeBlocks {
         $settings[$colorProp] = $meta["color"];
       }
     }
+    $settings['excludedCoreBlocks'] = self::$excluded_core_blocks;
+
     $this->settings = $settings;
 
   }

@@ -17,6 +17,20 @@ class UcdThemeCustomizer {
     $this->layout($wp_customize);
     $this->search($wp_customize);
     $this->colors($wp_customize);
+    $this->site_identity($wp_customize);
+  }
+
+  // Add to site_identity section
+  public function site_identity($wp_customize){
+    $wp_customize->add_setting('enable_comments');
+    $wp_customize->add_control('enable_comments', array(
+      'type' => "checkbox",
+      'priority' => 11,
+      'section' => 'title_tagline',
+      'label' => 'Enable Comments',
+      'description' => "Unhides comments admin menu. Though comments still won't display publicly."
+    ));
+
   }
 
   // header customizations
