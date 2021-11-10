@@ -16,6 +16,14 @@
 
 
 		<main id="main-content" class="l-main">
+      {% block hero_image %}
+        {% if post.hero %}
+        <div class="aspect--13x3">
+          <img src="{{post.hero.src}}" alt="{{post.hero.alt}}" loading="lazy" />
+        </div>
+        {% endif %}
+      {% endblock %}
+
       {% block page_title %}
         {% if title and not post.hide_title %}
           {% if brandColor %}
@@ -23,7 +31,9 @@
           {% elseif post.brand_color %}
             {% set colorClass = 'category-brand--'~post.brand_color %}
           {% endif %}
-          <h1 class="page-title {{colorClass}}">{{title}}</h1>
+          <section>
+            <h1 class="page-title {{colorClass}}">{{title}}</h1>
+          </section>
         {% endif %}
       {% endblock %}
 

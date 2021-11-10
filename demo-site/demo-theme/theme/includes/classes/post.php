@@ -37,6 +37,19 @@ class UcdThemePost extends Timber\Post {
     return $this->featured;
   }
 
+  protected $hero;
+  public function hero(){
+    if ( ! empty( $this->hero ) ) {
+      return $this->hero;
+    }
+    if ( $this->thumbnail_id() && get_post_meta($this->ID, 'ucd_show_hero', true) ) {
+      $this->hero = $this->thumbnail();
+    } else {
+      $this->hero = false;
+    }
+    return $this->hero;
+  }
+
   protected $brand_color;
   public function brand_color(){
     if ( ! empty( $this->brand_color ) ) {

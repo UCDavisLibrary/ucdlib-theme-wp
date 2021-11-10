@@ -5,3 +5,25 @@
 a.icon--circle-arrow-right::before {
   color: var(--category-brand, #73abdd);
 }
+
+
+.aspect--13x5 {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 35%;
+}
+.aspect--13x5 > img {
+  position: absolute;
+  top: 0;
+}
+.aspect--13x3 {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 20.91%;
+}
+.aspect--13x3 > img {
+  position: absolute;
+  top: 0;
+}
