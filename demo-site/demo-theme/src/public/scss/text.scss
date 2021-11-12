@@ -1,0 +1,25 @@
+@use "@ucd-lib/theme-sass/0_tools" as *;
+.pullquote cite {
+    position: relative;
+    display: inline-block;
+    padding: .5em 1.5em;
+    color: $brand--primary-80;
+    font-size: .875em;
+    font-style: italic;
+
+    .category-brand__background & {
+      color: var(--category-brand-contrast-color, #{$brand--primary-80});
+    }
+}
+.pullquote cite::before {
+    position: absolute;
+    z-index: -1;
+    top: -.125em;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    border: .25em solid #6fcfeb;
+    content: "";
+    transform: skewX(-15deg);
+}

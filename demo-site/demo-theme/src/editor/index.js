@@ -7,6 +7,7 @@ import { registerPlugin } from '@wordpress/plugins';
 import UcdThemeBlocks from "./blocks";
 import UcdThemeRichTextFormats from "./formats";
 import UcdThemePlugins from "./plugins";
+import { addCoreBlockStyles } from "./core-block-styles";
 import unRegisterCore from "./exclude";
 
 
@@ -22,4 +23,5 @@ UcdThemePlugins.forEach(plugin => {
   registerPlugin( plugin.name, plugin.settings );
 });
 
+addCoreBlockStyles();
 unRegisterCore();
