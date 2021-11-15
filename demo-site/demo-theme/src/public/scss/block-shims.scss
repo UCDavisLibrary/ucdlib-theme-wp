@@ -1,4 +1,6 @@
 @use "@ucd-lib/theme-sass/0_tools" as *;
+@use "@ucd-lib/theme-sass/2_base_class/tables-mixin" as *;
+
 .pullquote cite {
     position: relative;
     display: inline-block;
@@ -22,4 +24,8 @@
     border: .25em solid #6fcfeb;
     content: "";
     transform: skewX(-15deg);
+}
+
+figure.table--bordered table {
+  @include table--bordered();
 }

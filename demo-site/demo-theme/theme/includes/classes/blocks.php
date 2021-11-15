@@ -20,6 +20,7 @@ class UCDThemeBlocks {
     add_action( 'enqueue_block_editor_assets', array( $this, "enqueue_block_editor_assets" ), 5 );
     add_action( 'init', array( $this, 'register_blocks'));
     add_action('block_categories_all', array($this, 'addCategories'), 10,2);
+    add_filter( 'render_block', array($this, 'modifyCoreBlock'), 10, 2 );
   }
 
   /**
@@ -115,6 +116,7 @@ class UCDThemeBlocks {
     "core/post-template",
     "core/post-terms",
     "core/post-title",
+    "core/pullquote",
     "core/site-logo",
     "core/spacer",
     "core/site-tagline",
@@ -294,6 +296,17 @@ class UCDThemeBlocks {
     $img = $this->settings["imgByAspectRatio"][$aspectRatio];
     return $this->settings['imgBase'] . $img;
   }
+
+  public function modifyCoreBlock( $block_content, $block ) {
+    if ( $block['blockName'] === 'core/table' ) {
+      $content = '<div class="responsive-table" role="region" aria-label="Scrollable Table" tabindex="0">';
+      $content .= $block_content;
+      $content .= '</div>';
+      return $content; 
+    }
+    return $block_content;
+  }
+    
 }
 
 ?>

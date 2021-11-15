@@ -170,6 +170,7 @@ class UcdThemeSite extends Timber\Site {
       add_theme_support( 'menus' );
       add_theme_support( 'custom-logo' );
       add_theme_support( 'editor-styles' );
+      remove_theme_support( 'core-block-patterns' );
     }
 
     /**
