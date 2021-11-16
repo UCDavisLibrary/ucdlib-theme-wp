@@ -1,5 +1,7 @@
 node_modules
-demo-site/demo-theme/assets/js/editor
-demo-site/demo-theme/assets/js/public
-demo-site/demo-theme/assets/css
+/vendor/
+/composer.lock
+/assets/js/editor
+/assets/js/public
+/assets/css
 .DS_Store

@@ -1,13 +1,13 @@
 {
-  "name": "upstatement/timber-starter-theme",
-  "description": "Starter theme to build a Timber theme",
+  "name": "ucdlib/ucdlib-theme-wp",
+  "description": "Wordpress theme port of the UC Davis SiteFarm One Theme ",
   "type":"wordpress-theme",
   "license": "MIT",
   "minimum-stability" : "dev",
   "authors": [
     {
-      "email": "jared@upstatement.com",
-      "name": "jarednova"
+      "email": "spelkey@ucdavis.edu",
+      "name": "spelkey"
     }
   ],
   "repositories": [
