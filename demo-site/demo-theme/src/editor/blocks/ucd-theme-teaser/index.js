@@ -10,7 +10,8 @@ const settings = {
 	category: 'ucd-cards',
 	keywords: [ 'teaser', 'news', 'post', 'page', "link", "list" ],
   supports: {
-    "html": false
+    "html": false,
+    "customClassName": false
   },
   attributes: {
     imageId: {

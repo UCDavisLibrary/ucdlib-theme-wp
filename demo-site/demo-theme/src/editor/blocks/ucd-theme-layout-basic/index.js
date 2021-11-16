@@ -12,7 +12,8 @@ const settings = {
 	keywords: [ "grid", "column", "content", "sidebar" ],
   supports: {
     "html": false,
-    "anchor": true
+    "anchor": true,
+    "customClassName": false
   },
   attributes: {
     hasSecondSidebar: {

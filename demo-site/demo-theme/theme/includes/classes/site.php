@@ -73,8 +73,7 @@ class UcdThemeSite extends Timber\Site {
     add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
     add_filter( 'timber/context', array( $this, 'add_to_context' ), 4);
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
-    add_action( 'init', array( $this, 'register_post_types' ) );
-    add_action( 'init', array( $this, 'register_taxonomies' ) );
+    add_action( 'init', array( $this, 'modify_native_post_types' ) );
     add_filter( 'timber/user/class', array( $this, 'extend_user' ), 10, 2 );
     add_filter( 'timber/post/classmap', array($this, 'extend_post') );
     parent::__construct();
@@ -90,55 +89,31 @@ class UcdThemeSite extends Timber\Site {
         'post' => UcdThemePost::class,
       );
 
-    return array_merge( $classmap, $custom_classmap );
+      return array_merge( $classmap, $custom_classmap );
     }
 
 
-    /** This is where you can register custom post types. */
-    public function register_post_types() {
+    public function modify_native_post_types() {
       add_post_type_support( 'page', 'excerpt' );
-  
-    }
-    /** This is where you can register custom taxonomies. */
-    public function register_taxonomies() {
-  
     }
   
-    /** This is where you add some context
-     *
-     * @param string $context context['this'] Being the Twig's {{ this }}.
-     */
     public function add_to_context( $context ) {
-      
-      # site
       $context['site']  = $this;
-      
       return $context;
     }
   
     public function theme_supports() {
-      // Add default posts and comments RSS feed links to head.
+      // Adds RSS feed links to <head>. 
+      // https://codex.wordpress.org/Automatic_Feed_Links
       add_theme_support( 'automatic-feed-links' );
   
-      /*
-       * Let WordPress manage the document title.
-       * By adding theme support, we declare that this theme does not use a
-       * hard-coded <title> tag in the document head, and expect WordPress to
-       * provide it for us.
-       */
+      // https://codex.wordpress.org/Title_Tag
       add_theme_support( 'title-tag' );
   
-      /*
-       * Enable support for Post Thumbnails on posts and pages.
-       *
-       * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-       */
+      // https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
       add_theme_support( 'post-thumbnails' );
-  
-      /*
-       * Switch default core markup for search form, comment form, and comments
-       * to output valid HTML5.
-       */
+
+      // https://codex.wordpress.org/Theme_Markup
       add_theme_support(
         'html5',
         array(
@@ -149,28 +124,21 @@ class UcdThemeSite extends Timber\Site {
         )
       );
   
-      /*
-       * Enable support for Post Formats.
-       *
-       * See: https://codex.wordpress.org/Post_Formats
-       */
-      add_theme_support(
-        'post-formats',
-        array(
-          'aside',
-          'image',
-          'video',
-          'quote',
-          'link',
-          'gallery',
-          'audio',
-        )
-      );
-  
+      // https://codex.wordpress.org/WordPress_Menu_User_Guide
       add_theme_support( 'menus' );
+
+      // The image in the header, not the favicon
+      // Can be uploaded in Customizer 'Site Identity' menu
       add_theme_support( 'custom-logo' );
+
+      // Allows us to load main ucd stylesheet into the editor
       add_theme_support( 'editor-styles' );
+
+      // https://developer.wordpress.org/block-editor/reference-guides/block-api/block-patterns/
       remove_theme_support( 'core-block-patterns' );
+
+      // https://make.wordpress.org/core/2021/06/16/introducing-the-template-editor-in-wordpress-5-8/
+      remove_theme_support( 'block-templates' );
     }
 
     /**
@@ -191,8 +159,6 @@ class UcdThemeSite extends Timber\Site {
       return false;
     }
     
-
-  
   
     /** This is where you can add your own functions to twig.
      *

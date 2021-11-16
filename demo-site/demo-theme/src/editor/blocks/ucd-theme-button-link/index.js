@@ -11,7 +11,8 @@ const settings = {
 	category: 'ucd-links',
 	keywords: [ 'button', 'link' ],
   supports: {
-    "html": false
+    "html": false,
+    "customClassName": false
   },
   attributes: {
     content: {

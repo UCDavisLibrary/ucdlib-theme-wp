@@ -11,7 +11,8 @@ const settings = {
 	category: 'ucd-layout',
 	keywords: [ "box", "padding", "group" ],
   supports: {
-    "html": false
+    "html": false,
+    "customClassName": false
   },
   attributes: {
     padding: {

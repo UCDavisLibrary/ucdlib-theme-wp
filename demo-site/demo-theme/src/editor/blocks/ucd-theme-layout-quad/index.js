@@ -12,7 +12,8 @@ const settings = {
 	keywords: [ "column", "content", "quad" ],
   supports: {
     "html": false,
-    "anchor": true
+    "anchor": true,
+    "customClassName": false
   },
   attributes: {
     anchor: {

@@ -18,7 +18,8 @@ const settings = {
   supports: {
     "html": false,
     "anchor": true,
-    "reusable": false
+    "reusable": false,
+    "customClassName": false
   },
   attributes: {
     layoutClass: {

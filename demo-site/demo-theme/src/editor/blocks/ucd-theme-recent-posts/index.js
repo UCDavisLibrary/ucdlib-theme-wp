@@ -10,7 +10,8 @@ const settings = {
 	category: 'ucd-query',
 	keywords: [ 'teaser', 'news', 'post' ],
   supports: {
-    "html": false
+    "html": false,
+    "customClassName": false
   },
   attributes: {
     postCt: {

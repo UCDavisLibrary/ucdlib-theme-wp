@@ -10,7 +10,8 @@ const settings = {
 	category: 'media',
 	keywords: [ 'image', 'landscape', '4x3', '16x9' ],
   supports: {
-    "html": false
+    "html": false,
+    "customClassName": false
   },
   attributes: {
     imageId: {

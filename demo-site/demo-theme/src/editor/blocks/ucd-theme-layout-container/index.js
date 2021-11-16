@@ -12,7 +12,8 @@ const settings = {
 	keywords: [ "column", "content", "container" ],
   supports: {
     "html": false,
-    "anchor": true
+    "anchor": true,
+    "customClassName": false
   },
   attributes: {
     anchor: {

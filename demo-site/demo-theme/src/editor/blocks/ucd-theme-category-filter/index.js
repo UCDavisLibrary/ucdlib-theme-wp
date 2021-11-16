@@ -10,7 +10,8 @@ const settings = {
 	category: 'widgets',
 	keywords: [ 'link', 'categories', 'category' ],
   supports: {
-    "html": false
+    "html": false,
+    "customClassName": false
   },
   attributes: {
     title: {

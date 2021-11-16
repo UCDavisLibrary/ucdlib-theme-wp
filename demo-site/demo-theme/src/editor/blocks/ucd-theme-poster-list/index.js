@@ -11,7 +11,8 @@ const settings = {
 	category: 'ucd-layout',
 	keywords: [ 'poster', 'link', 'image', 'post', 'page', "list", "grid", "column" ],
   supports: {
-    "html": false
+    "html": false,
+    "customClassName": false
   },
   attributes: {
   },

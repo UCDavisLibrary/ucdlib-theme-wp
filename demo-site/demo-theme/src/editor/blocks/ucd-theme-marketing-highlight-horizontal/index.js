@@ -10,7 +10,8 @@ const settings = {
 	category: 'ucd-links',
 	keywords: [ 'marketing', 'highlight', 'post', 'page', 'landscape', 'image' ],
   supports: {
-    "html": false
+    "html": false,
+    "customClassName": false
   },
   attributes: {
     imageId: {

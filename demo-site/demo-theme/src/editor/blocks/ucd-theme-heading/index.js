@@ -12,7 +12,8 @@ const settings = {
 	keywords: [ 'heading', 'header' ],
   supports: {
     "html": false,
-    "anchor": true
+    "anchor": true,
+    "customClassName": false
   },
   attributes: {
     content: {
