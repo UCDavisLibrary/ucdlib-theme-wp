@@ -2,19 +2,19 @@ const path = require('path');
 const fs = require('fs-extra');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-let preview = '../../assets/js/dev';
-let previewFolder = path.join(__dirname, preview);
-if( fs.existsSync(previewFolder) ) {
-  fs.removeSync(previewFolder);
+let dist = '../../assets/js/dist';
+let distFolder = path.join(__dirname, dist);
+if( fs.existsSync(distFolder) ) {
+  fs.removeSync(distFolder);
 }
 
-let config = require('@ucd-lib/cork-app-build').watch({
+let config = require('@ucd-lib/cork-app-build').dist({
   // root directory, all paths below will be relative to root
   root : __dirname,
   // path to your entry .js file
   entry : './index.js',
   // folder where bundle.js will be written
-  preview : preview,
+  dist : dist,
   clientModules : 'node_modules'
 });
 
@@ -54,7 +54,7 @@ config.forEach(conf => {
 
    conf.plugins = [
      new MiniCssExtractPlugin({
-       filename: '../../css/ucd-styles-dev.css'
+       filename: '../../css/ucd-styles.css'
      })
    ]
 });

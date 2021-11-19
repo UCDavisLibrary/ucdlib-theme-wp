@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "webpack --config webpack-watch.config.js --watch"
+    "watch": "webpack --config webpack-watch.config.js --watch",
+    "dist": "webpack --config webpack-dist.config.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ucd-lib/theme-elements": "^0.0.6",
+    "@ucd-lib/theme-elements": "^0.0.7",
     "@ucd-lib/theme-sass": "^5.0.16",
     "normalize-scss": "^7.0.1"
   },

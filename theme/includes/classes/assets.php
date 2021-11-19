@@ -8,6 +8,7 @@ class UCDThemeAssets {
     $this->scripts = $scripts;
     $this->version = $version;
     $this->directories = array();
+    $this->isDevEnv = getenv('UCD_THEME_ENV') == 'dev';
     
     $this->uris = array(
       'base' => dirname( get_template_directory_uri() ) . "/assets"
@@ -30,27 +31,53 @@ class UCDThemeAssets {
     $adminScreens = array( 'customize');
     if ( in_array( get_current_screen()->id, $adminScreens ) ) return;
 
-    wp_enqueue_script(
-      $this->scripts['editor'], 
-      $this->uris['js'] . "/editor/index.js", 
-      array(), 
-      $this->version, 
-      true);
+    if ( $this->isDevEnv ){
+      wp_enqueue_script(
+        $this->scripts['editor'], 
+        $this->uris['js'] . "/editor/dev/index.js", 
+        array(), 
+        $this->version, 
+        true);
+    } else {
+      wp_enqueue_script(
+        $this->scripts['editor'], 
+        $this->uris['js'] . "/editor/dist/index.js", 
+        array(), 
+        $this->version, 
+        true);
+    }
   }
 
   public function wp_enqueue_scripts(){
-    wp_enqueue_style( 
-      $this->scripts['publicStyles'],
-      $this->uris['css'] . "/ucd-styles.css",
-      array(), 
-      $this->version );
-    wp_enqueue_script(
-      $this->scripts['public'],
-      $this->uris['js'] . "/public/bundle.js",
-      array(),
-      $this->version,
-      true
-    );
+
+    if ( $this->isDevEnv ){
+      wp_enqueue_style( 
+        $this->scripts['publicStyles'],
+        $this->uris['css'] . "/ucd-styles-dev.css",
+        array(), 
+        $this->version );
+      wp_enqueue_script(
+        $this->scripts['public'],
+        $this->uris['js'] . "/dev/bundle.js",
+        array(),
+        $this->version,
+        true
+      );
+    } else {
+      wp_enqueue_style( 
+        $this->scripts['publicStyles'],
+        $this->uris['css'] . "/ucd-styles.css",
+        array(), 
+        $this->version );
+      wp_enqueue_script(
+        $this->scripts['public'],
+        $this->uris['js'] . "/dist/bundle.js",
+        array(),
+        $this->version,
+        true
+      );
+    }
+
   }
 
   public function get_sf_image($img=''){
