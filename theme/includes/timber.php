@@ -1,8 +1,9 @@
 <?php
 /**
- * Loads Timber, which is required for this theme
+ * Loads Timber, which is required for this theme.
+ * Assumes it has been installed in the WP root
  */
-$composer_autoload = dirname( __DIR__ , 2) . '/vendor/autoload.php';
+$composer_autoload = '/var/www/html/vendor/autoload.php';
 if ( file_exists( $composer_autoload ) ) {
 	require_once $composer_autoload;
 	$timber = new Timber\Timber();
