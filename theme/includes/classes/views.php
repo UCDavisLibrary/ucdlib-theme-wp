@@ -36,6 +36,7 @@ class UCDThemeViews {
       $context['twigHooks']['footer']['postColumns'] = array();
       $context['twigHooks']['footer']['postSpacer'] = array();
       $context['twigHooks']['footer']['bottom'] = array();
+      $context['twigHooks']['footer']['postBuild'] = array();
 
       // post (news item) hooks
       $context['twigHooks']['post'] = array();

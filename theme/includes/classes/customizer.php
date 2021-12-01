@@ -144,6 +144,17 @@ class UcdThemeCustomizer {
       ));
     }
 
+    $wp_customize->add_section( 'footer_build', array(
+      'title' => 'Website Build Info',
+      'panel' => 'footer'
+    ));
+    $wp_customize->add_setting('footer_hide_build');
+    $wp_customize->add_control('footer_hide_build', array(
+      'type' => "checkbox",
+      'section' => 'footer_build',
+      'label' => 'Hide All Build Info'
+    ));
+
   }
 
   // search panel

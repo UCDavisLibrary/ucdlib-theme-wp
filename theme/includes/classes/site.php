@@ -35,6 +35,13 @@ class UcdThemeSite extends Timber\Site {
       "publicStyles" => "ucd-public"
     );
 
+    // Build params
+    $this->buildParams = array(
+      "APP_VERSION" => array("label" => "Build: ", "value" => getenv('APP_VERSION')),
+      "BUILD_TIME" => array("label" => "Build Time: ", "value" => getenv('BUILD_TIME')),
+      "WEBSITE_TAG" => array("label" => "Website Tag: ", "value" => getenv('WEBSITE_TAG'))
+    );
+
     $this->blockSettings = array();
     foreach (UCDThemeBlocks::$registry as $slug => $meta) {
       if ( !array_key_exists('hasBrandColors', $meta) || !$meta['hasBrandColors']) continue;

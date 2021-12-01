@@ -77,11 +77,24 @@
               <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
             </li>
           {% endfor %}
-          <li><a href="{{ theme.get('ThemeURI') }}">Theme version: {{theme.version}}</a></li>
         {% endif %}
       </ul>
       <p>Copyright © The Regents of the University of California, Davis campus. All rights reserved.</p>
     </div>
+
+    {% if not theme.theme_mod('footer_hide_build') %}
+      <div class="u-align--center">
+        <ul class="list--pipe">
+          {% for param in site.buildParams %}
+            {% if param.value %}
+              <li>{{param.label}}{{param.value}}</li>
+            {% endif %}
+          {% endfor %}
+          <li><a href="{{ theme.get('ThemeURI') }}">Theme: {{theme.version}}</a></li>
+          {% include getUcdHook('footer') with {'hook': 'postBuild'} %}
+        </ul>
+      </div>
+    {% endif %}
 
     {% include getUcdHook('footer') with {'hook': 'bottom'} %}
   </div> {# .l-container #}
