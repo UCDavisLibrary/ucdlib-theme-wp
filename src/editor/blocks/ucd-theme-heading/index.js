@@ -13,7 +13,8 @@ const settings = {
   supports: {
     "html": false,
     "anchor": true,
-    "customClassName": false
+    "customClassName": false,
+    "defaultStylePicker": true
   },
   attributes: {
     content: {
@@ -31,8 +32,11 @@ const settings = {
     anchor: {
       type: "string",
       default: ""
+    },
+    className: {
+      type: "string",
+      default: ""
     }
-
   },
 	edit: Edit,
   styles: styleClasses

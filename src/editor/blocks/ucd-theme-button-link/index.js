@@ -38,6 +38,10 @@ const settings = {
     display: {
       type: 'string',
       default: ''
+    },
+    className: {
+      type: "string",
+      default: ""
     }
   },
 	edit: Edit,
