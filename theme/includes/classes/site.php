@@ -10,6 +10,7 @@ require_once( __DIR__ . '/user.php' );
 require_once( __DIR__ . '/post.php' );
 require_once( __DIR__ . '/comments.php' );
 require_once( __DIR__ . '/roles.php' );
+require_once( __DIR__ . '/rewrite.php' );
 
 
 /**
@@ -81,6 +82,9 @@ class UcdThemeSite extends Timber\Site {
     // Customizations to roles and capabilities
     new UcdThemeRoles();
 
+    // Permalink/routing customizations
+    new UcdThemeRewrite();
+
     // Hook onto actions and filters
     add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
     add_filter( 'timber/context', array( $this, 'add_to_context' ), 4);
@@ -88,6 +92,7 @@ class UcdThemeSite extends Timber\Site {
     add_action( 'init', array( $this, 'modify_native_post_types' ) );
     add_filter( 'timber/user/class', array( $this, 'extend_user' ), 10, 2 );
     add_filter( 'timber/post/classmap', array($this, 'extend_post') );
+
     parent::__construct();
     }
 
