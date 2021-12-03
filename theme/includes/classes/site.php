@@ -9,6 +9,7 @@ require_once( __DIR__ . '/sidebars.php' );
 require_once( __DIR__ . '/user.php' );
 require_once( __DIR__ . '/post.php' );
 require_once( __DIR__ . '/comments.php' );
+require_once( __DIR__ . '/roles.php' );
 
 
 /**
@@ -42,6 +43,7 @@ class UcdThemeSite extends Timber\Site {
       "WEBSITE_TAG" => array("label" => "Website Tag: ", "value" => getenv('WEBSITE_TAG'))
     );
 
+    // Custom gutenberg block modifications
     $this->blockSettings = array();
     foreach (UCDThemeBlocks::$registry as $slug => $meta) {
       if ( !array_key_exists('hasBrandColors', $meta) || !$meta['hasBrandColors']) continue;
@@ -75,6 +77,9 @@ class UcdThemeSite extends Timber\Site {
 
     // Remove comments
     new UcdThemeComments();
+
+    // Customizations to roles and capabilities
+    new UcdThemeRoles();
 
     // Hook onto actions and filters
     add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
