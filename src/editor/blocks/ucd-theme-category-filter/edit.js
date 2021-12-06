@@ -1,5 +1,6 @@
 import { html, SelectUtils } from "../../utils";
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { decodeEntities } from "@wordpress/html-entities";
 import {
 	PanelBody,
 	ToggleControl,
@@ -36,7 +37,7 @@ export default ( props ) => {
         <ul className="category-filter">
           ${categories.map((c, i) => html`
             <li key=${`cat-${i}`} className="category-filter__list-item ${c.brandColor ? `category-brand--${c.brandColor}` : ''}">
-              <a className="category-filter__link">${c.name}</a>
+              <a className="category-filter__link">${decodeEntities(c.name)}</a>
             </li>
           `)}
         </ul>
