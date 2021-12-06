@@ -11,6 +11,7 @@ require_once( __DIR__ . '/post.php' );
 require_once( __DIR__ . '/comments.php' );
 require_once( __DIR__ . '/roles.php' );
 require_once( __DIR__ . '/rewrite.php' );
+require_once( __DIR__ . '/thumbnails.php' );
 
 
 /**
@@ -84,6 +85,9 @@ class UcdThemeSite extends Timber\Site {
 
     // Permalink/routing customizations
     new UcdThemeRewrite();
+
+    // Set post featured image sizes
+    new UcdThemeThumbnails();
 
     // Hook onto actions and filters
     add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );

@@ -4,9 +4,13 @@
  * Wire up view locations and hooks.
  */
 class UCDThemeViews {
+  public static $ns = "ucd";
+
+  public static function getViewDir(){
+    return dirname(get_stylesheet_directory(), 1) . "/views";
+  }
+
   public function __construct() {
-    $this->ns = "ucd";
-    $this->dir = dirname(get_stylesheet_directory(), 1) . "/views";
 
     add_filter( 'timber/locations', array($this, 'add_timber_locations'), 4 );
     add_filter( 'timber/twig', array( $this, 'add_twig_functions' ), 4 );
@@ -58,50 +62,50 @@ class UCDThemeViews {
    * Adds twig files under the @ucd namespace
    */
   public function add_timber_locations($paths){
-    $paths[$this->ns] = array($this->dir);
+    $paths[self::$ns] = array(self::getViewDir());
     return $paths;
   }
 
   /**
    * Returns namespaced path of a twig page template
    */
-  public function getTemplate($template){
-    return '@' . $this->ns . "/templates/" . $template . ".twig";
+  public static function getTemplate($template){
+    return '@' . self::$ns . "/templates/" . $template . ".twig";
   }
 
   /**
    * Returns namespaced path of a twig partial template
    */
-  public function getPartial($template){
-    return '@' . $this->ns . "/template-partials/" . $template . ".twig";
+  public static function getPartial($template){
+    return '@' . self::$ns . "/template-partials/" . $template . ".twig";
   }
 
   /**
    * Returns namespaced path of a twig macro file
    */
-  public function getMacro($template){
-    return '@' . $this->ns . "/macros/" . $template . ".twig";
+  public static function getMacro($template){
+    return '@' . self::$ns . "/macros/" . $template . ".twig";
   }
 
   /**
    * Returns namespaced path of a twig gutenberg block
    */
-  public function getBlock($template){
-    return '@' . $this->ns . "/blocks/" . $template . ".twig";
+  public static function getBlock($template){
+    return '@' . self::$ns . "/blocks/" . $template . ".twig";
   }
 
   /**
    * Returns namespaced path of a set of twig hooks
    */
-  public function getHook($template){
-    return '@' . $this->ns . "/template-partials/hooks/" . $template . ".twig";
+  public static function getHook($template){
+    return '@' . self::$ns . "/template-partials/hooks/" . $template . ".twig";
   }
 
   /**
    * Returns namespaced path of a sidebar default template
    */
-  public function getSidebarDefault($template){
-    return '@' . $this->ns . "/template-partials/sidebar-defaults/" . $template . ".twig";
+  public static function getSidebarDefault($template){
+    return '@' . self::$ns . "/template-partials/sidebar-defaults/" . $template . ".twig";
   }
 
   /**

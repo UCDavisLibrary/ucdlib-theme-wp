@@ -1,4 +1,5 @@
 {% from getUcdMacro('placeholders') import breadcrumbs as render_crumbs %}
+{% from getUcdMacro('media') import image_title_banner %}
 
 {% block html_head_container %}
   {% include getUcdPartial('html-header') %}
@@ -17,11 +18,7 @@
 
 		<main id="main-content" class="l-main">
       {% block hero_image %}
-        {% if post.hero %}
-        <div class="aspect--13x3">
-          <img src="{{post.hero.src}}" alt="{{post.hero.alt}}" loading="lazy" />
-        </div>
-        {% endif %}
+        {{ image_title_banner(post.hero) }}
       {% endblock %}
 
       {% block page_title %}
