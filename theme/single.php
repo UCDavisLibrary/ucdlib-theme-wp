@@ -21,8 +21,11 @@ if ( $context['post']->post_type == 'post' ) {
 
 }
 
-
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate($template) );
+
+// Filters
+$context = apply_filters( 'ucd-theme_context_single', $context );
+$templates = apply_filters( 'ucd-theme_templates_single', $templates, $context );
 
 Timber::render( $templates, $context );

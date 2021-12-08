@@ -11,4 +11,9 @@ $context['breadcrumbs'] = true;
 
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('single-term'));
+
+// Filters
+$context = apply_filters( 'ucd-theme_context_taxonomy', $context );
+$templates = apply_filters( 'ucd-theme_templates_taxonomy', $templates, $context );
+
 Timber::render( $templates, $context );

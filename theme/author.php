@@ -58,5 +58,10 @@ if ( !$context['sidebar'] and !$context['hideSidebar'] ){
   #var_dump($context['posts']->found_posts);
 }
 
+// Filters
+$context = apply_filters( 'ucd-theme_context_author', $context );
+$templates = apply_filters( 'ucd-theme_templates_author', $templates, $context );
+
+
 $templates = array( $views->getTemplate('author'));
 Timber::render( $templates, $context );

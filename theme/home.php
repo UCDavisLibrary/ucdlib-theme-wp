@@ -43,7 +43,11 @@ if ( !$context['sidebar'] and !$context['hideSidebar'] ){
    ));
 }
 
-
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('post-archive'));
+
+// Filters
+$context = apply_filters( 'ucd-theme_context_home', $context );
+$templates = apply_filters( 'ucd-theme_templates_home', $templates, $context );
+
 Timber::render( $templates, $context );
