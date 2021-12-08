@@ -1,4 +1,4 @@
-import { html, StyleUtils } from "../../utils";
+import { html, StyleUtils, UCDIcons } from "../../utils";
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { ToolbarButton, Dropdown, ToolbarDropdownMenu } from '@wordpress/components';
 import { link } from '@wordpress/icons';
@@ -19,8 +19,8 @@ export default ({ attributes, setAttributes }) => {
     {title: "Large", onClick: () => {setAttributes({size: 'lg'})}}
   ];
   const shapeControls = [
-    {icon: html`<iron-icon icon="check-box-outline-blank"></iron-icon>`, title: "Rectangle", onClick: () => {setAttributes({shape: ''})}},
-    {icon: html`<iron-icon icon="radio-button-unchecked"></iron-icon>`, title: "Round", onClick: () => {setAttributes({shape: 'round'})}}
+    {icon: UCDIcons.render("shapes.square"), title: "Rectangle", onClick: () => {setAttributes({shape: ''})}},
+    {icon: UCDIcons.render("shapes.circle"), title: "Round", onClick: () => {setAttributes({shape: 'round'})}}
   ];
 
   const onTextChange = (e) => {
@@ -63,7 +63,7 @@ export default ({ attributes, setAttributes }) => {
     <${BlockControls} group="block">
       <${Dropdown} position="bottom right" renderToggle=${hrefButton} renderContent=${hrefContent}/>
       <${ToolbarDropdownMenu} icon=${html`<span>${attributes.size ? attributes.size : 'md'}</span>`} label="Change button size" controls=${sizeControls}/>
-      <${ToolbarDropdownMenu} icon=${html`<iron-icon icon=${attributes.shape ? 'radio-button-unchecked': 'check-box-outline-blank'}></iron-icon>`} label="Change button shape" controls=${shapeControls}/>
+      <${ToolbarDropdownMenu} icon=${UCDIcons.render(attributes.shape ? "shapes.circle" : "shapes.square")} label="Change button shape" controls=${shapeControls}/>
       <${ToolbarButton} 
         icon=${html`<span>100%</span>`} 
         onClick=${ () => {setAttributes({'display': attributes.display ? '' : 'block'})}} 

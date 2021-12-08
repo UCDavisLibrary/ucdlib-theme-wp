@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 import styleClasses from "./styles";
 
@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Button Link",
 	description: "Link to a webpage with a stylized button",
-	icon: html`<iron-icon icon='exit-to-app'></iron-icon>`,
+	icon: UCDIcons.render("outboundLink"),
 	category: 'ucd-links',
 	keywords: [ 'button', 'link' ],
   supports: {

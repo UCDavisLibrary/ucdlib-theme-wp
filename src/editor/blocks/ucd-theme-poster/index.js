@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 
 const name = 'ucd-theme/poster';
@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Poster",
 	description: "Preview content on another webpage with a basic card.",
-	icon: html`<iron-icon icon='editor:border-outer'></iron-icon>`,
+	icon: UCDIcons.render("poster"),
 	category: 'ucd-cards',
 	keywords: [ 'poster', 'link', 'image', 'post', 'page' ],
   supports: {

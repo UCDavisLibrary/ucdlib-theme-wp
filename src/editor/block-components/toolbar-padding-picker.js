@@ -36,7 +36,7 @@ function ToolbarPaddingPicker({
   })
   return html`
     <${ToolbarDropdownMenu} 
-      icon=${html`<iron-icon icon="select-all"></iron-icon>`}
+      icon=${UCDIcons.render('spacing.padding')}
       label="Set Padding"
       controls=${controls}
     />

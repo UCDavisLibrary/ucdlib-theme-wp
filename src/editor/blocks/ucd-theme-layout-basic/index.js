@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 import Save from "./save";
 
@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Content with Sidebar",
 	description: "Arrange content side-by-side with a sidebar",
-	icon: html`<iron-icon icon='view-array'></iron-icon>`,
+	icon: UCDIcons.render("layout.sidebar"),
 	category: 'ucd-layout',
 	keywords: [ "grid", "column", "content", "sidebar" ],
   supports: {

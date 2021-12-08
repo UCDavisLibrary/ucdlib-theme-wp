@@ -27,7 +27,7 @@ function ToolbarPostReset({
       control.title = "Post Excerpt";
     }
 
-    if ( p.icon ) control.icon = html`<iron-icon icon="${p.icon}" style=${iconStyle}></iron-icon>`;
+    if ( p.icon ) control.icon = UCDIcons.render(p.icon, {style:iconStyle});
     if ( p.title ) control.title = p.title;
     if ( p.isDisabled ) control.isDisabled = true;
 
@@ -36,7 +36,7 @@ function ToolbarPostReset({
 
   return html`
     <${ToolbarDropdownMenu} 
-      icon=${html`<iron-icon icon="undo"></iron-icon>`}
+      icon=${UCDIcons.render('undo')}
       label="Restore Linked Post Default Values"
       controls=${controls}
     />

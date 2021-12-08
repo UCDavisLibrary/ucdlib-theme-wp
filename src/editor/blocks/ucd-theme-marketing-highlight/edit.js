@@ -1,4 +1,4 @@
-import { html, BlockSettings, SelectUtils } from "../../utils";
+import { html, BlockSettings, SelectUtils, UCDIcons } from "../../utils";
 import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarSectionDisplay, ToolbarLinkPicker } from "../../block-components";
 import "./ucd-wp-marketing-highlight";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
@@ -150,7 +150,7 @@ export default ( props ) => {
       <${BlockControls} group="block">
         <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
         <${ToolbarButton} 
-          icon=${html`<iron-icon icon="invert-colors"></iron-icon>`} 
+          icon=${UCDIcons.render("color.fill")} 
           onClick=${ () => {setAttributes({'featured': !attributes.featured})}} 
           isPressed=${attributes.featured}
           label="Toggle 'Featured' Display Setting"/>

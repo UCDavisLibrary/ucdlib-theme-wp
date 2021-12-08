@@ -36,7 +36,7 @@ function ToolbarVerticalAlignPicker({
   
   return html`
     <${ToolbarDropdownMenu} 
-      icon=${html`<iron-icon icon="editor:vertical-align-center"></iron-icon>`}
+      icon=${UCDIcons.render("spacing.alignmentVertical")}
       label="Set Vertical Alignment"
       controls=${controls}
     />

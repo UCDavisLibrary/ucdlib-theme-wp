@@ -1,4 +1,4 @@
-import { html, BlockSettings } from "../utils";
+import { html, BlockSettings, UCDIcons } from "../utils";
 import { ColorPalette, ToolbarButton, Popover, MenuGroup, ColorIndicator } from '@wordpress/components';
 import { useState, Fragment } from '@wordpress/element';
 
@@ -35,7 +35,7 @@ function ToolbarColorPicker({
       //return html`<${ColorIndicator} colorValue=${ _value().color } />`;
       return html`<span className="component-color-indicator" style=${{background: _value().color, marginLeft: 0}}></span>`;
     }
-    return html`<iron-icon icon="editor:format-color-fill"></iron-icon>`;
+    return UCDIcons.render("color.palette");
   }
 
   const getColorObject = (val, key) => {

@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 
 const name = 'ucd-theme/teaser';
@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Teaser",
 	description: "Preview content on another webpage with a simple block. Meant to be use alongside other teasers.",
-	icon: html`<iron-icon icon='editor:short-text'></iron-icon>`,
+	icon: UCDIcons.render('listing'),
 	category: 'ucd-cards',
 	keywords: [ 'teaser', 'news', 'post', 'page', "link", "list" ],
   supports: {

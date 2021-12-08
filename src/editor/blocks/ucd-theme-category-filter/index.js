@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { html, UCDIcons } from "../../utils";
 import Edit from './edit';
 
 const name = 'ucd-theme/category-filter';
@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Category Filter",
 	description: "Display list of links to categories on this site",
-	icon: html`<iron-icon icon='view-list'></iron-icon>`,
+	icon: UCDIcons.render("taxonomy.categories"),
 	category: 'widgets',
 	keywords: [ 'link', 'categories', 'category' ],
   supports: {

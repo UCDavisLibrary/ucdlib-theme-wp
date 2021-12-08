@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 import Save from "./save";
 
@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Quad Layout",
 	description: "Place content in 4 columns that are responsive to screen width",
-	icon: html`<iron-icon icon='view-module'></iron-icon>`,
+	icon: UCDIcons.render('layout.grid'),
 	category: 'ucd-layout',
 	keywords: [ "column", "content", "quad" ],
   supports: {

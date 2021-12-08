@@ -1,0 +1,14 @@
+{
+  "name": "iconset",
+  "version": "1.0.0",
+  "description": "",
+  "main": "wp-editor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4"
+  }
+}

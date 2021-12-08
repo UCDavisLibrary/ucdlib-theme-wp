@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 import styleClasses from "./styles";
 
@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Fancy Heading",
 	description: "Add a section heading with a little extra pizazz.",
-	icon: html`<iron-icon icon='bookmark'></iron-icon>`,
+	icon: UCDIcons.render('title'),
 	category: 'text',
 	keywords: [ 'heading', 'header' ],
   supports: {

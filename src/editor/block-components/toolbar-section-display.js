@@ -35,7 +35,7 @@ function ToolbarSectionDisplay({sections=[], onChange}){
     }
 
     // override default values if applicable
-    if ( s.icon ) control.icon = html`<iron-icon icon="${s.icon}" style=${iconStyle}></iron-icon>`;
+    if ( s.icon ) control.icon = UCDIcons.render(s.icon, {style:iconStyle});
     if ( s.title ) control.title = s.title;
     if ( s.isHidden ) {
       control.title = `Show ${control.title}`;

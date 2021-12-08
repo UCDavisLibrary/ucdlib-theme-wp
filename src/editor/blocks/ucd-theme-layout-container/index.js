@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 import Save from "./save";
 
@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Container",
 	description: "Group similar content together into a partitioned section",
-	icon: html`<iron-icon icon='work'></iron-icon>`,
+	icon: UCDIcons.render("layout.container"),
 	category: 'ucd-layout',
 	keywords: [ "column", "content", "container" ],
   supports: {

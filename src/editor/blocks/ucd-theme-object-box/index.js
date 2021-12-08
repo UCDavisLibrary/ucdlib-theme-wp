@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 import Save from "./save";
 
@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Object Box",
 	description: "Box off Similar Content with Padding",
-	icon: html`<iron-icon icon='editor:format-shapes'></iron-icon>`,
+	icon: UCDIcons.render('spacing.padding'),
 	category: 'ucd-layout',
 	keywords: [ "box", "padding", "group" ],
   supports: {

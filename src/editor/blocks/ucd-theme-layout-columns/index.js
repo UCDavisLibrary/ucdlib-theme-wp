@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 import Save from "./save";
 
@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Columns",
 	description: "Arrange content into 2-4 columns",
-	icon: html`<iron-icon icon='view-array'></iron-icon>`,
+	icon: UCDIcons.render('layout.columns'),
 	category: 'ucd-layout',
 	keywords: [ "grid", "column", "content", "columns" ],
   supports: {

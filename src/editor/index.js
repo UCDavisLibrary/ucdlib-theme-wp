@@ -1,5 +1,5 @@
-import "@polymer/iron-icons/iron-icons";
-import "@polymer/iron-icons/editor-icons";
+import "./utils/iconset/wp-editor";
+
 import { registerBlockType } from '@wordpress/blocks';
 import { registerFormatType } from '@wordpress/rich-text';
 import { registerPlugin } from '@wordpress/plugins';

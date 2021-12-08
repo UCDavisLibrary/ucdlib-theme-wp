@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 import Save from "./save";
 
@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Poster List",
 	description: "Arrange a set of poster components in a grid",
-	icon: html`<iron-icon icon='flip-to-front'></iron-icon>`,
+	icon: UCDIcons.render("posters"),
 	category: 'ucd-layout',
 	keywords: [ 'poster', 'link', 'image', 'post', 'page', "list", "grid", "column" ],
   supports: {

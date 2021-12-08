@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 
 const name = 'ucd-theme/marketing-highlight';
@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Marketing Highlight",
 	description: "Preview content on another webpage with an attention-grabbing card.",
-	icon: html`<iron-icon icon='star'></iron-icon>`,
+	icon: UCDIcons.render('highlight'),
 	category: 'ucd-cards',
 	keywords: [ 'marketing', 'highlight', 'post', 'page', "link" ],
   supports: {

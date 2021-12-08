@@ -2,25 +2,60 @@ import { html } from "./html.js";
 
 export default class UCDIcons{
   static icons = {
-    title : 'bookmark',
-    photo: 'editor:insert-photo',
-    excerpt: "editor:text-fields",
-    visibility: "visibility",
-    button: "check-box-outline-blank",
-    link: "link",
+    title : 'wp-editor:fa-heading',
+    photo: 'wp-editor:fa-image',
+    excerpt: "wp-editor:fa-quote-left",
+    visibility: "wp-editor:fa-eye",
+    button: "wp-editor:fa-square",
+    link: "wp-editor:fa-link",
+    outboundLink: "wp-editor:fa-external-link-alt",
+    undo: "wp-editor:fa-undo",
+    highlight: "wp-editor:fa-star",
+    poster: "wp-editor:fa-passport",
+    posters: "wp-editor:fa-bars",
+    time: "wp-editor:fa-hourglass",
+    listing: "wp-editor:fa-ellipsis-h",
 
-    selected: "check-circle",
-    author: "perm-identity",
+    selected: "wp-editor:fa-check-circle",
+    author: "wp-editor:fa-user",
 
     post: {
-      title: "bookmark",
-      excerpt: "editor:text-fields",
-      thumbnail: 'editor:insert-photo',
-      link: "link"
+      title: "wp-editor:fa-heading",
+      excerpt: "wp-editor:fa-quote-left",
+      thumbnail: 'wp-editor:fa-image',
+      link: "wp-editor:fa-link"
     },
 
     taxonomy: {
-      category: "label"
+      category: "wp-editor:fa-tag",
+      categories: "wp-editor:fa-tags"
+    },
+
+    shapes: {
+      square: "wp-editor:fa-square",
+      circle: "wp-editor:fa-circle"
+    },
+
+    layout: {
+      sidebar: "wp-editor:fa-th-list",
+      column: "wp-editor:fa-square",
+      columns: "wp-editor:fa-columns",
+      container: "wp-editor:fa-box",
+      grid: "wp-editor:fa-th-large"
+    },
+
+    spacing: {
+      padding: "wp-editor:fa-vector-square",
+      alignmentVertical: "wp-editor:fa-arrows-alt-v"
+    },
+
+    color: {
+      palette: "wp-editor:fa-palette",
+      fill: "wp-editor:fa-fill"
+    },
+
+    formatting: {
+      bold: "wp-editor:fa-bold"
     }
   }
 
@@ -33,6 +68,6 @@ export default class UCDIcons{
       return html``;
     }
     attributes.icon = i;
-    return html`<iron-icon ...${attributes}></iron-icon>`;
+    return html`<ucdlib-icon ...${attributes}></ucdlib-icon>`;
   }
 }

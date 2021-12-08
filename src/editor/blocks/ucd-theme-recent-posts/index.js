@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 
 const name = 'ucd-theme/recent-posts';
@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Recent News",
 	description: "Display recent news items",
-	icon: html`<iron-icon icon='view-list'></iron-icon>`,
+	icon: UCDIcons.render("time"),
 	category: 'ucd-query',
 	keywords: [ 'teaser', 'news', 'post' ],
   supports: {

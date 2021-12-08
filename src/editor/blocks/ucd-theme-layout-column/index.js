@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 import Save from "./save";
 
@@ -12,7 +12,7 @@ const settings = {
     "ucd-theme/layout-container", 
     "ucd-theme/layout-quad"],
 	description: "A column used by layout blocks",
-	icon: html`<iron-icon icon='view-carousel'></iron-icon>`,
+	icon: UCDIcons.render("layout.column"),
 	category: 'ucd-layout',
 	keywords: [ "grid", "column", "content", "sidebar", "column" ],
   supports: {

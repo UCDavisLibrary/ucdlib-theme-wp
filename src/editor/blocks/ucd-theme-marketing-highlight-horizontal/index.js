@@ -1,4 +1,4 @@
-import { html } from "../../utils";
+import { UCDIcons } from "../../utils";
 import Edit from './edit';
 
 const name = 'ucd-theme/marketing-highlight-horizontal';
@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Marketing Highlight Horizontal",
 	description: "Link to another webpage with a landscape image and stylized short caption.",
-	icon: html`<iron-icon icon='open-in-browser'></iron-icon>`,
+	icon: UCDIcons.render("highlight"),
 	category: 'ucd-links',
 	keywords: [ 'marketing', 'highlight', 'post', 'page', 'landscape', 'image' ],
   supports: {
