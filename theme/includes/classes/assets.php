@@ -20,7 +20,12 @@ class UCDThemeAssets {
     add_action( 'enqueue_block_editor_assets', array($this, "enqueue_block_editor_assets"), 4);
     add_action( 'wp_enqueue_scripts', array($this, "wp_enqueue_scripts"), 4);
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ), 4 );
-    add_editor_style( "../assets/css/ucd-styles.css" );
+    if ( $this->isDevEnv ){
+      add_editor_style( "../assets/css/ucd-styles-dev.css" );
+    } else {
+      add_editor_style( "../assets/css/ucd-styles.css" );
+    }
+    
   }
 
   public function enqueue_block_editor_assets(){
