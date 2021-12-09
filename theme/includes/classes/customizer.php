@@ -340,7 +340,8 @@ class UcdThemeCustomizer {
       array("slug" => "teaser", "label" => "Teaser Block Palette", "description" => 'Also used as color palette for "featured" post.'),
       array("slug" => "marketing-highlight", "label" => "Marketing Highlight Block Palette"),
       array("slug" => "marketing-highlight-horizontal", "label" => "Marketing Highlight (Horizontal) Block Palette"),
-      array("slug" => "marketing-highlight-poster", "label" => "Poster Block Palette")
+      array("slug" => "marketing-highlight-poster", "label" => "Poster Block Palette"),
+      array("slug" => "priority-link", "label" => "Priority Link Palette")
     );
     foreach ($blocks_with_colors as $block) {
       $name = 'colors_blocks_' . $block['slug'];

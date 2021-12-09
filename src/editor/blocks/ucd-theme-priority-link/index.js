@@ -7,7 +7,7 @@ const settings = {
 	title: "Priority Link",
 	description: "Add a link with an icon in a colored circle",
 	icon: UCDIcons.render('link'), // TODO: CHANGE ICON
-	category: 'text',
+	category: 'ucd-links',
 	keywords: [ 'link', 'icon', 'color' ],
   supports: {
     "html": false,

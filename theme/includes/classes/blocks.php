@@ -62,6 +62,10 @@ class UCDThemeBlocks {
       "hasBrandColors" => true
     ),
     "ucd-theme/poster-list" => array("twig" => "@ucd/blocks/poster-list.twig"),
+    "ucd-theme/priority-link" => array(
+      "twig" => "@ucd/blocks/priority-link.twig",
+      "hasBrandColors" => true
+    ),
     "ucd-theme/layout-basic" => array("twig" => "@ucd/blocks/layout-basic.twig"),
     "ucd-theme/column" => array("twig" => "@ucd/blocks/layout-column.twig"),
     "ucd-theme/layout-columns" => array("twig" => "@ucd/blocks/layout-columns.twig"),

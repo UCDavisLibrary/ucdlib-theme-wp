@@ -71,7 +71,7 @@ class UcdThemeSite extends Timber\Site {
     new UcdThemeMenu();
 
     // Gutenberg blocks
-    $this->blockSettings = apply_filters('ucd-block-settings', $this->blockSettings);
+    $this->blockSettings = apply_filters('ucd-theme_block_settings', $this->blockSettings);
     new UCDThemeBlocks( $this->scripts['editor'], $this->blockSettings );
 
     // Register widget areas (sidebars)
