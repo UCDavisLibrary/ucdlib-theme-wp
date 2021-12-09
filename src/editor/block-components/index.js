@@ -1,3 +1,4 @@
+import IconPicker from "./icon-picker";
 import ImagePicker from "./image-picker";
 import ToolbarLinkPicker from "./toolbar-link-picker";
 import ToolbarColorPicker from "./toolbar-color-picker";
@@ -7,6 +8,7 @@ import ToolbarPaddingPicker from "./toolbar-padding-picker";
 import ToolbarVerticalAlignPicker from "./toolbar-vertical-align-picker";
 
 export { 
+  IconPicker,
   ImagePicker, 
   ToolbarColorPicker,
   ToolbarSectionDisplay,

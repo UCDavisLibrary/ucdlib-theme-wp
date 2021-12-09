@@ -1,14 +1,15 @@
 import { html } from "../../utils";
 import "./ucd-wp-priority-link";
-import { ToolbarColorPicker, ToolbarLinkPicker } from "../../block-components";
+import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker } from "../../block-components";
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
-import { useRef, useEffect } from "@wordpress/element";
+import { useRef, useEffect, createRef } from "@wordpress/element";
 
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
   const mainEleRef = useRef();
+  const iconPickerRef = createRef();
 
 
   // Wire up the main component
@@ -21,6 +22,10 @@ export default ( props ) => {
   }
   const onIconChangeRequest = () => {
     console.log("Change!");
+    if ( iconPickerRef.current ){
+      iconPickerRef.current.openModal();
+    }
+    
   }
 
   useEffect(() => {
@@ -78,6 +83,7 @@ export default ( props ) => {
           ucdBlock="priority-link"
       />
     </${BlockControls}>
+    <${IconPicker} ref=${iconPickerRef}></${IconPicker}>
     <ucd-wp-priority-link ...${ mainEleProps() }></ucd-wp-priority-link>
   </div>
   `
