@@ -206,3 +206,33 @@ kwargs:
     <a href="{{ kwargs.href }}" class="{{ classes }}">{{ text }}</a>
   {% endif %}
 {% endmacro %}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-vertical-link-icon-circle
+kwargs:
+  href {String}: link
+  icon {String}: icon parameter of a ucdlib-icon element
+  text {String}: Text to display below icon
+  brandColor {String} - UCD alt color slug
+  newTab {Boolean} - If link opens in new tab
+#}
+{% macro priority_link( kwargs={} ) %}
+  {% set classes = ['vertical-link', 'vertical-link--circle'] %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes|merge(['category-brand--' ~ kwargs.brandColor]) %}
+  {% endif %}
+  {% set classes = classes|join(' ') %}
+
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  <a class="{{classes}}" href="{{kwargs.href}}" {{target}}>
+    <div class="vertical-link__figure">
+      {% if kwargs.icon %}
+        <ucdlib-icon class="vertical-link__image" icon="{{kwargs.icon}}"></ucdlib-icon>
+      {% endif %}
+    </div>
+    {% if kwargs.text %}
+      <div class="vertical-link__title">{{kwargs.text}}</div>
+    {% endif %}
+  </a>
+{% endmacro %}

@@ -27,3 +27,8 @@ a.icon--circle-arrow-right::before {
   position: absolute;
   top: 0;
 }
+
+// for priority links
+.vertical-link--circle ucdlib-icon.vertical-link__image {
+  height: auto;
+}

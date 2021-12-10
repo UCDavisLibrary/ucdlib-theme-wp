@@ -1,4 +1,4 @@
-import "./utils/iconset/wp-editor";
+import "./utils/iconsets/wp-editor/wp-editor";
 
 import { registerBlockType } from '@wordpress/blocks';
 import { registerFormatType } from '@wordpress/rich-text';
@@ -18,6 +18,9 @@ UcdThemeRichTextFormats.forEach(fmt => {
 
 UcdThemeBlocks.forEach(block => {
   registerBlockType( block.name, block.settings );
+  if ( block.hooks ){
+    block.hooks();
+  }
 });
 
 UcdThemePlugins.forEach(plugin => {

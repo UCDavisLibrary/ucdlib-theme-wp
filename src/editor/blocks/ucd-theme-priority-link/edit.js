@@ -1,8 +1,13 @@
 import { html } from "../../utils";
 import "./ucd-wp-priority-link";
 import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker } from "../../block-components";
-import { useBlockProps, BlockControls } from '@wordpress/block-editor';
+import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { useRef, useEffect, createRef } from "@wordpress/element";
+import {
+	PanelBody,
+	ToggleControl,
+  TextControl
+} from '@wordpress/components';
 
 
 export default ( props ) => {
@@ -21,11 +26,9 @@ export default ( props ) => {
     setAttributes(newAttrs);
   }
   const onIconChangeRequest = () => {
-    console.log("Change!");
     if ( iconPickerRef.current ){
       iconPickerRef.current.openModal();
     }
-    
   }
 
   useEffect(() => {
@@ -93,6 +96,15 @@ export default ( props ) => {
       onChange=${onIconSelect}
       selectedIcon=${attributes.icon}
       ></${IconPicker}>
+    <${InspectorControls}>
+      <${PanelBody} title="Settings">
+        <${TextControl} 
+          label="Link text"
+          value=${attributes.text}
+          onChange=${(text) => setAttributes({text})}
+        />
+      </${PanelBody}>
+    </${InspectorControls}>
     <ucd-wp-priority-link ...${ mainEleProps() }></ucd-wp-priority-link>
   </div>
   `

@@ -66,6 +66,11 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/priority-link.twig",
       "hasBrandColors" => true
     ),
+    "ucd-theme/priority-links-item" => array(
+      "twig" => "@ucd/blocks/priority-links-item.twig",
+      "hasBrandColors" => true
+    ),
+    "ucd-theme/priority-links" => array("twig" => "@ucd/blocks/priority-links.twig"),
     "ucd-theme/layout-basic" => array("twig" => "@ucd/blocks/layout-basic.twig"),
     "ucd-theme/column" => array("twig" => "@ucd/blocks/layout-column.twig"),
     "ucd-theme/layout-columns" => array("twig" => "@ucd/blocks/layout-columns.twig"),
