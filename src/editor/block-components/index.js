@@ -1,4 +1,4 @@
-import IconPicker from "./icon-picker";
+import IconPicker from "./icon-picker/icon-picker";
 import ImagePicker from "./image-picker";
 import ToolbarLinkPicker from "./toolbar-link-picker";
 import ToolbarColorPicker from "./toolbar-color-picker";

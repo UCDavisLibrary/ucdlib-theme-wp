@@ -52,6 +52,11 @@ export default ( props ) => {
     return p;
   }
 
+  // set up icon picker
+  const onIconSelect = (icon) => {
+    setAttributes({icon: `${icon.iconSet}:${icon.icon}`})
+  }
+
   // set up link picker
   const onHrefChange = (value) => {
     let attrs = {
@@ -83,7 +88,11 @@ export default ( props ) => {
           ucdBlock="priority-link"
       />
     </${BlockControls}>
-    <${IconPicker} ref=${iconPickerRef}></${IconPicker}>
+    <${IconPicker} 
+      ref=${iconPickerRef}
+      onChange=${onIconSelect}
+      selectedIcon=${attributes.icon}
+      ></${IconPicker}>
     <ucd-wp-priority-link ...${ mainEleProps() }></ucd-wp-priority-link>
   </div>
   `
