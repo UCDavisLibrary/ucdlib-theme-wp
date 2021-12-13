@@ -67,8 +67,7 @@ class UCDThemeBlocks {
       "hasBrandColors" => true
     ),
     "ucd-theme/priority-links-item" => array(
-      "twig" => "@ucd/blocks/priority-links-item.twig",
-      "hasBrandColors" => true
+      "twig" => "@ucd/blocks/priority-links-item.twig"
     ),
     "ucd-theme/priority-links" => array("twig" => "@ucd/blocks/priority-links.twig"),
     "ucd-theme/layout-basic" => array("twig" => "@ucd/blocks/layout-basic.twig"),

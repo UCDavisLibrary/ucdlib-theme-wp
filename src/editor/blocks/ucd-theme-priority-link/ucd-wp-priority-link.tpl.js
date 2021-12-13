@@ -14,7 +14,7 @@ export function styles() {
       cursor: pointer;
     }
     ucdlib-icon {
-      height: auto;
+      height: 70%;
     }
   `;
 
