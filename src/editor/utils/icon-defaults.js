@@ -15,6 +15,7 @@ export default class UCDIcons{
     posters: "wp-editor:fa-bars",
     time: "wp-editor:fa-hourglass",
     listing: "wp-editor:fa-ellipsis-h",
+    search: "wp-editor:fa-search",
 
     selected: "wp-editor:fa-check-circle",
     author: "wp-editor:fa-user",

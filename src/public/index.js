@@ -6,3 +6,4 @@ import '@ucd-lib/theme-elements/brand/ucd-theme-quick-links/ucd-theme-quick-link
 import '@ucd-lib/theme-elements/brand/ucd-theme-pagination/ucd-theme-pagination.js'
 import '@ucd-lib/theme-elements/brand/ucd-theme-search-form/ucd-theme-search-form.js'
 import '@ucd-lib/theme-elements/brand/ucd-theme-search-popup/ucd-theme-search-popup.js'
+import '@ucd-lib/theme-elements/ucdlib/ucdlib-sils-search-redirect/ucdlib-sils-search-redirect'

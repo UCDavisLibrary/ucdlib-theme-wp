@@ -51,7 +51,7 @@ export default class UcdWpIconPicker extends LitElement {
   getIconNames(iconSet){
     return {
       name: iconSet.getAttribute('name'),
-      title: iconSet.getAttribute('title') ? iconSet.getAttribute('title') : iconSet.getAttribute('name'),
+      title: iconSet.getLabel(),
       icons: iconSet.getIconNames()
     }
   }

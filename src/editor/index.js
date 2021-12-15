@@ -1,5 +1,7 @@
 import "./utils/iconsets/wp-editor/wp-editor";
 
+import "@ucd-lib/theme-elements/ucdlib/ucdlib-sils-search-redirect/ucdlib-sils-search-redirect";
+
 import { registerBlockType } from '@wordpress/blocks';
 import { registerFormatType } from '@wordpress/rich-text';
 import { registerPlugin } from '@wordpress/plugins';

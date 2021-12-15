@@ -4,7 +4,7 @@
   "description": "",
   "main": "wp-editor.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "icons": "cork-icon-set-generator wp-editor . -uv --label 'Wordpress Editor'"
   },
   "author": "",
   "license": "ISC",

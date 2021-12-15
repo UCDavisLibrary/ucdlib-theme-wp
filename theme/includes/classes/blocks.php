@@ -80,6 +80,7 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/recent-posts.twig",
       "transform" => array("getRecentPosts")
     ),
+    "ucd-theme/sils-search-redirect" => array("twig" => "@ucd/blocks/sils-search-redirect.twig"),
     "ucd-theme/teaser" => array(
       "twig" => "@ucd/blocks/teaser.twig",
       "img" => "135x135.png",
@@ -164,6 +165,11 @@ class UCDThemeBlocks {
       array(
         'slug'  => 'ucd-query',
         'title' => 'Queries',
+        'icon'  => null,
+      ),
+      array(
+        'slug'  => 'ucd-sils',
+        'title' => 'SILS',
         'icon'  => null,
       )
     );

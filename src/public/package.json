@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ucd-lib/theme-elements": "^0.0.7",
+    "@ucd-lib/theme-elements": "^0.0.9",
     "@ucd-lib/theme-sass": "^5.0.16",
     "normalize-scss": "^7.0.1"
   },

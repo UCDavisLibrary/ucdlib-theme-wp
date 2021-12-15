@@ -28,8 +28,8 @@ export function styles() {
     }
     .icon-wrapper {
       text-align: center;
-      width: 10em;
-      min-width: 10em;
+      width: 9em;
+      min-width: 9em;
       margin: 1em 0.5em;
       display: flex;
       flex-flow: column;
