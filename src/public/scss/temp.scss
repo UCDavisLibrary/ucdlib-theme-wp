@@ -32,3 +32,17 @@ a.icon--circle-arrow-right::before {
 .vertical-link--circle ucdlib-icon.vertical-link__image {
   height: 70%;
 }
+
+// for panel w/ icon
+.panel__title ucdlib-icon {
+  width: 1.6055rem;
+  height: 1.6055rem;
+  margin-right: .5rem;
+}
+@media (min-width: 768px) {
+  .panel__title ucdlib-icon {
+    width: 2.47rem;
+    height: 2.47rem;
+    margin-right: 1rem;
+  }
+}

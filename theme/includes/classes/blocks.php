@@ -76,6 +76,10 @@ class UCDThemeBlocks {
     "ucd-theme/layout-container" => array("twig" => "@ucd/blocks/layout-container.twig"),
     "ucd-theme/layout-quad" => array("twig" => "@ucd/blocks/layout-quad.twig"),
     "ucd-theme/object-box" => array("twig" => "@ucd/blocks/object-box.twig"),
+    "ucd-theme/panel-with-icon" => array(
+      "twig" => "@ucd/blocks/panel-with-icon.twig",
+      "hasBrandColors" => true
+    ),
     "ucd-theme/recent-posts" => array(
       "twig" => "@ucd/blocks/recent-posts.twig",
       "transform" => array("getRecentPosts")

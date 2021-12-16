@@ -341,6 +341,7 @@ class UcdThemeCustomizer {
       array("slug" => "marketing-highlight", "label" => "Marketing Highlight Block Palette"),
       array("slug" => "marketing-highlight-horizontal", "label" => "Marketing Highlight (Horizontal) Block Palette"),
       array("slug" => "marketing-highlight-poster", "label" => "Poster Block Palette"),
+      array("slug" => "panel-with-icon", "label" => "Panel with Icon"),
       array("slug" => "priority-link", "label" => "Priority Link Palette")
     );
     foreach ($blocks_with_colors as $block) {

@@ -16,6 +16,7 @@ export default class UCDIcons{
     time: "wp-editor:fa-hourglass",
     listing: "wp-editor:fa-ellipsis-h",
     search: "wp-editor:fa-search",
+    icons: "wp-editor:fa-icons",
 
     selected: "wp-editor:fa-check-circle",
     author: "wp-editor:fa-user",
