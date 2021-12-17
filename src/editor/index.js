@@ -1,4 +1,4 @@
-import "./utils/iconsets/wp-editor/wp-editor";
+import "../shared/iconsets/wp-editor/wp-editor";
 
 import "@ucd-lib/theme-elements/ucdlib/ucdlib-sils-search-redirect/ucdlib-sils-search-redirect";
 

@@ -1,4 +1,4 @@
-import "../editor/utils/iconsets/wp-editor/wp-editor";
+import "../shared/iconsets/wp-editor/wp-editor";
 import '@ucd-lib/theme-elements/brand/ucd-theme-primary-nav/ucd-theme-primary-nav.js';
 import '@ucd-lib/theme-elements/ucdlib/ucdlib-branding-bar/ucdlib-branding-bar.js'
 import '@ucd-lib/theme-elements/brand/ucd-theme-header/ucd-theme-header.js';
