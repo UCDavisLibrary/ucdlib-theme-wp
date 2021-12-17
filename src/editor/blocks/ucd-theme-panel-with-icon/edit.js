@@ -1,13 +1,8 @@
 import { html } from "../../utils";
 import "./ucd-wp-panel-with-icon";
-import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker } from "../../block-components";
-import { useBlockProps, BlockControls, InnerBlocks, InspectorControls } from '@wordpress/block-editor';
+import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker, ToolbarPaddingPicker, ToolbarSectionDisplay } from "../../block-components";
+import { useBlockProps, BlockControls, InnerBlocks } from '@wordpress/block-editor';
 import { useRef, useEffect, createRef } from "@wordpress/element";
-import {
-	PanelBody,
-	ToggleControl,
-  TextControl
-} from '@wordpress/components';
 
 
 export default ( props ) => {
@@ -53,13 +48,33 @@ export default ( props ) => {
     if ( attributes.moreText ) p['more-text'] = attributes.moreText;
     if ( attributes.hideMoreLink ) p['hide-more-link'] = true;
     if ( attributes.title ) p.title = attributes.title;
+    p.padding = attributes.padding;
 
     return p;
   }
 
+  // set up section hider
+  const onSectionToggle = (section) => {
+    let attrs = {};
+    let attr = `hide${section.slug.charAt(0).toUpperCase() + section.slug.slice(1)}`;
+    attrs[attr] = !attributes[attr];
+    setAttributes(attrs);
+    }
+  const cardSections = (() => {
+  return [
+      {slug: "moreLink", isHidden: attributes.hideMoreLink},
+  ]
+  })();
+
   // set up icon picker
   const onIconSelect = (icon) => {
     setAttributes({icon: `${icon.iconSet}:${icon.icon}`})
+  }
+
+  // set up padding picker
+  const onPaddingChange = (v) => {
+    let padding = v.slug === "default" ? "" : v.slug;
+    setAttributes({padding});
   }
 
   // set up link picker
@@ -88,10 +103,15 @@ export default ( props ) => {
     <${BlockControls} group="block">
       <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
       <${ToolbarColorPicker} 
-          onChange=${onColorChange}
-          value=${attributes.brandColor}
-          ucdBlock="priority-link"
-      />
+        onChange=${onColorChange}
+        value=${attributes.brandColor}
+        ucdBlock="priority-link"/>
+      <${ToolbarPaddingPicker}
+        value=${attributes.padding}
+        onChange=${onPaddingChange}/>
+      <${ToolbarSectionDisplay}
+        sections=${cardSections}
+        onChange=${onSectionToggle}/>
     </${BlockControls}>
     <${IconPicker} 
       ref=${iconPickerRef}

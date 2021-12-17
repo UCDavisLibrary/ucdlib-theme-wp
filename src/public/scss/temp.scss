@@ -34,6 +34,9 @@ a.icon--circle-arrow-right::before {
 }
 
 // for panel w/ icon
+ucdlib-icon.panel__custom-icon {
+  color: var(--category-brand, #022851)
+}
 .panel__title ucdlib-icon {
   width: 1.6055rem;
   height: 1.6055rem;

@@ -32,6 +32,9 @@ function ToolbarSectionDisplay({sections=[], onChange}){
     } else if (s.slug === 'categories') {
       control.icon = UCDIcons.render("taxonomy.category", {style:iconStyle});
       control.title = "Categories";
+    } else if (s.slug === 'moreLink') {
+      control.icon = UCDIcons.render("link", {style:iconStyle});
+      control.title = "See More Link";
     }
 
     // override default values if applicable

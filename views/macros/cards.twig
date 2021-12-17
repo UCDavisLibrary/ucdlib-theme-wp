@@ -311,3 +311,48 @@ kwargs:
   </div>
 
 {% endmacro %}
+
+{#
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-panel
+kwargs:
+  attributes:
+    icon {String} - ucdlib-icon icon attribute
+    title {String} - Header text
+    href {String} - Url for 'see more' link
+    moreText {String} - Text of 'see-more' link
+    newTab {String} - Opens 'see-more' link in new tab
+    hideMoreLink {Boolean} - Hides the 'see-more' link
+    brandColor {String} - UCD alt color slug
+    padding {String} - o-box class modifier
+  content {WP Blocks}: Innerblocks to display in panel body
+#}
+{% macro panel_with_icon( kwargs={} ) %}
+  {% set attributes = kwargs.attributes %}
+  {% set content = kwargs.content %}
+
+  {% set classes = ['panel', 'panel--icon', 'panel--icon-custom', 'o-box'] %}
+  {% if attributes.padding %}
+    {% set classes = classes|merge(['o-box--'~attributes.padding])%}
+  {% endif %}
+
+  {% set icon = attributes.icon ? attributes.icon : 'wp-editor:fa-star' %}
+
+  {% set moreText = attributes.moreText ? attributes.moreText : 'See More' %}
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  <div class="{{classes|join(' ')}}">
+    <h2 class="panel__title">
+      <ucdlib-icon icon="{{icon}}" class="panel__custom-icon {{attributes.brandColor}}"></ucdlib-icon>{{attributes.title}}
+    </h2>
+    <section>
+      {{content}}
+      {% if not attributes.hideMoreLink %}
+        <a 
+          href="{{attributes.href}}" 
+          {{target}}
+          class="icon icon--circle-arrow-right u-space-mt {{attributes.brandColor ? 'category-brand--'~attributes.brandColor : ''}}">{{moreText}}
+        </a>
+      {% endif %}
+    </section>
+  </div>
+{% endmacro %}

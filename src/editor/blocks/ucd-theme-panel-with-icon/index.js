@@ -43,6 +43,10 @@ const settings = {
       type: "string",
       default: ""
     },
+    padding: {
+      type: "string",
+      default: ""
+    }
   },
   edit: Edit,
   save: Save

@@ -1,3 +1,2 @@
-<div class="o-box steve">
-{{content}}
-</div>
+{% from getUcdMacro('cards') import panel_with_icon %}
+{{ panel_with_icon({attributes, content}) }}

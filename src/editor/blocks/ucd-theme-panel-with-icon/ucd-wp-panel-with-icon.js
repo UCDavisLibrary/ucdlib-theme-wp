@@ -7,7 +7,12 @@ export default class UcdWpPanelWithIcon extends Mixin(LitElement)
 
   static get properties() {
     return {
-      
+      title: {type: String},
+      icon: {type: String},
+      color: {type: String}, 
+      moreText: {type: String, attribute: "more-text"},
+      hideMoreLink: {type: Boolean, attribute: "hide-more-link"},
+      padding: {type: String}
     }
   }
 
@@ -18,6 +23,40 @@ export default class UcdWpPanelWithIcon extends Mixin(LitElement)
   constructor() {
     super();
     this.render = render.bind(this);
+    this.title = "";
+    this.icon = "";
+    this.color = "";
+    this.moreText = "";
+    this.hideMoreLink = false;
+    this.padding = "";
+  }
+
+  _getBaseClasses(){
+    let classes = {
+      "panel": true,
+      "panel--icon": true,
+      "panel--icon-custom": true,
+      "o-box": true
+    };
+    if ( this.padding ){
+      classes[`o-box--${this.padding}`] = true;
+    }
+
+    return classes;
+  }
+
+  dispatchIconChangeRequest(){
+    this.dispatchEvent(new CustomEvent('icon-change'));
+  }
+
+  _onTitleInput(e){
+    this.title = e.target.value || "";
+    this.dispatchUpdate('title');
+  }
+
+  _onMoreTextInput(e){
+    this.moreText = e.target.value || "";
+    this.dispatchUpdate('moreText');
   }
 
 }
