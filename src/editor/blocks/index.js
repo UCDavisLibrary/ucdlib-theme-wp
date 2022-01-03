@@ -18,6 +18,7 @@ import priorityLinksItem from "./ucd-theme-priority-links-item";
 import priorityLinks from "./ucd-theme-priority-links"
 import recentPosts from "./ucd-theme-recent-posts";
 import silsSearchRedirect from "./ucd-theme-sils-search-redirect";
+import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
 
 export default [
@@ -41,5 +42,6 @@ export default [
   priorityLinks,
   recentPosts,
   silsSearchRedirect,
+  spacer,
   teaser
 ];

@@ -48,7 +48,8 @@ export default class UCDIcons{
 
     spacing: {
       padding: "wp-editor:fa-vector-square",
-      alignmentVertical: "wp-editor:fa-arrows-alt-v"
+      alignmentVertical: "wp-editor:fa-arrows-alt-v",
+      spacer: "wp-editor:fa-arrows-alt"
     },
 
     color: {

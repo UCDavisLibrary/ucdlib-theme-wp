@@ -1,6 +1,8 @@
 projectName: Unsaved Project
 version: 5.15.4
 icons:
+  - arrows-alt:
+      - solid
   - heading:
       - solid
   - image:

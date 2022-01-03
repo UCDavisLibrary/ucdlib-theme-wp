@@ -85,6 +85,7 @@ class UCDThemeBlocks {
       "transform" => array("getRecentPosts")
     ),
     "ucd-theme/sils-search-redirect" => array("twig" => "@ucd/blocks/sils-search-redirect.twig"),
+    "ucd-theme/spacer" => array("twig" => "@ucd/blocks/spacer.twig"),
     "ucd-theme/teaser" => array(
       "twig" => "@ucd/blocks/teaser.twig",
       "img" => "135x135.png",
