@@ -1,0 +1,21 @@
+{% set classes = ['colored-section'] %}
+
+{% if attributes.color %}
+  {% set classes = classes|merge(['colored-section--'~attributes.color]) %}
+{% else %}
+    {% set classes = classes|merge(['colored-section--light-blue']) %}
+{% endif %}
+
+{% if attributes.fullWidth %}
+    {% set classes = classes|merge(['l-full-width']) %}
+{% endif %}
+
+{% if attributes.hasWaterColor %}
+    {% set classes = classes|merge(['water-color']) %}
+    {% set color = attributes.waterColorColor ? attributes.waterColorColor : "light-blue" %}
+    {% set pattern = attributes.waterColorPattern ? attributes.waterColorPattern : "1" %}
+    {% set styles = 'background-image:url("' ~ get_watercolor(color, pattern) ~ '"'%}
+{% endif %}
+
+
+<div class="{{classes|join(' ')}}" {{styles ? "style='"~styles~"'"}}>{{content}}</div>

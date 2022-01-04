@@ -54,7 +54,8 @@ export default class UCDIcons{
 
     color: {
       palette: "wp-editor:fa-palette",
-      fill: "wp-editor:fa-fill"
+      fill: "wp-editor:fa-fill",
+      fill2: "wp-editor:format-color-fill"
     },
 
     formatting: {

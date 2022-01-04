@@ -27,6 +27,7 @@ class UCDThemeBlocks {
    * Meta for each block goes here.
    */
   public static $registry = array(
+    "ucd-theme/background-color" => array("twig" => "@ucd/blocks/background-color.twig"),
     "ucd-theme/button-link" => array(
       "twig" => "@ucd/blocks/button-link.twig", 
       "transform" => array("removeStylePrefix")
@@ -222,6 +223,8 @@ class UCDThemeBlocks {
       }
     }
     $settings['excludedCoreBlocks'] = self::$excluded_core_blocks;
+
+    $settings["watercolorBase"] = dirname( get_template_directory_uri() ) . "/assets/img/watercolors/";
 
     $this->settings = $settings;
 

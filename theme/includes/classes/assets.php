@@ -95,9 +95,14 @@ class UCDThemeAssets {
     return $this->uris['img'] . "/site-icon.png";
   }
 
+  public function get_watercolor($color='light-blue', $pattern=1) {
+    return $this->uris['img'] . "/watercolors/" . $color . "--" . $pattern . ".png";
+  }
+
   public function add_to_twig( $twig ) {
     $twig->addFunction( new Twig\TwigFunction( 'get_sf_image', array( $this, 'get_sf_image' ) ) );
     $twig->addFunction( new Twig\TwigFunction( 'get_site_icon_url', array( $this, 'get_site_icon_url' ) ) );
+    $twig->addFunction( new Twig\TwigFunction( 'get_watercolor', array( $this, 'get_watercolor' ) ) );
     return $twig;
   }
 }

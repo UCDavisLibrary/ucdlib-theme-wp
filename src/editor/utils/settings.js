@@ -14,6 +14,12 @@ export default class BlockSettings {
     return image;
   }
 
+  static getWatercolor(color="light-blue", pattern=1){
+    console.log(color, pattern);
+    if (!color || !pattern ) return "";
+    return `${this.settings.watercolorBase}${color}--${pattern}.png`;
+  }
+
   static getImageByAspectRatio(aspectRatio){
     let image;
     if ( this.settings.imgByAspectRatio && this.settings.imgByAspectRatio[aspectRatio]){

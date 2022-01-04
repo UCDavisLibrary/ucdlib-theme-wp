@@ -1,3 +1,4 @@
+import backgroundColor from "./ucd-theme-background-color";
 import buttonLink from "./ucd-theme-button-link";
 import categoryFilter from "./ucd-theme-category-filter";
 import heading from "./ucd-theme-heading";
@@ -22,6 +23,7 @@ import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
 
 export default [
+  backgroundColor,
   buttonLink,
   categoryFilter,
   heading,

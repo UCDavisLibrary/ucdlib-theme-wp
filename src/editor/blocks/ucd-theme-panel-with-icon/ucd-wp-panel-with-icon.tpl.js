@@ -33,6 +33,9 @@ export function styles() {
       height: 1.6055rem;
       margin-right: .5rem;
     }
+    .panel {
+      background-color: transparent;
+    }
     @media (min-width: 768px) {
       .panel__title ucdlib-icon {
         width: 2.47rem;
