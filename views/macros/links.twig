@@ -23,6 +23,10 @@ kwargs:
       {% set href = "href='"~kwargs.href~"'" %}
     {% endif %}
 
+    {% if kwargs.textAlign and kwargs.textAlign != 'left' %}
+      {% set pClasses = "u-text-align--"~kwargs.textAlign %}
+    {% endif %}
+
     {% if kwargs.newTab %}
       {% set target = "target='_blank'" %}
     {% endif %}
@@ -40,7 +44,9 @@ kwargs:
       {% endif %}
     {% endif %}
 
-    <p><a {{href}} {{target}} class="{{classes}}">{{kwargs.content}}</a></p>
+    <p {{pClasses ? 'class="'~pClasses~'"' : ''}}>
+      <a {{href}} {{target}} class="{{classes}}">{{kwargs.content}}</a>
+    </p>
   {% endif %}
   
 {% endmacro %}

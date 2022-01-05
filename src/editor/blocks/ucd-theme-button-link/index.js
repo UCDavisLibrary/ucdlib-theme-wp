@@ -42,7 +42,11 @@ const settings = {
     className: {
       type: "string",
       default: ""
-    }
+    },
+    textAlign: {
+      type: "string",
+      default: "left"
+    },
   },
 	edit: Edit,
     styles: styleClasses

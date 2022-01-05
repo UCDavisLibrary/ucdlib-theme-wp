@@ -1,5 +1,5 @@
 import { html, StyleUtils, UCDIcons } from "../../utils";
-import { useBlockProps, BlockControls } from '@wordpress/block-editor';
+import { useBlockProps, BlockControls, AlignmentControl } from '@wordpress/block-editor';
 import { ToolbarButton, Dropdown, ToolbarDropdownMenu } from '@wordpress/components';
 import { link } from '@wordpress/icons';
 import { useRef, useEffect } from "@wordpress/element";
@@ -69,12 +69,17 @@ export default ({ attributes, setAttributes }) => {
         onClick=${ () => {setAttributes({'display': attributes.display ? '' : 'block'})}} 
         isPressed=${attributes.display ? true : false}
         label="Change width"/>
+      <${AlignmentControl}
+        value=${ attributes.textAlign }
+        onChange=${ ( nextAlign ) => {setAttributes( { textAlign: nextAlign } );} }
+      />
     </${BlockControls}>
     <ucd-wp-button-link 
       ref=${buttonLinkRef}
       size=${attributes.size}
       shape=${attributes.shape}
       display=${attributes.display}
+      text-align=${attributes.textAlign}
       alt-style=${altStyle}
       text=${attributes.content}>
     </ucd-wp-button-link>

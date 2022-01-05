@@ -10,6 +10,7 @@ export default class UcdWpButtonLink extends LitElement {
       size: {type: String},
       shape: {type: String},
       display: {type: String},
+      textAlign: {type: String, attribute: 'text-align'},
       altStyle: {type: String, attribute: 'alt-style'}
     };
   }
@@ -26,6 +27,7 @@ export default class UcdWpButtonLink extends LitElement {
     this.shape = "";
     this.display = "";
     this.altStyle = "";
+    this.textAlign = "left";
   }
 
   _getClasses(){

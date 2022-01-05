@@ -15,7 +15,6 @@ export default class BlockSettings {
   }
 
   static getWatercolor(color="light-blue", pattern=1){
-    console.log(color, pattern);
     if (!color || !pattern ) return "";
     return `${this.settings.watercolorBase}${color}--${pattern}.png`;
   }
