@@ -59,8 +59,8 @@ if ( !$context['sidebar'] and !$context['hideSidebar'] ){
 }
 
 // Filters
-$context = apply_filters( 'ucd-theme_context_author', $context );
-$templates = apply_filters( 'ucd-theme_templates_author', $templates, $context );
+$context = apply_filters( 'ucd-theme/context/author', $context );
+$templates = apply_filters( 'ucd-theme/templates/author', $templates, $context );
 
 
 $templates = array( $views->getTemplate('author'));

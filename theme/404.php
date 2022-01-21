@@ -12,7 +12,7 @@ $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('404') );
 
 // Filters
-$context = apply_filters( 'ucd-theme_context_404', $context );
-$templates = apply_filters( 'ucd-theme_templates_404', $templates, $context );
+$context = apply_filters( 'ucd-theme/context/404', $context );
+$templates = apply_filters( 'ucd-theme/templates/404', $templates, $context );
 
 Timber::render( $templates, $context );

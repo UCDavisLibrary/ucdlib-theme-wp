@@ -13,7 +13,7 @@ $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('single-term'));
 
 // Filters
-$context = apply_filters( 'ucd-theme_context_tag', $context );
-$templates = apply_filters( 'ucd-theme_templates_tag', $templates, $context );
+$context = apply_filters( 'ucd-theme/context/tag', $context );
+$templates = apply_filters( 'ucd-theme/templates/tag', $templates, $context );
 
 Timber::render( $templates, $context );

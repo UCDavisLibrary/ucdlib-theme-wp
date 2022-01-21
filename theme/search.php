@@ -16,7 +16,7 @@ $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('search') );
 
 // Filters
-$context = apply_filters( 'ucd-theme_context_search', $context );
-$templates = apply_filters( 'ucd-theme_templates_search', $templates, $context );
+$context = apply_filters( 'ucd-theme/context/search', $context );
+$templates = apply_filters( 'ucd-theme/templates/search', $templates, $context );
 
 Timber::render( $templates, $context );

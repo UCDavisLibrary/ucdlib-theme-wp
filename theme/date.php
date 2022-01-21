@@ -45,7 +45,7 @@ $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('date-archive'));
 
 // Filters
-$context = apply_filters( 'ucd-theme_context_date', $context );
-$templates = apply_filters( 'ucd-theme_templates_date', $templates, $context );
+$context = apply_filters( 'ucd-theme/context/date', $context );
+$templates = apply_filters( 'ucd-theme/templates/date', $templates, $context );
 
 Timber::render( $templates, $context );

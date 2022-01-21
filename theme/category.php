@@ -22,8 +22,8 @@ $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('single-category'));
 
 // Filters
-$context = apply_filters( 'ucd-theme_context_category', $context );
-$templates = apply_filters( 'ucd-theme_templates_category', $templates, $context );
+$context = apply_filters( 'ucd-theme/context/category', $context );
+$templates = apply_filters( 'ucd-theme/templates/category', $templates, $context );
 
 Timber::render( $templates, $context );
 
