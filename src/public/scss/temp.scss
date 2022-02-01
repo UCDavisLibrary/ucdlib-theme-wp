@@ -49,3 +49,23 @@ ucdlib-icon.panel__custom-icon {
     margin-right: 1rem;
   }
 }
+
+// white space utility
+.u-white-space--normal {
+  white-space: normal !important;
+}
+.u-white-space--nowrap {
+  white-space: nowrap !important;
+}
+.u-white-space--pre {
+  white-space: pre !important;
+}
+.u-white-space--pre-wrap {
+  white-space: pre-wrap !important;
+}
+.u-white-space--pre-line {
+  white-space: pre-line !important;
+}
+.u-white-space--break-spaces {
+  white-space: break-spaces !important;
+}
