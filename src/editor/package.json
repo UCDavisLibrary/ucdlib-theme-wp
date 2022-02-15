@@ -1,5 +1,5 @@
 {
-  "name": "src",
+  "name": "@ucd-lib/brand-theme-editor",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,7 @@
   },
   "author": "",
   "license": "ISC",
+  "private": true,
   "dependencies": {
     "@ucd-lib/theme-elements": "^0.0.9",
     "@ucd-lib/theme-sass": "^5.0.14",

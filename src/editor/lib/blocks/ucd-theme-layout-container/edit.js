@@ -1,6 +1,6 @@
 import { html } from "../../utils";
 import { useBlockProps, 
-  __experimentalUseInnerBlocksProps as useInnerBlocksProps, 
+  useInnerBlocksProps, 
 } from '@wordpress/block-editor';
 import { Fragment } from "@wordpress/element";
 

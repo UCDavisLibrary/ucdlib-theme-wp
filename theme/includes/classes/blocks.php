@@ -288,7 +288,9 @@ class UCDThemeBlocks {
    * Adds settings object to window, so gutenberg blocks can access.
    */
   public function enqueue_block_editor_assets(){
-    wp_add_inline_script($this->editor_script_slug, "window.UCDBlockSettings=" . json_encode($this->settings) , 'before');
+    $editorBundleSlug = $this->editor_script_slug; 
+    $editorBundleSlug = apply_filters( 'ucd-theme/assets/editor-settings-slug', $editorBundleSlug );
+    wp_add_inline_script($editorBundleSlug, "window.UCDBlockSettings=" . json_encode($this->settings) , 'before');
   }
 
   /**

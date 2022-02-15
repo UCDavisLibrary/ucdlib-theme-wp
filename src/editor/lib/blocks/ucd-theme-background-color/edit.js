@@ -6,7 +6,7 @@ import { blueTints } from "@ucd-lib/theme-sass/colors";
 import { useBlockProps,
   InspectorControls,
   BlockControls,
-  __experimentalUseInnerBlocksProps as useInnerBlocksProps, 
+  useInnerBlocksProps, 
 } from '@wordpress/block-editor';
 import { ToolbarButton, ToggleControl, PanelBody } from '@wordpress/components';
 import { Fragment } from "@wordpress/element";

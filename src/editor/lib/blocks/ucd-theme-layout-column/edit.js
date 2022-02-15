@@ -6,7 +6,7 @@ import { useBlockProps,
   InspectorControls, 
   InnerBlocks,
   BlockVerticalAlignmentControl,
-  __experimentalUseInnerBlocksProps as useInnerBlocksProps, 
+  useInnerBlocksProps
 } from '@wordpress/block-editor';
 import { 
   PanelBody, 

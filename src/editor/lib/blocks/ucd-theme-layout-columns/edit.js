@@ -3,8 +3,8 @@ import classnames from 'classnames';
 import { html } from "../../utils";
 import { withDispatch } from '@wordpress/data';
 import { useBlockProps,
-  InspectorControls, 
-  __experimentalUseInnerBlocksProps as useInnerBlocksProps,
+  InspectorControls,
+  useInnerBlocksProps,
   store as blockEditorStore,
 } from '@wordpress/block-editor';
 import { 

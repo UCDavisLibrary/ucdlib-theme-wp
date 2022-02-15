@@ -5,7 +5,7 @@ import { ToolbarPaddingPicker } from "../../block-components";
 import { useBlockProps,
   BlockControls,
   InnerBlocks,
-  __experimentalUseInnerBlocksProps as useInnerBlocksProps, 
+  useInnerBlocksProps, 
 } from '@wordpress/block-editor';
 import { Fragment } from "@wordpress/element";
 

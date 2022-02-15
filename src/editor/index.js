@@ -1,4 +1,4 @@
-import "../shared/iconsets/wp-editor/wp-editor";
+import "./lib/iconsets/wp-editor/wp-editor";
 
 import "@ucd-lib/theme-elements/ucdlib/ucdlib-sils-search-redirect/ucdlib-sils-search-redirect";
 
@@ -7,11 +7,11 @@ import { registerFormatType } from '@wordpress/rich-text';
 import { registerPlugin } from '@wordpress/plugins';
 import { select } from "@wordpress/data";
 
-import UcdThemeBlocks from "./blocks";
-import UcdThemeRichTextFormats from "./formats";
-import UcdThemePlugins from "./plugins";
-import { modifyCoreBlocks } from "./core-block-mods";
-import unRegisterCore from "./exclude";
+import UcdThemeBlocks from "./lib/blocks";
+import UcdThemeRichTextFormats from "./lib/formats";
+import UcdThemePlugins from "./lib/plugins";
+import { modifyCoreBlocks } from "./lib/core-block-mods";
+import unRegisterCore from "./lib/exclude";
 
 
 UcdThemeRichTextFormats.forEach(fmt => {
