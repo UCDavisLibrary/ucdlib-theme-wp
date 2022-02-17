@@ -1,4 +1,12 @@
 <?php
+require_once( __DIR__ . '/menu.php' );
+
+/**
+ * @class UcdThemePost
+ * @classdesc Base class for all post types on this site. 
+ * When calling Timber::get_post(), this class, or an extension, will be returned
+ * https://timber.github.io/docs/v2/guides/extending-timber/#extending-timber-classes
+ */
 class UcdThemePost extends Timber\Post {
 
   protected $hide_title;
@@ -17,6 +25,42 @@ class UcdThemePost extends Timber\Post {
     }
     $this->hide_breadcrumbs = get_post_meta($this->ID, 'ucd_hide_breadcrumbs', true);
     return $this->hide_breadcrumbs;
+  }
+
+  protected $breadcrumbs;
+  public function breadcrumbs(){
+    if ( ! empty( $this->breadcrumbs) ) return $this->breadcrumbs;
+    $primary_nav = Timber::get_menu( 'primary' );
+    $breadcrumbs = [
+      ['link' => '/', 'title' => 'Home'],
+      ['link' => $this->link(), 'title' => $this->title()]
+    ];
+
+    // is a news article, which by are not hierarchical in wp
+    if ( $this->post_type == 'post' ) {
+      $page_for_posts_id = get_option('page_for_posts');
+      if ( $page_for_posts_id ) {
+        $page_for_posts = Timber::get_post( $page_for_posts_id );
+        array_splice( $breadcrumbs, 1, 0, [['link' => $page_for_posts->link(), 'title' => $page_for_posts->title()]] );
+      }
+      
+    // check if in primary nav
+    } else if ( $primary_nav ){
+      $in_nav = UcdThemeMenu::getDirectHierarchyinMenu( $primary_nav );
+      if ( count($in_nav) > 1 ){
+        array_splice( $breadcrumbs, 1, 0, array_slice($in_nav, 0, -1) );
+      // check if parent is in primary nav
+      } elseif ( !count($in_nav) && $this->parent() ){
+        $in_nav = UcdThemeMenu::getDirectHierarchyinMenu( $primary_nav, $this->parent()->id );
+        if ( count($in_nav) ){
+          array_splice( $breadcrumbs, 1, 0, $in_nav );
+        }
+      }
+
+    // check if parent is in primary nav
+    } 
+    $this->breadcrumbs = $breadcrumbs;
+    return $this->breadcrumbs;
   }
 
   protected $hide_author;

@@ -242,3 +242,23 @@ kwargs:
     {% endif %}
   </a>
 {% endmacro %}
+
+{#
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-breadcrumbs
+crumbs (array): result of UcdThemePost->breadcrumbs()
+ #}
+{% macro breadcrumbs( crumbs ) %}
+{% if crumbs %}
+  <ol class="breadcrumbs">
+    {% for crumb in crumbs %}
+      <li>
+        {% if loop.last %}
+          {{crumb.title}}
+        {% else %}
+          <a href="{{crumb.link}}">{{crumb.title}}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+{% endif %}
+{% endmacro %}

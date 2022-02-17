@@ -40,4 +40,83 @@ class UcdThemeMenu {
     }
     return $context;
   }
+  
+  /**
+   * @method getDirectHierarchyinMenu
+   * @description Gets all ancestor menu items of a post in a menu (also menu item of the post itself)
+   * @returns An array of menu items.
+   */
+  public static function getDirectHierarchyinMenu($menu, $post_id=0) {
+    $out = [];
+    if ( !$menu->items ) return $out;
+
+    foreach ($menu->items as $parent) {
+      
+      // we are finding the currently displayed page in the menu
+      if ( !$post_id ) {
+        if ( $parent->current ) {
+          $out[] = $parent;
+          return $out;
+        }
+        if ( !$parent->current_item_ancestor ) continue;
+        $out[] = self::getMenuItemBasics($parent);
+
+        foreach ( $parent->children as $child ){
+          if ( $child->current ) {
+            $out[] = self::getMenuItemBasics($child);
+            return $out;
+          }
+          if ( !$child->current_item_ancestor ) continue;
+          $out[] = self::getMenuItemBasics($child);
+
+          foreach ( $child->children as $grandchild ){
+            if ( $grandchild->current ) {
+              $out[] = self::getMenuItemBasics($grandchild);
+              return $out;
+            }
+            if ( !$grandchild->current_item_ancestor ) continue;
+            $out[] = self::getMenuItemBasics($grandchild);
+          }
+        }
+
+
+      // we are finding a different page than what is currently displayed
+      } else {
+        if ( self::menuItemIsPost($parent, $post_id) ){
+          $out[] = self::getMenuItemBasics($parent);
+          return $out;
+        }
+        foreach ( $parent->children as $child ){
+          if ( self::menuItemIsPost($child, $post_id) ){
+            $out[] = self::getMenuItemBasics($parent);
+            $out[] = self::getMenuItemBasics($child);
+            return $out;
+          }
+        }
+        foreach ( $child->children as $grandchild ){
+          if ( self::menuItemIsPost($grandchild, $post_id) ){
+            $out[] = self::getMenuItemBasics($parent);
+            $out[] = self::getMenuItemBasics($child);
+            $out[] = self::getMenuItemBasics($grandchild);
+            return $out;
+          }
+        }
+      }
+    }
+
+    return $out;
+  }
+
+  private static function menuItemIsPost( $menu_item, $post_id ){
+    $master_obj = $menu_item->master_object();
+    if ( !is_a($master_obj, 'Timber\Post') ) return false;
+    return $master_obj->id == $post_id;
+  }
+
+  private static function getMenuItemBasics( $menu_item ){
+    return [
+      'link' => $menu_item->link(),
+      'title' => $menu_item->title()
+    ];
+  }
 }

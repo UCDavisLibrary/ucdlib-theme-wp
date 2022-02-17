@@ -5,7 +5,7 @@
 
 $context = Timber::context();
 $context['title'] = $context['post']->title();
-
+$context['breadcrumbs'] = true;
 $template = 'single';
 if ( $context['post']->post_type == 'post' ) {
   $template = 'post';

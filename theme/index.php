@@ -1,8 +1,7 @@
 <?php
 /**
  * The main template file. It is required.
- * It is used:
- *  - for a single post from a custom post type
+ * It is used in this theme:
  *  - when nothing more specific matches a query.
  * 
  */

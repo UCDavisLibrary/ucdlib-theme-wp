@@ -1,4 +1,4 @@
-{% from getUcdMacro('placeholders') import breadcrumbs as render_crumbs %}
+{% from getUcdMacro('links') import breadcrumbs as render_crumbs %}
 {% from getUcdMacro('media') import image_title_banner %}
 
 {% block html_head_container %}
@@ -36,7 +36,7 @@
 
       {% block breadcrumbs %}
         {% if breadcrumbs and not post.hide_breadcrumbs %}
-          {{render_crumbs()}}
+          {{render_crumbs(post.breadcrumbs)}}
         {% endif %}
       {% endblock %}
 
