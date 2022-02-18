@@ -27,6 +27,27 @@ class UcdThemePost extends Timber\Post {
     return $this->hide_breadcrumbs;
   }
 
+  /**
+   * Retrieve all ancestors of this post
+   * @returns array - [parent, grandparent, etc]
+   */
+  protected $ancestors;
+  public function ancestors(){
+    if ( ! empty( $this->ancestors) ) return $this->ancestors;
+
+    $ancestors = [];
+    $post = $this;
+    while (true) {
+      $parent = $post->parent();
+      if ( !$parent ) break;
+      $ancestors[] = $parent;
+      $post = $parent;
+    }
+
+    $this->ancestors = $ancestors;
+    return $this->ancestors;
+  }
+
   protected $breadcrumbs;
   public function breadcrumbs(){
     if ( ! empty( $this->breadcrumbs) ) return $this->breadcrumbs;
@@ -35,6 +56,7 @@ class UcdThemePost extends Timber\Post {
       ['link' => '/', 'title' => 'Home'],
       ['link' => $this->link(), 'title' => $this->title()]
     ];
+    $ancestors = $this->ancestors();
 
     // is a news article, which by are not hierarchical in wp
     if ( $this->post_type == 'post' ) {
@@ -49,12 +71,20 @@ class UcdThemePost extends Timber\Post {
       $in_nav = UcdThemeMenu::getDirectHierarchyinMenu( $primary_nav );
       if ( count($in_nav) > 1 ){
         array_splice( $breadcrumbs, 1, 0, array_slice($in_nav, 0, -1) );
-      // check if parent is in primary nav
-      } elseif ( !count($in_nav) && $this->parent() ){
-        $in_nav = UcdThemeMenu::getDirectHierarchyinMenu( $primary_nav, $this->parent()->id );
-        if ( count($in_nav) ){
-          array_splice( $breadcrumbs, 1, 0, $in_nav );
+      // check if an ancestor is in primary nav
+      } elseif ( !count($in_nav) && count($ancestors) ){
+        foreach ($ancestors as $i => $ancestor) {
+          $in_nav = UcdThemeMenu::getDirectHierarchyinMenu( $primary_nav, $ancestor->id );
+          if ( count($in_nav) ){
+            array_splice( $breadcrumbs, 1, 0, $in_nav );
+            break;
+          }
         }
+        $ancestors_not_in_nav = array_slice($ancestors, 0, $i);
+        foreach (array_reverse($ancestors_not_in_nav) as $ancestor ) {
+          array_splice($breadcrumbs, -1, 0, [['link' => $ancestor->link(), 'title' => $ancestor->title()]]);
+        }
+
       }
 
     // check if parent is in primary nav
