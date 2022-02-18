@@ -82,19 +82,19 @@ class UcdThemeMenu {
 
       // we are finding a different page than what is currently displayed
       } else {
-        if ( self::menuItemIsPost($parent, $post_id) ){
+        if ( $parent->object_id == $post_id ){
           $out[] = self::getMenuItemBasics($parent);
           return $out;
         }
         foreach ( $parent->children as $child ){
-          if ( self::menuItemIsPost($child, $post_id) ){
+          if ( $child->object_id == $post_id ){
             $out[] = self::getMenuItemBasics($parent);
             $out[] = self::getMenuItemBasics($child);
             return $out;
           }
         }
         foreach ( $child->children as $grandchild ){
-          if ( self::menuItemIsPost($grandchild, $post_id) ){
+          if ( $grandchild->object_id == $post_id ){
             $out[] = self::getMenuItemBasics($parent);
             $out[] = self::getMenuItemBasics($child);
             $out[] = self::getMenuItemBasics($grandchild);
@@ -105,12 +105,6 @@ class UcdThemeMenu {
     }
 
     return $out;
-  }
-
-  private static function menuItemIsPost( $menu_item, $post_id ){
-    $master_obj = $menu_item->master_object();
-    if ( !is_a($master_obj, 'Timber\Post') ) return false;
-    return $master_obj->id == $post_id;
   }
 
   private static function getMenuItemBasics( $menu_item ){

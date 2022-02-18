@@ -1,0 +1,5 @@
+{% from getUcdMacro('menus') import subnav %}
+
+{% if attributes.post.primay_nav_item %}
+    {{ subnav({items: attributes.post.primay_nav_item.children, title: attributes.post.primay_nav_item.title, titleLink: attributes.post.primay_nav_item.link}) }}
+{% endif %}

@@ -63,6 +63,10 @@ class UCDThemeBlocks {
       "hasBrandColors" => true
     ),
     "ucd-theme/poster-list" => array("twig" => "@ucd/blocks/poster-list.twig"),
+    "ucd-theme/primary-subnav" => array(
+      "twig" => "@ucd/blocks/primary-subnav.twig",
+      "transform" => array("getCurrentPost"),
+    ),
     "ucd-theme/priority-link" => array(
       "twig" => "@ucd/blocks/priority-link.twig",
       "hasBrandColors" => true

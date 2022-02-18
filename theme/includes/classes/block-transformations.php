@@ -26,6 +26,14 @@ class UCDThemeBlockTransformations {
   }
 
   /**
+   * Retrieves current post object and saves in "post" attribute
+   */
+  public static function getCurrentPost($attrs=array()){
+    $attrs['post'] = Timber::get_post();
+    return $attrs;
+  }
+
+  /**
    * Retrieves categories for site
    */
   public static function getCategories($attrs=array()){

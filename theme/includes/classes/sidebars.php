@@ -16,6 +16,15 @@ class UcdThemeSidebars {
     );
     register_sidebar(
       array(
+        'id'            => 'single-page',
+        'name'          => "Single Page",
+        'description'   => "Widgets for a single page.",
+        'before_widget' => '',
+        'after_widget' => ''
+      )
+    );
+    register_sidebar(
+      array(
         'id'            => 'single-category',
         'name'          => "Single Category",
         'description'   => "Widgets for a category archive page",

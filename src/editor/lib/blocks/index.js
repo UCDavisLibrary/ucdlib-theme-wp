@@ -14,6 +14,7 @@ import objectBox from "./ucd-theme-object-box";
 import panelWithIcon from "./ucd-theme-panel-with-icon";
 import poster from "./ucd-theme-poster";
 import posterList from "./ucd-theme-poster-list";
+import primarySubnav from "./ucd-theme-primary-subnav";
 import priorityLink from "./ucd-theme-priority-link";
 import priorityLinksItem from "./ucd-theme-priority-links-item";
 import priorityLinks from "./ucd-theme-priority-links"
@@ -39,6 +40,7 @@ export default [
   panelWithIcon,
   poster,
   posterList,
+  primarySubnav,
   priorityLink,
   priorityLinksItem,
   priorityLinks,

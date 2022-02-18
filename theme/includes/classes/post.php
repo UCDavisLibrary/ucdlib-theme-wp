@@ -86,11 +86,37 @@ class UcdThemePost extends Timber\Post {
         }
 
       }
-
-    // check if parent is in primary nav
     } 
     $this->breadcrumbs = $breadcrumbs;
     return $this->breadcrumbs;
+  }
+
+  /**
+   * Get the primary nav item to which this post belongs (if any)
+   * Returns a Timber/MenuItem or false
+   */
+  protected $primay_nav_item;
+  public function primay_nav_item(){
+    if ( !empty($this->primay_nav_item) ) return $this->primay_nav_item;
+
+    $breadcrumbs = $this->breadcrumbs();
+
+    if ( count($breadcrumbs) > 2 ){
+      $primary_nav = Timber::get_menu( 'primary' );
+      if ( $primary_nav ) {
+        foreach ($primary_nav->get_items() as $item) {
+          if ( 
+            $breadcrumbs[1]['link'] == $item->link() && 
+            $breadcrumbs[1]['title'] == $item->title()) {
+            $this->primay_nav_item = $item;
+            return $this->primay_nav_item;
+          }
+        }
+      }
+    }
+
+    $this->primay_nav_item = false;
+    return $this->primay_nav_item;
   }
 
   protected $hide_author;

@@ -203,6 +203,25 @@ class UcdThemeCustomizer {
       'description' => 'Sidebar will display on the right'
     ));
 
+    // pages
+    $wp_customize->add_section( 'layout_page', array(
+      'title' => 'Page',
+      'panel' => 'layout'
+    ));
+    $wp_customize->add_setting('layout_page_sidebar_hide');
+    $wp_customize->add_control('layout_page_sidebar_hide', array(
+      'type' => "checkbox",
+      'section' => 'layout_page',
+      'label' => 'Hide the sidebar'
+    ));
+    $wp_customize->add_setting('layout_page_sidebar_flipped');
+    $wp_customize->add_control('layout_page_sidebar_flipped', array(
+      'type' => "checkbox",
+      'section' => 'layout_page',
+      'label' => 'Flip the sidbar location',
+      'description' => 'Sidebar will display on the right'
+    ));
+
     // category
     $wp_customize->add_section( 'layout_category', array(
       'title' => 'Category',

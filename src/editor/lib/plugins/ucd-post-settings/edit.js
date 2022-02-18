@@ -3,6 +3,11 @@ import { ToggleControl, TextControl, ColorPalette, BaseControl } from '@wordpres
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { useDispatch } from "@wordpress/data";
 
+/**
+ * This plugin controls metadata values for pages/posts 
+ * by adding an interface to the 'Page' editor sideebar.
+ * To add a new metadata field, you have to register it first in /includes/classes/meta-data.php
+ */
 export default () => {
 
   const meta = SelectUtils.meta();
@@ -41,6 +46,12 @@ export default () => {
           label="Hide Page Title"
           checked=${meta.ucd_hide_title}
           onChange="${ucd_hide_title => {editPost({meta: {ucd_hide_title}})}}" />
+      `}
+      ${isPage && html`
+        <${ToggleControl} 
+          label="Hide Sitewide Sidebar"
+          checked=${meta.ucd_hide_sidebar}
+          onChange="${ucd_hide_sidebar => {editPost({meta: {ucd_hide_sidebar}})}}" />
       `}
       ${isPage && html`
         <${ToggleControl} 
