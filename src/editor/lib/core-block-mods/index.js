@@ -7,7 +7,7 @@ import table from "./table";
 import { addCustomStyles, unregisterStyles, defaultClassName } from "./utils";
 
 export const coreBlockStyles = [
-  image,
+//  image,
   list,
   quote,
   separator,

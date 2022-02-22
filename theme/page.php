@@ -11,6 +11,9 @@ $context['breadcrumbs'] = true;
 $context['hideSidebar'] = get_theme_mod('layout_page_sidebar_hide') || $context['post']->meta('ucd_hide_sidebar');
 $context['rightSidebar'] = get_theme_mod('layout_page_sidebar_flipped');
 $context['sidebar'] = Timber::get_widgets( 'single-page' );
+if ( !$context['sidebar'] && !$context['post']->primay_nav_item() ){
+    $context['hideSidebar'] = true;
+}
 
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('page') );

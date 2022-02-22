@@ -33,3 +33,12 @@ figure.table--bordered table {
 .wp-block-media-text .wp-block-media-text__content {
   padding: 0 !important;
 }
+
+@media (max-width: 479px) {
+  .wp-block-image .alignleft {
+    float: none;
+  }
+  .wp-block-image .alignright {
+    float: none;
+  }
+}

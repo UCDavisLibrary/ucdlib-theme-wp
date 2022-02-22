@@ -2,7 +2,7 @@ import { html, BlockSettings, SelectUtils } from "../../utils";
 import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarLinkPicker } from "../../block-components";
 import "./ucd-wp-poster";
 import { useRef, useEffect } from "@wordpress/element";
-import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
+import { useBlockProps, BlockControls, InspectorControls, RichText } from '@wordpress/block-editor';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -151,6 +151,7 @@ export default ( props ) => {
       />
     </${InspectorControls}>
     <ucd-wp-poster ...${ mainEleProps()}></ucd-wp-poster>
+    <input placeholder="woot"/>
   </div>
   `;
 }
