@@ -30,6 +30,11 @@ export default class UcdWpPoster extends Mixin(LitElement)
     this.title = "";
     this.excerpt = "";
     this._prefix = "vm-poster"; 
+    this._titleShowPlaceholder = false;
+  }
+
+  updated(props){
+    this.updateSlotContent(props, 'title', 'title-slot', '_titleShowPlaceholder');
   }
 
   _getBaseClasses(){
@@ -41,7 +46,8 @@ export default class UcdWpPoster extends Mixin(LitElement)
   }
 
   _onTitleInput(e){
-    this.title = e.target.value || "";
+    this.title = e.target.textContent || "";
+    this._titleShowPlaceholder = !this.title;
     this.dispatchUpdate('title');
   }
 

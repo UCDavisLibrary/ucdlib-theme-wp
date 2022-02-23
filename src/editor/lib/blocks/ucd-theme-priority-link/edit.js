@@ -69,7 +69,7 @@ export default ( props ) => {
     setAttributes(attrs);
   }
   const hrefContent = (() => {
-    let value = {opensInNewTab: attributes.newTab};
+    let value = {opensInNewTab: attributes.newTab, url: ""};
     if ( attributes.href ) {
       value.url = attributes.href;
     } 

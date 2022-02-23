@@ -2,7 +2,7 @@ import { html, BlockSettings, SelectUtils } from "../../utils";
 import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarLinkPicker } from "../../block-components";
 import "./ucd-wp-poster";
 import { useRef, useEffect } from "@wordpress/element";
-import { useBlockProps, BlockControls, InspectorControls, RichText } from '@wordpress/block-editor';
+import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -52,7 +52,7 @@ export default ( props ) => {
     });
   }
   const hrefContent = (() => {
-    let value = {opensInNewTab: attributes.newTab};
+    let value = {opensInNewTab: attributes.newTab, url: ""};
     if ( attributes.href ) {
       value.url = attributes.href;
     } else if ( post && post.link ) {
@@ -150,8 +150,10 @@ export default ( props ) => {
         panelAttributes=${{title: 'Custom Card Image'}}
       />
     </${InspectorControls}>
-    <ucd-wp-poster ...${ mainEleProps()}></ucd-wp-poster>
-    <input placeholder="woot"/>
+    <ucd-wp-poster ...${ mainEleProps()}>
+      <div slot="title" contentEditable="true"></div>
+    </ucd-wp-poster>
+    
   </div>
   `;
 }

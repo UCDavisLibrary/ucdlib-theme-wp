@@ -30,6 +30,139 @@ export default ( props ) => {
 }
 ```
 
+Where possible a Lit element is used instead of a React component for the primary editor area of the block. However, a few steps have to be taken to make it compatible with React/Wordpress:
+1. You must use the [React ref and effect hooks](https://reactjs.org/docs/hooks-reference.html) to make sure it can listen to the events emitted by the Lit element.
+2. Wordpress hijacks copy/paste functionality, and cannot find any inputs within a shadowdom. If you want to continue using a shadowdom (recommended), a workaround is necessary. The pattern I have found to work best is to pass through the 'input' value as an attribute, but also slot in a contenteditable div (makes text wrapping way simpler) for the user to edit the 'input' value.
+
+my-lit-element
+```js
+import { LitElement } from 'lit';
+import {render, styles} from "./ucd-wp-poster.tpl.js";
+
+export default class myLitElement extends LitElement {
+
+  static get properties() {
+    return {
+      input: {type: String},
+    }
+  }
+
+    constructor() {
+        super();
+        this.render = render.bind(this);
+        this.input = "";
+    }
+
+    // update slot content with property value
+    // you can use a method from the MainComponentElement base class in utils, to reduce boilerplate
+    updated(props){
+
+        if ( props.has('input') ) {
+            this._showPlaceholder = !this.input;
+            let slot = this.shadowRoot.getElementById('input-slot');
+            if ( slot ) {
+                let slotted = slot.assignedNodes()[0];
+                if ( slotted && slotted.innerText.trim() != this.input.trim()) {
+                    slotted.innerText = this.input;
+                }
+        }
+        }
+    }
+
+    // dispatch event to alert 
+    _onInput(e){
+        this.input = e.target.textContent || "";
+        this._showPlaceholder = !this.title;
+        this.dispatchEvent(new CustomEvent('updated'));
+    }
+}
+```
+
+my-lit-element.tpl.js
+```js
+export function styles() {
+  const elementStyles = css`
+    :host {
+      display: block;
+    }
+    .show-placeholder:before {
+      content: attr(placeholder);
+      position: absolute;
+      color: white; 
+      pointer-events: none;
+      opacity: .6;
+  }
+
+  `;
+
+  return [
+    elementStyles];
+}
+
+export function render() { 
+return html`
+<slot 
+    id="input-slot"
+    class=${this._showPlaceholder ? 'show-placeholder' : ''}
+    name="input" 
+    placeholder="Write some text..."
+    @input=${this._onInput}>${this.input}</slot>
+`;}
+
+```
+
+edit.js
+```js
+import { createElement } from "@wordpress/element";
+import { useRef, useEffect } from "@wordpress/element";
+import { useBlockProps } from '@wordpress/block-editor';
+import htm from 'htm';
+import "./my-lit-element";
+
+const html = htm.bind( createElement );
+
+export default ( props ) => {
+    const { attributes, setAttributes } = props;
+    const blockProps = useBlockProps();
+    const mainEleRef = useRef();
+
+    // allow react to listen to event from lit component
+    useEffect(() => {
+        let mainEle = null;
+        if ( mainEleRef.current ) {
+        mainEleRef.current.addEventListener('updated', onMainEleUpdated);
+        mainEle = mainEleRef.current;
+        }
+        return () => {
+        if ( mainEle ) {
+            mainEle.removeEventListener('updated', onMainEleUpdated);
+        }
+        };
+    });
+
+    // callback for lit component events. you set react attributes here
+    const onMainEleUpdated = (e) => {
+        setAttributes('the new value');
+    }
+
+    // attributes to be passed to our lit element
+    const mainEleProps = () => {
+        let p = {ref: mainEleRef};
+
+        if ( attributes.input ) p.input = attributes.input;
+        return p;
+    }
+
+    return html`
+        <div ...${ blockProps }>
+            <my-lit-element ...${ mainEleProps()}>
+                <div slot="input" contentEditable="true"></div>
+            </my-lit-element>
+        </div>
+    `
+}
+```
+
 When a page is edited and saved, the selected blocks and [their attributes](https://developer.wordpress.org/block-editor/getting-started/create-block/attributes/) are stored in the database as a [serialized json-like structure](https://developer.wordpress.org/block-editor/explanations/architecture/data-flow/#the-anatomy-of-a-serialized-block). For example, the following is a set of [priority links](http://dev.webstyleguide.ucdavis.edu/redesign/?p=organisms-priority-links):
 ```
 <!-- wp:ucd-theme/priority-links -->

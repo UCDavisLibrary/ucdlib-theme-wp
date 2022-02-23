@@ -48,7 +48,7 @@ export default ( props ) => {
     });
   }
   const hrefContent = (() => {
-    let value = {opensInNewTab: attributes.newTab};
+    let value = {opensInNewTab: attributes.newTab, url: ""};
     if ( attributes.href ) {
       value.url = attributes.href;
     } else if ( post && post.link ) {

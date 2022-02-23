@@ -1,6 +1,5 @@
 import { html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import { StyleUtils } from '../../utils';
 import brandStyles from "@ucd-lib/theme-sass/4_component/_category-brand.css.js"
 import posterStyles from "@ucd-lib/theme-sass/4_component/_vm-poster.css.js";
 import imageAspectStyles from "@ucd-lib/theme-sass/6_utility/_u-aspect.css.js";
@@ -21,13 +20,20 @@ export function styles() {
     .vm-poster__body-text {
       width: 100%;
     }
+    .show-placeholder:before {
+      content: attr(placeholder);
+      position: absolute;
+      color: white; 
+      pointer-events: none;
+      opacity: .6;
+  }
+
   `;
 
   return [
     brandStyles,
     posterStyles,
     imageAspectStyles,
-    StyleUtils.CssUnstyledInput,
     elementStyles];
 }
 
@@ -40,11 +46,12 @@ return html`
     <div class="${this._prefix}__body">
       <div class="${this._prefix}__body-text">
         <h2 class="${this._prefix}__title">
-        <input 
-            type="text" 
-            @input=${this._onTitleInput}
-            .value=${this.title}
-            placeholder="Write a title...">
+          <slot 
+            id="title-slot"
+            class=${this._titleShowPlaceholder ? 'show-placeholder' : ''}
+            name="title" 
+            placeholder="Write a title..."
+            @input=${this._onTitleInput}>${this.title}</slot>
         </h2>
         <p><ucd-wp-textarea .value=${this.excerpt} @input=${this._onExcerptInput}></ucd-wp-textarea></p>
       </div>
