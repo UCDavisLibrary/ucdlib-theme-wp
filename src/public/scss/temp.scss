@@ -33,6 +33,15 @@ a.icon--circle-arrow-right::before {
   height: 70%;
 }
 
+// for focal link
+
+.focal-link__icon ucdlib-icon {
+  width: 35px;
+  min-width: 35px;
+  height: 35px;
+  min-height: 35px;
+}
+
 // for panel w/ icon
 ucdlib-icon.panel__custom-icon {
   color: var(--category-brand, #022851)

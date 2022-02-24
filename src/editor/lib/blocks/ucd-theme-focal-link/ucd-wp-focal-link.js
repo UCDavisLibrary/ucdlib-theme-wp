@@ -1,17 +1,16 @@
 import { LitElement } from 'lit';
-import {render, styles} from "./ucd-wp-priority-link.tpl.js";
+import {render, styles} from "./ucd-wp-focal-link.tpl.js";
 
 import { MainComponentElement, Mixin } from '../../utils';
 
-export default class UcdWpPriorityLink extends Mixin(LitElement)
-  .with(MainComponentElement) {
+export default class UcdWpFocalLink extends Mixin(LitElement)
+.with(MainComponentElement) {
 
   static get properties() {
     return {
       color: {type: String},
       icon: {type: String},
       text: {type: String},
-      hideText: {type: Boolean, attribute: 'hide-text'}
     }
   }
 
@@ -24,8 +23,8 @@ export default class UcdWpPriorityLink extends Mixin(LitElement)
     this.color = "";
     this.icon = "";
     this.text = "";
-    this.hideText = false;
     this.render = render.bind(this);
+    
   }
 
   updated(props){
@@ -34,8 +33,7 @@ export default class UcdWpPriorityLink extends Mixin(LitElement)
 
   _getBaseClasses(){
     let classes = {
-      "vertical-link": true,
-      "vertical-link--circle": true
+      "focal-link": true
     };
     classes[`category-brand--${this.color}`] = this.color ? true : false;
 
@@ -53,4 +51,4 @@ export default class UcdWpPriorityLink extends Mixin(LitElement)
 
 }
 
-customElements.define('ucd-wp-priority-link', UcdWpPriorityLink);
+customElements.define('ucd-wp-focal-link', UcdWpFocalLink);

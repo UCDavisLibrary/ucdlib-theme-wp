@@ -243,6 +243,36 @@ kwargs:
   </a>
 {% endmacro %}
 
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-focal-link-icon
+kwargs:
+  href {String}: link
+  icon {String}: icon parameter of a ucdlib-icon element
+  text {String}: Text to display below icon
+  brandColor {String} - UCD alt color slug
+  newTab {Boolean} - If link opens in new tab
+#}
+{% macro focal_link( kwargs={} ) %}
+  {% set classes = ['focal-link'] %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes|merge(['category-brand--' ~ kwargs.brandColor]) %}
+  {% endif %}
+  {% set classes = classes|join(' ') %}
+
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  <a class="{{classes}}" href="{{kwargs.href}}" {{target}}>
+    <div class="focal-link__figure focal-link__icon">
+      {% if kwargs.icon %}
+        <ucdlib-icon icon="{{kwargs.icon}}"></ucdlib-icon>
+      {% endif %}
+    </div>
+    {% if kwargs.text %}
+      <div class="focal-link__body"><strong>{{kwargs.text}}</strong></div>
+    {% endif %}
+  </a>
+{% endmacro %}
+
 {#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-breadcrumbs
 crumbs (array): result of UcdThemePost->breadcrumbs()
