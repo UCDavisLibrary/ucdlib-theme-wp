@@ -48,12 +48,19 @@ return html`
         <h2 class="${this._prefix}__title">
           <slot 
             id="title-slot"
-            class=${this._titleShowPlaceholder ? 'show-placeholder' : ''}
+            class=${this.title ? '' : 'show-placeholder'}
             name="title" 
             placeholder="Write a title..."
             @input=${this._onTitleInput}>${this.title}</slot>
         </h2>
-        <p><ucd-wp-textarea .value=${this.excerpt} @input=${this._onExcerptInput}></ucd-wp-textarea></p>
+        <p>
+          <slot 
+            id="excerpt-slot"
+            class=${this.excerpt ? '' : 'show-placeholder'}
+            name="excerpt" 
+            placeholder="Write text..."
+            @input=${this._onExcerptInput}>${this.excerpt}</slot>
+        </p>
       </div>
     </div>
   </a>

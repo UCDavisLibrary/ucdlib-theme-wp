@@ -27,6 +27,12 @@ export function styles() {
     *, *:before, *:after {
       box-sizing: inherit;
     }
+    .show-placeholder:before {
+      content: attr(placeholder);
+      position: absolute;
+      pointer-events: none;
+      opacity: .6;
+  }
   `;
 
   return [
@@ -40,10 +46,12 @@ export function render() {
 return html`
 <p class="u-text-align--${this.textAlign}">
   <a class=${classMap(this._getClasses())}>
-    <ucd-wp-inline-input 
-        @input=${this._onInput}
-        .value=${this.text}>
-    </ucd-wp-inline-input>
+    <slot 
+      id="text-slot"
+      class=${this._textShowPlaceholder ? 'show-placeholder' : ''}
+      name="text" 
+      placeholder="Write text..."
+      @input=${this._onInput}>${this.text}</slot>
   </a>
 </p>
 `;}

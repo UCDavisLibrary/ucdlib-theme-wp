@@ -1,8 +1,6 @@
 import { LitElement } from 'lit';
 import {render, styles} from "./ucd-wp-marketing-highlight.tpl.js";
 import { MainComponentElement, Mixin } from '../../utils';
-import "../../block-components/ucd-wp-inline-input/ucd-wp-inline-input";
-import "../../block-components/ucd-wp-textarea/ucd-wp-textarea";
 
 export default class UcdWpMarketingHighlight extends Mixin(LitElement)
   .with(MainComponentElement) {
@@ -50,6 +48,13 @@ export default class UcdWpMarketingHighlight extends Mixin(LitElement)
     this.hideButton = false;
   }
 
+  updated(props){
+    this.updateSlotContent(props, 'buttonText', 'button-slot');
+    this.updateSlotContent(props, 'title', 'title-slot');
+    this.updateSlotContent(props, 'badge', 'badge-slot');
+    this.updateSlotContent(props, 'excerpt', 'excerpt-slot');
+  }
+
   _getBaseClasses(){
     let classes = {};
     classes[this._prefix] = true;
@@ -60,21 +65,21 @@ export default class UcdWpMarketingHighlight extends Mixin(LitElement)
   }
 
   _onButtonTextInput(e){
-    this.buttonText = e.target.value || "";
+    this.buttonText = e.target.textContent || "";
     this.dispatchUpdate('buttonText');
   }
 
   _onTitleInput(e){
-    this.title = e.target.value || "";
+    this.title = e.target.textContent || "";
     this.dispatchUpdate('title');
   }
   _onBadgeInput(e){
-    this.badge = e.target.value || "";
+    this.badge = e.target.textContent || "";
     this.dispatchUpdate('badge');
   }
 
   _onExcerptInput(e){
-    this.excerpt = e.target.value || "";
+    this.excerpt = e.target.textContent || "";
     this.dispatchUpdate('excerpt');
   }
 

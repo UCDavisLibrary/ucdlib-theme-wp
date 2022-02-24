@@ -54,11 +54,10 @@ export default class myLitElement extends LitElement {
     }
 
     // update slot content with property value
-    // you can use a method from the MainComponentElement base class in utils, to reduce boilerplate
+    // you can use the updateSlotContent method from the MainComponentElement base class in utils, to reduce boilerplate - this.updateSlotContent(props, 'input', 'input-slot');
     updated(props){
 
         if ( props.has('input') ) {
-            this._showPlaceholder = !this.input;
             let slot = this.shadowRoot.getElementById('input-slot');
             if ( slot ) {
                 let slotted = slot.assignedNodes()[0];
@@ -72,7 +71,6 @@ export default class myLitElement extends LitElement {
     // dispatch event to alert 
     _onInput(e){
         this.input = e.target.textContent || "";
-        this._showPlaceholder = !this.title;
         this.dispatchEvent(new CustomEvent('updated'));
     }
 }
@@ -103,7 +101,7 @@ export function render() {
 return html`
 <slot 
     id="input-slot"
-    class=${this._showPlaceholder ? 'show-placeholder' : ''}
+    class=${this._input ? '' : 'show-placeholder'}
     name="input" 
     placeholder="Write some text..."
     @input=${this._onInput}>${this.input}</slot>

@@ -1,7 +1,6 @@
 import { html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 
-import { StyleUtils } from '../../utils';
 import brandStyles from "@ucd-lib/theme-sass/4_component/_category-brand.css.js";
 import iconStyles from "@ucd-lib/theme-sass/4_component/_icons.css.js";
 import panelStyles from "@ucd-lib/theme-sass/4_component/_panel.css.js";
@@ -12,7 +11,18 @@ export function styles() {
     :host {
       display: block;
     }
-
+    .show-placeholder:before {
+      content: attr(placeholder);
+      position: absolute;
+      pointer-events: none;
+      opacity: .6;
+    }
+    #title-slot:before {
+      left: 35px;
+    }
+    ::slotted([slot=title]) {
+      flex-grow: 1;
+    }
     ucdlib-icon {
       cursor: pointer;
     }
@@ -42,11 +52,13 @@ export function styles() {
         height: 2.47rem;
         margin-right: 1rem;
       }
+      #title-slot:before {
+        left: 55px;
+      }
     }
   `;
 
   return [
-    StyleUtils.CssUnstyledInput,
     brandStyles,
     iconStyles,
     oBoxStyles,
@@ -64,21 +76,23 @@ return html`
       icon=${this.icon} 
       class="panel__custom-icon ${this.color}">
     </ucdlib-icon>
-    <input 
-      type="text" 
-      @input=${this._onTitleInput}
-      .value=${this.title}
-      placeholder="Write a short title...">
+    <slot 
+      id="title-slot"
+      class=${this.title ? '' : 'show-placeholder'}
+      name="title" 
+      placeholder="Write a title..."
+      @input=${this._onTitleInput}>${this.title}</slot>
   </h2>
   <section>
-    <slot></slot>
+    <slot name="content"></slot>
     ${!this.hideMoreLink ? html`
       <a class="icon icon--circle-arrow-right ${this.color ? `category-brand--${this.color}` : ''}">
-      <input 
-      type="text" 
-      @input=${this._onMoreTextInput}
-      .value=${this.moreText}
-      placeholder="See More...">
+      <slot 
+        id="more-slot"
+        class=${this.moreText ? '' : 'show-placeholder'}
+        name="more" 
+        placeholder="See More..."
+        @input=${this._onMoreTextInput}>${this.moreText}</slot>
       </a>
     ` : html``}
   </section>

@@ -52,6 +52,12 @@ export default class UcdWpTeaser extends Mixin(LitElement)
     this.categories = [];
   }
 
+  updated(props){
+    this.updateSlotContent(props, 'title', 'title-slot');
+    this.updateSlotContent(props, 'excerpt', 'excerpt-slot');
+  }
+
+
   _getBaseClasses(){
     let classes = {};
     classes[this._prefix] = true;
@@ -62,12 +68,12 @@ export default class UcdWpTeaser extends Mixin(LitElement)
   }
 
   _onTitleInput(e){
-    this.title = e.target.value || "";
+    this.title = e.target.textContent || "";
     this.dispatchUpdate('title');
   }
 
   _onExcerptInput(e){
-    this.excerpt = e.target.value || "";
+    this.excerpt = e.target.textContent || "";
     this.dispatchUpdate('excerpt');
   }
 

@@ -155,6 +155,7 @@ export default ( props ) => {
         />
       </${InspectorControls}>
       <ucd-theme-marketing-highlight-horizontal ...${ mainEleProps() }>
+        <div slot="title" contentEditable="true"></div>
       </ucd-theme-marketing-highlight-horizontal>
     </div>
   `;

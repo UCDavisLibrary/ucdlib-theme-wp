@@ -34,6 +34,10 @@ const settings = {
       type: "string",
       default: ""
     },
+    hideText: {
+      type: "boolean",
+      default: false
+    }
   },
 	edit: Edit
 };

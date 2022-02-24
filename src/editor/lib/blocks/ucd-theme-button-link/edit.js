@@ -82,6 +82,7 @@ export default ({ attributes, setAttributes }) => {
       text-align=${attributes.textAlign}
       alt-style=${altStyle}
       text=${attributes.content}>
+      <div slot="text" contentEditable="true"></div>
     </ucd-wp-button-link>
   </div>
   `;

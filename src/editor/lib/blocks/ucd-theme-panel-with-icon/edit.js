@@ -119,7 +119,9 @@ export default ( props ) => {
       selectedIcon=${attributes.icon}
       ></${IconPicker}>
     <ucd-wp-panel-with-icon ...${ mainEleProps() }>
-      <div>
+      <div slot="title" contentEditable="true"></div>
+      <div slot="more" contentEditable="true"></div>
+      <div slot="content">
           <${InnerBlocks} />
       </div>
     </ucd-wp-panel-with-icon>

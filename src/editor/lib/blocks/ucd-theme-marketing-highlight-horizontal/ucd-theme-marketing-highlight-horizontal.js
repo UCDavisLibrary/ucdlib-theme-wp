@@ -29,8 +29,12 @@ export default class UcdThemeMarketingHighlightHorizontal extends Mixin(LitEleme
     this.imgSrc = "";
   }
 
+  updated(props){
+    this.updateSlotContent(props, 'title', 'title-slot');
+  }
+
   _onTitleInput(e){
-    this.title = e.target.value || "";
+    this.title = e.target.textContent || "";
     this.dispatchUpdate('title');
   }
 }

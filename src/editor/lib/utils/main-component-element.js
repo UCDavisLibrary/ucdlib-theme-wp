@@ -17,23 +17,23 @@ const MainComponentElement = (superClass) => class extends superClass {
 
   /**
    * @method updateSlotContent
-   * @description Sets slot content if it differs from specified property
+   * @description Sets slot content (a contenteditable div) if it differs from specified property
+   * We do it this way so copy/paste functionality still works
    * @param {Map} props - Property of the 'willUpdate' hook
    * @param {String} prop - A property name
    * @param {String} slotId - The id of the slot element
-   * @param {String} placeholder - The 'showplaceholder' property name
    * @returns {Boolean} - true if slot content was updated
    */
-  updateSlotContent(props, prop, slotId, placeholder){
+  updateSlotContent(props, prop, slotId){
     if (!props || !prop || !props.has(prop) || !slotId ) return false;
-    if ( placeholder ) this[placeholder] = !this[prop];
     let slot = this.shadowRoot.getElementById(slotId);
     if ( !slot ) return false;
-    console.log(this[prop]);
     let slotted = slot.assignedNodes()[0];
-    console.log(slotted.innerText, this[prop]);
-    if ( !slotted || slotted.innerText.trim() == this[prop].trim()) return false;
-    slotted.innerText = this[prop];
+    //console.log(slotted.innerText, this[prop]);
+    let propValue = this[prop] ? this[prop] : '';
+    if ( !slotted || slotted.innerText.trim().toLowerCase() == propValue.trim().toLowerCase()) return false;
+    //console.log('changing');
+    slotted.innerText = propValue;
     return true;
   }
 

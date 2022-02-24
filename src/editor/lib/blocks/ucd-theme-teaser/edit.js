@@ -203,7 +203,10 @@ export default ( props ) => {
           panelAttributes=${{title: 'Custom Image'}}
         />
       </${InspectorControls}>
-      <ucd-wp-teaser ...${ mainEleProps() }></ucd-wp-teaser>
+      <ucd-wp-teaser ...${ mainEleProps() }>
+        <div slot="title" contentEditable="true"></div>
+        <div slot="excerpt" contentEditable="true"></div>
+      </ucd-wp-teaser>
     </div>
 
   `;

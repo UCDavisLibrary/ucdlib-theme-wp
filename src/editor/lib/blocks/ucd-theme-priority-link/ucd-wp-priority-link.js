@@ -11,7 +11,8 @@ export default class UcdWpPriorityLink extends Mixin(LitElement)
     return {
       color: {type: String},
       icon: {type: String},
-      text: {type: String}
+      text: {type: String},
+      hideText: {type: Boolean, attribute: 'hide-text'}
     }
   }
 
@@ -24,7 +25,12 @@ export default class UcdWpPriorityLink extends Mixin(LitElement)
     this.color = "";
     this.icon = "";
     this.text = "";
+    this.hideText = false;
     this.render = render.bind(this);
+  }
+
+  updated(props){
+    this.updateSlotContent(props, 'text', 'text-slot');
   }
 
   _getBaseClasses(){
@@ -39,6 +45,11 @@ export default class UcdWpPriorityLink extends Mixin(LitElement)
 
   dispatchIconChangeRequest(){
     this.dispatchEvent(new CustomEvent('icon-change'));
+  }
+
+  _onTextInput(e){
+    this.text = e.target.textContent || "";
+    this.dispatchUpdate('text');
   }
 
 }

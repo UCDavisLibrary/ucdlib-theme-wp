@@ -152,6 +152,7 @@ export default ( props ) => {
     </${InspectorControls}>
     <ucd-wp-poster ...${ mainEleProps()}>
       <div slot="title" contentEditable="true"></div>
+      <div slot="excerpt" contentEditable="true"></div>
     </ucd-wp-poster>
     
   </div>

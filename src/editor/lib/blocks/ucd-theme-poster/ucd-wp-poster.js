@@ -1,8 +1,6 @@
 import { LitElement } from 'lit';
 import {render, styles} from "./ucd-wp-poster.tpl.js";
 import { MainComponentElement, Mixin } from '../../utils';
-import "../../block-components/ucd-wp-inline-input/ucd-wp-inline-input";
-import "../../block-components/ucd-wp-textarea/ucd-wp-textarea";
 
 export default class UcdWpPoster extends Mixin(LitElement)
   .with(MainComponentElement) {
@@ -30,12 +28,13 @@ export default class UcdWpPoster extends Mixin(LitElement)
     this.title = "";
     this.excerpt = "";
     this._prefix = "vm-poster"; 
-    this._titleShowPlaceholder = false;
   }
 
   updated(props){
-    this.updateSlotContent(props, 'title', 'title-slot', '_titleShowPlaceholder');
+    this.updateSlotContent(props, 'title', 'title-slot');
+    this.updateSlotContent(props, 'excerpt', 'excerpt-slot');
   }
+
 
   _getBaseClasses(){
     let classes = {};
@@ -47,12 +46,12 @@ export default class UcdWpPoster extends Mixin(LitElement)
 
   _onTitleInput(e){
     this.title = e.target.textContent || "";
-    this._titleShowPlaceholder = !this.title;
+    
     this.dispatchUpdate('title');
   }
 
   _onExcerptInput(e){
-    this.excerpt = e.target.value || "";
+    this.excerpt = e.target.textContent || "";
     this.dispatchUpdate('excerpt');
   }
 

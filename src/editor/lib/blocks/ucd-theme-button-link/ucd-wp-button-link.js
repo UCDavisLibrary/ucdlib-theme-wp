@@ -1,8 +1,10 @@
 import { LitElement } from 'lit';
 import {render, styles} from "./ucd-wp-button-link.tpl.js";
+import { MainComponentElement, Mixin } from '../../utils';
 import "../../block-components/ucd-wp-inline-input/ucd-wp-inline-input";
 
-export default class UcdWpButtonLink extends LitElement {
+export default class UcdWpButtonLink extends Mixin(LitElement)
+.with(MainComponentElement) {
 
   static get properties() {
     return {
@@ -43,13 +45,21 @@ export default class UcdWpButtonLink extends LitElement {
     return classes;
   }
 
+  updated(props){
+    this.updateSlotContent(props, 'text', 'text-slot', '_textShowPlaceholder');
+  }
+
+  willUpdate() {
+    this._textShowPlaceholder = !this.text;
+  }
+
 
   _onInput(e){
-    let text = e.target.value || "";
+    let text = e.target.textContent || "";
     this.text = text;
 
     this.dispatchEvent(new CustomEvent('text-change', {
-      detail : {value: e.target.value}
+      detail : {value: text}
     }));
 
 

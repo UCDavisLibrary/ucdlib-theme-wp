@@ -1,5 +1,4 @@
 import { html, css } from 'lit';
-import { StyleUtils } from '../../utils';
 import { classMap } from 'lit/directives/class-map.js';
 import brandStyles from "@ucd-lib/theme-sass/4_component/_category-brand.css.js";
 import linkStyles from "@ucd-lib/theme-sass/4_component/_vertical-link.css.js";
@@ -16,10 +15,17 @@ export function styles() {
     ucdlib-icon {
       height: 70%;
     }
+    .show-placeholder:before {
+      content: attr(placeholder);
+      position: absolute;
+      pointer-events: none;
+      opacity: .6;
+      left: 0;
+      right: 0;
+    }
   `;
 
   return [
-    StyleUtils.CssUnstyledInput,
     brandStyles,
     linkStyles,
     elementStyles
@@ -36,8 +42,15 @@ return html`
         <span class="vertical-link__image">Add Icon</span>
       `}
     </div>
-    ${this.text ? html`
-      <div class="vertical-link__title">${this.text}</div>
+    ${!this.hideText ? html`
+      <div class="vertical-link__title">
+        <slot 
+          id="text-slot"
+          class=${this.text ? '' : 'show-placeholder'}
+          name="text" 
+          placeholder="Write text..."
+          @input=${this._onTextInput}>${this.text}</slot>
+      </div>
     ` : html``}
     </div>
   </a>

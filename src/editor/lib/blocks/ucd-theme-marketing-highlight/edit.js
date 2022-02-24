@@ -182,7 +182,12 @@ export default ( props ) => {
           panelAttributes=${{title: 'Custom Card Image'}}
         />
       </${InspectorControls}>
-      <ucd-wp-marketing-highlight ...${ mainEleProps() }></ucd-wp-marketing-highlight>
+      <ucd-wp-marketing-highlight ...${ mainEleProps() }>
+        <div slot="title" contentEditable="true"></div>
+        <div slot="excerpt" contentEditable="true"></div>
+        <div slot="badge" contentEditable="true"></div>
+        <div slot="button" contentEditable="true"></div>
+      </ucd-wp-marketing-highlight>
     </div>
 
   `;

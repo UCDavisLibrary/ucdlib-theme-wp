@@ -31,6 +31,11 @@ export default class UcdWpPanelWithIcon extends Mixin(LitElement)
     this.padding = "";
   }
 
+  updated(props){
+    this.updateSlotContent(props, 'moreText', 'more-slot');
+    this.updateSlotContent(props, 'title', 'title-slot');
+  }
+
   _getBaseClasses(){
     let classes = {
       "panel": true,
@@ -50,12 +55,12 @@ export default class UcdWpPanelWithIcon extends Mixin(LitElement)
   }
 
   _onTitleInput(e){
-    this.title = e.target.value || "";
+    this.title = e.target.textContent || "";
     this.dispatchUpdate('title');
   }
 
   _onMoreTextInput(e){
-    this.moreText = e.target.value || "";
+    this.moreText = e.target.textContent || "";
     this.dispatchUpdate('moreText');
   }
 

@@ -1,6 +1,5 @@
 import { html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import { StyleUtils } from '../../utils';
 import headingsStyles from "@ucd-lib/theme-sass/1_base_html/_headings.css.js";
 import teaserStyles from "@ucd-lib/theme-sass/4_component/_vm-teaser.css.js"
 import brandStyles from "@ucd-lib/theme-sass/4_component/_category-brand.css.js"
@@ -19,13 +18,18 @@ export function styles() {
       height: 100%;
       object-fit: cover;
     }
+    .show-placeholder:before {
+      content: attr(placeholder);
+      position: absolute;
+      pointer-events: none;
+      opacity: .6;
+    }
   `;
 
   return [
     headingsStyles,
     brandStyles,
     teaserStyles,
-    StyleUtils.CssUnstyledInput,
     elementStyles
   ];
 }
@@ -43,11 +47,12 @@ return html`
     <div class="vm-teaser__body">
       <h3 class="vm-teaser__title"><a>
         ${this.editable ? html`
-          <input 
-            type="text" 
-            @input=${this._onTitleInput}
-            .value=${this.title}
-            placeholder="Write a title...">
+          <slot 
+            id="title-slot"
+            class=${this.title ? '' : 'show-placeholder'}
+            name="title" 
+            placeholder="Write a title..."
+            @input=${this._onTitleInput}>${this.title}</slot>
         ` : html`
           <span>${this.title}</span>
         `}
@@ -77,7 +82,12 @@ return html`
       ${!this.hideExcerpt ? html`
         <div class="vm-teaser__summary">
           ${this.editable ? html`
-            <ucd-wp-textarea .value=${this.excerpt} @input=${this._onExcerptInput}></ucd-wp-textarea>
+            <slot 
+              id="excerpt-slot"
+              class=${this.excerpt ? '' : 'show-placeholder'}
+              name="excerpt" 
+              placeholder="Write text..."
+              @input=${this._onExcerptInput}>${this.excerpt}</slot>
           ` : html`
             <span>${this.excerpt}</span>
           `}
