@@ -36,7 +36,11 @@
 
       {% block breadcrumbs %}
         {% if breadcrumbs and not post.hide_breadcrumbs %}
-          {{render_crumbs(post.breadcrumbs)}}
+          {% if post.breadcrumbs %}
+            {{render_crumbs(post.breadcrumbs)}}
+          {% else %}
+            {{render_crumbs([{title: 'Home', link: '/'}, {title}])}}
+          {% endif %}
         {% endif %}
       {% endblock %}
 
