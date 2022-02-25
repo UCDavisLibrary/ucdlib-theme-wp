@@ -59,6 +59,21 @@ ucdlib-icon.panel__custom-icon {
   }
 }
 
+// for the icon class
+a.icon-ucdlib {
+  display: flex;
+  align-items: center;
+
+  ucdlib-icon {
+    color: var(--category-brand, #73abdd);
+    margin-right: .25rem;
+    min-width: 1rem;
+    min-height: 1rem;
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
 // white space utility
 .u-white-space--normal {
   white-space: normal !important;

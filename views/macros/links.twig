@@ -292,3 +292,32 @@ crumbs (array): result of UcdThemePost->breadcrumbs()
   </ol>
 {% endif %}
 {% endmacro %}
+
+{# 
+Renders a link with a little icon inlined before it
+kwargs:
+  href {String}: link
+  icon {String}: icon parameter of a ucdlib-icon element
+  text {String}: Text to display below icon
+  brandColor {String} - UCD alt color slug
+  newTab {Boolean} - If link opens in new tab
+#}
+{% macro prefixed_icon_link( kwargs={} ) %}
+  {% set classes = ['icon-ucdlib'] %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes|merge(['category-brand--' ~ kwargs.brandColor]) %}
+  {% endif %}
+  {% set classes = classes|join(' ') %}
+
+  {% set icon = 'wp-editor:fa-link' %}
+  {% if kwargs.icon %}
+    {% set icon = kwargs.icon %}
+  {% endif %}
+
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  <a class="{{classes}}" href="{{kwargs.href}}" {{target}}>
+    <ucdlib-icon icon="{{kwargs.icon}}"></ucdlib-icon>
+    <div>{{kwargs.text}}</div>
+  </a>
+{% endmacro %}

@@ -362,7 +362,8 @@ class UcdThemeCustomizer {
       array("slug" => "marketing-highlight-poster", "label" => "Poster Block Palette"),
       array("slug" => "panel-with-icon", "label" => "Panel with Icon"),
       array("slug" => "priority-link", "label" => "Priority Link Palette"),
-      array("slug" => "focal-link", "label" => "Focal Link Palette")
+      array("slug" => "focal-link", "label" => "Focal Link Palette"),
+      array("slug" => "prefixed-icon-link", "label" => "Prefixed Icon Link Palette"),
     );
     foreach ($blocks_with_colors as $block) {
       $name = 'colors_blocks_' . $block['slug'];
