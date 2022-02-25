@@ -1,6 +1,8 @@
 import backgroundColor from "./ucd-theme-background-color";
 import buttonLink from "./ucd-theme-button-link";
 import categoryFilter from "./ucd-theme-category-filter";
+import faq from "./ucd-theme-faq";
+import faqItem from "./ucd-theme-faq-item";
 import focalLink from "./ucd-theme-focal-link";
 import heading from "./ucd-theme-heading";
 import imageLandscape from "./ucd-theme-image-landscape";
@@ -28,6 +30,8 @@ export default [
   backgroundColor,
   buttonLink,
   categoryFilter,
+  faq,
+  faqItem,
   focalLink,
   heading,
   imageLandscape,

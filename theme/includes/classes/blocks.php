@@ -36,6 +36,12 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/category-filter.twig", 
       "transform" => array("getCategories")
     ),
+    "ucd-theme/faq" => array(
+      "twig" => "@ucd/blocks/faq.twig"
+    ),
+    "ucd-theme/faq-item" => array(
+      "twig" => "@ucd/blocks/faq-item.twig"
+    ),
     "ucd-theme/focal-link" => array(
       "twig" => "@ucd/blocks/focal-link.twig",
       "hasBrandColors" => true

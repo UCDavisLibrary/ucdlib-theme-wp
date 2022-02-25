@@ -8,6 +8,7 @@ import '@ucd-lib/theme-elements/brand/ucd-theme-pagination/ucd-theme-pagination.
 import '@ucd-lib/theme-elements/brand/ucd-theme-search-form/ucd-theme-search-form.js'
 import '@ucd-lib/theme-elements/brand/ucd-theme-search-popup/ucd-theme-search-popup.js'
 import '@ucd-lib/theme-elements/ucdlib/ucdlib-sils-search-redirect/ucdlib-sils-search-redirect'
+import '@ucd-lib/theme-elements/brand/ucd-theme-list-accordion/ucd-theme-list-accordion';
 
 // TODO: move this to brand repo
 import "./lib/temp/wp-editor";
