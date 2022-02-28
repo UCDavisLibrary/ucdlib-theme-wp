@@ -28,6 +28,13 @@ a.icon--circle-arrow-right::before {
   top: 0;
 }
 
+// background image utility
+.u-background-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 // for priority links
 .vertical-link--circle ucdlib-icon.vertical-link__image {
   height: 70%;

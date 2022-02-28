@@ -14,8 +14,7 @@
         {% if post.thumbnail %}
           <div class="figcaption--left">
             <figure class="u-block">
-              <div class="aspect--16x9">
-                <img src="{{post.thumbnail.src|resize(1280, 720)}}" alt="16x9 Image" loading="lazy" width="1280" height="720">
+              <div class="aspect--16x9 u-background-image" style={{"background-image:url('"~post.thumbnail.src~"')"}}>
               </div>
             {% if post.thumbnail.caption %}
               <figcaption class="u-block">{{ post.thumbnail.caption }}</figcaption>
