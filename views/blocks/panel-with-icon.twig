@@ -1,2 +1,5 @@
 {% from getUcdMacro('cards') import panel_with_icon %}
+{% if attributes.permalink %}
+    {% set attributes = attributes|merge({'href': attributes.permalink}) %}
+{% endif %}
 {{ panel_with_icon({attributes, content}) }}

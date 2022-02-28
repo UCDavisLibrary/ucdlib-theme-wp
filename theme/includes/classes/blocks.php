@@ -30,7 +30,7 @@ class UCDThemeBlocks {
     "ucd-theme/background-color" => array("twig" => "@ucd/blocks/background-color.twig"),
     "ucd-theme/button-link" => array(
       "twig" => "@ucd/blocks/button-link.twig", 
-      "transform" => array("removeStylePrefix")
+      "transform" => array("removeStylePrefix", 'getPermalink')
     ),
     "ucd-theme/category-filter" => array(
       "twig" => "@ucd/blocks/category-filter.twig", 
@@ -44,7 +44,8 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/focal-link" => array(
       "twig" => "@ucd/blocks/focal-link.twig",
-      "hasBrandColors" => true
+      "hasBrandColors" => true,
+      "transform" => array("getPermalink")
     ),
     "ucd-theme/heading" => array(
       "twig" => "@ucd/blocks/heading.twig", 
@@ -75,7 +76,8 @@ class UCDThemeBlocks {
     "ucd-theme/poster-list" => array("twig" => "@ucd/blocks/poster-list.twig"),
     "ucd-theme/prefixed-icon-link" => array(
       "twig" => "@ucd/blocks/prefixed-icon-link.twig",
-      "hasBrandColors" => true
+      "hasBrandColors" => true,
+      "transform" => array("getPermalink")
     ),
     "ucd-theme/primary-subnav" => array(
       "twig" => "@ucd/blocks/primary-subnav.twig",
@@ -83,7 +85,8 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/priority-link" => array(
       "twig" => "@ucd/blocks/priority-link.twig",
-      "hasBrandColors" => true
+      "hasBrandColors" => true,
+      "transform" => array("getPermalink")
     ),
     "ucd-theme/priority-links-item" => array(
       "twig" => "@ucd/blocks/priority-links-item.twig"
@@ -97,7 +100,8 @@ class UCDThemeBlocks {
     "ucd-theme/object-box" => array("twig" => "@ucd/blocks/object-box.twig"),
     "ucd-theme/panel-with-icon" => array(
       "twig" => "@ucd/blocks/panel-with-icon.twig",
-      "hasBrandColors" => true
+      "hasBrandColors" => true,
+      "transform" => array("getPermalink")
     ),
     "ucd-theme/recent-posts" => array(
       "twig" => "@ucd/blocks/recent-posts.twig",

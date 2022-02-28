@@ -23,6 +23,10 @@ const settings = {
       type: "string",
       default: ""
     },
+    postId: {
+      type: 'number',
+      default: 0
+    },
     moreText: {
       type: "string",
       default: "See More"

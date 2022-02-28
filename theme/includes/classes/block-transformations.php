@@ -34,6 +34,16 @@ class UCDThemeBlockTransformations {
   }
 
   /**
+   * Retrieve permalink of postId attribute in permalink attribute
+   */
+  public static function getPermalink($attrs=array()){
+    if ( array_key_exists('postId', $attrs) ){
+      $attrs['permalink'] = get_permalink($attrs['postId']);
+    }
+    return $attrs;
+  }
+
+  /**
    * Retrieves categories for site
    */
   public static function getCategories($attrs=array()){

@@ -7,7 +7,7 @@ const settings = {
 	title: "Marketing Highlight Horizontal",
 	description: "Link to another webpage with a landscape image and stylized short caption.",
 	icon: UCDIcons.render("highlight"),
-	category: 'ucd-links',
+	category: 'ucd-cards',
 	keywords: [ 'marketing', 'highlight', 'post', 'page', 'landscape', 'image' ],
   supports: {
     "html": false,

@@ -27,11 +27,17 @@ export default ({ attributes, setAttributes }) => {
     setAttributes({content: e.detail.value});
   }
 
+  // set up link picker
   const onHrefChange = (value) => {
-    setAttributes({
+    let attrs = {
       href: value.url,
-      newTab: value.opensInNewTab ? true : false
-    });
+      newTab: value.opensInNewTab ? true : false,
+      postId: 0
+    }
+    if ( value.kind == 'post-type' ){
+      attrs.postId = value.id;
+    } 
+    setAttributes(attrs);
   }
 
   useEffect(() => {

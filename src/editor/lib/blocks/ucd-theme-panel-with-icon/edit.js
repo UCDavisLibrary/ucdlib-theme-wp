@@ -81,8 +81,12 @@ export default ( props ) => {
   const onHrefChange = (value) => {
     let attrs = {
       href: value.url,
-      newTab: value.opensInNewTab ? true : false
+      newTab: value.opensInNewTab ? true : false,
+      postId: 0
     }
+    if ( value.kind == 'post-type' ){
+      attrs.postId = value.id;
+    } 
     setAttributes(attrs);
   }
   const hrefContent = (() => {

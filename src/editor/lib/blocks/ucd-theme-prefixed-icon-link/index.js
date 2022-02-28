@@ -18,6 +18,10 @@ const settings = {
       type: 'string',
       default: ''
     },
+    postId: {
+      type: 'number',
+      default: 0
+    },
     href: {
       type: 'string',
       default: ''

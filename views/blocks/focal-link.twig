@@ -1,2 +1,5 @@
 {% from getUcdMacro('links') import focal_link %}
+{% if attributes.permalink %}
+    {% set attributes = attributes|merge({'href': attributes.permalink}) %}
+{% endif %}
 {{ focal_link(attributes) }}

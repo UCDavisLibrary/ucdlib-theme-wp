@@ -57,11 +57,14 @@ export default ( props ) => {
 
   // set up link picker
   const onHrefChange = (value) => {
-    console.log('link change', value);
     let attrs = {
       href: value.url,
-      newTab: value.opensInNewTab ? true : false
+      newTab: value.opensInNewTab ? true : false,
+      postId: 0
     }
+    if ( value.kind == 'post-type' ){
+      attrs.postId = value.id;
+    } 
     setAttributes(attrs);
   }
   const hrefContent = (() => {
