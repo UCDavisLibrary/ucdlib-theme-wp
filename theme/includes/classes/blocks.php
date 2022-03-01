@@ -51,6 +51,11 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/heading.twig", 
       "transform" => array("removeStylePrefix")
     ),
+    "ucd-theme/hero-banner" => array(
+      "twig" => "@ucd/blocks/hero-banner.twig",
+      "transform" => array("getPost"),
+      "hasBrandColors" => true
+    ),
     "ucd-theme/image-landscape" => array(
       "twig" => "@ucd/blocks/image-landscape.twig", 
       "transform" => array("getImage")

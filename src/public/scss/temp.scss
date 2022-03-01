@@ -28,6 +28,14 @@ a.icon--circle-arrow-right::before {
   top: 0;
 }
 
+// hero banner
+.hero-banner__film {
+  background: var(--category-brand, #fff);
+  height: 100%;
+  grid-area: hero;
+  opacity: 60%;
+}
+
 // background image utility
 .u-background-image {
   background-size: cover;

@@ -5,6 +5,7 @@ import faq from "./ucd-theme-faq";
 import faqItem from "./ucd-theme-faq-item";
 import focalLink from "./ucd-theme-focal-link";
 import heading from "./ucd-theme-heading";
+import heroBanner from "./ucd-theme-hero-banner";
 import imageLandscape from "./ucd-theme-image-landscape";
 import layoutColumn from "./ucd-theme-layout-column";
 import layoutColumns from "./ucd-theme-layout-columns";
@@ -35,6 +36,7 @@ export default [
   faqItem,
   focalLink,
   heading,
+  heroBanner,
   imageLandscape,
   layoutColumn,
   layoutColumns,

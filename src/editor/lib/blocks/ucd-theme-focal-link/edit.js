@@ -87,7 +87,7 @@ export default ( props ) => {
       <${ToolbarColorPicker} 
           onChange=${onColorChange}
           value=${attributes.brandColor}
-          ucdBlock="priority-link"
+          ucdBlock="focal-link"
       />
     </${BlockControls}>
     <${IconPicker} 
