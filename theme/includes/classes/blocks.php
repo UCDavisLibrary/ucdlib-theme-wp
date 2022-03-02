@@ -28,6 +28,7 @@ class UCDThemeBlocks {
    */
   public static $registry = array(
     "ucd-theme/background-color" => array("twig" => "@ucd/blocks/background-color.twig"),
+    "ucd-theme/brand-textbox" => array("twig" => "@ucd/blocks/brand-textbox.twig"),
     "ucd-theme/button-link" => array(
       "twig" => "@ucd/blocks/button-link.twig", 
       "transform" => array("removeStylePrefix", 'getPermalink')
