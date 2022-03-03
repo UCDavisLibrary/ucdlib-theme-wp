@@ -24,6 +24,7 @@ import primarySubnav from "./ucd-theme-primary-subnav";
 import priorityLink from "./ucd-theme-priority-link";
 import priorityLinksItem from "./ucd-theme-priority-links-item";
 import priorityLinks from "./ucd-theme-priority-links"
+import query from "./ucd-theme-query";
 import recentPosts from "./ucd-theme-recent-posts";
 import silsSearchRedirect from "./ucd-theme-sils-search-redirect";
 import spacer from "./ucd-theme-spacer";
@@ -56,6 +57,7 @@ export default [
   priorityLink,
   priorityLinksItem,
   priorityLinks,
+  query,
   recentPosts,
   silsSearchRedirect,
   spacer,

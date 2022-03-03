@@ -15,6 +15,7 @@
     "@ucd-lib/theme-sass": "^5.0.14",
     "@wordpress/api-fetch": "^5.2.1",
     "@wordpress/block-editor": "^7.0.2",
+    "@wordpress/block-library": "^7.0.2",
     "@wordpress/blocks": "^11.0.0",
     "@wordpress/components": "^15.0.0",
     "@wordpress/compose": "^5.0.5",
