@@ -1,17 +1,15 @@
 import { html, BlockSettings, SelectUtils } from "../../utils";
-import { RangeControl } from '@wordpress/components';
-import { AuthorPicker, TermPicker } from "../../block-components";
+import { AuthorPicker, TermPicker, DebouncedText, OrderPicker } from "../../block-components";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { ToolbarButton, ToggleControl, PanelBody, SelectControl } from '@wordpress/components';
+import { RangeControl, PanelBody, SelectControl } from '@wordpress/components';
 import { decodeEntities } from "@wordpress/html-entities";
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
 
-  // attribute is an array, but im not sure how to retrieve entities from multiple post types in a single call
-  // so, to allow for multiple post types, would have to do multiple selects and then merge them in js land
-  // leave for future feature development, if requested.
+  // only allow for a single post type for now
+  // could add feature in future
   const postType = attributes.postType[0];
 
   // retrieve needed wp data
@@ -42,11 +40,23 @@ export default ( props ) => {
   }
   
   const onPostTypeChange = ( postType ) => {
-    const newAttrs = {postType: [postType]};
+    const terms = {};
+    postTypesTaxonomiesMap[postType].forEach(taxonomy => {
+      if ( attributes.terms[taxonomy] ) terms[taxonomy] = attributes.terms[taxonomy];
+    });
 
-    //TODO: check if taxonomies need to be reset
-    setAttributes(newAttrs);
+    setAttributes({postType: [postType], terms});
   }
+
+  const onTermChange = ( v ) => {
+    const terms = {
+      ...attributes.terms, 
+      [ v.taxonomy ]: v.terms
+    };
+    setAttributes({terms})
+  }
+
+
 
 
   const teaserProps = (post, i) => {
@@ -106,10 +116,32 @@ export default ( props ) => {
             onChange=${(author) => setAttributes({author})}
           />
           ${taxonomies.map(t => html`
-            <${TermPicker} key=${t} taxonomy=${t}/>
+            <${TermPicker} 
+              key=${t} 
+              onChange=${onTermChange}
+              value=${attributes.terms[t]}
+              taxonomy=${t}/>
           `)}
-          
+          <${DebouncedText} 
+            label="Keyword"
+            value=${attributes.search}
+            onChange=${(search) => setAttributes({search})}
+          />
+          </${PanelBody}>
 
+          <${PanelBody} title="Display">
+            <${OrderPicker} 
+              value=${{order: attributes.order, orderBy: attributes.orderBy}}
+              onChange=${(v) => setAttributes(v)}
+              postType=${postType}
+            />
+            <${RangeControl} 
+              label="Number of posts"
+              value=${attributes.postCt}
+              onChange=${(postCt) => setAttributes({postCt})}
+              min=${1}
+              max=${20}
+            />
           </${PanelBody}>
 
       </${InspectorControls}>

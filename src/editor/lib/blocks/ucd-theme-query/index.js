@@ -25,6 +25,22 @@ const settings = {
     terms: {
       type: 'object',
       default: {}
+    },
+    search: {
+      type: 'string',
+      default: ''
+    },
+    orderBy: {
+      type: 'string',
+      default: 'date'
+    },
+    order: {
+      type: 'string',
+      default: 'desc'
+    },    
+    postCt: {
+      type: "number",
+      default: 5
     }
   },
   edit: Edit,

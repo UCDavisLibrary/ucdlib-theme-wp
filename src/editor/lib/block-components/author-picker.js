@@ -1,4 +1,4 @@
-import { html, SelectUtils, getEntitiesInfo } from "../utils";
+import { html, SelectUtils, EntityUtils } from "../utils";
 import { FormTokenField } from '@wordpress/components';
 
 // Control for picking an author(s) on the site. 
@@ -14,7 +14,7 @@ function AuthorPicker({
   onChange
 }){
   const authorsList = SelectUtils.authors();
-  const authorsInfo = getEntitiesInfo( authorsList );
+  const authorsInfo = EntityUtils.getEntitiesInfo( authorsList );
   /**
 	 * We need to normalize the value because the block operates on a
 	 * comma(`,`) separated string value and `FormTokenFiels` needs an

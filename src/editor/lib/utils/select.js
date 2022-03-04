@@ -90,6 +90,17 @@ export default class SelectUtils {
     }, [query, extra_fields] )
   }
 
+  static taxonomies() {
+    return useSelect( (select) => {
+      const { getTaxonomies } = select( coreStore );
+			const filteredTaxonomies = getTaxonomies( {
+				per_page: -1,
+				context: 'view',
+			} );
+			return filteredTaxonomies ? filteredTaxonomies : [];
+    } , []);  
+  }
+
   static categoriesById(termIds) {
     return useSelect( (select) => {
       const Terms = termIds && termIds.length ? select('core').getEntityRecords('taxonomy', 'category', {per_page: -1, include: termIds}) : [];

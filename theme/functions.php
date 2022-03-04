@@ -12,7 +12,7 @@ $GLOBALS['UcdSite'] = new UcdThemeSite();
 add_action('init', function(){
     register_taxonomy(
         $taxonomy    = 'ucd-subject',
-        $object_type = 'post',
+        $object_type = ['post', 'page'],
         $args        = array(
           'hierarchical' => true,
           'query_var'    => true,
