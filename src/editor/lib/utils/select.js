@@ -62,9 +62,9 @@ export default class SelectUtils {
     } , [termId]);  
   }
 
-  static posts(query = {}, extra_fields=[]) {
+  static posts(query = {}, postType='post', extra_fields=[]) {
     return useSelect( (select) => {
-      let posts = select('core').getEntityRecords('postType', 'post', query);
+      let posts = select('core').getEntityRecords('postType', postType, query);
       if (!posts) posts = [];
 
       if ( extra_fields.length ){
@@ -87,7 +87,7 @@ export default class SelectUtils {
       }
 
       return posts;
-    }, [query, extra_fields] )
+    }, [query, postType, extra_fields] )
   }
 
   static taxonomies() {

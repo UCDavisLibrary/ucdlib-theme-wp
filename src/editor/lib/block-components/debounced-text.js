@@ -12,7 +12,7 @@ function DebouncedText({
   duration
 }){
   label = label ? label : '';
-  duration = duration ? duration : 250;
+  duration = duration ? duration : 500;
   const [ textValue, setTextValue ] = useState( value );
 	const onChangeDebounced = useCallback(
 		debounce( () => {

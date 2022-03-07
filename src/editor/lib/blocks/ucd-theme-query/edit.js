@@ -1,8 +1,9 @@
 import { html, BlockSettings, SelectUtils } from "../../utils";
 import { AuthorPicker, TermPicker, DebouncedText, OrderPicker } from "../../block-components";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { RangeControl, PanelBody, SelectControl } from '@wordpress/components';
+import { RangeControl, PanelBody, SelectControl, Spinner } from '@wordpress/components';
 import { decodeEntities } from "@wordpress/html-entities";
+import "../ucd-theme-media-link/ucd-wp-media-link";
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -12,15 +13,37 @@ export default ( props ) => {
   // could add feature in future
   const postType = attributes.postType[0];
 
-  // retrieve needed wp data
-  /** 
+  // using block attributes, construct and do api query for posts
+  const queryParams = (() => {
+    const q = {
+      per_page: attributes.postCt,
+      order: attributes.order,
+      orderby: attributes.orderBy
+    };
+    if ( attributes.author ) q.author = attributes.author;
+    if ( attributes.search ) q.search = attributes.search;
+    
+    for (const tax in attributes.terms) {
+      const v = attributes.terms[tax].join(",");
+      if ( !v ) continue;
+      if ( tax == 'category') {
+        q.categories = v;
+      } else if( tax == 'post_tag' ) {
+        q.tags = v;
+      } else {
+        q[tax] = v;
+      }
+    }
+    return q;
+  })();
+
   let posts = SelectUtils.posts(
-    {per_page: attributes.postCt}, 
-    ['image', 'author', 'categories']
+    queryParams,
+    postType,
+    ['image']
   );
   if ( !posts ) posts = [];
-  console.log(posts);
-  **/
+
 
   const { postTypesTaxonomiesMap, postTypesSelectOptions } = SelectUtils.postTypes();
   
@@ -57,15 +80,8 @@ export default ( props ) => {
   }
 
 
-
-
-  const teaserProps = (post, i) => {
+  const postProps = (post, i) => {
     let p = {key: i};
-
-    if ( attributes.hideExcerpt ) p['hide-excerpt'] = "true";
-    if ( attributes.hideByline) p['hide-byline'] = "true";
-    if ( attributes.hideCategories) p['hide-categories'] = "true";
-    if ( attributes.hideImage) p['hide-image'] = "true";
 
     if ( post ){
       p.href = post.link;
@@ -75,25 +91,11 @@ export default ( props ) => {
       postExcerpt = decodeEntities(postExcerpt).replace(/(?:\r\n|\r|\n)/g, '');
       p.excerpt = postExcerpt;
 
-      const dateOptions = { year: "numeric", month: "long", day: "numeric" };
-      p.date = new Date(post.date_gmt + "Z").toLocaleDateString('en-US', dateOptions);
-
       if ( post.image ) {
         p['img-src'] = post.image.source_url;
       } else {
-        p['img-src'] = BlockSettings.getImage('teaser');
+        p['img-src'] = BlockSettings.getImage('media-link');
       }
-
-      if ( post.authorData ){
-        p.author = post.authorData.first_name && post.authorData.last_name ? `${post.authorData.first_name} ${post.authorData.last_name}` : post.authorData.name;
-      }
-
-      if ( post.categoriesData && post.categoriesData.length ){
-        p.categories = JSON.stringify(post.categoriesData.map(c => Object({link: c.link, name: c.name, color: c.themeColor})));
-      }
-    }
-    if ( i ) {
-      p.style = {marginTop: "1.5rem"};
     }
 
     return p
@@ -145,7 +147,12 @@ export default ( props ) => {
           </${PanelBody}>
 
       </${InspectorControls}>
-      <div>${JSON.stringify(attributes)}</div>
+      ${!posts.length && html`
+        <${Spinner} />
+      `}
+      ${posts.map((p, i) => html`
+        <ucd-wp-media-link ...${ postProps(p, i) }></ucd-wp-media-link>
+      `)}
     </div>
 
   `;

@@ -25,6 +25,30 @@ class UCDThemeBlockTransformations {
     return $attrs;
   }
 
+  public static function getPosts($attrs=array()){
+    $args = [];
+    if ( array_key_exists('postType', $attrs) ) $args['post_type'] = $attrs['postType'];
+    if ( array_key_exists('author', $attrs) ) $args['author'] = $attrs['author'];
+    if ( array_key_exists('search', $attrs) ) $args['s'] = $attrs['search'];
+    if ( array_key_exists('orderBy', $attrs) ) $args['orderby'] = $attrs['orderBy'];
+    if ( array_key_exists('order', $attrs) ) $args['order'] = $attrs['order'];
+    if ( array_key_exists('postCt', $attrs) ) $args['posts_per_page '] = $attrs['postCt'];
+
+    if ( array_key_exists('terms', $attrs) ){
+      $tax_query = [];
+      foreach ($args['terms'] as $tax => $terms) {
+        $tax_query[] = [
+          'taxonomy' => $tax,
+          'field' => 'term_id',
+          'terms' => $terms
+        ];
+      }
+      $args['tax_query'] = $tax_query;
+    }
+    $attrs['posts'] = Timber::get_posts( $args );
+    return $attrs;
+  }
+
   /**
    * Retrieves current post object and saves in "post" attribute
    */
