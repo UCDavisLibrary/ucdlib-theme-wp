@@ -73,6 +73,16 @@ class UCDThemeBlocks {
       "transform" => array("getPost"),
       "hasBrandColors" => true
     ),
+    "ucd-theme/media-link" => array(
+      "twig" => "@ucd/blocks/media-link.twig",
+      "img" => "135x135.png",
+      "transform" => array("getPost", "getImage"),
+      "uses_context" => array('media-links/hideImage')
+    ),
+    "ucd-theme/media-links" => array(
+      "twig" => "@ucd/blocks/media-links.twig",
+      "provides_context" => array('media-links/hideImage' => 'hideImage')
+    ),
     "ucd-theme/poster" => array(
       "twig" => "@ucd/blocks/poster.twig",
       "img" => "1280x720.png",
@@ -196,6 +206,11 @@ class UCDThemeBlocks {
         'icon'  => null,
       ),
       array(
+        'slug'  => 'ucd-fancy-lists',
+        'title' => 'Fancy Lists',
+        'icon'  => null,
+      ),
+      array(
         'slug'  => 'ucd-layout',
         'title' => 'Layouts',
         'icon'  => null,
@@ -267,12 +282,19 @@ class UCDThemeBlocks {
    */
   public function register_blocks( ) {
     foreach (self::$registry as $name => $block) {
+      $settings = array(
+        'api_version' => 2, 
+        'render_callback' => array($this, 'render_callback')
+      );
+      if ( array_key_exists('uses_context', $block) ) {
+        $settings['uses_context'] = $block['uses_context'];
+      }
+      if ( array_key_exists('provides_context', $block) ) {
+        $settings['provides_context'] = $block['provides_context'];
+      };
       register_block_type(
         $name, 
-        array(
-          'api_version' => 2, 
-          'render_callback' => array($this, 'render_callback')
-        )
+        $settings
       );
     }
   }
@@ -312,7 +334,7 @@ class UCDThemeBlocks {
 
     // Render twig
     ob_start();
-    Timber::render( $meta['twig'], array("attributes" => $block_attributes, "content" => $content) );
+    Timber::render( $meta['twig'], array("attributes" => $block_attributes, "content" => $content, "block" => $block) );
     return ob_get_clean();
   }
 

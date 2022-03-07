@@ -1,0 +1,3 @@
+{% from getUcdMacro('lists') import media_link %}
+{% set attributes = attributes|merge({hideImage: block.context['media-links/hideImage']})%}
+{{ media_link(attributes) }}

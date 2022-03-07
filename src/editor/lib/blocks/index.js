@@ -15,6 +15,8 @@ import layoutBasic from "./ucd-theme-layout-basic";
 import layoutQuad from "./ucd-theme-layout-quad";
 import marketingHighlight from "./ucd-theme-marketing-highlight";
 import marketingHighlightHorizontal from "./ucd-theme-marketing-highlight-horizontal";
+import mediaLink from "./ucd-theme-media-link";
+import mediaLinks from "./ucd-theme-media-links";
 import objectBox from "./ucd-theme-object-box";
 import panelWithIcon from "./ucd-theme-panel-with-icon";
 import poster from "./ucd-theme-poster";
@@ -48,6 +50,8 @@ export default [
   layoutQuad,
   marketingHighlight,
   marketingHighlightHorizontal,
+  mediaLink,
+  mediaLinks,
   objectBox,
   panelWithIcon,
   poster,
