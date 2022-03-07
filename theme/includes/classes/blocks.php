@@ -133,7 +133,21 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/teaser.twig",
       "img" => "135x135.png",
       "transform" => array("getPost", "getImage"),
-      "hasBrandColors" => true
+      "hasBrandColors" => true,
+      "uses_context" => array(
+        'teasers/hideImage',
+        'teasers/hideByline',
+        'teasers/hideExcerpt',
+        'teasers/hideCategories'
+        )
+    ),
+    "ucd-theme/teasers" => array(
+      "twig" => "@ucd/blocks/teasers.twig",
+      "provides_context" => array(
+        'teasers/hideImage' => 'hideImage',
+        'teasers/hideByline' => 'hideByline',
+        'teasers/hideExcerpt' => 'hideExcerpt',
+        'teasers/hideCategories' => 'hideCategories')
     ),
   );
 

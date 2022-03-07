@@ -31,6 +31,7 @@ import recentPosts from "./ucd-theme-recent-posts";
 import silsSearchRedirect from "./ucd-theme-sils-search-redirect";
 import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
+import teasers from "./ucd-theme-teasers";
 
 export default [
   backgroundColor,
@@ -65,5 +66,6 @@ export default [
   recentPosts,
   silsSearchRedirect,
   spacer,
-  teaser
+  teaser,
+  teasers
 ];

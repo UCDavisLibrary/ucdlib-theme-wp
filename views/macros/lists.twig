@@ -45,3 +45,107 @@ kwargs:
   </a>
 
 {% endmacro %}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-teaser
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-teaser-article
+kwargs:
+  post {Timber\Post} - A post on this site.
+  imageId {Number} - Id of an image. Will override 'post' featured image
+  image {Timber\Image} - A preview image. Will override 'post' featured image and imageId
+  title {String} - The card title. Will override 'post' title
+  href {String} - Url for card link. Will override 'post' permalink
+  newTab {Boolean} - Opens card link in new tab
+  excerpt {String} - Body/preview text of card. Will override 'post' excerpt
+  featured {Boolean} - Use the alternative "featured" design
+  brandColor {String} - UCD alt color slug
+  hideExcerpt {Boolean} - Hides the excerpt text
+  hideImage {Boolean} - Hides the image
+  hideByline {Boolean} - Hides the byline
+  hideCategories {Boolean} - Hides the categories
+  partOfQuery {Boolean} - Post is part of a wp query instead of manually seleted by user.
+#}
+{% macro teaser( kwargs = {}) %}
+
+  {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
+  {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  {% if kwargs.image %}
+    {% set src = kwargs.image.src %}
+    {% set alt = kwargs.image.alt %}
+  {% elseif kwargs.imageId %}
+    {% set i = get_post(kwargs.imageId) %}
+    {% set src = i.src %}
+    {% set alt = i.alt %}
+  {% elseif kwargs.post.thumbnail %}
+    {% set src = kwargs.post.thumbnail.src %}
+    {% set alt = kwargs.post.thumbnail.alt %}
+  {% else %}
+    {% set src = DefaultImage('teaser') %}
+  {% endif %}
+   
+
+  {% set classes = 'vm-teaser' %}
+  {% if kwargs.featured %}
+    {% set classes = classes ~ " vm-teaser--featured" %}
+    {% if kwargs.brandColor %}
+      {% set classes = classes ~ " " ~ kwargs.brandColor %}
+    {% endif %}
+  {% elseif kwargs.partOfQuery %}
+    {% if kwargs.post.featured %}
+      {% set classes = classes ~ " vm-teaser--featured" %}
+      {% if kwargs.post.brand_color %}
+        {% set classes = classes ~ " " ~ kwargs.post.brand_color %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  {% if kwargs.post and kwargs.post.post_type == 'post' %}
+    {% set categories = kwargs.post.categories %}
+  {% endif %}
+
+  {% set imgContainerStyles = "width: 135px;height: 135px;min-width: 135px;min-height: 135px;" %}
+  {% set imgStyles = "width: 100%;height: 100%;object-fit: cover;" %}
+  <article class="{{classes}}" {{target}}>
+    {% if not kwargs.hideImage %}
+      <div class="vm-teaser__figure category" style="{{imgContainerStyles}}">
+        <a href="{{href}}">
+          <img src="{{src}}" alt="{{alt}}" style="{{imgStyles}}" width="135" height="135" loading="lazy" />
+        </a>
+      </div>
+    {% endif %}
+    <div class="vm-teaser__body">
+      <h3 class="vm-teaser__title"><a href="{{href}}">{{title}}</a></h3>
+      {% if kwargs.post and not kwargs.hideByline %}
+        <ul class="vm-teaser__byline">
+          {% if kwargs.post.author.first_name and kwargs.post.author.last_name %}
+            {% set author = kwargs.post.author.first_name ~ " " ~ kwargs.post.author.last_name %}
+          {% else %}
+            {% set author = kwargs.post.author.name %}
+          {% endif %}
+          {% if not kwargs.post or (kwargs.post and not kwargs.post.hide_author) %}
+            <li><span class="byline">by {{author}}</span></li>
+          {% endif %}
+          <li>{{kwargs.post.date}}</li>
+        </ul>
+      {% endif %}
+      {% if categories and not kwargs.hideCategories %}
+        <ul class="vm-teaser__categories">
+        {% for category in categories %}
+          {% if category.id != 1 %}
+            <li class="vm-teaser__cat-marker {{category.meta('brand-color')}}">
+              <a href="{{category.link}}">{{category.name}}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+      {% endif %}
+      {% if excerpt and not kwargs.hideExcerpt %}
+        <div class="vm-teaser__summary">{{excerpt}}</div>
+      {% endif %}
+    </div>
+  </article>
+
+{% endmacro %}

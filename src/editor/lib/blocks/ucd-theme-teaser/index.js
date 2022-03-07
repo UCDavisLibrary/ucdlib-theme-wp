@@ -5,6 +5,7 @@ const name = 'ucd-theme/teaser';
 const settings = {
   api_version: 2,
 	title: "Teaser",
+  parent: ['ucd-theme/teasers'],
 	description: "Preview content on another webpage with a simple block. Meant to be use alongside other teasers.",
 	icon: UCDIcons.render('listing'),
 	category: 'ucd-cards',

@@ -1,2 +1,9 @@
-{% from getUcdMacro('cards') import teaser %}
+{% from getUcdMacro('lists') import teaser %}
+{% set attributesFromParent = {
+    hideImage: block.context['teasers/hideImage'],
+    hideByline: block.context['teasers/hideByline'],
+    hideExcerpt: block.context['teasers/hideExcerpt'],
+    hideCategories: block.context['teasers/hideCategories']
+} %}
+{% set attributes = attributes|merge(attributesFromParent)%}
 {{ teaser(attributes) }}
