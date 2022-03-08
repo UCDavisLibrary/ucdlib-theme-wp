@@ -121,7 +121,7 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/query" => array(
       "twig" => "@ucd/blocks/query.twig",
-      //"transform" => array("getRecentPosts")
+      "transform" => array("getPosts")
     ),
     "ucd-theme/recent-posts" => array(
       "twig" => "@ucd/blocks/recent-posts.twig",

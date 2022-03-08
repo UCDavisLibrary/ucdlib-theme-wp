@@ -25,6 +25,12 @@ class UCDThemeBlockTransformations {
     return $attrs;
   }
 
+  /**
+   * Retrieves a collections of posts based on the attributes passed, which roughly
+   * correspond to recognized args from the WP API:
+   * https://developer.wordpress.org/rest-api/reference/posts/
+   * https://developer.wordpress.org/rest-api/reference/pages/
+   */
   public static function getPosts($attrs=array()){
     $args = [];
     if ( array_key_exists('postType', $attrs) ) $args['post_type'] = $attrs['postType'];
@@ -36,12 +42,14 @@ class UCDThemeBlockTransformations {
 
     if ( array_key_exists('terms', $attrs) ){
       $tax_query = [];
-      foreach ($args['terms'] as $tax => $terms) {
-        $tax_query[] = [
-          'taxonomy' => $tax,
-          'field' => 'term_id',
-          'terms' => $terms
-        ];
+      foreach ($attrs['terms'] as $tax => $terms) {
+        if ( count($terms) ){
+          $tax_query[] = [
+            'taxonomy' => $tax,
+            'field' => 'term_id',
+            'terms' => $terms
+          ];
+        }
       }
       $args['tax_query'] = $tax_query;
     }
