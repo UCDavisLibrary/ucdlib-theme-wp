@@ -4,7 +4,7 @@ import Edit from './edit';
 const name = 'ucd-theme/query';
 const settings = {
   api_version: 2,
-	title: "All Posts",
+	title: "Basic Query",
 	description: "Display a list of posts on this site based on a query you construct.",
 	//icon: UCDIcons.render("time"),
 	category: 'ucd-query',

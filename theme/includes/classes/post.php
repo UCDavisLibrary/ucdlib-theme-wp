@@ -92,6 +92,35 @@ class UcdThemePost extends Timber\Post {
   }
 
   /**
+   * If page is in primary nav, and has nav item children, returns those children
+   */
+  protected $primary_nav_children;
+  public function primary_nav_children(){
+    if ( !empty($this->primary_nav_children) ) return $this->primary_nav_children;
+
+    $primary_nav = Timber::get_menu( 'primary' );
+    foreach ($primary_nav->get_items() as $parent) {
+      if ( UcdThemeMenu::menuItemIsPost( $parent, $this->ID) ) {
+        $this->primary_nav_children = $parent->children();
+        return $this->primary_nav_children;
+      }
+      foreach ($parent->get_items() as $child) {
+        if ( UcdThemeMenu::menuItemIsPost( $child, $this->ID) ) {
+          $this->primary_nav_children = $child->children();
+          return $this->primary_nav_children;
+        }
+        foreach ($child->get_items() as $grandchild) {
+          if ( UcdThemeMenu::menuItemIsPost( $grandchild, $this->ID) ) {
+            $this->primary_nav_children = $grandchild->children();
+            return $this->primary_nav_children;
+          }
+        }
+      }
+    }
+    return $this->primary_nav_children;
+  }
+
+  /**
    * Get the primary nav item to which this post belongs (if any)
    * Returns a Timber/MenuItem or false
    */
@@ -101,7 +130,7 @@ class UcdThemePost extends Timber\Post {
 
     $breadcrumbs = $this->breadcrumbs();
 
-    if ( count($breadcrumbs) > 2 ){
+    if ( count($breadcrumbs) > 1 ){
       $primary_nav = Timber::get_menu( 'primary' );
       if ( $primary_nav ) {
         foreach ($primary_nav->get_items() as $item) {

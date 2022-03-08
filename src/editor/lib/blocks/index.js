@@ -8,6 +8,7 @@ import focalLink from "./ucd-theme-focal-link";
 import heading from "./ucd-theme-heading";
 import heroBanner from "./ucd-theme-hero-banner";
 import imageLandscape from "./ucd-theme-image-landscape";
+import landerNav from "./ucd-theme-lander-nav";
 import layoutColumn from "./ucd-theme-layout-column";
 import layoutColumns from "./ucd-theme-layout-columns";
 import layoutContainer from "./ucd-theme-layout-container";
@@ -44,6 +45,7 @@ export default [
   heading,
   heroBanner,
   imageLandscape,
+  landerNav,
   layoutColumn,
   layoutColumns,
   layoutContainer,

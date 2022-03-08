@@ -38,7 +38,7 @@ class UCDThemeBlockTransformations {
     if ( array_key_exists('search', $attrs) ) $args['s'] = $attrs['search'];
     if ( array_key_exists('orderBy', $attrs) ) $args['orderby'] = $attrs['orderBy'];
     if ( array_key_exists('order', $attrs) ) $args['order'] = $attrs['order'];
-    if ( array_key_exists('postCt', $attrs) ) $args['posts_per_page '] = $attrs['postCt'];
+    if ( array_key_exists('postCt', $attrs) ) $args['posts_per_page'] = $attrs['postCt'];
 
     if ( array_key_exists('terms', $attrs) ){
       $tax_query = [];
@@ -54,6 +54,58 @@ class UCDThemeBlockTransformations {
       $args['tax_query'] = $tax_query;
     }
     $attrs['posts'] = Timber::get_posts( $args );
+    return $attrs;
+  }
+
+  /**
+   * If page is in primary nav, returns its children
+   * If page is part of hierarchy, return its children
+   */
+  public static function getNavOrPageChildren($attrs=array()){
+    if ( array_key_exists('lookInWpMenu', $attrs) && $attrs['lookInWpMenu'] ){
+      return self::getNavChildren($attrs);
+    } else {
+      return self::getPageChildren($attrs);
+    }
+  }
+
+  /**
+   * If page is in primary nav, returns its nav-item children
+   */
+  public static function getNavChildren($attrs=array()){
+    $attrs['children'] = [];
+    if ( !array_key_exists('post', $attrs) || !$attrs['post']) return $attrs;
+    $childrenFromNav = $attrs['post']->primary_nav_children();
+    if ( count($childrenFromNav) ) {
+      foreach ($childrenFromNav as $child) {
+        if ( $child->type == 'post_type' ) {
+          $attrs['children'][] = Timber::get_post($child->object_id );
+        } else {
+          $attrs['children'][] = $child;
+        };
+      }
+    }
+    return $attrs;
+  }
+
+  /**
+   * Return all children of a page
+   */
+  public static function getPageChildren( $attrs=[] ){
+    $attrs['children'] = [];
+    if ( !array_key_exists('post', $attrs) || !$attrs['post']) return $attrs;
+
+    $query = [
+      'post_parent' => $attrs['post']->ID,
+      'nopaging' => true,
+      'post_type' => 'any'
+    ];
+
+    if ( array_key_exists('orderBy', $attrs) ) $query['orderby'] = $attrs['orderBy'];
+    if ( array_key_exists('order', $attrs) ) $query['order'] = $attrs['order'];
+
+    $attrs['children'] = Timber::get_posts($query);
+
     return $attrs;
   }
 
