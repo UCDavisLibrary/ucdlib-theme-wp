@@ -107,10 +107,15 @@ class UcdThemeMenu {
     return $out;
   }
 
+  public static function menuItemIsPost( $menu_item, $post_id ){
+    return $menu_item->object_id == $post_id;
+  }
+
   private static function getMenuItemBasics( $menu_item ){
     return [
       'link' => $menu_item->link(),
       'title' => $menu_item->title()
     ];
   }
+
 }

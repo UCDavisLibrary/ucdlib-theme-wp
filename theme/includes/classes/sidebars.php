@@ -1,7 +1,9 @@
 <?php
+// registers widget areas for this theme (historically called sidebars)
 class UcdThemeSidebars {
   public function __construct() {
     add_action( 'widgets_init', array($this, 'register') );
+    add_filter( 'timber/context', array( $this, 'add_to_context' ), 4);
   }
 
   public function register(){
@@ -50,5 +52,18 @@ class UcdThemeSidebars {
         'after_widget' => ''
       )
     );
+    register_sidebar(
+      array(
+        'id'            => 'below-nav',
+        'name'          => "Below Primary Nav",
+        'description'   => "For site-wide alerts",
+        'before_widget' => '',
+        'after_widget' => ''
+      )
+    );
+  }
+  public function add_to_context( $context ) {
+    $context['widgets_below_nav'] = Timber::get_widgets( 'below-nav' );
+    return $context;
   }
 }

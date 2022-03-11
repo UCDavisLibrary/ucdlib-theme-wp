@@ -1,7 +1,6 @@
 import { LitElement } from 'lit';
 import {render, styles} from "./ucd-wp-teaser.tpl.js";
 
-import "../../block-components/ucd-wp-textarea/ucd-wp-textarea";
 import { MainComponentElement, Mixin } from '../../utils';
 
 export default class UcdWpTeaser extends Mixin(LitElement)

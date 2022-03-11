@@ -1,0 +1,4 @@
+{% from getUcdMacro('lists') import media_link %}
+{% for child in attributes.children %}
+    {{ media_link({post: child, hideImage: attributes.hideImage}) }}
+{% endfor %}

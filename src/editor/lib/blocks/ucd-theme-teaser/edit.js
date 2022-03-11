@@ -1,12 +1,12 @@
 import { html, BlockSettings, SelectUtils, UCDIcons } from "../../utils";
-import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarSectionDisplay, ToolbarLinkPicker } from "../../block-components";
+import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarLinkPicker } from "../../block-components";
 import "./ucd-wp-teaser";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { ToolbarButton } from "@wordpress/components";
 import { useRef, useEffect } from "@wordpress/element";
 
 export default ( props ) => {
-  const { attributes, setAttributes } = props;
+  const { attributes, setAttributes, context } = props;
   const blockProps = useBlockProps();
   const mainEleRef = useRef();
 
@@ -73,22 +73,6 @@ export default ( props ) => {
       {slug: 'excerpt', isDisabled: !attributes.excerpt}]
   })();
 
-  // set up section hider
-  const onSectionToggle = (section) => {
-    let attrs = {};
-    let attr = `hide${section.slug.charAt(0).toUpperCase() + section.slug.slice(1)}`;
-    attrs[attr] = !attributes[attr];
-    setAttributes(attrs);
-  }
-  const cardSections = (() => {
-    return [
-      {slug: "image", isHidden: attributes.hideImage},
-      {slug: "byline", isHidden: attributes.hideByline, isDisabled: !post},
-      {slug: "categories", isHidden: attributes.hideCategories, isDisabled: !post || post.type != 'post' || !post.categories.length},
-      {slug: 'excerpt', isHidden: attributes.hideExcerpt}
-    ]
-  })();
-
   // set up link picker
   const onHrefChange = (value) => {
     let attrs = {
@@ -125,10 +109,12 @@ export default ( props ) => {
     if ( attributes.featured ) p.featured = "true";
     if ( attributes.brandColor ) p.color = attributes.brandColor;
     if ( attributes.href || post ) p.href = attributes.href ? attributes.href : post.link;
-    if ( attributes.hideExcerpt ) p['hide-excerpt'] = "true";
-    if ( attributes.hideByline) p['hide-byline'] = "true";
-    if ( attributes.hideCategories) p['hide-categories'] = "true";
-    if ( attributes.hideImage) p['hide-image'] = "true";
+
+    // inherit from parent
+    if ( context['teasers/hideExcerpt'] ) p['hide-excerpt'] = "true";
+    if ( context['teasers/hideByline'] ) p['hide-byline'] = "true";
+    if ( context['teasers/hideCategories'] ) p['hide-categories'] = "true";
+    if ( context['teasers/hideImage'] ) p['hide-image'] = "true";
 
     if ( attributes.title ){
       p.title = attributes.title;
@@ -180,10 +166,6 @@ export default ( props ) => {
           value=${attributes.brandColor}
           ucdBlock="teaser"
         />`}
-        <${ToolbarSectionDisplay}
-          sections=${cardSections}
-          onChange=${onSectionToggle}
-        />
         ${post && html`
           <${ToolbarPostReset}
             postProps=${postParts}

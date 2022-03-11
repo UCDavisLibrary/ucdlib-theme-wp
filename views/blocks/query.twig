@@ -1,0 +1,6 @@
+{% from getUcdMacro('lists') import media_link %}
+<section class='media-links'>
+    {% for post in attributes.posts %}
+        {{ media_link({post}) }}
+    {% endfor %}
+</section>

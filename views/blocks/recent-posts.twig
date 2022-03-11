@@ -1,4 +1,4 @@
-{% from getUcdMacro('cards') import teaser %}
+{% from getUcdMacro('lists') import teaser %}
 {% for post in attributes.posts %}
   {{ teaser( attributes|merge({post})) }}
 {% endfor %}

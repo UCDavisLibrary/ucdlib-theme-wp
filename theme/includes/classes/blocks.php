@@ -28,6 +28,7 @@ class UCDThemeBlocks {
    */
   public static $registry = array(
     "ucd-theme/background-color" => array("twig" => "@ucd/blocks/background-color.twig"),
+    "ucd-theme/brand-textbox" => array("twig" => "@ucd/blocks/brand-textbox.twig"),
     "ucd-theme/button-link" => array(
       "twig" => "@ucd/blocks/button-link.twig", 
       "transform" => array("removeStylePrefix", 'getPermalink')
@@ -72,6 +73,16 @@ class UCDThemeBlocks {
       "transform" => array("getPost"),
       "hasBrandColors" => true
     ),
+    "ucd-theme/media-link" => array(
+      "twig" => "@ucd/blocks/media-link.twig",
+      "img" => "135x135.png",
+      "transform" => array("getPost", "getImage"),
+      "uses_context" => array('media-links/hideImage')
+    ),
+    "ucd-theme/media-links" => array(
+      "twig" => "@ucd/blocks/media-links.twig",
+      "provides_context" => array('media-links/hideImage' => 'hideImage')
+    ),
     "ucd-theme/poster" => array(
       "twig" => "@ucd/blocks/poster.twig",
       "img" => "1280x720.png",
@@ -97,6 +108,10 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/priority-links-item.twig"
     ),
     "ucd-theme/priority-links" => array("twig" => "@ucd/blocks/priority-links.twig"),
+    "ucd-theme/lander-nav" => array(
+      "twig" => "@ucd/blocks/lander-nav.twig", 
+      "transform" => array("getCurrentPost", "getNavOrPageChildren")
+    ),
     "ucd-theme/layout-basic" => array("twig" => "@ucd/blocks/layout-basic.twig"),
     "ucd-theme/column" => array("twig" => "@ucd/blocks/layout-column.twig"),
     "ucd-theme/layout-columns" => array("twig" => "@ucd/blocks/layout-columns.twig"),
@@ -108,6 +123,10 @@ class UCDThemeBlocks {
       "hasBrandColors" => true,
       "transform" => array("getPermalink")
     ),
+    "ucd-theme/query" => array(
+      "twig" => "@ucd/blocks/query.twig",
+      "transform" => array("getPosts")
+    ),
     "ucd-theme/recent-posts" => array(
       "twig" => "@ucd/blocks/recent-posts.twig",
       "transform" => array("getRecentPosts")
@@ -118,7 +137,21 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/teaser.twig",
       "img" => "135x135.png",
       "transform" => array("getPost", "getImage"),
-      "hasBrandColors" => true
+      "hasBrandColors" => true,
+      "uses_context" => array(
+        'teasers/hideImage',
+        'teasers/hideByline',
+        'teasers/hideExcerpt',
+        'teasers/hideCategories'
+        )
+    ),
+    "ucd-theme/teasers" => array(
+      "twig" => "@ucd/blocks/teasers.twig",
+      "provides_context" => array(
+        'teasers/hideImage' => 'hideImage',
+        'teasers/hideByline' => 'hideByline',
+        'teasers/hideExcerpt' => 'hideExcerpt',
+        'teasers/hideCategories' => 'hideCategories')
     ),
   );
 
@@ -188,6 +221,11 @@ class UCDThemeBlocks {
       array(
         'slug'  => 'ucd-cards',
         'title' => 'Cards and Panels',
+        'icon'  => null,
+      ),
+      array(
+        'slug'  => 'ucd-fancy-lists',
+        'title' => 'Fancy Lists',
         'icon'  => null,
       ),
       array(
@@ -262,12 +300,19 @@ class UCDThemeBlocks {
    */
   public function register_blocks( ) {
     foreach (self::$registry as $name => $block) {
+      $settings = array(
+        'api_version' => 2, 
+        'render_callback' => array($this, 'render_callback')
+      );
+      if ( array_key_exists('uses_context', $block) ) {
+        $settings['uses_context'] = $block['uses_context'];
+      }
+      if ( array_key_exists('provides_context', $block) ) {
+        $settings['provides_context'] = $block['provides_context'];
+      };
       register_block_type(
         $name, 
-        array(
-          'api_version' => 2, 
-          'render_callback' => array($this, 'render_callback')
-        )
+        $settings
       );
     }
   }
@@ -307,7 +352,7 @@ class UCDThemeBlocks {
 
     // Render twig
     ob_start();
-    Timber::render( $meta['twig'], array("attributes" => $block_attributes, "content" => $content) );
+    Timber::render( $meta['twig'], array("attributes" => $block_attributes, "content" => $content, "block" => $block) );
     return ob_get_clean();
   }
 

@@ -12,6 +12,7 @@ export default ( props ) => {
   // retrieve needed wp data
   let posts = SelectUtils.posts(
     {per_page: attributes.postCt}, 
+    'post'
     ['image', 'author', 'categories']
   );
   if ( !posts ) posts = [];

@@ -1,4 +1,6 @@
 import { useSelect } from "@wordpress/data";
+import { useMemo } from '@wordpress/element';
+import { store as coreStore } from '@wordpress/core-data';
 import { decodeEntities } from "@wordpress/html-entities";
 
 export default class SelectUtils {
@@ -60,9 +62,9 @@ export default class SelectUtils {
     } , [termId]);  
   }
 
-  static posts(query = {}, extra_fields=[]) {
+  static posts(query = {}, postType='post', extra_fields=[]) {
     return useSelect( (select) => {
-      let posts = select('core').getEntityRecords('postType', 'post', query);
+      let posts = select('core').getEntityRecords('postType', postType, query);
       if (!posts) posts = [];
 
       if ( extra_fields.length ){
@@ -85,7 +87,18 @@ export default class SelectUtils {
       }
 
       return posts;
-    }, [query, extra_fields] )
+    }, [query, postType, extra_fields] )
+  }
+
+  static taxonomies() {
+    return useSelect( (select) => {
+      const { getTaxonomies } = select( coreStore );
+			const filteredTaxonomies = getTaxonomies( {
+				per_page: -1,
+				context: 'view',
+			} );
+			return filteredTaxonomies ? filteredTaxonomies : [];
+    } , []);  
   }
 
   static categoriesById(termIds) {
@@ -104,6 +117,15 @@ export default class SelectUtils {
     } , [includeUncategorized]);  
   }
 
+  static terms(taxonomy){
+    if ( !taxonomy ) return null;
+    return useSelect( (select) => {
+      let query = {per_page: 100, orderby: 'count', order: 'desc'};
+      const Terms = select('core').getEntityRecords('taxonomy', taxonomy, query);
+      return Terms ? Terms : [];
+    } , [taxonomy]); 
+  }
+
   static isPost(){
     return useSelect( (select) => {
       const postType = select('core/editor').getCurrentPost().type;
@@ -116,5 +138,82 @@ export default class SelectUtils {
       const postType = select('core/editor').getCurrentPost().type;
       return postType == 'page';
     })
+  }
+
+  /**
+   * Returns a helper object that contains:
+   * 1. An `options` object from the available post types, to be passed to a `SelectControl`.
+   * 2. A helper map with available taxonomies per post type.
+   *
+   * @return {Object} The helper object related to post types.
+   */
+  static postTypes(){
+    const postTypes = useSelect( ( select ) => {
+      const { getPostTypes } = select( coreStore );
+      const excludedPostTypes = [ 'attachment' ];
+      const filteredPostTypes = getPostTypes( { per_page: -1 } )?.filter(
+        ( { viewable, slug } ) =>
+          viewable && ! excludedPostTypes.includes( slug )
+      );
+      return filteredPostTypes;
+    }, [] );
+    const postTypesTaxonomiesMap = useMemo( () => {
+      if ( ! postTypes?.length ) return;
+      return postTypes.reduce( ( accumulator, type ) => {
+        accumulator[ type.slug ] = type.taxonomies;
+        return accumulator;
+      }, {} );
+    }, [ postTypes ] );
+    const postTypesSelectOptions = useMemo(
+      () =>
+        ( postTypes || [] ).map( ( { labels, slug } ) => ( {
+          label: labels.singular_name,
+          value: slug,
+        } ) ),
+      [ postTypes ]
+    );
+    return { postTypesTaxonomiesMap, postTypesSelectOptions };
+  }
+
+  /**
+   * Hook that returns the taxonomies associated with a specific post type.
+   *
+   * @param {string} postType The post type from which to retrieve the associated taxonomies.
+   * @return {Object[]} An array of the associated taxonomies.
+   */
+  static taxonomiesOfPostType( postType ) {
+    const taxonomies = useSelect(
+      ( select ) => {
+        const { getTaxonomies } = select( coreStore );
+        const filteredTaxonomies = getTaxonomies( {
+          type: postType,
+          per_page: -1,
+          context: 'view',
+        } );
+        return filteredTaxonomies;
+      },
+      [ postType ]
+    );
+    return taxonomies;
+  };
+
+  /**
+   * @description get all authors on the site
+   * @param {Array} fields - defaults to 'id,name'
+   * @returns Array
+   */
+  static authors(fields='id,name'){
+    const QUERY = {
+      who: 'authors',
+      per_page: -1,
+      _fields: fields,
+      context: 'view',
+    };
+    return useSelect( ( select ) => {
+      const { getUsers } = select( coreStore );
+      let authors = getUsers( QUERY );
+      if ( !authors ) authors = [];
+      return authors;
+    }, [] );
   }
 }

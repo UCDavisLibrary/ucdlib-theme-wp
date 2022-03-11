@@ -17,6 +17,12 @@
 
 
 		<main id="main-content" class="l-main">
+      {% block below_nav %}
+        {% if widgets_below_nav %}
+          {{ widgets_below_nav }}
+        {% endif %}
+      {% endblock %}
+
       {% block hero_image %}
         {{ image_title_banner(post.hero) }}
       {% endblock %}

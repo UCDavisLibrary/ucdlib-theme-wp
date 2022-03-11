@@ -26,6 +26,90 @@ class UCDThemeBlockTransformations {
   }
 
   /**
+   * Retrieves a collections of posts based on the attributes passed, which roughly
+   * correspond to recognized args from the WP API:
+   * https://developer.wordpress.org/rest-api/reference/posts/
+   * https://developer.wordpress.org/rest-api/reference/pages/
+   */
+  public static function getPosts($attrs=array()){
+    $args = [];
+    if ( array_key_exists('postType', $attrs) ) $args['post_type'] = $attrs['postType'];
+    if ( array_key_exists('author', $attrs) ) $args['author'] = $attrs['author'];
+    if ( array_key_exists('search', $attrs) ) $args['s'] = $attrs['search'];
+    if ( array_key_exists('orderBy', $attrs) ) $args['orderby'] = $attrs['orderBy'];
+    if ( array_key_exists('order', $attrs) ) $args['order'] = $attrs['order'];
+    if ( array_key_exists('postCt', $attrs) ) $args['posts_per_page'] = $attrs['postCt'];
+
+    if ( array_key_exists('terms', $attrs) ){
+      $tax_query = [];
+      foreach ($attrs['terms'] as $tax => $terms) {
+        if ( count($terms) ){
+          $tax_query[] = [
+            'taxonomy' => $tax,
+            'field' => 'term_id',
+            'terms' => $terms
+          ];
+        }
+      }
+      $args['tax_query'] = $tax_query;
+    }
+    $attrs['posts'] = Timber::get_posts( $args );
+    return $attrs;
+  }
+
+  /**
+   * If page is in primary nav, returns its children
+   * If page is part of hierarchy, return its children
+   */
+  public static function getNavOrPageChildren($attrs=array()){
+    if ( array_key_exists('lookInWpMenu', $attrs) && $attrs['lookInWpMenu'] ){
+      return self::getNavChildren($attrs);
+    } else {
+      return self::getPageChildren($attrs);
+    }
+  }
+
+  /**
+   * If page is in primary nav, returns its nav-item children
+   */
+  public static function getNavChildren($attrs=array()){
+    $attrs['children'] = [];
+    if ( !array_key_exists('post', $attrs) || !$attrs['post']) return $attrs;
+    $childrenFromNav = $attrs['post']->primary_nav_children();
+    if ( count($childrenFromNav) ) {
+      foreach ($childrenFromNav as $child) {
+        if ( $child->type == 'post_type' ) {
+          $attrs['children'][] = Timber::get_post($child->object_id );
+        } else {
+          $attrs['children'][] = $child;
+        };
+      }
+    }
+    return $attrs;
+  }
+
+  /**
+   * Return all children of a page
+   */
+  public static function getPageChildren( $attrs=[] ){
+    $attrs['children'] = [];
+    if ( !array_key_exists('post', $attrs) || !$attrs['post']) return $attrs;
+
+    $query = [
+      'post_parent' => $attrs['post']->ID,
+      'nopaging' => true,
+      'post_type' => 'any'
+    ];
+
+    if ( array_key_exists('orderBy', $attrs) ) $query['orderby'] = $attrs['orderBy'];
+    if ( array_key_exists('order', $attrs) ) $query['order'] = $attrs['order'];
+
+    $attrs['children'] = Timber::get_posts($query);
+
+    return $attrs;
+  }
+
+  /**
    * Retrieves current post object and saves in "post" attribute
    */
   public static function getCurrentPost($attrs=array()){
