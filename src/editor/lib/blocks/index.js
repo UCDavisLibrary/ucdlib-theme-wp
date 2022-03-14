@@ -14,6 +14,7 @@ import layoutColumns from "./ucd-theme-layout-columns";
 import layoutContainer from "./ucd-theme-layout-container";
 import layoutBasic from "./ucd-theme-layout-basic";
 import layoutQuad from "./ucd-theme-layout-quad";
+import manualSubnav from "./ucd-theme-manual-subnav";
 import marketingHighlight from "./ucd-theme-marketing-highlight";
 import marketingHighlightHorizontal from "./ucd-theme-marketing-highlight-horizontal";
 import mediaLink from "./ucd-theme-media-link";
@@ -51,6 +52,7 @@ export default [
   layoutContainer,
   layoutBasic,
   layoutQuad,
+  manualSubnav,
   marketingHighlight,
   marketingHighlightHorizontal,
   mediaLink,

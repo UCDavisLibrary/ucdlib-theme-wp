@@ -117,6 +117,7 @@ class UCDThemeBlocks {
     "ucd-theme/layout-columns" => array("twig" => "@ucd/blocks/layout-columns.twig"),
     "ucd-theme/layout-container" => array("twig" => "@ucd/blocks/layout-container.twig"),
     "ucd-theme/layout-quad" => array("twig" => "@ucd/blocks/layout-quad.twig"),
+    "ucd-theme/manual-subnav" => array("twig" => "@ucd/blocks/manual-subnav.twig"),
     "ucd-theme/object-box" => array("twig" => "@ucd/blocks/object-box.twig"),
     "ucd-theme/panel-with-icon" => array(
       "twig" => "@ucd/blocks/panel-with-icon.twig",
@@ -171,6 +172,7 @@ class UCDThemeBlocks {
    * Core blocks to unregister. 
    * Most because they are redundant of a ucd block.
    */
+  /** 
   public static $excluded_core_blocks = array(
     "core/buttons",
     "core/button",
@@ -207,6 +209,8 @@ class UCDThemeBlocks {
     "core/query-title",
     "core/search",
   );
+  */
+  public static $excluded_core_blocks = [];
 
   /**
    * Custom block categories
