@@ -25,7 +25,23 @@ class UCDThemeAssets {
     } else {
       add_editor_style( "../assets/css/ucd-styles.css" );
     }
+    add_action('wp_head', array($this, 'add_styles_to_head'));
     
+  }
+
+  public function add_styles_to_head(){
+    // prevent foc for nav custom elements
+    echo "<style>
+    ucd-theme-primary-nav * {
+      display: none;
+    }
+    ucd-theme-quick-links * {
+      display: none;
+    }
+    ucd-theme-subnav * {
+      display: none;
+    }
+    </style>";
   }
 
   public function enqueue_block_editor_assets(){
