@@ -26,7 +26,6 @@ export default ( props ) => {
   const { attributes, setAttributes } = props;
   const mainEleRef = useRef();
   const blockProps = useBlockProps();
-  console.log(attributes.links);
 
   const emptyModalData = {label: '', link: {url: ''}, subItems: []};
   const [ modalIsOpen, setModalOpen ] = useState( false );
@@ -48,6 +47,23 @@ export default ( props ) => {
     return eval(accessor);
   }
 
+  /**
+   * 
+   * @param {Array} location - location of an item in links attribute
+   * @returns 1. a copy of the links attribute, 
+   *  2. a string to access the menu level of the specified location
+   */
+  const getLocationMenu = (location) => {
+    const links = [...attributes.links];
+    let accessor = 'links';
+    location.forEach((i, index) => {
+      if ( index != (location.length - 1 ) ) {
+        accessor += `[${i}].subItems`;
+      } 
+    })
+    return {links, accessor};
+  }
+
   const focusedData = (() => {
     return getItemByLocation(focusedDataLocation);
   })()
@@ -63,10 +79,9 @@ export default ( props ) => {
   const focusedIsLast = (() => {
     const last = focusedDataLocation.slice(-1)[0];
     if ( last == undefined ) return false;
-    const parent = focusedDataLocation.slice(0, -1);
     let accessor = 'attributes.links';
-    parent.forEach((i, index) => {
-      if ( index > 0 ) {
+    focusedDataLocation.forEach((i, index) => {
+      if ( index != (focusedDataLocation.length - 1 ) ) {
         accessor += `[${i}].subItems`;
       } 
     })
@@ -89,17 +104,25 @@ export default ( props ) => {
     setModalOpen(false);
   }
 
-  const focusNavItem = (() => {
+  useEffect(() => {
     if ( mainEleRef.current ) {
       mainEleRef.current.renderRoot.querySelectorAll('li').forEach((e) => {
         e.style.border = '';
       })
       if ( hasFocusedData ) {
         const selected = mainEleRef.current.renderRoot.getElementById(`nav--${focusedDataLocation.join("-")}`);
-        selected.style.border = "2px solid rgb(6, 147, 227)";
+        if ( selected ) {
+          selected.style.border = "2px solid rgb(6, 147, 227)";
+        } else {
+          setTimeout(() => {
+            const selected = mainEleRef.current.renderRoot.getElementById(`nav--${focusedDataLocation.join("-")}`);
+            selected.style.border = "2px solid rgb(6, 147, 227)";
+          }, 200)
+          console.log(focusedDataLocation);
+        }
       }
     }
-  })();
+  });
 
   useEffect(() => {
     let mainEle = null;
@@ -146,17 +169,18 @@ export default ( props ) => {
     {
       title: 'Insert Above',
       icon: insertBefore,
-      onClick: () => console.log( 'insert above' ),
+      onClick: () => onAddNavItem( focusedDataLocation ),
     },
     {
       title: 'Insert Below',
       icon: insertAfter,
-      onClick: () => console.log( 'insert below' ),
+      onClick: () => onAddNavItem( incrementLocation(focusedDataLocation) ),
     },
     {
       title: 'Add Child Link',
       icon: addSubmenu,
-      onClick: () => console.log( 'insert child' ),
+      onClick: () => onAddNavItem( [...focusedDataLocation, 0] ),
+      isDisabled: focusedDataLocation.length >= 3
     },
     {
       title: 'Delete Item',
@@ -165,34 +189,37 @@ export default ( props ) => {
     },
   ];
 
+  // returns next nav position given a location
+  const incrementLocation = (location) => {
+    return location.map((i, index) => {
+      if ( index == location.length -1 ) return i+1
+      return i;
+    })
+  }
+
+  // returns previous nav position given a location
+  const decrementLocation = (location) => {
+    return location.map((i, index) => {
+      if ( index == location.length -1 ) return i-1
+      return i;
+    })
+  }
+
   // moves the selected nav item
   const moveItem = (direction) => {
 
     let swappedItems, swappedItemLocation, swapStart
     if ( direction == 'up') {
-      swappedItemLocation = focusedDataLocation.map((i, index) => {
-        if ( index == focusedDataLocation.length -1 ) return i-1
-        return i;
-      })
+      swappedItemLocation = decrementLocation(focusedDataLocation);
       swapStart = swappedItemLocation.slice(-1)[0];
       swappedItems = [focusedData, getItemByLocation(swappedItemLocation)];
     } else {
-      swappedItemLocation = focusedDataLocation.map((i, index) => {
-        if ( index == focusedDataLocation.length -1 ) return i+1
-        return i;
-      })
+      swappedItemLocation = incrementLocation(focusedDataLocation);
       swapStart = focusedDataLocation.slice(-1)[0];
       swappedItems = [ getItemByLocation(swappedItemLocation), focusedData];
     }
 
-    const links = [...attributes.links];
-    const parent = focusedDataLocation.slice(0, -1);
-    let accessor = 'links';
-    parent.forEach((i, index) => {
-      if ( index > 0 ) {
-        accessor += `[${i}].subItems`;
-      } 
-    })
+    const {links, accessor} = getLocationMenu(focusedDataLocation);
     eval(accessor).splice(swapStart, 2, ...swappedItems);
     setAttributes({links});
     setFocusedDataLocation(swappedItemLocation);
@@ -200,14 +227,7 @@ export default ( props ) => {
 
   // deletes selected nav item from attributes
   const deleteItem = () => {
-    const links = [...attributes.links];
-    const parent = focusedDataLocation.slice(0, -1);
-    let accessor = 'links';
-    parent.forEach((i, index) => {
-      if ( index > 0 ) {
-        accessor += `[${i}].subItems`;
-      } 
-    })
+    const {links, accessor} = getLocationMenu(focusedDataLocation);
     eval(accessor).splice(focusedDataLocation.slice(-1)[0], 1);
     setAttributes({links});
     setFocusedDataLocation([]);
@@ -245,9 +265,9 @@ export default ( props ) => {
     setModalData(d);
   }
 
-  const onAddNavItem = () => {
+  const onAddNavItem = (location=[-1]) => {
     setFocusedDataLocation([]);
-    setInsertLocation([-1]);
+    setInsertLocation(location);
     setModalMode('Add');
     setModalData(emptyModalData);
     setModalOpen(true);
@@ -262,24 +282,21 @@ export default ( props ) => {
   const onModalSave = () => {
     if ( modalMode == 'Add' ) {
       if ( !insertLocation || !insertLocation.length ) return;
-      const links = [...attributes.links ];
+      const {links, accessor} = getLocationMenu(insertLocation);
       if ( insertLocation[0] == -1 ){
         links.push({
           label: modalData.label,
           link: modalData.link,
           subItems: []
         })
+      } else {
+        console.log(accessor);
+        eval(accessor).splice(insertLocation.slice(-1)[0], 0, modalData);
+        setFocusedDataLocation(insertLocation);
       }
       setAttributes({links});
     } else {
-      const links = [...attributes.links];
-      const parent = focusedDataLocation.slice(0, -1);
-      let accessor = 'links';
-      parent.forEach((i, index) => {
-        if ( index > 0 ) {
-          accessor += `[${i}].subItems`;
-        } 
-      })
+      const {links, accessor} = getLocationMenu(focusedDataLocation);
       eval(accessor).splice(focusedDataLocation.slice(-1)[0], 1, modalData);
       setAttributes({links});
 
@@ -314,15 +331,26 @@ export default ( props ) => {
     `
   }
 
+  const navIsOpen = (location) => {
+    return focusedDataLocation.join(',').startsWith(location.join(','));
+  }
+
   const renderLink = (link, i) => {
     const hasChildren = link.subItems.length ? true : false;
+    const key = link.label.replace(" ", '-');
+    const ulAttrs = {
+      'link-text': link.label,
+      'key': key,
+    }
+    if ( navIsOpen(i) ) ulAttrs['is-open'] = 'true';
+
     return html`
       ${hasChildren ? html`
-        <ul link-text=${link.label} key=${i}>
-          ${link.subItems.map((child, ii) => renderLink(child, `${i}--${ii}`))}
+        <ul ...${ulAttrs}>
+          ${link.subItems.map((child, ii) => renderLink(child, [...i, ii]))}
         </ul>
       ` : html`
-        <li key=${`${i}-${link.label.replace(" ", '-')}`}>${link.label}</li>
+        <li key=${key}>${link.label}</li>
       `}
     `
   }
@@ -341,7 +369,7 @@ export default ( props ) => {
 
     </${BlockControls}>
     <ucd-theme-subnav ...${mainEleProps()}>
-      ${attributes.links.map((link, i) => renderLink(link, i))}
+      ${attributes.links.map((link, i) => renderLink(link, [i]))}
     </ucd-theme-subnav>
     <${Button} icon='plus' onClick=${onAddNavItem}>Add Nav Item</${Button}>
 
