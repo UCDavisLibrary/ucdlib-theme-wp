@@ -1,0 +1,7 @@
+{% from getUcdMacro('menus') import _wp_menu_to_ucd_menu %}
+<ucd-theme-subnav 
+  {{attributes.showTitle ? "nav-title='"~attributes.titleLabel~"' title-href='"~attributes.titleLink.url~"'" : ''}}>
+  {% if attributes.links %}
+    {{_wp_menu_to_ucd_menu(attributes.links)}}
+  {% endif %}
+</ucd-theme-subnav>

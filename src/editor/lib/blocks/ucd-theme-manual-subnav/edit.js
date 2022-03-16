@@ -118,7 +118,6 @@ export default ( props ) => {
             const selected = mainEleRef.current.renderRoot.getElementById(`nav--${focusedDataLocation.join("-")}`);
             selected.style.border = "2px solid rgb(6, 147, 227)";
           }, 200)
-          console.log(focusedDataLocation);
         }
       }
     }
@@ -290,7 +289,6 @@ export default ( props ) => {
           subItems: []
         })
       } else {
-        console.log(accessor);
         eval(accessor).splice(insertLocation.slice(-1)[0], 0, modalData);
         setFocusedDataLocation(insertLocation);
       }
@@ -371,7 +369,7 @@ export default ( props ) => {
     <ucd-theme-subnav ...${mainEleProps()}>
       ${attributes.links.map((link, i) => renderLink(link, [i]))}
     </ucd-theme-subnav>
-    <${Button} icon='plus' onClick=${onAddNavItem}>Add Nav Item</${Button}>
+    <${Button} icon='plus' onClick=${() => onAddNavItem()}>Add Nav Item</${Button}>
 
     ${modalIsOpen && html`
       <${Modal} title=${modalMode + " Nav Item"} onRequestClose=${closeModal}>

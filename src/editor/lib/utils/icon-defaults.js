@@ -66,7 +66,8 @@ export default class UCDIcons{
   static render(icon, attributes={}) {
     let i;
     try {
-      i = eval(`this.icons.${icon}`);
+      icon = icon.split('.').map(i => `'${i}'`);
+      i = eval(`this.icons[${icon.join('][')}]`);
     } catch (error) {
       console.warn(`${icon} not found: ${error}`);
       return html``;

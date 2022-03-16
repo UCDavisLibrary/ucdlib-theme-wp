@@ -130,6 +130,60 @@ class UCDThemeBlockTransformations {
   }
 
   /**
+   * Retrieve permalinks for any nav items listed in a 'titleLink' or 'links' attribute array
+   * Also, reformats data to match the wp menu schema
+   */
+  public static function getNavPermalinks($attrs=array()){
+    if ( array_key_exists('links', $attrs) ){
+      $attrs['links'] = self::_getNavPermalinks($attrs['links']);
+    }
+    if ( array_key_exists('showTitle', $attrs) && array_key_exists('titleLink', $attrs) ){
+      if ( array_key_exists('kind', $attrs['titleLink']) && array_key_exists('id', $attrs['titleLink']) ){
+        if ( $attrs['titleLink']['kind'] == 'post-type' ){
+          $attrs['titleLink']['url'] = get_permalink($attrs['titleLink']['id']);
+        } elseif ( $attrs['titleLink']['kind'] == 'taxonomy' ){
+          $attrs['titleLink']['url'] = get_term_link($attrs['titleLink']['id']);
+        }
+      }
+    }
+    return $attrs;
+  }
+
+  private static function _getNavPermalinks($links){
+    foreach($links as &$link) {
+      if ( array_key_exists('link', $link) ){
+        
+        if ( array_key_exists('opensInNewTab', $link['link']) && $link['link']['opensInNewTab'] ){
+          $link['is_target_blank'] = true;
+        }
+
+        if ( array_key_exists('label', $link) ){
+          $link['title'] = $link['label'];
+        }
+
+        if ( array_key_exists('kind', $link['link']) && array_key_exists('id', $link['link']) ){
+          if ( $link['link']['kind'] == 'post-type' ){
+            $link['link'] = get_permalink($link['link']['id']);
+          } elseif ( $link['link']['kind'] == 'taxonomy' ){
+            $link['link'] = get_term_link($link['link']['id']);
+          } elseif ( array_key_exists('url', $link['link'] )) {
+            $link['link'] = $link['link']['url'];
+          }
+        } elseif ( array_key_exists('url', $link['link'] ) ) {
+          $link['link'] = $link['link']['url'];
+        } else {
+          $link['link'] = false;
+        }
+
+        if ( array_key_exists('subItems', $link) ){
+          $link['children'] = self::_getNavPermalinks($link['subItems']);
+        }
+      }
+    }
+    return $links;
+  }
+
+  /**
    * Retrieves categories for site
    */
   public static function getCategories($attrs=array()){

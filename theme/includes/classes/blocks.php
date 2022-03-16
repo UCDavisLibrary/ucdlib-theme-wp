@@ -117,7 +117,10 @@ class UCDThemeBlocks {
     "ucd-theme/layout-columns" => array("twig" => "@ucd/blocks/layout-columns.twig"),
     "ucd-theme/layout-container" => array("twig" => "@ucd/blocks/layout-container.twig"),
     "ucd-theme/layout-quad" => array("twig" => "@ucd/blocks/layout-quad.twig"),
-    "ucd-theme/manual-subnav" => array("twig" => "@ucd/blocks/manual-subnav.twig"),
+    "ucd-theme/manual-subnav" => array(
+      "twig" => "@ucd/blocks/manual-subnav.twig",
+      "transform" => array('getNavPermalinks')
+    ),
     "ucd-theme/object-box" => array("twig" => "@ucd/blocks/object-box.twig"),
     "ucd-theme/panel-with-icon" => array(
       "twig" => "@ucd/blocks/panel-with-icon.twig",
