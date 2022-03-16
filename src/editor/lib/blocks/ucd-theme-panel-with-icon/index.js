@@ -27,6 +27,10 @@ const settings = {
       type: 'number',
       default: 0
     },
+    taxId: {
+      type: 'number',
+      default: 0
+    },
     moreText: {
       type: "string",
       default: "See More"

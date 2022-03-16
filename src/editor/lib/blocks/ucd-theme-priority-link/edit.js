@@ -60,11 +60,15 @@ export default ( props ) => {
     let attrs = {
       href: value.url,
       newTab: value.opensInNewTab ? true : false,
-      postId: 0
+      postId: 0,
+      taxId: 0
     }
     if ( value.kind == 'post-type' ){
       attrs.postId = value.id;
-    } 
+    }
+    else if ( value.kind == 'taxonomy' ) {
+      attrs.taxId = value.id 
+    }
     setAttributes(attrs);
   }
   const hrefContent = (() => {

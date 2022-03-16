@@ -26,6 +26,10 @@ const settings = {
       type: 'number',
       default: 0
     },
+    taxId: {
+      type: 'number',
+      default: 0
+    },
     newTab: {
       type: "boolean",
       default: false

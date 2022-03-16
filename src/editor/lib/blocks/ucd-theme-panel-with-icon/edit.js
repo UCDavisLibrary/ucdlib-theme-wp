@@ -86,7 +86,9 @@ export default ( props ) => {
     }
     if ( value.kind == 'post-type' ){
       attrs.postId = value.id;
-    } 
+    } else if ( value.kind == 'taxonomy' ) {
+      attrs.taxId = value.id 
+    }
     setAttributes(attrs);
   }
   const hrefContent = (() => {

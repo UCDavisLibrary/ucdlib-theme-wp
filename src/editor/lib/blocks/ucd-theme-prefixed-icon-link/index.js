@@ -30,6 +30,10 @@ const settings = {
       type: "boolean",
       default: false
     },
+    taxId: {
+      type: 'number',
+      default: 0
+    },
     icon: {
       type: 'string',
       default: 'wp-editor:fa-link' // change to chevron when we got it, and in twig macro

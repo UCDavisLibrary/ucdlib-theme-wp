@@ -118,11 +118,13 @@ class UCDThemeBlockTransformations {
   }
 
   /**
-   * Retrieve permalink of postId attribute in permalink attribute
+   * Retrieve permalink of postId or taxId attribute and saves in permalink attribute
    */
   public static function getPermalink($attrs=array()){
     if ( array_key_exists('postId', $attrs) ){
       $attrs['permalink'] = get_permalink($attrs['postId']);
+    } elseif (array_key_exists('taxId', $attrs)){
+      $attrs['permalink'] = get_term_link($attrs['taxId']);
     }
     return $attrs;
   }
