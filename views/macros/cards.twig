@@ -111,6 +111,9 @@ kwargs:
   {% if kwargs.brandColor %}
     {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
   {% endif %}
+  {% if kwargs.alignment %}
+    {% set classes = classes ~ " hero-banner--align-" ~ kwargs.alignment %}
+  {% endif %}
 
   <section class="{{classes}}">
     <div class="hero-banner__image u-background-image" style={{src ? "background-image:url("~src~")": ''}}></div>

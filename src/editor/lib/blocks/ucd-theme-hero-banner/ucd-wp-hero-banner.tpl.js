@@ -28,6 +28,9 @@ export function styles() {
       grid-area: hero;
       opacity: 60%;
     }
+    .hero-banner__body {
+      width: auto;
+    }
   `;
 
   return [

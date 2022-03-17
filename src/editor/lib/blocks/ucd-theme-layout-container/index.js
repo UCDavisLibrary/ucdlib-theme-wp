@@ -6,7 +6,7 @@ const name = 'ucd-theme/layout-container';
 const settings = {
   api_version: 2,
 	title: "Container",
-	description: "Group similar content together into a partitioned section",
+	description: "Slightly shrinks the width of its innercontent",
 	icon: UCDIcons.render("layout.container"),
 	category: 'ucd-layout',
 	keywords: [ "column", "content", "container" ],

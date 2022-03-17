@@ -11,6 +11,7 @@ export default class UcdWpHeroBanner extends Mixin(LitElement)
       imgSrc: {type: String, attribute: "img-src"},
       imgAlt: {type: String, attribute: "img-alt"},
       color: {type: String},
+      alignment: {type: String},
       title: {type: String},
       excerpt: {type: String},
       buttonText: {type: String, attribute: "button-text"}
@@ -31,6 +32,7 @@ export default class UcdWpHeroBanner extends Mixin(LitElement)
     this.href = "";
     this.imgSrc = "";
     this.imgAlt = "";
+    this.alignment = "";
     this.color = "";
     this.title = "";
     this.excerpt = "";
@@ -46,6 +48,7 @@ export default class UcdWpHeroBanner extends Mixin(LitElement)
   _getBaseClasses(){
     let classes = {};
     classes[this._prefix] = true;
+    classes[`${this._prefix}--align-${this.alignment}`] = this.alignment ? true : false;
     classes[`category-brand--${this.color}`] = this.color ? true : false;
     classes['no-image'] = !this.imgSrc;
 

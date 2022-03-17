@@ -1,4 +1,5 @@
 import backgroundColor from "./ucd-theme-background-color";
+import backgroundImage from "./ucd-theme-background-image";
 import brandTextbox from "./ucd-theme-brand-textbox";
 import buttonLink from "./ucd-theme-button-link";
 import categoryFilter from "./ucd-theme-category-filter";
@@ -37,6 +38,7 @@ import teasers from "./ucd-theme-teasers";
 
 export default [
   backgroundColor,
+  backgroundImage,
   brandTextbox,
   buttonLink,
   categoryFilter,

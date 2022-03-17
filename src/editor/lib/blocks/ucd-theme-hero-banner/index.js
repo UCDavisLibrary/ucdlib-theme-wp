@@ -22,6 +22,10 @@ const settings = {
       type: "object",
       default: {}
     },
+    alignment: {
+      type: "string",
+      default: 'left'
+    },
     href: {
       type: "string",
       default: ""

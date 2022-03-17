@@ -63,6 +63,12 @@ class UCDThemeMetaData {
       'default' => false,
       'type' => 'boolean',
     ) );
+    register_post_meta( 'page', 'ucd_full_width', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'default' => false,
+      'type' => 'boolean',
+    ) );
     register_post_meta( 'page', 'ucd_show_hero', array(
       'show_in_rest' => true,
       'single' => true,

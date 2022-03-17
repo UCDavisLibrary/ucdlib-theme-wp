@@ -35,6 +35,14 @@ a.icon--circle-arrow-right::before {
   grid-area: hero;
   opacity: 60%;
 }
+.hero-banner__body--innerblocks {
+  z-index: 1;
+  grid-area: hero;
+  padding: 2rem 8%;
+}
+.hero-banner__body--no-padding {
+  padding: 0 !important;
+}
 
 // background image utility
 .u-background-image {

@@ -53,6 +53,12 @@ export default () => {
           checked=${meta.ucd_hide_sidebar}
           onChange="${ucd_hide_sidebar => {editPost({meta: {ucd_hide_sidebar}})}}" />
       `}
+      ${(isPage && meta.ucd_hide_sidebar) && html`
+        <${ToggleControl} 
+          label="Make Page Full Width"
+          checked=${meta.ucd_full_width}
+          onChange="${ucd_full_width => {editPost({meta: {ucd_full_width}})}}" />
+      `}
       ${isPage && html`
         <${ToggleControl} 
           label="Hide Breadcrumbs"

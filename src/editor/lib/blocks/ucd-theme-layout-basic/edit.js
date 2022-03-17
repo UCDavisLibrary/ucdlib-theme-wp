@@ -80,7 +80,7 @@ function Columns( {
             onChange=${() => setLayout("hasSecondSidebar", !attributes.hasSecondSidebar)}
           />
           <${BaseControl} help="Position relative to main content">
-            <${BaseControl.VisualLabel}>Number of Columns</${BaseControl.VisualLabel}>
+            <${BaseControl.VisualLabel}>Sidebar Position</${BaseControl.VisualLabel}>
             <${ButtonGroup}>
               <${Button} 
                 variant="primary"

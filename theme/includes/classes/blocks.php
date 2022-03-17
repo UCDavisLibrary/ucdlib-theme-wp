@@ -28,6 +28,10 @@ class UCDThemeBlocks {
    */
   public static $registry = array(
     "ucd-theme/background-color" => array("twig" => "@ucd/blocks/background-color.twig"),
+    "ucd-theme/background-image" => array(
+      "twig" => "@ucd/blocks/background-image.twig",
+      "transform" => array("getImage")
+    ),
     "ucd-theme/brand-textbox" => array("twig" => "@ucd/blocks/brand-textbox.twig"),
     "ucd-theme/button-link" => array(
       "twig" => "@ucd/blocks/button-link.twig", 
@@ -175,7 +179,7 @@ class UCDThemeBlocks {
    * Core blocks to unregister. 
    * Most because they are redundant of a ucd block.
    */
-  /** 
+
   public static $excluded_core_blocks = array(
     "core/buttons",
     "core/button",
@@ -189,6 +193,7 @@ class UCDThemeBlocks {
     "core/latest-comments",
     "core/latest-posts",
     "core/loginout",
+    "core/navigation",
     "core/nextpage",
     "core/post-content",
     "core/post-date",
@@ -212,8 +217,6 @@ class UCDThemeBlocks {
     "core/query-title",
     "core/search",
   );
-  */
-  public static $excluded_core_blocks = [];
 
   /**
    * Custom block categories
