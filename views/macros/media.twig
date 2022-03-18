@@ -13,26 +13,48 @@ kwargs:
   {% if kwargs.image %}
     {% set src = kwargs.image.src %}
     {% set alt = kwargs.image.alt %}
+    {% set caption = kwargs.image.post_excerpt %}
   {% elseif kwargs.imageId %}
     {% set i = get_post(kwargs.imageId) %}
     {% set src = i.src %}
     {% set alt = i.alt %}
+    {% set caption = i.post_excerpt %}
   {% else %}
     {% set src = DefaultImageByAspectRatio(kwargs.aspectRatio) %}
     {% set alt = "" %}
+    {% set caption = "" %}
   {% endif %}
 
-  {% if kwargs.aspectRatio == '4x3' %}
-    {% set width = "640" %}
-    {% set height = "480" %}
-  {% elseif kwargs.aspectRatio == '16x9' %}
+  {% set width = "640" %}
+  {% set height = "480" %}
+  {% set aspectRatio = '4x3' %}
+  {% if kwargs.aspectRatio == '16x9' %}
     {% set width = "1280" %}
     {% set height = "720" %}
+    {% set aspectRatio = '16x9' %}
   {% endif %}
 
+  {% if kwargs.caption.customText %}
+    {% set caption = kwargs.caption.customText %}
+  {% endif %}
+
+  <figure style="display:block;">
+    <div 
+      class="aspect--{{aspectRatio}} u-background-image"
+      style="background-image:url({{src}}}"
+      role="img" aria-label="{{alt}}">
+    </div>
+    {% if kwargs.caption.show and caption %}
+      <figcaption style="display:block;">{{caption}}</figcaption>
+    {% endif %}
+    
+  </figure>
+
+  {# 
   <div class="aspect--{{kwargs.aspectRatio}}">
     <img src="{{src}}" alt="{{alt}}" width="{{width}}" height="{{height}}" loading="lazy" />
   </div>
+  #}
 
 {% endmacro %}
 

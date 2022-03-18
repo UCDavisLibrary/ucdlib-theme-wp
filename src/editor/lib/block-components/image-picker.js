@@ -1,5 +1,11 @@
 import { html } from "../utils";
-import { PanelBody, PanelRow, Button, ResponsiveWrapper } from "@wordpress/components";
+import { 
+  PanelBody, 
+  PanelRow, 
+  Button, 
+  ResponsiveWrapper, 
+  ToggleControl, 
+  TextareaControl } from "@wordpress/components";
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { useState } from '@wordpress/element';
 import { useSelect, useDispatch, dispatch } from "@wordpress/data";
@@ -14,15 +20,23 @@ function ImagePicker({
   onClose,
   helpText,
   defaultImageId,
-  panelAttributes
+  panelAttributes,
+  captionOptions,
+  onCaptionChange
 }){
-
   const _panelAttributes = {
     title: "Image",
     initialOpen: true
   }
   if ( typeof panelAttributes === 'object' && !Array.isArray(panelAttributes) ) {
     Object.assign(_panelAttributes, panelAttributes);
+  }
+
+  let showCaptionOptions = true;
+  if ( !captionOptions ) {
+    showCaptionOptions = false;
+  } else if ( !Object.keys(captionOptions).length ){
+    captionOptions = {show: false, customText: ''};
   }
 
   const { createErrorNotice } = useDispatch( noticesStore );
@@ -38,6 +52,11 @@ function ImagePicker({
 
   const onRefresh = () => {
     if ( imageId ) dispatch('core').saveMedia(imageId);
+  }
+
+  const _onCaptionChange = (v) => {
+    v = {...captionOptions, ...v}
+    onCaptionChange(v);
   }
 
   const onClone = () => {
@@ -145,6 +164,24 @@ function ImagePicker({
       `}
     </div> 
     ${helpText && html`<${PanelRow}><small>${helpText}</small></${PanelRow}>`}
+    ${showCaptionOptions && html`
+      <div style=${{marginTop:'15px'}}>
+        <${PanelRow}>
+          <${ToggleControl} 
+            label="Show Caption"
+            checked=${captionOptions.show}
+            onChange=${() => _onCaptionChange({show: !captionOptions.show })}
+          />
+        </${PanelRow}>
+        <${TextareaControl} 
+          label="Custom Caption"
+          help="Will be displayed instead of caption for image from media library"
+          value=${ captionOptions.customText }
+          onChange=${ ( customText ) => _onCaptionChange({customText}) }
+        />
+      </div>
+      
+    `}
   </${PanelBody}>
 `;
 }

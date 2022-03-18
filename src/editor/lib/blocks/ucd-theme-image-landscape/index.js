@@ -21,6 +21,10 @@ const settings = {
     aspectRatio: {
       type: "string",
       default: "4x3"
+    },
+    caption: {
+      type: 'object',
+      default: {}
     }
   },
   edit: Edit,

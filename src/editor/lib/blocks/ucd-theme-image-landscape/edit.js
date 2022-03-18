@@ -17,7 +17,14 @@ export default ( props ) => {
     setAttributes({imageId: 0});
   }
 
-  const imgSrc = Image ? Image.source_url : BlockSettings.getImageByAspectRatio(attributes.aspectRatio)
+  const imgSrc = Image ? Image.source_url : BlockSettings.getImageByAspectRatio(attributes.aspectRatio);
+  
+  let captionText;
+  if ( attributes.caption.customText ) {
+    captionText = attributes.caption.customText;
+  } else if ( Image && Image.caption.rendered ) {
+    captionText = Image.caption.rendered.replace(/(<([^>]+)>)/gi, "");
+  } 
 
   const aspectRatioControls = ["4x3", "16x9"].map(ar => 
     Object({
@@ -27,6 +34,7 @@ export default ( props ) => {
     })
   )
   const classes = classnames({
+    'u-background-image': true,
     [`aspect--${attributes.aspectRatio}`]: true
   })
 
@@ -45,12 +53,19 @@ export default ( props ) => {
           image=${Image}
           onSelect=${onSelectImage}
           onRemove=${onRemoveImage}
+          captionOptions=${attributes.caption}
+          onCaptionChange=${(caption) => setAttributes({caption})}
           panelAttributes=${{title: 'Select an Image'}}
         />
       </${InspectorControls}>
-      <div className=${classes}>
-        <img src=${imgSrc} loading="lazy" />
-      </div>
+      <figure style=${{display:'block'}}>
+        <div className=${classes} style=${{backgroundImage: `url(${imgSrc})`}}></div>
+        ${ (attributes.caption.show && captionText) && html`
+          <figcaption style=${{display:'block'}}>${captionText}</figcaption>
+        `}
+      </figure>
+      
+      
 
     </div>
   `;
