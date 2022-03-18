@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Quad Layout",
 	description: "Place content in 4 columns that are responsive to screen width",
-	icon: UCDIcons.render('layout.grid'),
+	icon: UCDIcons.renderBlockIcon('quad-layout'),
 	category: 'ucd-layout',
 	keywords: [ "column", "content", "quad" ],
   supports: {

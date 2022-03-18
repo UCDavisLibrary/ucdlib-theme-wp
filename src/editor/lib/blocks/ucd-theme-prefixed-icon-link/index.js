@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Prefixed Icon Link",
 	description: "Add a stylized link preceded by a small inline icon.",
-	icon: UCDIcons.render('link'), // TODO: CHANGE ICON
+	icon: UCDIcons.renderBlockIcon('prefixed-icon-link'),
 	category: 'ucd-links',
 	keywords: [ 'link', 'icon', 'color', 'text', 'inline', 'before' ],
   supports: {

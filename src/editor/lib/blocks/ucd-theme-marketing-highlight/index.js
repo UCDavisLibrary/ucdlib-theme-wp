@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Marketing Highlight",
 	description: "Preview content on another webpage with an attention-grabbing card.",
-	icon: UCDIcons.render('highlight'),
+	icon: UCDIcons.renderBlockIcon('marketing-highlight'),
 	category: 'ucd-cards',
 	keywords: [ 'marketing', 'highlight', 'post', 'page', "link" ],
   supports: {

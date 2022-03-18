@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Button Link",
 	description: "Link to a webpage with a stylized button",
-	icon: UCDIcons.render("outboundLink"),
+	icon: UCDIcons.renderBlockIcon('button'),
 	category: 'ucd-links',
 	keywords: [ 'button', 'link' ],
   supports: {

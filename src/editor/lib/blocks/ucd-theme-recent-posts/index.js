@@ -1,4 +1,5 @@
-import { UCDIcons } from "../../utils";
+import { html } from "../../utils";
+import { postList } from "@wordpress/icons";
 import Edit from './edit';
 
 const name = 'ucd-theme/recent-posts';
@@ -6,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Recent News",
 	description: "Display recent news items",
-	icon: UCDIcons.render("time"),
+	icon: html`${postList}`,
 	category: 'ucd-query',
 	keywords: [ 'teaser', 'news', 'post' ],
   supports: {

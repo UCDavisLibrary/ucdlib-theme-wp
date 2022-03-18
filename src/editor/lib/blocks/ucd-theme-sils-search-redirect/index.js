@@ -1,4 +1,5 @@
-import { UCDIcons } from "../../utils";
+import { html } from "../../utils";
+import { search } from "@wordpress/icons";
 import Edit from './edit';
 
 const name = 'ucd-theme/sils-search-redirect';
@@ -6,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "SILS Search Widget",
 	description: "A form that redirects a user's search to Primo",
-	icon: UCDIcons.render("search"),
+	icon: html`${search}`,
 	category: 'ucd-sils',
 	keywords: [ 'primo', 'catalog', 'search' ],
   supports: {

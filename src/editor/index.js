@@ -1,4 +1,5 @@
 import "./lib/iconsets/wp-editor/wp-editor";
+import "./lib/iconsets/blocks/blocks";
 
 import "@ucd-lib/theme-elements/ucdlib/ucdlib-sils-search-redirect/ucdlib-sils-search-redirect";
 import '@ucd-lib/theme-elements/brand/ucd-theme-brand-textbox/ucd-theme-brand-textbox';

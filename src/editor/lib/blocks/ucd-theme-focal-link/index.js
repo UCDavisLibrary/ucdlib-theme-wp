@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Focal Link",
 	description: "Add a stylized block link with an icon",
-	icon: UCDIcons.render('link'), // TODO: CHANGE ICON
+	icon: UCDIcons.renderBlockIcon('focal-link'),
 	category: 'widgets',
 	keywords: [ 'link', 'icon', 'color', 'text' ],
   supports: {

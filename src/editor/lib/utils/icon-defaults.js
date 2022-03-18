@@ -1,6 +1,8 @@
 import { html } from "./html.js";
 
 export default class UCDIcons{
+  static blockIconSetName = 'blocks';
+
   static icons = {
     title : 'wp-editor:fa-heading',
     photo: 'wp-editor:fa-image',
@@ -74,5 +76,14 @@ export default class UCDIcons{
     }
     attributes.icon = i;
     return html`<ucdlib-icon ...${attributes}></ucdlib-icon>`;
+  }
+
+  static renderBlockIcon(icon, attributes={}){
+    attributes.icon = `${this.blockIconSetName}:${icon}`;
+    return html`<ucdlib-icon ...${attributes}></ucdlib-icon>`;
+  }
+
+  static renderMissing(){
+    return html`<span>?</span>`;
   }
 }

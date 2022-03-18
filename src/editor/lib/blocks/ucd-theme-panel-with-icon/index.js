@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Panel With Icon",
 	description: "Place content within a panel that has an icon in its title",
-	icon: UCDIcons.render('icons'),
+	icon: UCDIcons.renderBlockIcon('panel-with-icon'),
 	category: 'ucd-cards',
 	keywords: [ "panel", 'icon', 'color', 'box' ],
   supports: {

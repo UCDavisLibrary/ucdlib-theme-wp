@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Object Box",
 	description: "Box off Similar Content with Padding",
-	icon: UCDIcons.render('spacing.padding'),
+	icon: UCDIcons.renderBlockIcon('object-box'),
 	category: 'ucd-layout',
 	keywords: [ "box", "padding", "group" ],
   supports: {

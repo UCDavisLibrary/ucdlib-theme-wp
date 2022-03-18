@@ -18,13 +18,13 @@ export default class UcdWpIconPicker extends LitElement {
   constructor() {
     super();
     this.render = render.bind(this);
-    this.iconSets = "";
+    this.iconSets = ['wp-editor'];
     this.selected = "";
   }
 
   willUpdate(props){
     if ( props.has('iconSets') ){
-      this._iconSets = this.queryIconSets(props.iconSets);
+      this._iconSets = this.queryIconSets(this.iconSets);
     }
   }
 
@@ -34,6 +34,7 @@ export default class UcdWpIconPicker extends LitElement {
     if ( !queriedSets ) return [];
     queriedSets = Array.from(queriedSets);
     if ( !iconSets ) return queriedSets.map(this.getIconNames);
+    console.log(queriedSets);
     if ( !Array.isArray(iconSets) ){
       try {
         iconSets = JSON.parse(iconSets);

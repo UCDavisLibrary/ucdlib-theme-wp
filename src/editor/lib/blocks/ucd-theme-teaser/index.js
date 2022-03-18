@@ -7,7 +7,7 @@ const settings = {
 	title: "Teaser",
   parent: ['ucd-theme/teasers'],
 	description: "Preview content on another webpage with a simple block. Meant to be use alongside other teasers.",
-	icon: UCDIcons.render('listing'),
+	icon: UCDIcons.renderBlockIcon('teaser'),
 	category: 'ucd-cards',
 	keywords: [ 'teaser', 'news', 'post', 'page', "link", "list" ],
   supports: {

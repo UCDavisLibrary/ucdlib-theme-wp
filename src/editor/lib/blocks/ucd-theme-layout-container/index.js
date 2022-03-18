@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Container",
 	description: "Slightly shrinks the width of its innercontent",
-	icon: UCDIcons.render("layout.container"),
+	icon: UCDIcons.renderBlockIcon('container'),
 	category: 'ucd-layout',
 	keywords: [ "column", "content", "container" ],
   supports: {
