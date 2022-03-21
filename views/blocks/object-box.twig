@@ -2,5 +2,10 @@
 {% if attributes.padding %}
     {% set classes = classes|merge(["o-box--"~attributes.padding]) %}
 {% endif %}
+{% if attributes.marginBottom and attributes.marginBottom != 'default' %}
+    {% set classes = classes|merge(["u-space-mb--"~attributes.marginBottom]) %}
+{% elseif attributes.marginBottom %}
+    {% set classes = classes|merge(["u-space-mb"]) %}
+{% endif %}
 
 <div {{classes ? "class='"~classes|join(' ')~"'"}}>{{content}}</div>

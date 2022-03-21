@@ -8,6 +8,7 @@ import ToolbarLinkPicker from "./toolbar-link-picker";
 import ToolbarColorPicker from "./toolbar-color-picker";
 import ToolbarPostReset from "./toolbar-post-reset";
 import ToolbarSectionDisplay from "./toolbar-section-display";
+import ToolbarSizePicker from "./toolbar-size-picker";
 import ToolbarPaddingPicker from "./toolbar-padding-picker";
 import ToolbarVerticalAlignPicker from "./toolbar-vertical-align-picker";
 
@@ -20,6 +21,7 @@ export {
   TermPicker,
   ToolbarColorPicker,
   ToolbarSectionDisplay,
+  ToolbarSizePicker,
   ToolbarPaddingPicker,
   ToolbarLinkPicker,
   ToolbarVerticalAlignPicker,

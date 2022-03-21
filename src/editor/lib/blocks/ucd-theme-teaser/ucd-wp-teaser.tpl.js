@@ -1,8 +1,10 @@
 import { html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import headingsStyles from "@ucd-lib/theme-sass/1_base_html/_headings.css.js";
 import teaserStyles from "@ucd-lib/theme-sass/4_component/_vm-teaser.css.js"
 import brandStyles from "@ucd-lib/theme-sass/4_component/_category-brand.css.js"
+import aspectStyles from "@ucd-lib/theme-sass/6_utility/_u-aspect.css.js";
 
 export function styles() {
   const elementStyles = css`
@@ -10,13 +12,8 @@ export function styles() {
       display: block;
     }
     .vm-teaser__figure {
-      width: 135px;
-      height: 135px;
-    }
-    .vm-teaser__figure img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: 20%;
+      max-width: 135px;
     }
     .show-placeholder:before {
       content: attr(placeholder);
@@ -24,12 +21,18 @@ export function styles() {
       pointer-events: none;
       opacity: .6;
     }
+    .u-background-image {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
   `;
 
   return [
     headingsStyles,
     brandStyles,
     teaserStyles,
+    aspectStyles,
     elementStyles
   ];
 }
@@ -39,8 +42,7 @@ return html`
   <article class=${classMap(this._getBaseClasses())}>
     ${!this.hideImage ? html`
     <div class="vm-teaser__figure category">
-      <a>
-        <img src=${this.imgSrc} alt="Thumbnail" width="135" loading="lazy" />
+      <a style=${styleMap({display: 'block', 'background-image': `url(${this.imgSrc})`})} class="aspect--1x1 u-background-image">
       </a>
     </div>
     ` : html``}

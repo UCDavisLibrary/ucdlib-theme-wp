@@ -72,14 +72,13 @@ http://dev.webstyleguide.ucdavis.edu/redesign/?p=atoms-title-banner
 #}
 {% macro image_title_banner(image) %}
   {% if image %}
-    {% set banner = imgTitleBanner(image) %}
-      
-      {% if banner %}
-        <div class="aspect--13x3 u-background-image" style="background-image:url({{banner.src}});">
+      {% if image.src %}
+        <div class="aspect--13x3 u-background-image" style="background-image:url({{image.src}});">
         </div>
       {% endif %}
     {#
     {% if banner %}
+     {% set banner = imgTitleBanner(image) %}
       <div class="aspect--13x3">
         <img src="{{banner.src}}" alt="{{banner.alt}}" srcset="{{banner.srcset}}" sizes="{{banner.sizes}}" />
       </div>

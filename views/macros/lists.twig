@@ -35,7 +35,8 @@ kwargs:
 
   <a href="{{href}}" class="media-link">
     {% if not kwargs.hideImage %}
-      <div class="media-link__figure u-background-image" style="background-image:url({{src}})">
+      <div class="media-link__figure" style="max-width:135px;width:25%;">
+        <div class="aspect--1x1 u-background-image" style="background-image:url({{src}})"></div>
       </div>
     {% endif %}
     <div class="media-link__body">
@@ -106,13 +107,10 @@ kwargs:
     {% set categories = kwargs.post.categories %}
   {% endif %}
 
-  {% set imgContainerStyles = "width: 135px;height: 135px;min-width: 135px;min-height: 135px;" %}
-  {% set imgStyles = "width: 100%;height: 100%;object-fit: cover;" %}
   <article class="{{classes}}" {{target}}>
     {% if not kwargs.hideImage %}
-      <div class="vm-teaser__figure category" style="{{imgContainerStyles}}">
-        <a href="{{href}}">
-          <img src="{{src}}" alt="{{alt}}" style="{{imgStyles}}" width="135" height="135" loading="lazy" />
+      <div class="vm-teaser__figure category" style="width:20%;max-width:135px;" role='image' aria-label='{{alt}}'>
+        <a href="{{href}}" style="display:block;background-image:url({{src}})" class="aspect--1x1 u-background-image">
         </a>
       </div>
     {% endif %}

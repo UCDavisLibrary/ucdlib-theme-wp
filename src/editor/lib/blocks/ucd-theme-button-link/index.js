@@ -57,7 +57,7 @@ const settings = {
     },
   },
 	edit: Edit,
-    styles: styleClasses
+  styles: styleClasses
 };
 
 export default { name, settings };

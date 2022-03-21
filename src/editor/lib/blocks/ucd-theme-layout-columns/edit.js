@@ -83,7 +83,7 @@ function Columns( {
 	} );
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		allowedBlocks: ALLOWED_BLOCKS,
-		orientation: 'horizontal',
+		//orientation: 'horizontal',
     renderAppender: false,
     template: defaultTemplate,
     templateLock: "insert"

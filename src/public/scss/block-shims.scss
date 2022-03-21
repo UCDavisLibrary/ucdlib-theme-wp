@@ -51,13 +51,13 @@ figure.table--bordered table {
 @media (max-width: 479px) {
   .wp-block-image .alignleft {
     float: none;
+    margin-right: 0;
+    margin-left: 0;
   }
   .wp-block-image .alignright {
     float: none;
+    margin-right: 0;
+    margin-left: 0;
   }
 }
 
-.media-link__figure {
-  width: 135px;
-  height: 135px;
-}

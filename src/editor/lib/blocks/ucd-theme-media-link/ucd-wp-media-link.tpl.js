@@ -2,6 +2,7 @@ import { html, css } from 'lit';
 
 import headingsStyles from "@ucd-lib/theme-sass/1_base_html/_headings.css.js";
 import mediaLinkStyles from "@ucd-lib/theme-sass/4_component/_wysiwyg-media-link.css";
+import aspectStyles from "@ucd-lib/theme-sass/6_utility/_u-aspect.css.js";
 
 export function styles() {
   const elementStyles = css`
@@ -20,14 +21,15 @@ export function styles() {
       opacity: .6;
     }
     .media-link__figure {
-      width: 135px;
-      height: 135px;
+      width: 20%;
+
     }
   `;
 
   return [
     headingsStyles,
     mediaLinkStyles,
+    aspectStyles,
     elementStyles
   ];
 }
@@ -36,10 +38,13 @@ export function render() {
 return html`
   <a class="media-link">
     ${ !this.hideImage ? html`
-      <div 
-        class="media-link__figure u-background-image"
-        style=${`background-image:url(${this.imgSrc})`}
-        ></div>
+      <div class="media-link__figure">
+        <div 
+          class="u-background-image aspect--1x1"
+          style=${`background-image:url(${this.imgSrc})`}
+          ></div>
+      </div>
+
     ` : html``}
     <div class="media-link__body">
       <h3 class="media-link__title">

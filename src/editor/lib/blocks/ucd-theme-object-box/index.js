@@ -18,6 +18,10 @@ const settings = {
     padding: {
       type: "string",
       default: ""
+    },
+    marginBottom: {
+      type: "string",
+      default: ''
     }
   },
   edit: Edit,
