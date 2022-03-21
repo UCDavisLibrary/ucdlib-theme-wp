@@ -25,6 +25,12 @@ kwargs:
     {% set caption = "" %}
   {% endif %}
 
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+  {% if attributes.permalink %}
+    {% set kwargs = kwargs|merge({'href': kwargs.permalink}) %}
+  {% endif %}
+  {% set href = kwargs.href ? "href='" ~ kwargs.href ~ "'" %}
+
   {% set width = "640" %}
   {% set height = "480" %}
   {% set aspectRatio = '4x3' %}
@@ -42,7 +48,10 @@ kwargs:
     <div 
       class="aspect--{{aspectRatio}} u-background-image"
       style="background-image:url({{src}}}"
-      role="img" aria-label="{{alt}}">
+      {{target}}
+      {{href}}
+      role="img"
+      aria-label="{{alt}}">
     </div>
     {% if kwargs.caption.show and caption %}
       <figcaption style="display:block;">{{caption}}</figcaption>

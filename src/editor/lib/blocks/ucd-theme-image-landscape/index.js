@@ -25,6 +25,18 @@ const settings = {
     caption: {
       type: 'object',
       default: {}
+    },
+    postId: {
+      type: 'number',
+      default: 0
+    },
+    taxId: {
+      type: 'number',
+      default: 0
+    },
+    newTab: {
+      type: 'boolean',
+      default: false
     }
   },
   edit: Edit,

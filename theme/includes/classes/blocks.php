@@ -63,7 +63,7 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/image-landscape" => array(
       "twig" => "@ucd/blocks/image-landscape.twig", 
-      "transform" => array("getImage")
+      "transform" => array("getImage", "getPermalink")
     ),
     "ucd-theme/marketing-highlight" => array(
       "twig" => "@ucd/blocks/marketing-highlight.twig",

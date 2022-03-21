@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { html, BlockSettings, SelectUtils } from "../../utils";
-import { ImagePicker } from "../../block-components";
+import { ImagePicker, ToolbarLinkPicker } from "../../block-components";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { ToolbarDropdownMenu } from '@wordpress/components';
 
@@ -38,6 +38,28 @@ export default ( props ) => {
     [`aspect--${attributes.aspectRatio}`]: true
   })
 
+  // set up link picker
+  const onHrefChange = (value) => {
+    let attrs = {
+      href: value.url,
+      newTab: value.opensInNewTab ? true : false,
+      postId: 0
+    }
+    if ( value.kind == 'post-type' ){
+      attrs.postId = value.id;
+    } else if ( value.kind == 'taxonomy' ) {
+      attrs.taxId = value.id 
+    }
+    setAttributes(attrs);
+  }
+  const hrefContent = (() => {
+    let value = {opensInNewTab: attributes.newTab, url: ""};
+    if ( attributes.href ) {
+      value.url = attributes.href;
+    } 
+    return value;
+  })();
+
   return html`
     <div ...${ blockProps }>
       <${BlockControls} group="block">
@@ -46,6 +68,7 @@ export default ( props ) => {
         label="Change Aspect Ratio"
         controls=${aspectRatioControls}
       />
+      <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
       </${BlockControls}>
       <${InspectorControls}>
         <${ImagePicker} 
