@@ -26,6 +26,16 @@ export default (coreBlock) => {
         currentValue = currentValue.filter(c => classValues.includes(c));
         currentValue = currentValue.length ? currentValue[0] : 'default';
 
+        let panelLabel = "Styles";
+        let selectLabel = "Alternative Styles";
+        let defaultLabel = 'Default';
+        if ( coreBlock.stylesLabels ) {
+          const labels = coreBlock.stylesLabels;
+          panelLabel = labels.panel ? labels.panel : panelLabel;
+          selectLabel = labels.select ? labels.select : selectLabel;
+          defaultLabel = labels.default ? labels.default : defaultLabel;
+        }
+
         const onChange = (v) => {
           let classes = attributes.className ? attributes.className.split(" ") : [];
           classes = classes.filter(c => !classValues.includes(c));
@@ -40,11 +50,11 @@ export default (coreBlock) => {
             <${BlockEdit} ...${props} />
             ${isSelected && (props.name == coreBlock.name) && html`
               <${InspectorControls}>
-                  <${PanelBody} title="Styles">
+                  <${PanelBody} title=${panelLabel}>
                     <${SelectControl}
-                      label="Alternative Styles"
+                      label=${selectLabel}
                       value=${currentValue}
-                      options=${[{value: 'default', label: "Default"}].concat(coreBlock.styles)}
+                      options=${[{value: 'default', label: defaultLabel}].concat(coreBlock.styles)}
                       onChange=${onChange}
                     >
                     </${SelectControl}>
