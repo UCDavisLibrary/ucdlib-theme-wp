@@ -52,8 +52,8 @@ kwargs:
 
 
   <a href="{{href}}" class="{{classes}}" {{target}}>
-    <div class="marketing-highlight__image aspect--4x3">
-      <img src="{{src}}" alt="{{alt}}" width="640" height="480" loading="lazy" />
+    <div class="marketing-highlight__image">
+      <div class="aspect--4x3 u-background-image" role='img' aria-label='{{alt}}' style="background-image:url({{src}});"></div>
       {% if kwargs.badge and not kwargs.hideBadge %}
         <h3 class="marketing-highlight__type"><span>{{kwargs.badge}}</span></h3>
       {% endif %}
@@ -171,9 +171,7 @@ kwargs:
   {% endif %}
 
   <a href="{{href}}" class="{{classes}}" {{target}}>
-    <div class="aspect--16x9">
-      <img src="{{src}}" alt="{{alt}}" width="1280" height="720" loading="lazy" />
-    </div>
+   <div class="aspect--16x9 u-background-image" role='img' aria-label='{{alt}}' style="background-image:url({{src}});"></div>
     <div class="vm-poster__body">
       <div class="vm-poster__body-text">
         <h2 class="vm-poster__title">{{title}}</h2>

@@ -91,8 +91,8 @@ kwargs:
 
 
   <a href="{{href}}" class="{{classes}}" {{target}}>
-    <div class="marketing-highlight-horizontal__image aspect--16x9">
-      <img src="{{src}}" alt="{{alt}}" width="640" height="480" loading="lazy" />
+    <div class="marketing-highlight-horizontal__image">
+      <div class="aspect--16x9 u-background-image" role='img' aria-label='{{alt}}' style="background-image:url({{src}});"></div>
     </div>
     {% if not kwargs.hideTitle %}
       <div class="marketing-highlight-horizontal__body">

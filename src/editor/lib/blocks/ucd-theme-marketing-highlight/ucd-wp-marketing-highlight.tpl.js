@@ -12,6 +12,11 @@ export function styles() {
     *, *:before, *:after {
       box-sizing: inherit;
     }
+    .u-background-image {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
     .marketing-highlight__image img {
       z-index: 1;
     }
@@ -46,8 +51,7 @@ export function render() {
 return html`
   <a class=${classMap(this._getBaseClasses())}>
     ${this.imgSrc ? html`
-      <div class="${this._prefix}__image aspect--4x3">
-        <img src=${this.imgSrc} alt=${this.imgAlt}>
+      <div class="${this._prefix}__image aspect--4x3 u-background-image" role="img" aria-label=${this.imgAlt} style=${`background-image:url(${this.imgSrc})`}>
         ${this.hideBadge ? html`` : html`
         <h3 class="${this._prefix}__type ${this.badge ? 'has-content': 'no-content'}">
           <slot 

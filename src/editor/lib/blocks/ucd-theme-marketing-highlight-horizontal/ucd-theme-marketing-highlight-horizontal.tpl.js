@@ -11,6 +11,11 @@ export function styles() {
     *, *:before, *:after {
       box-sizing: inherit;
     }
+    .u-background-image {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
     .show-placeholder:before {
       content: attr(placeholder);
       position: absolute;
@@ -29,8 +34,8 @@ export function styles() {
 export function render() { 
 return html`
   <a class="marketing-highlight-horizontal ${this.brandColor ? "category-brand--"+this.brandColor: ''}">
-    <div class="marketing-highlight-horizontal__image aspect--16x9">
-      <img src=${this.imgSrc} alt="16x9 Image" loading="lazy" />
+    <div class="marketing-highlight-horizontal__image">
+      <div class="u-background-image aspect--16x9" style=${`background-image:url(${this.imgSrc})`}></div>
     </div>
     ${!this.hideTitle ? html`
       <div class="marketing-highlight-horizontal__body">

@@ -20,6 +20,11 @@ export function styles() {
     .vm-poster__body-text {
       width: 100%;
     }
+    .u-background-image {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
     .show-placeholder:before {
       content: attr(placeholder);
       position: absolute;
@@ -40,8 +45,7 @@ export function styles() {
 export function render() { 
 return html`
   <a class=${classMap(this._getBaseClasses())}>
-    <div class="aspect--16x9">
-      <img src=${this.imgSrc} width="1280" height="720" loading="lazy" />
+    <div class="aspect--16x9 u-background-image" style=${`background-image:url(${this.imgSrc})`}>
     </div>
     <div class="${this._prefix}__body">
       <div class="${this._prefix}__body-text">

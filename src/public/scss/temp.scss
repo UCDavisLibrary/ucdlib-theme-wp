@@ -28,6 +28,22 @@ a.icon--circle-arrow-right::before {
   top: 0;
 }
 
+//marketing highlight
+.marketing-highlight:hover .marketing-highlight__image .u-background-image {
+  transform: scale(1.1);
+}
+.marketing-highlight__image .u-background-image {
+  transition: transform .3s ease-in-out;
+}
+
+// marketing highlight horizontal
+.marketing-highlight-horizontal:hover .u-background-image {
+  transform: scale(1.05);
+}
+.marketing-highlight-horizontal__image .u-background-image {
+  transition: transform .3s ease-in-out;
+}
+
 // hero banner
 .hero-banner__film {
   background: var(--category-brand, #fff);
