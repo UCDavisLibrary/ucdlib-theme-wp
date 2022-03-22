@@ -87,9 +87,10 @@ export default ( props ) => {
       p.href = post.link;
       p.title = decodeEntities(post.title.rendered);
       
-      let postExcerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
-      postExcerpt = decodeEntities(postExcerpt).replace(/(?:\r\n|\r|\n)/g, '');
-      p.excerpt = postExcerpt;
+      if ( post.excerpt ){
+        p.excerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
+        p.excerpt = decodeEntities(p.excerpt).replace(/(?:\r\n|\r|\n)/g, '');
+      }
 
       if ( post.image ) {
         p['img-src'] = post.image.source_url;

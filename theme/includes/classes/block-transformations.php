@@ -76,7 +76,7 @@ class UCDThemeBlockTransformations {
     $attrs['children'] = [];
     if ( !array_key_exists('post', $attrs) || !$attrs['post']) return $attrs;
     $childrenFromNav = $attrs['post']->primary_nav_children();
-    if ( count($childrenFromNav) ) {
+    if ( $childrenFromNav && count($childrenFromNav) ) {
       foreach ($childrenFromNav as $child) {
         if ( $child->type == 'post_type' ) {
           $attrs['children'][] = Timber::get_post($child->object_id );

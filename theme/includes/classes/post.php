@@ -104,12 +104,16 @@ class UcdThemePost extends Timber\Post {
         $this->primary_nav_children = $parent->children();
         return $this->primary_nav_children;
       }
-      foreach ($parent->get_items() as $child) {
+      $children = $parent->get_items();
+      if ( !$children ) continue;
+      foreach ($children as $child) {
         if ( UcdThemeMenu::menuItemIsPost( $child, $this->ID) ) {
           $this->primary_nav_children = $child->children();
           return $this->primary_nav_children;
         }
-        foreach ($child->get_items() as $grandchild) {
+        $grandchildren = $child->get_items();
+        if ( !$grandchildren ) continue;
+        foreach ($grandchildren as $grandchild) {
           if ( UcdThemeMenu::menuItemIsPost( $grandchild, $this->ID) ) {
             $this->primary_nav_children = $grandchild->children();
             return $this->primary_nav_children;
