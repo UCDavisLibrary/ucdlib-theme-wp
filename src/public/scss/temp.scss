@@ -132,3 +132,10 @@ a.icon-ucdlib {
 .u-white-space--break-spaces {
   white-space: break-spaces !important;
 }
+
+// space utility
+@media (max-width: 479px) {
+  .u-width--100-in-mobile {
+    width: 100% !important;
+  }
+}
