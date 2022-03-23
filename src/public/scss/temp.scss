@@ -133,6 +133,11 @@ a.icon-ucdlib {
   white-space: break-spaces !important;
 }
 
+// shrink class
+.l-shrink.l-shrink--60 {
+  width: 60%;
+}
+
 // space utility
 @media (max-width: 479px) {
   .u-width--100-in-mobile {

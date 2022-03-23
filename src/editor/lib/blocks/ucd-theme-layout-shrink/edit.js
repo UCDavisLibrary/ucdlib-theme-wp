@@ -1,15 +1,17 @@
 import classnames from 'classnames';
 
 import { html } from "../../utils";
-import { ToolbarButton } from '@wordpress/components';
+import { ToolbarButton, ToolbarDropdownMenu } from '@wordpress/components';
 import { useBlockProps,
   BlockControls,
   useInnerBlocksProps, 
 } from '@wordpress/block-editor';
 import { Fragment } from "@wordpress/element";
+import { fullscreen } from '@wordpress/icons';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
+  const width = attributes.width ? attributes.width : 75;
 
   const classes = classnames({
     "l-shrink": true,
@@ -19,8 +21,12 @@ export default ( props ) => {
 
   const blockProps = useBlockProps( {
     className: classes,
-    //style: {width: '100%'}
   } );
+
+  const shrinkControls = [
+    {title: '75%', onClick: () => setAttributes({width: 0}), isDisabled: width==75},
+    {title: '60%', onClick: () => setAttributes({width: 60}), isDisabled: width==60}
+  ];
 
   const innerBlocksProps = useInnerBlocksProps( blockProps, {
     templateLock: false,
@@ -29,8 +35,13 @@ export default ( props ) => {
   return html`
     <${Fragment}>
       <${BlockControls} group="block">
+      <${ToolbarDropdownMenu} 
+        icon=${html`<span>${width}%</span>`}
+        label="Set Shrink Percentage"
+        controls=${shrinkControls}
+      />
       <${ToolbarButton} 
-        icon=${html`<span>100%</span>`} 
+        icon=${fullscreen} 
         onClick=${ () => {setAttributes({'fullWidthOnMobile': !attributes.fullWidthOnMobile})}} 
         isPressed=${attributes.fullWidthOnMobile}
         label="Make full width on mobile"/>
