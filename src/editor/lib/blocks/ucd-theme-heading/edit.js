@@ -5,7 +5,8 @@ import { ToolbarDropdownMenu } from '@wordpress/components';
 export default ({ attributes, setAttributes }) => {
   const blockProps = useBlockProps();
   let classes = StyleUtils.extractStyleModifiers(blockProps.className)
-  classes = classes.split(" ").map(c => `heading--${c}`).join(" ");
+  classes = classes.split(" ").map(c => c ? `heading--${c}`: '').join(" ");
+  if ( !classes ) classes = 'heading--underline';
   if ( attributes.textAlign === 'center') {
     classes += " u-text-align--center";
   } else if( attributes.textAlign === 'right') {

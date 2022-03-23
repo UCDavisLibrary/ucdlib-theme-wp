@@ -28,7 +28,7 @@ export default class UcdWpButtonLink extends Mixin(LitElement)
     this.size = "";
     this.shape = "";
     this.display = "";
-    this.altStyle = "";
+    this.altStyle = "primary";
     this.textAlign = "left";
   }
 
@@ -37,10 +37,15 @@ export default class UcdWpButtonLink extends Mixin(LitElement)
     let classes = {};
     classes[base] = true;
 
-    const modifiers = [ this.size, this.shape, this.display, this.altStyle];
+    const modifiers = [ this.size, this.shape, this.display];
     modifiers.forEach((m) => {
       if ( m ) classes[`${base}--${m}`] = true;
     })
+
+    classes[`${base}--primary`] = !this.altStyle;
+    classes[`${base}--${this.altStyle}`] = this.altStyle;
+
+
 
     return classes;
   }
