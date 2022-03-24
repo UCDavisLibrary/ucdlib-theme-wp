@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Priority Links",
 	description: "Arrange a set of priorty links in a row",
-	icon: UCDIcons.render('link'), // TODO: CHANGE ICON
+	icon: UCDIcons.renderBlockIcon('priority-link-set'),
 	category: 'ucd-layout',
 	keywords: [ 'link', 'icon', 'color', 'row' ],
   supports: {

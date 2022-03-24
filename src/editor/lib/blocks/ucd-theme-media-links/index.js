@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Media Links",
 	description: "Simple listings that preview content on another webpage.",
-	icon: UCDIcons.render('listing'),
+	icon: UCDIcons.renderBlockIcon('media-link-list'),
 	category: 'ucd-fancy-lists',
 	keywords: [ 'teaser', 'news', 'post', 'page', "link", "list" ],
   supports: {

@@ -6,8 +6,8 @@ const name = 'ucd-theme/layout-shrink';
 const settings = {
   api_version: 2,
 	title: "Shrink and Center",
-	description: "Place content in a centered, decreased width container",
-	//icon: UCDIcons.renderBlockIcon('content-with-sidebar'),
+	description: "Place content in a centered, decreased-width container",
+	icon: UCDIcons.renderBlockIcon('shrink'),
 	category: 'ucd-layout',
 	keywords: [ "small", 'narrow', 'center', 'middle' ],
   supports: {

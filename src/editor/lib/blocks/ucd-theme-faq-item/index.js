@@ -9,7 +9,7 @@ const settings = {
   parent: [
     "ucd-theme/faq"],
 	description: "Add a question and answer to a faq section",
-	icon: UCDIcons.render('link'), // TODO: CHANGE ICON
+	icon: UCDIcons.renderBlockIcon('faq-individual'),
 	category: 'text',
 	keywords: [ 'question', 'answer', 'accordion', 'collapse', 'expand' ],
   supports: {

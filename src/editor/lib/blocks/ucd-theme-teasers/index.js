@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Teasers",
 	description: "Link to other pages on this site with a preview block",
-	icon: UCDIcons.render('listing'),
+	icon: UCDIcons.renderBlockIcon('teaser-list'),
 	category: 'ucd-fancy-lists',
 	keywords: [ 'teaser', 'news', 'post', 'page', "link", "list" ],
   supports: {

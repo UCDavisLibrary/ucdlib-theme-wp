@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Hero Banner",
 	description: "Preview content on another webpage with text overlayed on a background image",
-	icon: UCDIcons.render('link'),
+	icon: UCDIcons.renderBlockIcon('hero-banner'),
 	category: 'ucd-cards',
 	keywords: [ 'post', 'page', "link", 'banner', 'image', 'hero' ],
   supports: {

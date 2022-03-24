@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
   title: "Primary Subnav",
   description: "Displays an auto-generated subnav for current page from its location in the primary nav",
-  //icon: UCDIcons.render('link'), 
+  icon: UCDIcons.renderBlockIcon('subnav'),
   category: 'widgets',
   keywords: [ 'navigation', 'menu' ],
   supports: {

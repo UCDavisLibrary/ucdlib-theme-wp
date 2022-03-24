@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Category Filter",
 	description: "Display list of links to categories on this site",
-	icon: UCDIcons.render("taxonomy.categories"),
+	icon: UCDIcons.renderBlockIcon('category'),
 	category: 'widgets',
 	keywords: [ 'link', 'categories', 'category' ],
   supports: {
