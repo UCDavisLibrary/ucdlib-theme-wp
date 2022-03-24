@@ -36,7 +36,7 @@ const settings = {
     },
     icon: {
       type: 'string',
-      default: 'wp-editor:fa-link' // change to chevron when we got it, and in twig macro
+      default: 'ucd-public:fa-circle-chevron-right'
     },
     brandColor: {
       type: "string",

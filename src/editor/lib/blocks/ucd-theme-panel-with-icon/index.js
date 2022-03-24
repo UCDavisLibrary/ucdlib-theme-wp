@@ -17,7 +17,7 @@ const settings = {
   attributes: {
     icon: {
       type: "string",
-      default: "wp-editor:fa-star"
+      default: "ucd-public:fa-star"
     },
     href: {
       type: "string",

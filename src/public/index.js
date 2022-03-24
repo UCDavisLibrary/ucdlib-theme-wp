@@ -12,4 +12,6 @@ import '@ucd-lib/theme-elements/brand/ucd-theme-list-accordion/ucd-theme-list-ac
 import '@ucd-lib/theme-elements/brand/ucd-theme-brand-textbox/ucd-theme-brand-textbox';
 
 // TODO: move this to brand repo
-import "./lib/temp/wp-editor";
+//import "./lib/temp/wp-editor";
+import "@ucd-lib/theme-elements/ucdlib/ucdlib-iconset/ucdlib-iconset";
+import "@ucd-lib/theme-elements/ucdlib/ucdlib-icon/ucdlib-icon";

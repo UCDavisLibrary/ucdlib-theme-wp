@@ -16,6 +16,11 @@ class UCDThemeBlocks {
     $this->editor_script_slug = $editor_script_slug;
     $this->set_settings($settings);
 
+    $this->iconsUsed = [
+      'ucd-public:fa-star',
+      'ucd-public:fa-circle-chevron-right'
+    ];
+
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
     add_action( 'enqueue_block_editor_assets', array( $this, "enqueue_block_editor_assets" ), 5 );
     add_action( 'init', array( $this, 'register_blocks'));
@@ -360,6 +365,13 @@ class UCDThemeBlocks {
         $block_attributes = call_user_func("UCDThemeBlockTransformations::" . $transformation, $block_attributes);
       }
     }
+
+    // check for icons (so we can only load the svgs we actually use)
+    if ( 
+      array_key_exists('icon', $block_attributes) && 
+      !in_array($block_attributes['icon'], $this->iconsUsed)) {
+        $this->iconsUsed[] = $block_attributes['icon'];
+      }
 
     // Render twig
     ob_start();
