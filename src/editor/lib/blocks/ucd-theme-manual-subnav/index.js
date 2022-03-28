@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
   title: "Build Your Own Subnav",
   description: "Displays a sidebar navigation widget from links that you select.",
-  //icon: UCDIcons.render('link'), 
+  icon: UCDIcons.renderBlockIcon('subnav'),
   category: 'widgets',
   keywords: [ 'navigation', 'menu', 'nav' ],
   supports: {

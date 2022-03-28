@@ -40,6 +40,16 @@ export function styles() {
       margin-top: 0.5em;
       font-size: 10px;
     }
+    .search-container {
+      display: flex;
+      justify-content: center;
+    }
+    .search-container label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      text-align: center;
+    }
   `;
 
   return [elementStyles];
@@ -47,7 +57,16 @@ export function styles() {
 
 export function render() { 
 return html`
-  ${this._iconSets.map(iconSet => html`
+  <div class="search-container">
+    <div>
+      <label for="search">Search Icons</label>
+      <input 
+        .name="search"
+        @input=${this._onSearch}
+        .value=${this.searchTerm}>
+    </div>
+  </div>
+  ${this._displayedIcons.map(iconSet => html`
   <div class="iconset">
     <h2>${iconSet.title}</h2>
     <div class="icons">

@@ -1,2 +1,5 @@
 {% from getUcdMacro('text') import heading %}
+{% if not attributes.className %}
+    {% set attributes = attributes|merge({'className': 'underline'}) %}
+{% endif  %}
 {{ heading(attributes) }}

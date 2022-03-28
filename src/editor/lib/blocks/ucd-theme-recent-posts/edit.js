@@ -1,6 +1,6 @@
 import { html, BlockSettings, SelectUtils } from "../../utils";
-import { RangeControl } from '@wordpress/components';
-import { ToolbarSectionDisplay } from "../../block-components";
+import { AuthorPicker, TermPicker, DebouncedText, ToolbarSectionDisplay } from "../../block-components";
+import { RangeControl, PanelBody, Spinner } from '@wordpress/components';
 import "../ucd-theme-teaser/ucd-wp-teaser";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { decodeEntities } from "@wordpress/html-entities";
@@ -9,14 +9,50 @@ export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
 
+    // using block attributes, construct and do api query for posts
+    const queryParams = (() => {
+      const q = {
+        per_page: attributes.postCt
+      };
+      if ( attributes.author ) q.author = attributes.author;
+      if ( attributes.search ) q.search = attributes.search;
+      
+      for (const tax in attributes.terms) {
+        const v = attributes.terms[tax].join(",");
+        if ( !v ) continue;
+        if ( tax == 'category') {
+          q.categories = v;
+        } else if( tax == 'post_tag' ) {
+          q.tags = v;
+        } else {
+          q[tax] = v;
+        }
+      }
+      return q;
+    })();
+
   // retrieve needed wp data
   let posts = SelectUtils.posts(
-    {per_page: attributes.postCt}, 
-    'post'
+    queryParams,
+    'post',
     ['image', 'author', 'categories']
   );
   if ( !posts ) posts = [];
-  console.log(posts);
+
+  const { postTypesTaxonomiesMap } = SelectUtils.postTypes();
+  let taxonomies = []
+  if (  postTypesTaxonomiesMap ) {
+    taxonomies = postTypesTaxonomiesMap['post'];
+  }
+
+  // set up term picker
+  const onTermChange = ( v ) => {
+    const terms = {
+      ...attributes.terms, 
+      [ v.taxonomy ]: v.terms
+    };
+    setAttributes({terms})
+  }
 
   // set up section hider
   const onSectionToggle = (section) => {
@@ -84,14 +120,39 @@ export default ( props ) => {
         />
       </${BlockControls}>
       <${InspectorControls}>
-        <${RangeControl} 
-          label="Number of posts"
-          value=${attributes.postCt}
-          onChange=${(postCt) => setAttributes({postCt})}
-          min=${1}
-          max=${20}
+      <${PanelBody} title="Query Filters">
+        <${AuthorPicker} 
+          value=${attributes.author}
+          onChange=${(author) => setAttributes({author})}
         />
+        ${taxonomies.map(t => html`
+          <${TermPicker} 
+            key=${t} 
+            onChange=${onTermChange}
+            value=${attributes.terms[t]}
+            taxonomy=${t}/>
+        `)}
+        <${DebouncedText} 
+          label="Keyword"
+          value=${attributes.search}
+          onChange=${(search) => setAttributes({search})}
+        />
+        </${PanelBody}>
+
+        <${PanelBody} title="Display">
+          <${RangeControl} 
+            label="Number of posts"
+            value=${attributes.postCt}
+            onChange=${(postCt) => setAttributes({postCt})}
+            min=${1}
+            max=${20}
+          />
+        </${PanelBody}>
+
       </${InspectorControls}>
+      ${!posts.length && html`
+        <${Spinner} />
+      `}
       ${posts.map((p, i) => html`
         <ucd-wp-teaser ...${ teaserProps(p, i) }></ucd-wp-teaser>
       `)}

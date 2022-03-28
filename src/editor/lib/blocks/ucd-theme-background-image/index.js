@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Background Image",
 	description: "Add any content on top of a background image",
-	icon: UCDIcons.render('link'),
+	icon: UCDIcons.renderBlockIcon('background-image'),
 	category: 'media',
 	keywords: [ 'post', 'page', 'banner', 'image', 'hero' ],
   supports: {

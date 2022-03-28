@@ -66,7 +66,6 @@ export default class SelectUtils {
     return useSelect( (select) => {
       let posts = select('core').getEntityRecords('postType', postType, query);
       if (!posts) posts = [];
-
       if ( extra_fields.length ){
         posts = posts.map(p => {
           if ( extra_fields.includes('image') ){

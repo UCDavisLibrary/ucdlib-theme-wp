@@ -143,7 +143,7 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/recent-posts" => array(
       "twig" => "@ucd/blocks/recent-posts.twig",
-      "transform" => array("getRecentPosts")
+      "transform" => array("getPosts")
     ),
     "ucd-theme/sils-search-redirect" => array("twig" => "@ucd/blocks/sils-search-redirect.twig"),
     "ucd-theme/spacer" => array("twig" => "@ucd/blocks/spacer.twig"),
@@ -195,7 +195,6 @@ class UCDThemeBlocks {
     "core/column",
     "core/cover",
     "core/gallery",
-    "core/group",
     "core/latest-comments",
     "core/latest-posts",
     "core/loginout",

@@ -19,6 +19,18 @@ const settings = {
       type: "number",
       default: 5
     },
+    author: {
+      type: 'string',
+      default: ''
+    },
+    terms: {
+      type: 'object',
+      default: {}
+    },
+    search: {
+      type: 'string',
+      default: ''
+    },
     hideImage: {
       type: "boolean",
       default: false
