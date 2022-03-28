@@ -1,6 +1,6 @@
 import { html } from "../../utils";
 import { useBlockProps, BlockControls, InnerBlocks } from '@wordpress/block-editor';
-import { ToolbarColorPicker } from "../../block-components";
+import { ToolbarColorPicker, ToolbarFloat } from "../../block-components";
 import { ToolbarButton } from '@wordpress/components';
 
 
@@ -33,6 +33,10 @@ export default ( props ) => {
           onClick=${ () => {setAttributes({'collapsible': !attributes.collapsible})}} 
           isPressed=${attributes.collapsible}
           label="Make textbox collapsible"/>
+      <${ToolbarFloat} 
+        value=${attributes.float}
+        onChange=${(v) => setAttributes({float: v.slug})}
+      />
     </${BlockControls}>
     <ucd-theme-brand-textbox ...${ mainEleProps() }>
       <${InnerBlocks} />

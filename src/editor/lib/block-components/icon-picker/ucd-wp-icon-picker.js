@@ -74,14 +74,14 @@ export default class UcdWpIconPicker extends LitElement {
       this._displayedIcons = this._iconSets ? this._iconSets : [];
       return;
     }
-    const terms = this.searchTerm.split(" ").map(x => x.toLowerCase());
+    const terms = this.searchTerm.trim().split(" ").map(x => x.toLowerCase());
     const _displayedIcons = [];
     this._iconSets.forEach(s => {
       let icons = [];
       
       s.icons.forEach(i => {
         const match = terms.filter(x => i.includes(x));
-        if ( match.length ) {
+        if ( match.length == terms.length ) {
           icons.push(i);
         }
       })

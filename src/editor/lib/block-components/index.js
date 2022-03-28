@@ -6,6 +6,7 @@ import OrderPicker from "./order-picker";
 import TermPicker from "./term-picker";
 import ToolbarLinkPicker from "./toolbar-link-picker";
 import ToolbarColorPicker from "./toolbar-color-picker";
+import ToolbarFloat from "./toolbar-float";
 import ToolbarPostReset from "./toolbar-post-reset";
 import ToolbarSectionDisplay from "./toolbar-section-display";
 import ToolbarSizePicker from "./toolbar-size-picker";
@@ -20,6 +21,7 @@ export {
   OrderPicker,
   TermPicker,
   ToolbarColorPicker,
+  ToolbarFloat,
   ToolbarSectionDisplay,
   ToolbarSizePicker,
   ToolbarPaddingPicker,
