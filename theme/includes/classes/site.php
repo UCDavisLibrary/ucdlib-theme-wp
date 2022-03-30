@@ -210,7 +210,7 @@ class UcdThemeSite extends Timber\Site {
         }
         if ( !$link ) return $out;
 
-        $link = preg_replace( '/page\/[0-9]\//', '', $link );
+        $link = preg_replace( '/page\/\d+\//', '', $link );
         $link = parse_url($link);
         if ( array_key_exists('path', $link) ) $out['path'] = $link['path'];
         if ( array_key_exists('query', $link) ) $out['query'] = $link['query'];
