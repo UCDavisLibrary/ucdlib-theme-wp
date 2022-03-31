@@ -44,20 +44,30 @@ kwargs:
     {% set caption = kwargs.caption.customText %}
   {% endif %}
 
-  <figure style="display:block;">
-    <div 
-      class="aspect--{{aspectRatio}} u-background-image"
-      style="background-image:url({{src}}}"
-      {{target}}
-      {{href}}
-      role="img"
-      aria-label="{{alt}}">
-    </div>
-    {% if kwargs.caption.show and caption %}
-      <figcaption style="display:block;">{{caption}}</figcaption>
-    {% endif %}
-    
-  </figure>
+  {% set classes = "" %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " u-space-mb" %}
+  {% endif %}
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
+
+  <div class="{{classes}}">
+    <figure style="display:block;">
+      <div 
+        class="aspect--{{aspectRatio}} u-background-image"
+        style="background-image:url({{src}}}"
+        {{target}}
+        {{href}}
+        role="img"
+        aria-label="{{alt}}">
+      </div>
+      {% if kwargs.caption.show and caption %}
+        <figcaption style="display:block;">{{caption}}</figcaption>
+      {% endif %}
+      
+    </figure>
+  </div>
 
   {# 
   <div class="aspect--{{kwargs.aspectRatio}}">

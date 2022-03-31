@@ -43,6 +43,9 @@ a.icon--circle-arrow-right::before {
 .marketing-highlight-horizontal__image .u-background-image {
   transition: transform .3s ease-in-out;
 }
+.marketing-highlight-horizontal {
+  display: block;
+}
 
 // hero banner
 .hero-banner__film {

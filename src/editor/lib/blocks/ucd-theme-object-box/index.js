@@ -21,7 +21,7 @@ const settings = {
     },
     marginBottom: {
       type: "string",
-      default: ''
+      default: 'default'
     }
   },
   edit: Edit,

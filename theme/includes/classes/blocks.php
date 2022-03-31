@@ -47,7 +47,8 @@ class UCDThemeBlocks {
       "transform" => array("getCategories")
     ),
     "ucd-theme/faq" => array(
-      "twig" => "@ucd/blocks/faq.twig"
+      "twig" => "@ucd/blocks/faq.twig",
+      "transform" => array("addSpacing")
     ),
     "ucd-theme/faq-item" => array(
       "twig" => "@ucd/blocks/faq-item.twig"
@@ -63,23 +64,23 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/hero-banner" => array(
       "twig" => "@ucd/blocks/hero-banner.twig",
-      "transform" => array("getPost"),
+      "transform" => array("getPost", 'addSpacing'),
       "hasBrandColors" => true
     ),
     "ucd-theme/image-landscape" => array(
       "twig" => "@ucd/blocks/image-landscape.twig", 
-      "transform" => array("getImage", "getPermalink")
+      "transform" => array("getImage", "getPermalink", 'addSpacing')
     ),
     "ucd-theme/marketing-highlight" => array(
       "twig" => "@ucd/blocks/marketing-highlight.twig",
       "img" => "640x480.png",
-      "transform" => array("getPost"),
+      "transform" => array("getPost", "addSpacing"),
       "hasBrandColors" => true
     ),
     "ucd-theme/marketing-highlight-horizontal" => array(
       "twig" => "@ucd/blocks/marketing-highlight-horizontal.twig",
       "img" => "1280x720.png",
-      "transform" => array("getPost"),
+      "transform" => array("getPost", "addSpacing"),
       "hasBrandColors" => true
     ),
     "ucd-theme/media-link" => array(
@@ -90,12 +91,13 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/media-links" => array(
       "twig" => "@ucd/blocks/media-links.twig",
+      "transform" => array("addSpacing"),
       "provides_context" => array('media-links/hideImage' => 'hideImage')
     ),
     "ucd-theme/poster" => array(
       "twig" => "@ucd/blocks/poster.twig",
       "img" => "1280x720.png",
-      "transform" => array("getPost"),
+      "transform" => array("getPost", "addSpacing"),
       "hasBrandColors" => true
     ),
     "ucd-theme/poster-list" => array("twig" => "@ucd/blocks/poster-list.twig"),
@@ -106,7 +108,7 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/primary-subnav" => array(
       "twig" => "@ucd/blocks/primary-subnav.twig",
-      "transform" => array("getCurrentPost"),
+      "transform" => array("getCurrentPost", 'addSpacing'),
     ),
     "ucd-theme/priority-link" => array(
       "twig" => "@ucd/blocks/priority-link.twig",
@@ -119,7 +121,7 @@ class UCDThemeBlocks {
     "ucd-theme/priority-links" => array("twig" => "@ucd/blocks/priority-links.twig"),
     "ucd-theme/lander-nav" => array(
       "twig" => "@ucd/blocks/lander-nav.twig", 
-      "transform" => array("getCurrentPost", "getNavOrPageChildren")
+      "transform" => array("getCurrentPost", "getNavOrPageChildren", "addSpacing")
     ),
     "ucd-theme/layout-basic" => array("twig" => "@ucd/blocks/layout-basic.twig"),
     "ucd-theme/column" => array("twig" => "@ucd/blocks/layout-column.twig"),
@@ -129,7 +131,7 @@ class UCDThemeBlocks {
     "ucd-theme/layout-quad" => array("twig" => "@ucd/blocks/layout-quad.twig"),
     "ucd-theme/manual-subnav" => array(
       "twig" => "@ucd/blocks/manual-subnav.twig",
-      "transform" => array('getNavPermalinks')
+      "transform" => array('getNavPermalinks', 'addSpacing')
     ),
     "ucd-theme/object-box" => array("twig" => "@ucd/blocks/object-box.twig"),
     "ucd-theme/panel-with-icon" => array(
@@ -139,11 +141,11 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/query" => array(
       "twig" => "@ucd/blocks/query.twig",
-      "transform" => array("getPosts")
+      "transform" => array("getPosts", 'addSpacing')
     ),
     "ucd-theme/recent-posts" => array(
       "twig" => "@ucd/blocks/recent-posts.twig",
-      "transform" => array("getPosts")
+      "transform" => array("getPosts", 'addSpacing')
     ),
     "ucd-theme/sils-search-redirect" => array("twig" => "@ucd/blocks/sils-search-redirect.twig"),
     "ucd-theme/spacer" => array("twig" => "@ucd/blocks/spacer.twig"),
@@ -161,6 +163,7 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/teasers" => array(
       "twig" => "@ucd/blocks/teasers.twig",
+      "transform" => array('addSpacing'),
       "provides_context" => array(
         'teasers/hideImage' => 'hideImage',
         'teasers/hideByline' => 'hideByline',

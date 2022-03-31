@@ -1,4 +1,13 @@
 {% from getUcdMacro('lists') import teaser %}
+{% set classes = "teasers" %}
+{% if attributes.panel %}
+  {% set classes = classes ~ " u-space-mb" %}
+{% endif %}
+{% if attributes.oBox %}
+  {% set classes = classes ~ " o-box" %}
+{% endif %}
+<section class='{{classes}}'>
 {% for post in attributes.posts %}
   {{ teaser( attributes|merge({post})) }}
 {% endfor %}
+</section>

@@ -4,7 +4,7 @@
 {% endif %}
 {% if attributes.marginBottom and attributes.marginBottom != 'default' %}
     {% set classes = classes|merge(["u-space-mb--"~attributes.marginBottom]) %}
-{% elseif attributes.marginBottom %}
+{% else %}
     {% set classes = classes|merge(["u-space-mb"]) %}
 {% endif %}
 

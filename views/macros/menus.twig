@@ -87,7 +87,15 @@ kwargs:
     {% set items = kwargs %}
   {% endif %}
 
-  <ucd-theme-subnav nav-title="{{title}}" title-href="{{link}}">
+{% set classes = "" %}
+{% if kwargs.panel %}
+  {% set classes = classes ~ " panel" %}
+{% endif %}
+{% if kwargs.oBox %}
+  {% set classes = classes ~ " o-box" %}
+{% endif %}
+
+  <ucd-theme-subnav class="{{classes}}" nav-title="{{title}}" title-href="{{link}}">
     {{ _self._wp_menu_to_ucd_menu(items) }}
   </ucd-theme-subnav>
 

@@ -1,6 +1,13 @@
 {% from getUcdMacro('menus') import _wp_menu_to_ucd_menu %}
+{% set classes = "" %}
+{% if attributes.panel %}
+  {% set classes = classes ~ " panel" %}
+{% endif %}
+{% if attributes.oBox %}
+  {% set classes = classes ~ " o-box" %}
+{% endif %}
 <ucd-theme-subnav 
-  {{attributes.showTitle ? "nav-title='"~attributes.titleLabel~"' title-href='"~attributes.titleLink.url~"'" : ''}}>
+  class="{{classes}}" {{attributes.showTitle ? "nav-title='"~attributes.titleLabel~"' title-href='"~attributes.titleLink.url~"'" : ''}}>
   {% if attributes.links %}
     {{_wp_menu_to_ucd_menu(attributes.links)}}
   {% endif %}

@@ -126,6 +126,15 @@ class UCDThemeBlockTransformations {
   }
 
   /**
+   * Adds padding (o-box) and bottom margin (panel) to block.
+   */
+  public static function addSpacing( $attrs=array() ){
+    if ( !array_key_exists('panel', $attrs) ) $attrs['panel'] = true;
+    if ( !array_key_exists('oBox', $attrs) ) $attrs['oBox'] = true;
+    return $attrs;
+  }
+
+  /**
    * Retrieve permalink of postId or taxId attribute and saves in permalink attribute
    */
   public static function getPermalink($attrs=array()){

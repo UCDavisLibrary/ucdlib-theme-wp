@@ -49,6 +49,12 @@ kwargs:
   {% if kwargs.brandColor %}
     {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
   {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " u-space-mb" %}
+  {% endif %}
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
 
 
   <a href="{{href}}" class="{{classes}}" {{target}}>
@@ -114,6 +120,12 @@ kwargs:
   {% if kwargs.alignment %}
     {% set classes = classes ~ " hero-banner--align-" ~ kwargs.alignment %}
   {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " panel" %}
+  {% endif %}
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
 
   <section class="{{classes}}">
     <div class="hero-banner__image u-background-image" style={{src ? "background-image:url("~src~")": ''}}></div>
@@ -168,6 +180,12 @@ kwargs:
   {% set classes = 'vm-poster' %}
   {% if kwargs.brandColor %}
     {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
+  {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " panel" %}
+  {% endif %}
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
   {% endif %}
 
   <a href="{{href}}" class="{{classes}}" {{target}}>

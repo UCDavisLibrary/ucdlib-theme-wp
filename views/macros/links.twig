@@ -88,6 +88,12 @@ kwargs:
   {% if kwargs.brandColor %}
     {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
   {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " panel" %}
+  {% endif %}
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
 
 
   <a href="{{href}}" class="{{classes}}" {{target}}>
