@@ -13,7 +13,7 @@ export function styles() {
       cursor: pointer;
     }
     ucdlib-icon {
-      height: 70%;
+      height: 50%;
     }
     .show-placeholder:before {
       content: attr(placeholder);
