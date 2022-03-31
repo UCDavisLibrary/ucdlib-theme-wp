@@ -37,7 +37,7 @@ function Columns( {
     const modMap = {left: "", right: "flipped", "both-sides": "3col"};
     if ( attr === 'hasSecondSidebar' ) {
       if ( !value && attributes.sideBarLocation == "both-sides") {
-        attrs.sideBarLocation = "left";
+        attrs.sideBarLocation = "right";
       }
       attrs.hasSecondSidebar = value;
       toggleSecondSidebar(value);

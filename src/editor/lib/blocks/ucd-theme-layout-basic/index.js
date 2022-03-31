@@ -22,11 +22,11 @@ const settings = {
     },
     sideBarLocation: {
       type: "string",
-      default: "left"
+      default: "right"
     },
     modifier: {
       type: "string",
-      default: ""
+      default: "flipped"
     },
     anchor: {
       type: "string",
