@@ -66,16 +66,15 @@ figure.table--bordered table {
   margin-left: 2rem;
 }
 
-@media (max-width: 479px) {
-  .wp-block-image .alignleft {
-    float: none;
-    margin-right: 0;
-    margin-left: 0;
-  }
-  .wp-block-image .alignright {
-    float: none;
-    margin-right: 0;
-    margin-left: 0;
+$sizes: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100;
+@each $size in $sizes {
+  .wp-block-image.pct-width--#{$size} {
+    figure {
+      width: #{$size + '%'};
+      img {
+        width: 100%;
+      }
+    }
   }
 }
 
