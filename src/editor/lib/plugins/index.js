@@ -1,2 +1,3 @@
 import postSettings from "./ucd-post-settings";
-export default [ postSettings ];
+import breadcrumbs from "./ucd-breadcrumbs";
+export default [ postSettings, breadcrumbs ];

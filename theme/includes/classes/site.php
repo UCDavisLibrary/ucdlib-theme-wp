@@ -1,4 +1,5 @@
 <?php
+require_once( __DIR__ . '/api.php' );
 require_once( __DIR__ . '/views.php' );
 require_once( __DIR__ . '/meta-data.php' );
 require_once( __DIR__ . '/customizer.php' );
@@ -54,6 +55,9 @@ class UcdThemeSite extends Timber\Site {
       if (!$customColors || !is_array($customColors) || !count($customColors) ) continue;
       $this->blockSettings['color--' . $shortSlug] = $customColors;
     }
+
+    // Register custom API endpoints
+    $this->api = new UCDThemeAPI('ucd');
 
     // Register view paths with theme
     $this->views = new UCDThemeViews();

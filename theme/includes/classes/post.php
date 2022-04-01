@@ -73,14 +73,15 @@ class UcdThemePost extends Timber\Post {
         array_splice( $breadcrumbs, 1, 0, array_slice($in_nav, 0, -1) );
       // check if an ancestor is in primary nav
       } elseif ( !count($in_nav) && count($ancestors) ){
+        $ancestors_not_in_nav = [];
         foreach ($ancestors as $i => $ancestor) {
           $in_nav = UcdThemeMenu::getDirectHierarchyinMenu( $primary_nav, $ancestor->id );
           if ( count($in_nav) ){
             array_splice( $breadcrumbs, 1, 0, $in_nav );
             break;
           }
+          $ancestors_not_in_nav[] = $ancestor;
         }
-        $ancestors_not_in_nav = array_slice($ancestors, 0, $i);
         foreach (array_reverse($ancestors_not_in_nav) as $ancestor ) {
           array_splice($breadcrumbs, -1, 0, [['link' => $ancestor->link(), 'title' => $ancestor->title()]]);
         }

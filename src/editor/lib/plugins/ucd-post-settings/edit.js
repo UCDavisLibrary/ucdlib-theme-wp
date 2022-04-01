@@ -61,12 +61,6 @@ export default () => {
       `}
       ${isPage && html`
         <${ToggleControl} 
-          label="Hide Breadcrumbs"
-          checked=${meta.ucd_hide_breadcrumbs}
-          onChange="${ucd_hide_breadcrumbs => {editPost({meta: {ucd_hide_breadcrumbs}})}}" />
-      `}
-      ${isPage && html`
-        <${ToggleControl} 
           label="Show Hero Image"
           checked=${meta.ucd_show_hero}
           onChange="${ucd_show_hero => {editPost({meta: {ucd_show_hero}})}}" />
