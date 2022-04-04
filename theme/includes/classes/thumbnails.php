@@ -9,7 +9,7 @@ require_once( __DIR__ . '/views.php' );
 class UcdThemeThumbnails {
   public function __construct() {
     add_action( 'admin_init', array($this, 'modify_native_wp_sizes') );
-    add_action( 'after_setup_theme', array($this, 'add_custom_sizes') );
+    //add_action( 'after_setup_theme', array($this, 'add_custom_sizes') );
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
   }
 
@@ -29,16 +29,15 @@ class UcdThemeThumbnails {
     update_option('thumbnail_size_h', 135);
     update_option('thumbnail_crop', 1);
 
-    // Default featured image is the banner on a page.
-    // Two sizes, for large and small screens
-    // http://dev.webstyleguide.ucdavis.edu/redesign/?p=atoms-title-banner
+
     update_option('large_size_w', 2000);
-    update_option('large_size_h', 460);
-    update_option('large_crop', 1);
+    update_option('large_size_h', 9999);
+    update_option('large_crop', 0);
 
     update_option('medium_size_w', 1000);
-    update_option('medium_size_h', 230);
-    update_option('large_crop', 1);
+    update_option('medium_size_h', 9999);
+    update_option('medium_crop', 0);
+
   }
 
   /**
