@@ -99,6 +99,12 @@ class UCDThemeMetaData {
       'type' => 'string',
       'default' => ''
     ) );
+    register_post_meta( '', 'ucd_nav_parent', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'number',
+      'default' => 0
+    ) );
   }
 
   function add_user_meta($user){

@@ -79,6 +79,7 @@ class UCDThemeAPI {
     $out = [
       "title" => $item->title(),
       "link" => $item->link(),
+      "id" => $item->id,
       'isExternal' => $item->is_external(),
       "children" => [],
     ];
