@@ -37,7 +37,10 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/background-image.twig",
       "transform" => array("getImage")
     ),
-    "ucd-theme/brand-textbox" => array("twig" => "@ucd/blocks/brand-textbox.twig"),
+    "ucd-theme/brand-textbox" => array(
+      "twig" => "@ucd/blocks/brand-textbox.twig",
+      "hasBrandColors" => true
+    ),
     "ucd-theme/button-link" => array(
       "twig" => "@ucd/blocks/button-link.twig", 
       "transform" => array("removeStylePrefix", 'getPermalink')

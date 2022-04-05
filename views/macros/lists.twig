@@ -20,14 +20,14 @@ kwargs:
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
 
   {% if kwargs.image %}
-    {% set src = kwargs.image.src %}
+    {% set src = kwargs.image.src('thumbnail') %}
     {% set alt = kwargs.image.alt %}
   {% elseif kwargs.imageId %}
     {% set i = get_post(kwargs.imageId) %}
-    {% set src = i.src %}
+    {% set src = i.src('thumbnail') %}
     {% set alt = i.alt %}
   {% elseif kwargs.post.thumbnail %}
-    {% set src = kwargs.post.thumbnail.src %}
+    {% set src = kwargs.post.thumbnail.src('thumbnail') %}
     {% set alt = kwargs.post.thumbnail.alt %}
   {% else %}
     {% set src = DefaultImage('media-link') %}
@@ -74,14 +74,14 @@ kwargs:
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
 
   {% if kwargs.image %}
-    {% set src = kwargs.image.src %}
+    {% set src = kwargs.image.src('thumbnail') %}
     {% set alt = kwargs.image.alt %}
   {% elseif kwargs.imageId %}
     {% set i = get_post(kwargs.imageId) %}
-    {% set src = i.src %}
+    {% set src = i.src('thumbnail') %}
     {% set alt = i.alt %}
   {% elseif kwargs.post.thumbnail %}
-    {% set src = kwargs.post.thumbnail.src %}
+    {% set src = kwargs.post.thumbnail.src('thumbnail') %}
     {% set alt = kwargs.post.thumbnail.alt %}
   {% else %}
     {% set src = DefaultImage('teaser') %}
@@ -98,7 +98,7 @@ kwargs:
     {% if kwargs.post.featured %}
       {% set classes = classes ~ " vm-teaser--featured" %}
       {% if kwargs.post.brand_color %}
-        {% set classes = classes ~ " " ~ kwargs.post.brand_color %}
+        {% set classes = classes ~ " " ~ "category-brand--" ~ kwargs.post.brand_color %}
       {% endif %}
     {% endif %}
   {% endif %}

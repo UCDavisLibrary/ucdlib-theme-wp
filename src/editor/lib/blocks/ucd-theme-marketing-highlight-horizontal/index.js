@@ -28,7 +28,7 @@ const settings = {
     },
     brandColor: {
       type: "string",
-      default: ""
+      default: "secondary"
     },
     newTab: {
       type: "boolean",

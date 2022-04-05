@@ -36,7 +36,7 @@ const settings = {
     },
     brandColor: {
       type: "string",
-      default: ""
+      default: "secondary"
     },
     title: {
       type: "string",
