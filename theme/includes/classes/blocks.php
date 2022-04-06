@@ -26,6 +26,7 @@ class UCDThemeBlocks {
     add_action( 'init', array( $this, 'register_blocks'));
     add_action('block_categories_all', array($this, 'addCategories'), 10,2);
     add_filter( 'render_block', array($this, 'modifyCoreBlock'), 10, 2 );
+    add_action( 'init', array($this, 'setPageBlockTemplate'), 100);
   }
 
   /**
@@ -391,6 +392,22 @@ class UCDThemeBlocks {
     $editorBundleSlug = $this->editor_script_slug; 
     $editorBundleSlug = apply_filters( 'ucd-theme/assets/editor-settings-slug', $editorBundleSlug );
     wp_add_inline_script($editorBundleSlug, "window.UCDBlockSettings=" . json_encode($this->settings) , 'before');
+  }
+
+  /**
+   * Sets the default block template loaded when a new page is created
+   */
+  public function setPageBlockTemplate(){
+    if ( !get_theme_mod('layout_page_template') ) return;
+    $page_type_object = get_post_type_object( 'page' );
+    $template = [
+      ['ucd-theme/layout-basic', ['sideBarLocation' => 'right', 'modifier' => 'flipped'], [
+        ['ucd-theme/column', ['layoutClass' => 'l-content', 'forbidWidthEdit' => true], [['core/paragraph']]],
+        ['ucd-theme/column', ['layoutClass' => 'l-sidebar-first', 'forbidWidthEdit' => true], [['ucd-theme/primary-subnav']]]
+      ]]
+    ];
+    $template = apply_filters( 'ucd-theme/block-template/page', $template );
+    $page_type_object->template = $template;
   }
 
   /**

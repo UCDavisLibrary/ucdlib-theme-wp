@@ -60,7 +60,7 @@ class UCDThemeMetaData {
     register_post_meta( 'page', 'ucd_hide_sidebar', array(
       'show_in_rest' => true,
       'single' => true,
-      'default' => false,
+      'default' => get_theme_mod('layout_page_sidebar_default') ? true : false,
       'type' => 'boolean',
     ) );
     register_post_meta( 'page', 'ucd_full_width', array(
