@@ -9,6 +9,7 @@ class UCDThemeAPI {
     $this->menuSlug = 'menu';
 
     add_action( 'rest_api_init', array($this, 'register_menu_endpoint') );
+    add_action( 'rest_api_init', array($this, 'register_subnav_endpoint') );
   }
 
   /**
@@ -21,6 +22,27 @@ class UCDThemeAPI {
       'callback' => array($this, 'epcb_nav'),
       'permission_callback' => function (){return true;}
     ) );
+  }
+
+  /**
+   * Retrieve the subnav links (the primary nav item to which it belongs) for a given page
+   */
+  public function register_subnav_endpoint(){
+    register_rest_route($this->slug, "subnav/(?P<id>\d+)", array(
+      'methods' => 'GET',
+      'callback' => array($this, 'epcb_subnav'),
+      'permission_callback' => function (){return true;}
+    ) );
+  }
+
+  public function epcb_subnav( $request ){
+    $post = Timber::get_post( $request['id'] );
+    if ( !$post ) {
+      return new WP_Error( 'rest_not_found', 'Post does not exist', array( 'status' => 404 ) );
+    }
+    $menu = $post->primay_nav_item();
+    if ( !$menu ) return new WP_Error( 'rest_not_found', 'Post does not have subnav', array( 'status' => 404 ) );
+    return rest_ensure_response($this->menuToArray($menu));
   }
 
   public function epcb_nav( $request ){
@@ -57,7 +79,8 @@ class UCDThemeAPI {
    */
   private function menuToArray( $menu ){
     $out = [];
-    foreach ($menu->items as $_link) {
+    $items = $menu->items ? $menu->items : [$menu];
+    foreach ($items as $_link) {
       $link = $this->baseMenuItem($_link);
       foreach ($_link->children as $_child) {
         $child = $this->baseMenuItem($_child);

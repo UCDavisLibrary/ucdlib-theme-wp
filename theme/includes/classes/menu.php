@@ -135,7 +135,6 @@ class UcdThemeMenu {
         }
       }
     }
-
     return $out;
   }
 
@@ -146,7 +145,9 @@ class UcdThemeMenu {
   private static function getMenuItemBasics( $menu_item ){
     return [
       'link' => $menu_item->link(),
-      'title' => $menu_item->title()
+      'title' => $menu_item->title(),
+      'id' => $menu_item->id,
+      'object_id' => $menu_item->object_id
     ];
   }
 

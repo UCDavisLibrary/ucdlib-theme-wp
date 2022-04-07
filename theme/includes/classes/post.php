@@ -53,8 +53,8 @@ class UcdThemePost extends Timber\Post {
     if ( ! empty( $this->breadcrumbs) ) return $this->breadcrumbs;
     $primary_nav = Timber::get_menu( 'primary' );
     $breadcrumbs = [
-      ['link' => '/', 'title' => 'Home'],
-      ['link' => $this->link(), 'title' => $this->title()]
+      ['link' => '/', 'title' => 'Home', 'object_id' => get_option('page_on_front')],
+      ['link' => $this->link(), 'title' => $this->title(), 'object_id' => $this->id]
     ];
     $ancestors = $this->ancestors();
 
@@ -63,7 +63,9 @@ class UcdThemePost extends Timber\Post {
       $page_for_posts_id = get_option('page_for_posts');
       if ( $page_for_posts_id ) {
         $page_for_posts = Timber::get_post( $page_for_posts_id );
-        array_splice( $breadcrumbs, 1, 0, [['link' => $page_for_posts->link(), 'title' => $page_for_posts->title()]] );
+        array_splice( $breadcrumbs, 1, 0, [['link' => $page_for_posts->link(), 'title' => $page_for_posts->title(), 'object_id' => $page_for_posts_id]] );
+        $this->breadcrumbs = $breadcrumbs;
+        return $this->breadcrumbs;
       }
     }
       
@@ -74,7 +76,7 @@ class UcdThemePost extends Timber\Post {
     }
       
     $customParent = get_post_meta($this->ID, 'ucd_nav_parent', true);
-    $in_nav = UcdThemeMenu::getDirectHierarchyinMenu( $primary_nav );
+    $in_nav = UcdThemeMenu::getDirectHierarchyinMenu( $primary_nav, $this->id );
     
     // user manually selected the breadcrumb parent
     if ( $customParent ) {
@@ -181,13 +183,11 @@ class UcdThemePost extends Timber\Post {
 
     $breadcrumbs = $this->breadcrumbs();
 
-    if ( count($breadcrumbs) > 1 ){
+    if ( count($breadcrumbs) > 1 && array_key_exists('object_id', $breadcrumbs[1]) ){
       $primary_nav = Timber::get_menu( 'primary' );
       if ( $primary_nav ) {
         foreach ($primary_nav->get_items() as $item) {
-          if ( 
-            $breadcrumbs[1]['link'] == $item->link() && 
-            $breadcrumbs[1]['title'] == $item->title()) {
+          if ( $breadcrumbs[1]['object_id'] == $item->object_id) {
             $this->primay_nav_item = $item;
             return $this->primay_nav_item;
           }

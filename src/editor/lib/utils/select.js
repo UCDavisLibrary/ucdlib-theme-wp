@@ -48,6 +48,18 @@ export default class SelectUtils {
     } , [userId]);
   }
 
+  static currentPost() {
+    return useSelect( ( select ) => {
+      return select( 'core/editor' ).getCurrentPost();
+    }, [] );
+  }
+
+  static editedPostAttribute(attr) {
+    return useSelect( ( select ) => {
+      return select( 'core/editor' ).getEditedPostAttribute(attr);
+    }, [attr] );
+  }
+
   static meta() {
     return useSelect( (select) => {
       const meta = select('core/editor').getEditedPostAttribute('meta');
