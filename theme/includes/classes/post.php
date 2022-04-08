@@ -199,6 +199,18 @@ class UcdThemePost extends Timber\Post {
     return $this->primay_nav_item;
   }
 
+  // temporarily override default Timber excerpt method due to this bug:
+  // https://github.com/timber/timber/issues/2041
+  // delete when sorted out
+  protected $excerpt;
+  public function excerpt( $options=[] ){
+    if ( !empty( $this->excerpt ) ){
+      return $this->excerpt;
+    }
+    $this->excerpt = new UcdThemePostExcerpt( $this, $options );
+    return $this->excerpt;
+  }
+
   protected $hide_author;
   public function hide_author(){
     if ( ! empty( $this->hide_author ) ) {
@@ -246,5 +258,38 @@ class UcdThemePost extends Timber\Post {
     }
     $this->is_sticky = is_sticky($this->ID);
     return $this->is_sticky;
+  }
+}
+
+class UcdThemePostExcerpt {
+  public function __construct( $post, array $options = array() ) {
+    $this->post = $post;
+    $this->length = 50;
+    if ( array_key_exists('words', $options) ) $this->length = $options['words'];
+  }
+
+  public function __toString() {
+		return $this->run();
+	}
+
+  protected function run() {
+    $text = '';
+    // A user-specified excerpt is authoritative, so check that first.
+		if ( isset($this->post->post_excerpt) && strlen($this->post->post_excerpt) ) {
+      $text = $this->post->post_excerpt;
+      $text = Timber\TextHelper::trim_words($text, $this->length, false, "");
+    }
+
+		// Build an excerpt text from the post’s content.
+		if ( empty( $text ) ) {
+      $text = excerpt_remove_blocks( $this->post->post_content );
+      $text = Timber\TextHelper::remove_tags($text, ['script', 'style']);
+      $text = Timber\TextHelper::trim_words($text, $this->length, false, "");
+      $text = trim($text);
+      if ( $text ) {
+        $text .= "...";
+      }
+    }
+    return $text;
   }
 }

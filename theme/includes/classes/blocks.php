@@ -27,6 +27,7 @@ class UCDThemeBlocks {
     add_action('block_categories_all', array($this, 'addCategories'), 10,2);
     add_filter( 'render_block', array($this, 'modifyCoreBlock'), 10, 2 );
     add_action( 'init', array($this, 'setPageBlockTemplate'), 100);
+    add_filter('excerpt_allowed_wrapper_blocks', array($this, 'excerpt_allowed_wrapper_blocks'));
   }
 
   /**
@@ -277,6 +278,20 @@ class UCDThemeBlocks {
       );
     }
     return $block_categories;
+  }
+
+  // let innerblocks of these blocks be rendered in an excerpt
+  // https://developer.wordpress.org/reference/functions/excerpt_remove_blocks/
+  public function excerpt_allowed_wrapper_blocks($blocks){
+    $b = [
+      "ucd-theme/layout-basic",
+      "ucd-theme/column",
+      "ucd-theme/layout-columns",
+      "ucd-theme/layout-container",
+      "ucd-theme/layout-shrink",
+      "ucd-theme/layout-quad"
+    ];
+    return array_merge( $blocks, $b );
   }
 
   /**

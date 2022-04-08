@@ -2,6 +2,7 @@ import { html, SelectUtils } from "../../utils";
 import { useBlockProps } from '@wordpress/block-editor';
 import { useEffect, useState } from "@wordpress/element";
 import apiFetch from '@wordpress/api-fetch';
+import { decodeEntities } from "@wordpress/html-entities";
 
 export default ( ) => {
   const blockProps = useBlockProps();
@@ -54,10 +55,10 @@ export default ( ) => {
     </nav>
     ` : html`
     <nav className='sub-nav'>
-      <h2 className="sub-nav__title">${subNavItems[0]['title']}</h2>
+      <h2 className="sub-nav__title">${decodeEntities(subNavItems[0]['title'])}</h2>
       <ul className='sub-nav__menu'>
         ${subNavItems[0].children.map(parent => html`
-          <li key=${parent.title}><a>${parent.title}</a></li>
+          <li key=${parent.title}><a>${decodeEntities(parent.title)}</a></li>
         `)}
       </ul>
     </nav>

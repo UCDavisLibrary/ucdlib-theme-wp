@@ -142,9 +142,11 @@ class UCDThemeAssets {
     return $this->uris['img'] . "/watercolors/" . $color . "--" . $pattern . ".png";
   }
 
-  // prints ucdlib-iconset(s) filtered by the ucdlib-icon 'icon' attributes passed in.
-  // available in twig as the 'load_icons' function
-  public function loadIcons($iconSlugs){
+  // prints ucdlib-iconset(s) used by the blocks on a page
+  public function loadIcons(){
+
+    $iconSlugs = $GLOBALS['UcdSite']->customBlocks->iconsUsed;
+    $iconSlugs = apply_filters( 'ucd-theme/loaded-icons', $iconSlugs );
     
     // map icons by set
     $iconsBySet = array();
