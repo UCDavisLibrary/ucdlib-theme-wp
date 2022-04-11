@@ -40,7 +40,7 @@ const settings = {
     },    
     postCt: {
       type: "number",
-      default: 5
+      default: 10
     }
   },
   edit: Edit,

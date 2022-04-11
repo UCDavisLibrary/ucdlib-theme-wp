@@ -76,9 +76,9 @@ kwargs:
     {% set i = get_post(kwargs.imageId) %}
     {% set src = i.src %}
     {% set alt = i.alt %}
-  {% elseif kwargs.post.thumbnail %}
-    {% set src = kwargs.post.thumbnail.src %}
-    {% set alt = kwargs.post.thumbnail.alt %}
+  {% elseif kwargs.post.card_image %}
+    {% set src = kwargs.post.card_image.src %}
+    {% set alt = kwargs.post.card_image.alt %}
   {% else %}
     {% set src = DefaultImage('marketing-highlight-horizontal') %}
   {% endif %}

@@ -28,11 +28,11 @@ export default class SelectUtils {
     }, [attributes.imageId, attributes.post.id]);
   }
 
-  static image(imageId) {
+  static image(imageId, force=0) {
     return useSelect( ( select ) => {
       const Image = imageId ? select('core').getMedia(imageId) : undefined;
       return Image;
-    }, [imageId] );
+    }, [imageId, force] );
   }
 
   static selectedBlock() {
@@ -82,6 +82,14 @@ export default class SelectUtils {
         posts = posts.map(p => {
           if ( extra_fields.includes('image') ){
             if ( p.featured_media ) p.image = select('core').getMedia(p.featured_media);
+          }
+
+          if ( extra_fields.includes('thumbnail_1x1')){
+            if ( p.meta.ucd_thumbnail_1x1 ) p.customImage = select('core').getMedia(p.meta.ucd_thumbnail_1x1);
+          }
+
+          if ( extra_fields.includes('thumbnail_4x3')){
+            if ( p.meta.ucd_thumbnail_4x3 ) p.customImage = select('core').getMedia(p.meta.ucd_thumbnail_4x3);
           }
 
           if ( extra_fields.includes('author') ){

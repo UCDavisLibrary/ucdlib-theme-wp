@@ -105,6 +105,19 @@ class UCDThemeMetaData {
       'type' => 'number',
       'default' => 0
     ) );
+
+    register_post_meta( '', 'ucd_thumbnail_1x1', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'number',
+      'default' => 0
+    ) );
+    register_post_meta( '', 'ucd_thumbnail_4x3', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'number',
+      'default' => 0
+    ) );
   }
 
   function add_user_meta($user){

@@ -16,6 +16,8 @@ export default ( props ) => {
   const author = SelectUtils.user(authorId);
   const categoryIds = post ? post.categories : [];
   const categories = SelectUtils.categoriesById(categoryIds);
+  let customPostImage = post && post.meta ? post.meta.ucd_thumbnail_1x1 : 0;
+  customPostImage = SelectUtils.image(customPostImage);
 
   // Listen to changes in component body
   const onMainEleUpdated = (e) => {
@@ -143,6 +145,8 @@ export default ( props ) => {
 
     if ( customImage ) {
       p['img-src'] = customImage.source_url;
+    } else if ( customPostImage ){
+      p['img-src'] = customPostImage.source_url;
     } else if ( postImage ){
       p['img-src'] = postImage.source_url;
     } else {

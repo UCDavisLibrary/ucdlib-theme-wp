@@ -40,6 +40,7 @@ export default () => {
   return html`
     <${PluginDocumentSettingPanel}
       className="ucd-post-settings"
+      icon=${html`<ucdlib-icon style=${{marginLeft: '8px', width: '15px', minWidth: '15px'}} icon="ucd-public:fa-paintbrush"></ucdlib-icon>`}
       title="UCD Theme Settings">
       ${isPage && html`
         <${ToggleControl} 

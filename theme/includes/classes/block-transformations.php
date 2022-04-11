@@ -34,13 +34,6 @@ class UCDThemeBlockTransformations {
   public static function getPosts($attrs=array()){
     $args = [];
 
-    // getting an infinite loop when current post is in a block post query
-    // methinks it has something to do with timber
-    $postId = get_the_ID();
-    if ( $postId  ) {
-      $args['post__not_in'] = [$postId ];
-    }
-
     if ( array_key_exists('postType', $attrs) ) $args['post_type'] = $attrs['postType'];
     if ( array_key_exists('author', $attrs) ) $args['author'] = $attrs['author'];
     if ( array_key_exists('search', $attrs) ) $args['s'] = $attrs['search'];

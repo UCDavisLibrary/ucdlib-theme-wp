@@ -35,7 +35,7 @@ export default ( props ) => {
   let posts = SelectUtils.posts(
     queryParams,
     'post',
-    ['image', 'author', 'categories']
+    ['image', 'author', 'categories', 'thumbnail_1x1']
   );
   if ( !posts ) posts = [];
 
@@ -90,7 +90,9 @@ export default ( props ) => {
       const dateOptions = { year: "numeric", month: "long", day: "numeric" };
       p.date = new Date(post.date_gmt + "Z").toLocaleDateString('en-US', dateOptions);
 
-      if ( post.image ) {
+      if ( post.customImage ) {
+        p['img-src'] = post.customImage.source_url;
+      } else if ( post.image ) {
         p['img-src'] = post.image.source_url;
       } else {
         p['img-src'] = BlockSettings.getImage('teaser');

@@ -26,9 +26,9 @@ kwargs:
     {% set i = get_post(kwargs.imageId) %}
     {% set src = i.src('thumbnail') %}
     {% set alt = i.alt %}
-  {% elseif kwargs.post.thumbnail %}
-    {% set src = kwargs.post.thumbnail.src('thumbnail') %}
-    {% set alt = kwargs.post.thumbnail.alt %}
+  {% elseif kwargs.post.teaser_image %}
+    {% set src = kwargs.post.teaser_image.src('thumbnail') %}
+    {% set alt = kwargs.post.teaser_image.alt %}
   {% else %}
     {% set src = DefaultImage('media-link') %}
   {% endif %}
@@ -80,9 +80,9 @@ kwargs:
     {% set i = get_post(kwargs.imageId) %}
     {% set src = i.src('thumbnail') %}
     {% set alt = i.alt %}
-  {% elseif kwargs.post.thumbnail %}
-    {% set src = kwargs.post.thumbnail.src('thumbnail') %}
-    {% set alt = kwargs.post.thumbnail.alt %}
+  {% elseif kwargs.post.teaser_image %}
+    {% set src = kwargs.post.teaser_image.src('thumbnail') %}
+    {% set alt = kwargs.post.teaser_image.alt %}
   {% else %}
     {% set src = DefaultImage('teaser') %}
   {% endif %}

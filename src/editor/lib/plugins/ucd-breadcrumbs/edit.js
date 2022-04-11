@@ -45,6 +45,7 @@ export default () => {
       ${!isPost && html`
         <${PluginDocumentSettingPanel}
           className="ucd-breadcrumbs"
+          icon=${html`<ucdlib-icon style=${{marginLeft: '8px', width: '15px', minWidth: '15px'}} icon="ucd-public:fa-ellipsis"></ucdlib-icon>`}
           title="Breadcrumbs">
             <${ToggleControl} 
               label="Hide Breadcrumbs"

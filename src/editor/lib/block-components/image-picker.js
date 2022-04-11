@@ -22,7 +22,8 @@ function ImagePicker({
   defaultImageId,
   panelAttributes,
   captionOptions,
-  onCaptionChange
+  onCaptionChange,
+  cloneText
 }){
   const _panelAttributes = {
     title: "Image",
@@ -39,6 +40,8 @@ function ImagePicker({
     captionOptions = {show: false, customText: ''};
   }
 
+  if ( !cloneText ) cloneText = "Clone Default Image";
+
   const { createErrorNotice } = useDispatch( noticesStore );
   const [ cloneInProgress, setCloneInProgress ] = useState( false );
 
@@ -50,13 +53,16 @@ function ImagePicker({
     return { defaultImage }
   });
 
-  const onRefresh = () => {
-    if ( imageId ) dispatch('core').saveMedia(imageId);
-  }
-
   const _onCaptionChange = (v) => {
     v = {...captionOptions, ...v}
     onCaptionChange(v);
+  }
+
+  const _onClose = () => {
+    if ( imageId ) dispatch('core').saveMedia(imageId);
+    if ( onClose ){
+      onClose();
+    }
   }
 
   const onClone = () => {
@@ -113,7 +119,7 @@ function ImagePicker({
       <${MediaUploadCheck}>
         <${MediaUpload}
           onSelect=${onSelect}
-          onClose=${onClose}
+          onClose=${_onClose}
           value=${imageId}
           allowedTypes=${['image']}
           render=${uploadButton}
@@ -125,7 +131,7 @@ function ImagePicker({
           <${MediaUpload}
             title="Replace Image"
             onSelect=${onSelect}
-            onClose=${onClose}
+            onClose=${_onClose}
             value=${imageId}
             allowedTypes=${['image']}
             render=${replaceButton}
@@ -144,21 +150,13 @@ function ImagePicker({
         </${MediaUploadCheck}>
       `}
 
-      ${imageId != 0 && html`
-        <${Button} 
-          isLink
-          onClick=${onRefresh}
-        >Resync Image
-        </${Button}>
-      `}
-
       ${defaultImage && html`
         <${MediaUploadCheck}>
           <${Button} 
             isSecondary
             onClick=${onClone}
             disabled=${cloneInProgress}
-          >Clone Default Image
+          >${cloneText}
           </${Button}>
         </${MediaUploadCheck}>
       `}

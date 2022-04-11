@@ -28,6 +28,74 @@ class UcdThemePost extends Timber\Post {
   }
 
   /**
+   * gets ucd_thumbnail_1x1 meta, which has an image ID
+   */
+  protected $thumbnail_1x1;
+  public function thumbnail_1x1(){
+    if ( ! empty($this->thumbnail_1x1) ){
+      return $this->thumbnail_1x1;
+    }
+    $image_id = get_post_meta($this->ID, 'ucd_thumbnail_1x1', true);
+    if ( !$image_id ) {
+      $this->thumbnail_1x1 = false;
+      return $this->thumbnail_1x1;
+    }
+    $this->thumbnail_1x1 = Timber::get_post($image_id);
+    return $this->thumbnail_1x1;
+  }
+
+  /**
+   * Gets thumbnail image for teaser-type blocks
+   */
+  protected $teaser_image;
+  public function teaser_image(){
+    if ( ! empty($this->teaser_image) ){
+      return $this->teaser_image;
+    }
+    $custom = $this->thumbnail_1x1();
+    if ( $custom ){
+      $this->teaser_image = $custom;
+      return $this->teaser_image;
+    }
+    $this->teaser_image = $this->thumbnail();
+    return $this->teaser_image;
+  }
+
+  /**
+   * gets ucd_thumbnail_4x3 meta, which has an image ID
+   */
+  protected $thumbnail_4x3;
+  public function thumbnail_4x3(){
+    if ( ! empty($this->thumbnail_4x3) ){
+      return $this->thumbnail_4x3;
+    }
+    $image_id = get_post_meta($this->ID, 'ucd_thumbnail_4x3', true);
+    if ( !$image_id ) {
+      $this->thumbnail_4x3 = false;
+      return $this->thumbnail_4x3;
+    }
+    $this->thumbnail_4x3 = Timber::get_post($image_id);
+    return $this->thumbnail_4x3;
+  }
+
+  /**
+   * gets thumbnail image for card-type blocks
+   */
+  protected $card_image;
+  public function card_image(){
+    if ( ! empty($this->card_image) ){
+      return $this->card_image;
+    }
+    $custom = $this->thumbnail_4x3();
+    if ( $custom ){
+      $this->card_image = $custom;
+      return $this->card_image;
+    }
+    $this->card_image = $this->thumbnail();
+    return $this->card_image;
+  }
+
+  /**
    * Retrieve all ancestors of this post
    * @returns array - [parent, grandparent, etc]
    */

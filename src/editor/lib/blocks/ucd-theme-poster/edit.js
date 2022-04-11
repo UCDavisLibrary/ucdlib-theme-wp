@@ -11,6 +11,9 @@ export default ( props ) => {
 
   // retrieve needed wp data
   const {customImage, post, postTitle, postExcerpt, postImage} = SelectUtils.card(attributes);
+  let customPostImage = post && post.meta ? post.meta.ucd_thumbnail_4x3 : 0;
+  customPostImage = SelectUtils.image(customPostImage);
+
 
   // Listen to changes in component body
   const onMainEleUpdated = (e) => {
@@ -113,6 +116,8 @@ export default ( props ) => {
 
     if ( customImage ) {
       p['img-src'] = customImage.source_url;
+    } else if ( customPostImage ){
+      p['img-src'] = customPostImage.source_url;
     } else if ( postImage ){
       p['img-src'] = postImage.source_url;
     } else {
