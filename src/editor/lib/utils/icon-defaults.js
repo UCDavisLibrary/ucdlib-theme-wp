@@ -90,6 +90,12 @@ export default class UCDIcons{
     return html`<ucdlib-icon ...${attributes}></ucdlib-icon>`;
   }
 
+  static renderPublic(icon, attributes={}){
+    icon = `ucd-public:${icon}`;
+    attributes.icon = icon;
+    return html`<ucdlib-icon ...${attributes}></ucdlib-icon>`;
+  }
+
   static renderMissing(){
     return html`<span>?</span>`;
   }
