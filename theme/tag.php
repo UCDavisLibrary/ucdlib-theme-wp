@@ -2,6 +2,7 @@
 /**
  * The tag template is used when visitors request posts by tag.
  */
+do_action( 'ucd-theme/template/tag' );
 
 $context = Timber::context();
 $context['term'] = Timber::get_term();

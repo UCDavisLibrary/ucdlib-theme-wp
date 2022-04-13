@@ -4,6 +4,7 @@
  *
  */
 
+do_action( 'ucd-theme/template/author' );
 global $wp_query;
 
 $views = $GLOBALS['UcdSite']->views;
@@ -58,10 +59,10 @@ if ( !$context['sidebar'] and !$context['hideSidebar'] ){
   #var_dump($context['posts']->found_posts);
 }
 
+$templates = array( $views->getTemplate('author'));
+
 // Filters
 $context = apply_filters( 'ucd-theme/context/author', $context );
 $templates = apply_filters( 'ucd-theme/templates/author', $templates, $context );
 
-
-$templates = array( $views->getTemplate('author'));
 Timber::render( $templates, $context );

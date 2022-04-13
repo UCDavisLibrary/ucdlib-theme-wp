@@ -54,6 +54,12 @@ export default class SelectUtils {
     }, [] );
   }
 
+  static currentUser() {
+    return useSelect( ( select ) => {
+      return select( 'core' ).getCurrentUser();
+    }, [] );
+  }
+
   static editedPostAttribute(attr) {
     return useSelect( ( select ) => {
       return select( 'core/editor' ).getEditedPostAttribute(attr);

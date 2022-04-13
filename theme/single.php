@@ -2,6 +2,7 @@
 /**
  * The template for displaying all single posts with a post type of 'post' or something custom.
  */
+do_action( 'ucd-theme/template/single' );
 
 $context = Timber::context();
 $context['title'] = $context['post']->title();
