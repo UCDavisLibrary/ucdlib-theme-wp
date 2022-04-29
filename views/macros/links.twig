@@ -76,9 +76,9 @@ kwargs:
     {% set i = get_post(kwargs.imageId) %}
     {% set src = i.src %}
     {% set alt = i.alt %}
-  {% elseif kwargs.post.thumbnail %}
-    {% set src = kwargs.post.thumbnail.src %}
-    {% set alt = kwargs.post.thumbnail.alt %}
+  {% elseif kwargs.post.card_image %}
+    {% set src = kwargs.post.card_image.src %}
+    {% set alt = kwargs.post.card_image.alt %}
   {% else %}
     {% set src = DefaultImage('marketing-highlight-horizontal') %}
   {% endif %}
@@ -88,11 +88,17 @@ kwargs:
   {% if kwargs.brandColor %}
     {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
   {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " panel" %}
+  {% endif %}
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
 
 
   <a href="{{href}}" class="{{classes}}" {{target}}>
-    <div class="marketing-highlight-horizontal__image aspect--16x9">
-      <img src="{{src}}" alt="{{alt}}" width="640" height="480" loading="lazy" />
+    <div class="marketing-highlight-horizontal__image">
+      <div class="aspect--16x9 u-background-image" role='img' aria-label='{{alt}}' style="background-image:url({{src}});"></div>
     </div>
     {% if not kwargs.hideTitle %}
       <div class="marketing-highlight-horizontal__body">
@@ -309,7 +315,7 @@ kwargs:
   {% endif %}
   {% set classes = classes|join(' ') %}
 
-  {% set icon = 'wp-editor:fa-link' %}
+  {% set icon = 'ucd-public:fa-circle-chevron-right' %}
   {% if kwargs.icon %}
     {% set icon = kwargs.icon %}
   {% endif %}
@@ -317,7 +323,7 @@ kwargs:
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
 
   <a class="{{classes}}" href="{{kwargs.href}}" {{target}}>
-    <ucdlib-icon icon="{{kwargs.icon}}"></ucdlib-icon>
+    <ucdlib-icon icon="{{icon}}"></ucdlib-icon>
     <div>{{kwargs.text}}</div>
   </a>
 {% endmacro %}

@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Fancy Heading",
 	description: "Add a section heading with a little extra pizazz.",
-	icon: UCDIcons.render('title'),
+	icon: UCDIcons.renderBlockIcon('heading-fancy'),
 	category: 'text',
 	keywords: [ 'heading', 'header' ],
   supports: {

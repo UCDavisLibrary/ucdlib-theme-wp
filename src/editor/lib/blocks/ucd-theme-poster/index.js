@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Poster",
 	description: "Preview content on another webpage with a basic card.",
-	icon: UCDIcons.render("poster"),
+	icon: UCDIcons.renderBlockIcon('poster'),
 	category: 'ucd-cards',
 	keywords: [ 'poster', 'link', 'image', 'post', 'page' ],
   supports: {

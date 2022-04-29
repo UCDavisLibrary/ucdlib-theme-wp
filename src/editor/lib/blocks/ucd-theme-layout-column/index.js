@@ -12,7 +12,7 @@ const settings = {
     "ucd-theme/layout-container", 
     "ucd-theme/layout-quad"],
 	description: "A column used by layout blocks",
-	icon: UCDIcons.render("layout.column"),
+	icon: UCDIcons.renderBlockIcon('column'),
 	category: 'ucd-layout',
 	keywords: [ "grid", "column", "content", "sidebar", "column" ],
   supports: {

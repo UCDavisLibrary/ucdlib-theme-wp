@@ -2,6 +2,7 @@
 /**
  * The template for displaying the 'page' post type.
  */
+do_action( 'ucd-theme/template/page' );
 
 $context = Timber::context();
 $context['title'] = $context['post']->title();

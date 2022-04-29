@@ -1,6 +1,9 @@
 import { html } from "./html.js";
 
 export default class UCDIcons{
+  static defaultIconSetName = 'wp-editor';
+  static blockIconSetName = 'blocks';
+
   static icons = {
     title : 'wp-editor:fa-heading',
     photo: 'wp-editor:fa-image',
@@ -66,12 +69,34 @@ export default class UCDIcons{
   static render(icon, attributes={}) {
     let i;
     try {
-      i = eval(`this.icons.${icon}`);
+      icon = icon.split('.').map(i => `'${i}'`);
+      i = eval(`this.icons[${icon.join('][')}]`);
     } catch (error) {
       console.warn(`${icon} not found: ${error}`);
       return html``;
     }
     attributes.icon = i;
     return html`<ucdlib-icon ...${attributes}></ucdlib-icon>`;
+  }
+
+  static renderBlockIcon(icon, attributes={}){
+    attributes.icon = `${this.blockIconSetName}:${icon}`;
+    return html`<ucdlib-icon ...${attributes}></ucdlib-icon>`;
+  }
+
+  static renderBySlug(icon, attributes={}){
+    if ( !icon.includes(':') ) icon = `${this.defaultIconSetName}:${icon}`;
+    attributes.icon = icon;
+    return html`<ucdlib-icon ...${attributes}></ucdlib-icon>`;
+  }
+
+  static renderPublic(icon, attributes={}){
+    icon = `ucd-public:${icon}`;
+    attributes.icon = icon;
+    return html`<ucdlib-icon ...${attributes}></ucdlib-icon>`;
+  }
+
+  static renderMissing(){
+    return html`<span>?</span>`;
   }
 }

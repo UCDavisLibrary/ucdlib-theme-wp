@@ -22,6 +22,10 @@ const settings = {
     collapsible: {
       type: "boolean",
       default: false
+    },
+    float: {
+      type: "string",
+      default: ""
     }
     
   },

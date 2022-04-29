@@ -1,10 +1,9 @@
 import classnames from 'classnames';
 
 import { html } from "../../utils";
-import { ToolbarPaddingPicker } from "../../block-components";
+import { ToolbarPaddingPicker, ToolbarSizePicker } from "../../block-components";
 import { useBlockProps,
   BlockControls,
-  InnerBlocks,
   useInnerBlocksProps, 
 } from '@wordpress/block-editor';
 import { Fragment } from "@wordpress/element";
@@ -14,7 +13,9 @@ export default ( props ) => {
 
   const classes = classnames({
     "o-box": true,
-    [`o-box--${attributes.padding}`]: attributes.padding
+    [`o-box--${attributes.padding}`]: attributes.padding,
+    [`u-space-mb--${attributes.marginBottom}`]: attributes.marginBottom && attributes.marginBottom != 'default',
+    [`u-space-mb`]: attributes.marginBottom == 'default'
   });
 
   const blockProps = useBlockProps( {
@@ -37,6 +38,12 @@ export default ( props ) => {
         <${ToolbarPaddingPicker}
           value=${attributes.padding}
           onChange=${onPaddingChange}/>
+        <${ToolbarSizePicker} 
+          value=${attributes.marginBottom}
+          icon="vertical-align-bottom"
+          label="Bottom Margin Size"
+          onChange=${(v) => setAttributes({marginBottom: v.slug})}
+        />
       </${BlockControls}>
       <div ...${ innerBlocksProps } >
       </div>

@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Prefixed Icon Link",
 	description: "Add a stylized link preceded by a small inline icon.",
-	icon: UCDIcons.render('link'), // TODO: CHANGE ICON
+	icon: UCDIcons.renderBlockIcon('prefixed-icon-link'),
 	category: 'ucd-links',
 	keywords: [ 'link', 'icon', 'color', 'text', 'inline', 'before' ],
   supports: {
@@ -30,9 +30,13 @@ const settings = {
       type: "boolean",
       default: false
     },
+    taxId: {
+      type: 'number',
+      default: 0
+    },
     icon: {
       type: 'string',
-      default: 'wp-editor:fa-link' // change to chevron when we got it, and in twig macro
+      default: 'ucd-public:fa-circle-chevron-right'
     },
     brandColor: {
       type: "string",

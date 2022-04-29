@@ -3,6 +3,8 @@
  * The category template is used when visitors request posts by category.
  */
 
+do_action( 'ucd-theme/template/category' );
+
 $context = Timber::context();
 $context['term'] = Timber::get_term();
 $context['title'] = $context['term']->name;

@@ -6,8 +6,10 @@ export default class UcdWpIconPicker extends LitElement {
   static get properties() {
     return {
       iconSets: {type: String, attribute: "icon-sets"},
+      selected: {type: String},
+      searchTerm: {type: String, attribute: 'search-term'},
       _iconSets: {state: true},
-      selected: {type: String}
+      _displayedIcons: {state: true}
     }
   }
 
@@ -18,13 +20,16 @@ export default class UcdWpIconPicker extends LitElement {
   constructor() {
     super();
     this.render = render.bind(this);
-    this.iconSets = "";
+    this.iconSets = ['ucd-public'];
     this.selected = "";
+    this.searchTerm = "";
+    this._displayedIcons = [];
   }
 
   willUpdate(props){
     if ( props.has('iconSets') ){
-      this._iconSets = this.queryIconSets(props.iconSets);
+      this._iconSets = this.queryIconSets(this.iconSets);
+      this._filterDisplay();
     }
   }
 
@@ -54,6 +59,37 @@ export default class UcdWpIconPicker extends LitElement {
       title: iconSet.getLabel(),
       icons: iconSet.getIconNames()
     }
+  }
+
+  _onSearch(e){
+    this.searchTerm = e.target.value;
+    if ( this._searchTimeout ) {
+      clearTimeout(this._searchTimeout);
+    }
+    this._searchTimeout = setTimeout(() => this._filterDisplay(), 250);
+  }
+
+  _filterDisplay(){
+    if ( !this.searchTerm ) {
+      this._displayedIcons = this._iconSets ? this._iconSets : [];
+      return;
+    }
+    const terms = this.searchTerm.trim().split(" ").map(x => x.toLowerCase());
+    const _displayedIcons = [];
+    this._iconSets.forEach(s => {
+      let icons = [];
+      
+      s.icons.forEach(i => {
+        const match = terms.filter(x => i.includes(x));
+        if ( match.length == terms.length ) {
+          icons.push(i);
+        }
+      })
+
+      _displayedIcons.push( {title: s.title, name: s.name, icons: icons});
+
+    })
+    this._displayedIcons = _displayedIcons;
   }
 
   _onIconClick(icon, iconSet){

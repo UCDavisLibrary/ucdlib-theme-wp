@@ -34,9 +34,9 @@ kwargs:
     {% set i = get_post(kwargs.imageId) %}
     {% set src = i.src %}
     {% set alt = i.alt %}
-  {% elseif kwargs.post.thumbnail %}
-    {% set src = kwargs.post.thumbnail.src %}
-    {% set alt = kwargs.post.thumbnail.alt %}
+  {% elseif kwargs.post.card_image %}
+    {% set src = kwargs.post.card_image.src %}
+    {% set alt = kwargs.post.card_image.alt %}
   {% else %}
     {% set src = DefaultImage('marketing-highlight') %}
   {% endif %}
@@ -49,11 +49,17 @@ kwargs:
   {% if kwargs.brandColor %}
     {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
   {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " u-space-mb" %}
+  {% endif %}
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
 
 
   <a href="{{href}}" class="{{classes}}" {{target}}>
-    <div class="marketing-highlight__image aspect--4x3">
-      <img src="{{src}}" alt="{{alt}}" width="640" height="480" loading="lazy" />
+    <div class="marketing-highlight__image">
+      <div class="aspect--4x3 u-background-image" role='img' aria-label='{{alt}}' style="background-image:url({{src}});"></div>
       {% if kwargs.badge and not kwargs.hideBadge %}
         <h3 class="marketing-highlight__type"><span>{{kwargs.badge}}</span></h3>
       {% endif %}
@@ -111,6 +117,15 @@ kwargs:
   {% if kwargs.brandColor %}
     {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
   {% endif %}
+  {% if kwargs.alignment %}
+    {% set classes = classes ~ " hero-banner--align-" ~ kwargs.alignment %}
+  {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " panel" %}
+  {% endif %}
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
 
   <section class="{{classes}}">
     <div class="hero-banner__image u-background-image" style={{src ? "background-image:url("~src~")": ''}}></div>
@@ -155,9 +170,9 @@ kwargs:
     {% set i = get_post(kwargs.imageId) %}
     {% set src = i.src %}
     {% set alt = i.alt %}
-  {% elseif kwargs.post.thumbnail %}
-    {% set src = kwargs.post.thumbnail.src %}
-    {% set alt = kwargs.post.thumbnail.alt %}
+  {% elseif kwargs.post.card_image %}
+    {% set src = kwargs.post.card_image.src %}
+    {% set alt = kwargs.post.card_image.alt %}
   {% else %}
     {% set src = DefaultImage('poster') %}
   {% endif %}
@@ -166,11 +181,15 @@ kwargs:
   {% if kwargs.brandColor %}
     {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
   {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " panel" %}
+  {% endif %}
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
 
   <a href="{{href}}" class="{{classes}}" {{target}}>
-    <div class="aspect--16x9">
-      <img src="{{src}}" alt="{{alt}}" width="1280" height="720" loading="lazy" />
-    </div>
+   <div class="aspect--16x9 u-background-image" role='img' aria-label='{{alt}}' style="background-image:url({{src}});"></div>
     <div class="vm-poster__body">
       <div class="vm-poster__body-text">
         <h2 class="vm-poster__title">{{title}}</h2>
@@ -287,7 +306,7 @@ kwargs:
     {% set classes = classes|merge(['o-box--'~attributes.padding])%}
   {% endif %}
 
-  {% set icon = attributes.icon ? attributes.icon : 'wp-editor:fa-star' %}
+  {% set icon = attributes.icon ? attributes.icon : 'ucd-public:fa-star' %}
 
   {% set moreText = attributes.moreText ? attributes.moreText : 'See More' %}
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}

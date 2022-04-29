@@ -1,4 +1,5 @@
 import backgroundColor from "./ucd-theme-background-color";
+import backgroundImage from "./ucd-theme-background-image";
 import brandTextbox from "./ucd-theme-brand-textbox";
 import buttonLink from "./ucd-theme-button-link";
 import categoryFilter from "./ucd-theme-category-filter";
@@ -13,7 +14,9 @@ import layoutColumn from "./ucd-theme-layout-column";
 import layoutColumns from "./ucd-theme-layout-columns";
 import layoutContainer from "./ucd-theme-layout-container";
 import layoutBasic from "./ucd-theme-layout-basic";
+import layoutShrink from "./ucd-theme-layout-shrink";
 import layoutQuad from "./ucd-theme-layout-quad";
+import manualSubnav from "./ucd-theme-manual-subnav";
 import marketingHighlight from "./ucd-theme-marketing-highlight";
 import marketingHighlightHorizontal from "./ucd-theme-marketing-highlight-horizontal";
 import mediaLink from "./ucd-theme-media-link";
@@ -36,6 +39,7 @@ import teasers from "./ucd-theme-teasers";
 
 export default [
   backgroundColor,
+  backgroundImage,
   brandTextbox,
   buttonLink,
   categoryFilter,
@@ -50,7 +54,9 @@ export default [
   layoutColumns,
   layoutContainer,
   layoutBasic,
+  layoutShrink,
   layoutQuad,
+  manualSubnav,
   marketingHighlight,
   marketingHighlightHorizontal,
   mediaLink,

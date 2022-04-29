@@ -2,7 +2,7 @@ import classnames from 'classnames';
 
 import { html, BlockSettings } from "../../utils";
 import { ToolbarColorPicker } from "../../block-components";
-import { blueTints } from "@ucd-lib/theme-sass/colors";
+import { blueTints, goldTints } from "@ucd-lib/theme-sass/colors";
 import { useBlockProps,
   InspectorControls,
   BlockControls,
@@ -41,7 +41,12 @@ export default ( props ) => {
     {
       name: "Light Blue", 
       slug: "light-blue", 
-      color: blueTints['40'].hex
+      color: blueTints['30'].hex
+    },
+    {
+      name: "Light Yellow", 
+      slug: "light-yellow", 
+      color: goldTints['30'].hex      
     },
     {
       name: "White", 

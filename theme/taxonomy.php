@@ -2,6 +2,7 @@
 /**
  * The taxonomy term template is used when a visitor requests a term in a custom taxonomy.
  */
+do_action( 'ucd-theme/template/taxonomy' );
 
 $context = Timber::context();
 $context['term'] = Timber::get_term();

@@ -6,6 +6,8 @@
  * which will render this file instead of page.php.
  */
 
+do_action( 'ucd-theme/template/home' );
+
 $context = Timber::context();
 
 $page_for_posts_id = get_option('page_for_posts');

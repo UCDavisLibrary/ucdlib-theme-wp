@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Button Link",
 	description: "Link to a webpage with a stylized button",
-	icon: UCDIcons.render("outboundLink"),
+	icon: UCDIcons.renderBlockIcon('button'),
 	category: 'ucd-links',
 	keywords: [ 'button', 'link' ],
   supports: {
@@ -24,6 +24,10 @@ const settings = {
       default: ""
     },
     postId: {
+      type: 'number',
+      default: 0
+    },
+    taxId: {
       type: 'number',
       default: 0
     },
@@ -53,7 +57,7 @@ const settings = {
     },
   },
 	edit: Edit,
-    styles: styleClasses
+  styles: styleClasses
 };
 
 export default { name, settings };

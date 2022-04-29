@@ -40,6 +40,7 @@ export default () => {
   return html`
     <${PluginDocumentSettingPanel}
       className="ucd-post-settings"
+      icon=${html`<ucdlib-icon style=${{marginLeft: '8px', width: '15px', minWidth: '15px'}} icon="ucd-public:fa-paintbrush"></ucdlib-icon>`}
       title="UCD Theme Settings">
       ${isPage && html`
         <${ToggleControl} 
@@ -53,11 +54,11 @@ export default () => {
           checked=${meta.ucd_hide_sidebar}
           onChange="${ucd_hide_sidebar => {editPost({meta: {ucd_hide_sidebar}})}}" />
       `}
-      ${isPage && html`
+      ${(isPage && meta.ucd_hide_sidebar) && html`
         <${ToggleControl} 
-          label="Hide Breadcrumbs"
-          checked=${meta.ucd_hide_breadcrumbs}
-          onChange="${ucd_hide_breadcrumbs => {editPost({meta: {ucd_hide_breadcrumbs}})}}" />
+          label="Make Page Full Width"
+          checked=${meta.ucd_full_width}
+          onChange="${ucd_full_width => {editPost({meta: {ucd_full_width}})}}" />
       `}
       ${isPage && html`
         <${ToggleControl} 

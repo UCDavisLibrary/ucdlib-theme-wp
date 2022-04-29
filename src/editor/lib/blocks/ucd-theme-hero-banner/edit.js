@@ -1,7 +1,7 @@
 import { html, SelectUtils} from "../../utils";
 import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarLinkPicker } from "../../block-components";
 import "./ucd-wp-hero-banner";
-import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
+import { useBlockProps, BlockControls, InspectorControls, AlignmentControl } from '@wordpress/block-editor';
 import { useRef, useEffect } from "@wordpress/element";
 
 export default ( props ) => {
@@ -105,6 +105,10 @@ export default ( props ) => {
     } else if ( postTitle ){
       p.title = postTitle;
     } else {p.title = ""}
+    
+    if ( attributes.alignment != 'left' ){
+      p.alignment = attributes.alignment;
+    }
 
     if ( attributes.excerpt ){
       p.excerpt = attributes.excerpt;
@@ -132,6 +136,10 @@ export default ( props ) => {
           value=${attributes.brandColor}
           ucdBlock="hero-banner"
         />
+        <${AlignmentControl}
+			    value=${ attributes.alignment }
+			    onChange=${ ( alignment ) => setAttributes( { alignment } ) }
+		    />
         ${post && html`
           <${ToolbarPostReset}
             postProps=${postParts}

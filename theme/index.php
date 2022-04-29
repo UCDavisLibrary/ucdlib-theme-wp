@@ -5,6 +5,7 @@
  *  - when nothing more specific matches a query.
  * 
  */
+do_action( 'ucd-theme/template/index' );
 
 $context = Timber::context();
 $views = $GLOBALS['UcdSite']->views;

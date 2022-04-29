@@ -1,5 +1,11 @@
 {% from getUcdMacro('menus') import subnav %}
-
+{% set kwargs = {
+    items: attributes.post.primay_nav_item.children,
+    title: attributes.post.primay_nav_item.title,
+    titleLink: attributes.post.primay_nav_item.link,
+    oBox: attributes.oBox,
+    panel: attributes.panel
+} %}
 {% if attributes.post.primay_nav_item %}
-    {{ subnav({items: attributes.post.primay_nav_item.children, title: attributes.post.primay_nav_item.title, titleLink: attributes.post.primay_nav_item.link}) }}
+    {{ subnav( kwargs ) }}
 {% endif %}

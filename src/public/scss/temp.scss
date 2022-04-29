@@ -21,11 +21,30 @@ a.icon--circle-arrow-right::before {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding-top: 20.91%;
+  padding-top: 23.07%;
 }
 .aspect--13x3 > img {
   position: absolute;
   top: 0;
+}
+
+//marketing highlight
+.marketing-highlight:hover .marketing-highlight__image .u-background-image {
+  transform: scale(1.1);
+}
+.marketing-highlight__image .u-background-image {
+  transition: transform .3s ease-in-out;
+}
+
+// marketing highlight horizontal
+.marketing-highlight-horizontal:hover .u-background-image {
+  transform: scale(1.05);
+}
+.marketing-highlight-horizontal__image .u-background-image {
+  transition: transform .3s ease-in-out;
+}
+.marketing-highlight-horizontal {
+  display: block;
 }
 
 // hero banner
@@ -34,6 +53,14 @@ a.icon--circle-arrow-right::before {
   height: 100%;
   grid-area: hero;
   opacity: 60%;
+}
+.hero-banner__body--innerblocks {
+  z-index: 1;
+  grid-area: hero;
+  padding: 2rem 8%;
+}
+.hero-banner__body--no-padding {
+  padding: 0 !important;
 }
 
 // background image utility
@@ -45,7 +72,7 @@ a.icon--circle-arrow-right::before {
 
 // for priority links
 .vertical-link--circle ucdlib-icon.vertical-link__image {
-  height: 70%;
+  height: 50%;
 }
 
 // for focal link
@@ -60,6 +87,9 @@ a.icon--circle-arrow-right::before {
 // for panel w/ icon
 ucdlib-icon.panel__custom-icon {
   color: var(--category-brand, #022851)
+}
+.panel--icon .panel__title {
+  align-items: center;
 }
 .panel__title ucdlib-icon {
   width: 1.6055rem;
@@ -107,4 +137,16 @@ a.icon-ucdlib {
 }
 .u-white-space--break-spaces {
   white-space: break-spaces !important;
+}
+
+// shrink class
+.l-shrink.l-shrink--60 {
+  width: 60%;
+}
+
+// space utility
+@media (max-width: 479px) {
+  .u-width--100-in-mobile {
+    width: 100% !important;
+  }
 }

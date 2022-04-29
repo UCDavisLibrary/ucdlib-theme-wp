@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Basic Query",
 	description: "Display a list of posts on this site based on a query you construct.",
-	//icon: UCDIcons.render("time"),
+	icon: UCDIcons.renderBlockIcon('basic-query'),
 	category: 'ucd-query',
 	keywords: [ 'teaser', 'post', 'page', 'preview', 'filter' ],
   supports: {
@@ -40,7 +40,7 @@ const settings = {
     },    
     postCt: {
       type: "number",
-      default: 5
+      default: 10
     }
   },
   edit: Edit,

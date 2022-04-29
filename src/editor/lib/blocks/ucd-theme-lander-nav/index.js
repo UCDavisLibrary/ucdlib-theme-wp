@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
   title: "Lander Navigation",
   description: "Displays auto-generated navigation links for children of this post",
-  //icon: UCDIcons.render('link'), 
+  icon: UCDIcons.renderBlockIcon('lander-nav'),
   category: 'ucd-query',
   keywords: [ 'navigation', 'menu' ],
   supports: {

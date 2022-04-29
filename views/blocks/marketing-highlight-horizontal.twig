@@ -1,2 +1,5 @@
 {% from getUcdMacro('links') import marketing_highlight_horizontal %}
+{% if not attributes.brandColor %}
+  {% set attributes = attributes|merge({brandColor: 'secondary'})%}
+{% endif %}
 {{ marketing_highlight_horizontal(attributes) }}

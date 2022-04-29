@@ -33,6 +33,7 @@ class UCDThemeBlockTransformations {
    */
   public static function getPosts($attrs=array()){
     $args = [];
+
     if ( array_key_exists('postType', $attrs) ) $args['post_type'] = $attrs['postType'];
     if ( array_key_exists('author', $attrs) ) $args['author'] = $attrs['author'];
     if ( array_key_exists('search', $attrs) ) $args['s'] = $attrs['search'];
@@ -76,7 +77,7 @@ class UCDThemeBlockTransformations {
     $attrs['children'] = [];
     if ( !array_key_exists('post', $attrs) || !$attrs['post']) return $attrs;
     $childrenFromNav = $attrs['post']->primary_nav_children();
-    if ( count($childrenFromNav) ) {
+    if ( $childrenFromNav && count($childrenFromNav) ) {
       foreach ($childrenFromNav as $child) {
         if ( $child->type == 'post_type' ) {
           $attrs['children'][] = Timber::get_post($child->object_id );
@@ -118,13 +119,78 @@ class UCDThemeBlockTransformations {
   }
 
   /**
-   * Retrieve permalink of postId attribute in permalink attribute
+   * Adds padding (o-box) and bottom margin (panel) to block.
+   */
+  public static function addSpacing( $attrs=array() ){
+    if ( !array_key_exists('panel', $attrs) ) $attrs['panel'] = true;
+    if ( !array_key_exists('oBox', $attrs) ) $attrs['oBox'] = true;
+    return $attrs;
+  }
+
+  /**
+   * Retrieve permalink of postId or taxId attribute and saves in permalink attribute
    */
   public static function getPermalink($attrs=array()){
     if ( array_key_exists('postId', $attrs) ){
       $attrs['permalink'] = get_permalink($attrs['postId']);
+    } elseif (array_key_exists('taxId', $attrs)){
+      $attrs['permalink'] = get_term_link($attrs['taxId']);
     }
     return $attrs;
+  }
+
+  /**
+   * Retrieve permalinks for any nav items listed in a 'titleLink' or 'links' attribute array
+   * Also, reformats data to match the wp menu schema
+   */
+  public static function getNavPermalinks($attrs=array()){
+    if ( array_key_exists('links', $attrs) ){
+      $attrs['links'] = self::_getNavPermalinks($attrs['links']);
+    }
+    if ( array_key_exists('showTitle', $attrs) && array_key_exists('titleLink', $attrs) ){
+      if ( array_key_exists('kind', $attrs['titleLink']) && array_key_exists('id', $attrs['titleLink']) ){
+        if ( $attrs['titleLink']['kind'] == 'post-type' ){
+          $attrs['titleLink']['url'] = get_permalink($attrs['titleLink']['id']);
+        } elseif ( $attrs['titleLink']['kind'] == 'taxonomy' ){
+          $attrs['titleLink']['url'] = get_term_link($attrs['titleLink']['id']);
+        }
+      }
+    }
+    return $attrs;
+  }
+
+  private static function _getNavPermalinks($links){
+    foreach($links as &$link) {
+      if ( array_key_exists('link', $link) ){
+        
+        if ( array_key_exists('opensInNewTab', $link['link']) && $link['link']['opensInNewTab'] ){
+          $link['is_target_blank'] = true;
+        }
+
+        if ( array_key_exists('label', $link) ){
+          $link['title'] = $link['label'];
+        }
+
+        if ( array_key_exists('kind', $link['link']) && array_key_exists('id', $link['link']) ){
+          if ( $link['link']['kind'] == 'post-type' ){
+            $link['link'] = get_permalink($link['link']['id']);
+          } elseif ( $link['link']['kind'] == 'taxonomy' ){
+            $link['link'] = get_term_link($link['link']['id']);
+          } elseif ( array_key_exists('url', $link['link'] )) {
+            $link['link'] = $link['link']['url'];
+          }
+        } elseif ( array_key_exists('url', $link['link'] ) ) {
+          $link['link'] = $link['link']['url'];
+        } else {
+          $link['link'] = false;
+        }
+
+        if ( array_key_exists('subItems', $link) ){
+          $link['children'] = self::_getNavPermalinks($link['subItems']);
+        }
+      }
+    }
+    return $links;
   }
 
   /**

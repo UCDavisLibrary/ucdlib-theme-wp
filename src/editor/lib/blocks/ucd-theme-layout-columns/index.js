@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Columns",
 	description: "Arrange content into 2-4 columns",
-	icon: UCDIcons.render('layout.columns'),
+	icon: UCDIcons.renderBlockIcon('columns'),
 	category: 'ucd-layout',
 	keywords: [ "grid", "column", "content", "columns" ],
   supports: {

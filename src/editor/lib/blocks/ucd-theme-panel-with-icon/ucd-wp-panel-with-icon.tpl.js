@@ -46,6 +46,9 @@ export function styles() {
     .panel {
       background-color: transparent;
     }
+    .panel--icon .panel__title {
+      align-items: center;
+    }
     @media (min-width: 768px) {
       .panel__title ucdlib-icon {
         width: 2.47rem;

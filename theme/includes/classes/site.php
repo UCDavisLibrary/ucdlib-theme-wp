@@ -1,4 +1,5 @@
 <?php
+require_once( __DIR__ . '/api.php' );
 require_once( __DIR__ . '/views.php' );
 require_once( __DIR__ . '/meta-data.php' );
 require_once( __DIR__ . '/customizer.php' );
@@ -55,6 +56,9 @@ class UcdThemeSite extends Timber\Site {
       $this->blockSettings['color--' . $shortSlug] = $customColors;
     }
 
+    // Register custom API endpoints
+    $this->api = new UCDThemeAPI('ucd');
+
     // Register view paths with theme
     $this->views = new UCDThemeViews();
 
@@ -72,7 +76,7 @@ class UcdThemeSite extends Timber\Site {
 
     // Gutenberg blocks
     $this->blockSettings = apply_filters('ucd-theme_block_settings', $this->blockSettings);
-    new UCDThemeBlocks( $this->scripts['editor'], $this->blockSettings );
+    $this->customBlocks = new UCDThemeBlocks( $this->scripts['editor'], $this->blockSettings );
 
     // Register widget areas (sidebars)
     new UcdThemeSidebars();
@@ -210,7 +214,7 @@ class UcdThemeSite extends Timber\Site {
         }
         if ( !$link ) return $out;
 
-        $link = preg_replace( '/page\/[0-9]\//', '', $link );
+        $link = preg_replace( '/page\/\d+\//', '', $link );
         $link = parse_url($link);
         if ( array_key_exists('path', $link) ) $out['path'] = $link['path'];
         if ( array_key_exists('query', $link) ) $out['query'] = $link['query'];

@@ -1,1 +1,8 @@
-<section class="teasers">{{content}}</section>
+{% set classes = "teasers" %}
+{% if attributes.panel %}
+  {% set classes = classes ~ " u-space-mb" %}
+{% endif %}
+{% if attributes.oBox %}
+  {% set classes = classes ~ " o-box" %}
+{% endif %}
+<section class="{{classes}}">{{content}}</section>

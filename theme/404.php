@@ -3,6 +3,8 @@
  * The template for displaying 404 pages
  */
 
+do_action( 'ucd-theme/template/404' );
+
 $context = Timber::context();
 $content['title'] = "Page Not Found";
 echo "this is a true 404";

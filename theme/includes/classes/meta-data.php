@@ -60,6 +60,12 @@ class UCDThemeMetaData {
     register_post_meta( 'page', 'ucd_hide_sidebar', array(
       'show_in_rest' => true,
       'single' => true,
+      'default' => get_theme_mod('layout_page_sidebar_default') ? true : false,
+      'type' => 'boolean',
+    ) );
+    register_post_meta( 'page', 'ucd_full_width', array(
+      'show_in_rest' => true,
+      'single' => true,
       'default' => false,
       'type' => 'boolean',
     ) );
@@ -92,6 +98,25 @@ class UCDThemeMetaData {
       'single' => true,
       'type' => 'string',
       'default' => ''
+    ) );
+    register_post_meta( '', 'ucd_nav_parent', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'number',
+      'default' => 0
+    ) );
+
+    register_post_meta( '', 'ucd_thumbnail_1x1', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'number',
+      'default' => 0
+    ) );
+    register_post_meta( '', 'ucd_thumbnail_4x3', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'number',
+      'default' => 0
     ) );
   }
 

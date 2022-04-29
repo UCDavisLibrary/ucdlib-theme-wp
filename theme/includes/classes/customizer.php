@@ -212,7 +212,7 @@ class UcdThemeCustomizer {
     $wp_customize->add_control('layout_page_sidebar_hide', array(
       'type' => "checkbox",
       'section' => 'layout_page',
-      'label' => 'Hide the sidebar'
+      'label' => 'Globally disable the sitewide sidebar.'
     ));
     $wp_customize->add_setting('layout_page_sidebar_flipped');
     $wp_customize->add_control('layout_page_sidebar_flipped', array(
@@ -220,6 +220,21 @@ class UcdThemeCustomizer {
       'section' => 'layout_page',
       'label' => 'Flip the sidbar location',
       'description' => 'Sidebar will display on the right'
+    ));
+    $wp_customize->add_setting('layout_page_sidebar_default');
+    $wp_customize->add_control('layout_page_sidebar_default', array(
+      'type' => "checkbox",
+      'section' => 'layout_page',
+      'label' => 'Hide by default',
+      'description' => 'Can still be displayed by author in page settings.'
+    ));
+    $wp_customize->add_setting('layout_page_template');
+    $wp_customize->add_control('layout_page_template', array(
+      'type' => "checkbox",
+      'section' => 'layout_page',
+      'label' => 'Use a page block template',
+      'description' => 'By default, all new pages will be loaded with a starter template. 
+      Can be customized programmatically with the "ucd-theme/block-template/page" filter.'
     ));
 
     // category
@@ -359,7 +374,7 @@ class UcdThemeCustomizer {
       array("slug" => "teaser", "label" => "Teaser Block Palette", "description" => 'Also used as color palette for "featured" post.'),
       array("slug" => "marketing-highlight", "label" => "Marketing Highlight Block Palette"),
       array("slug" => "marketing-highlight-horizontal", "label" => "Marketing Highlight (Horizontal) Block Palette"),
-      array("slug" => "marketing-highlight-poster", "label" => "Poster Block Palette"),
+      array("slug" => "poster", "label" => "Poster Block Palette"),
       array("slug" => "panel-with-icon", "label" => "Panel with Icon"),
       array("slug" => "priority-link", "label" => "Priority Link Palette"),
       array("slug" => "focal-link", "label" => "Focal Link Palette"),

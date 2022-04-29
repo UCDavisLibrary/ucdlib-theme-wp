@@ -7,3 +7,4 @@ node_modules
 /assets/css
 /theme/acf-json
 .DS_Store
+/src/public/lib/icons/ucd-public.html

@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Marketing Highlight Horizontal",
 	description: "Link to another webpage with a landscape image and stylized short caption.",
-	icon: UCDIcons.render("highlight"),
+	icon: UCDIcons.renderBlockIcon('marketing-highlight-hor'),
 	category: 'ucd-cards',
 	keywords: [ 'marketing', 'highlight', 'post', 'page', 'landscape', 'image' ],
   supports: {
@@ -28,7 +28,7 @@ const settings = {
     },
     brandColor: {
       type: "string",
-      default: ""
+      default: "secondary"
     },
     newTab: {
       type: "boolean",

@@ -59,7 +59,7 @@ const IconPicker = forwardRef((props, ref) => {
   return html`
     <${Fragment}>
       ${isOpen && html`
-      <${Modal} title="Choose an Icon" onRequestClose=${ closeModal }>
+      <${Modal} isFullScreen title="Choose an Icon" onRequestClose=${ closeModal }>
         <ucd-wp-icon-picker ...${ mainEleProps() }></ucd-wp-icon-picker>
 				</${Modal}>
       `}

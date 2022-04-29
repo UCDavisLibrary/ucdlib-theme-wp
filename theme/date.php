@@ -7,6 +7,7 @@
  * http://example.com/2021/05/26/
  */
 
+do_action( 'ucd-theme/template/date' );
 
 $context = Timber::context();
 

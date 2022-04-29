@@ -36,7 +36,9 @@ export default ({ attributes, setAttributes }) => {
     }
     if ( value.kind == 'post-type' ){
       attrs.postId = value.id;
-    } 
+    } else if ( value.kind == 'taxonomy' ) {
+      attrs.taxId = value.id 
+    }
     setAttributes(attrs);
   }
 
@@ -88,7 +90,7 @@ export default ({ attributes, setAttributes }) => {
       text-align=${attributes.textAlign}
       alt-style=${altStyle}
       text=${attributes.content}>
-      <div slot="text" contentEditable="true"></div>
+      <div slot="text" contentEditable="true" style=${{width: '100%'}}></div>
     </ucd-wp-button-link>
   </div>
   `;

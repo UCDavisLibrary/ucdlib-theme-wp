@@ -40,6 +40,38 @@ class UcdThemeMenu {
     }
     return $context;
   }
+
+  /**
+   * @method getDirectHierarchybyId
+   * @description Gets all ancestor menu items of a menu item (by its id)
+   * @returns An array of menu items.
+   */
+  public static function getDirectHierarchybyId( $menu, $item_id ){
+    $out = [];
+    if ( !$menu->items || !$item_id ) return $out;
+    foreach ($menu->items as $parent) {
+      if ( $parent->id == $item_id ){
+        $out[] = self::getMenuItemBasics($parent);
+        return $out;
+      }
+      foreach ( $parent->children as $child ){
+        if ( $child->id == $item_id ){
+          $out[] = self::getMenuItemBasics($parent);
+          $out[] = self::getMenuItemBasics($child);
+          return $out;
+        }
+        foreach ( $child->children as $grandchild ){
+          if ( $grandchild->id == $item_id ){
+            $out[] = self::getMenuItemBasics($parent);
+            $out[] = self::getMenuItemBasics($child);
+            $out[] = self::getMenuItemBasics($grandchild);
+            return $out;
+          }
+        }
+      }
+    }
+    return $out;
+  }
   
   /**
    * @method getDirectHierarchyinMenu
@@ -92,18 +124,17 @@ class UcdThemeMenu {
             $out[] = self::getMenuItemBasics($child);
             return $out;
           }
-        }
-        foreach ( $child->children as $grandchild ){
-          if ( $grandchild->object_id == $post_id ){
-            $out[] = self::getMenuItemBasics($parent);
-            $out[] = self::getMenuItemBasics($child);
-            $out[] = self::getMenuItemBasics($grandchild);
-            return $out;
+          foreach ( $child->children as $grandchild ){
+            if ( $grandchild->object_id == $post_id ){
+              $out[] = self::getMenuItemBasics($parent);
+              $out[] = self::getMenuItemBasics($child);
+              $out[] = self::getMenuItemBasics($grandchild);
+              return $out;
+            }
           }
         }
       }
     }
-
     return $out;
   }
 
@@ -114,7 +145,9 @@ class UcdThemeMenu {
   private static function getMenuItemBasics( $menu_item ){
     return [
       'link' => $menu_item->link(),
-      'title' => $menu_item->title()
+      'title' => $menu_item->title(),
+      'id' => $menu_item->id,
+      'object_id' => $menu_item->object_id
     ];
   }
 

@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "FAQ Section",
 	description: "Add a FAQ section where the answers are collapsable ",
-	icon: UCDIcons.render('link'), // TODO: CHANGE ICON
+	icon: UCDIcons.renderBlockIcon('faq-section'),
 	category: 'text',
 	keywords: [ 'question', 'answer', 'accordion', 'collapse', 'expand' ],
   supports: {

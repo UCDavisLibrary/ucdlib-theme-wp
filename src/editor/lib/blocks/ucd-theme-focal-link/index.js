@@ -6,8 +6,8 @@ const settings = {
   api_version: 2,
 	title: "Focal Link",
 	description: "Add a stylized block link with an icon",
-	icon: UCDIcons.render('link'), // TODO: CHANGE ICON
-	category: 'widgets',
+	icon: UCDIcons.renderBlockIcon('focal-link'),
+	category: 'ucd-links',
 	keywords: [ 'link', 'icon', 'color', 'text' ],
   supports: {
     "html": false,
@@ -23,6 +23,10 @@ const settings = {
       default: ''
     },
     postId: {
+      type: 'number',
+      default: 0
+    },
+    taxId: {
       type: 'number',
       default: 0
     },

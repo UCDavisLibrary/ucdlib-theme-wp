@@ -7,7 +7,7 @@ const settings = {
   api_version: 2,
 	title: "Section with a Background Color",
 	description: "Create a section with a splash of color w/ optional watercolor effect.",
-	icon: UCDIcons.render('color.fill2'),
+	icon: UCDIcons.renderBlockIcon('background-watercolor'),
 	category: 'media',
 	keywords: [ "watercolor", "section", "background" ],
   supports: {

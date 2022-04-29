@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { html, BlockSettings, SelectUtils } from "../../utils";
-import { ImagePicker } from "../../block-components";
+import { ImagePicker, ToolbarLinkPicker } from "../../block-components";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { ToolbarDropdownMenu } from '@wordpress/components';
 
@@ -17,7 +17,14 @@ export default ( props ) => {
     setAttributes({imageId: 0});
   }
 
-  const imgSrc = Image ? Image.source_url : BlockSettings.getImageByAspectRatio(attributes.aspectRatio)
+  const imgSrc = Image ? Image.source_url : BlockSettings.getImageByAspectRatio(attributes.aspectRatio);
+  
+  let captionText;
+  if ( attributes.caption.customText ) {
+    captionText = attributes.caption.customText;
+  } else if ( Image && Image.caption.rendered ) {
+    captionText = Image.caption.rendered.replace(/(<([^>]+)>)/gi, "");
+  } 
 
   const aspectRatioControls = ["4x3", "16x9"].map(ar => 
     Object({
@@ -27,8 +34,31 @@ export default ( props ) => {
     })
   )
   const classes = classnames({
+    'u-background-image': true,
     [`aspect--${attributes.aspectRatio}`]: true
   })
+
+  // set up link picker
+  const onHrefChange = (value) => {
+    let attrs = {
+      href: value.url,
+      newTab: value.opensInNewTab ? true : false,
+      postId: 0
+    }
+    if ( value.kind == 'post-type' ){
+      attrs.postId = value.id;
+    } else if ( value.kind == 'taxonomy' ) {
+      attrs.taxId = value.id 
+    }
+    setAttributes(attrs);
+  }
+  const hrefContent = (() => {
+    let value = {opensInNewTab: attributes.newTab, url: ""};
+    if ( attributes.href ) {
+      value.url = attributes.href;
+    } 
+    return value;
+  })();
 
   return html`
     <div ...${ blockProps }>
@@ -38,6 +68,7 @@ export default ( props ) => {
         label="Change Aspect Ratio"
         controls=${aspectRatioControls}
       />
+      <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
       </${BlockControls}>
       <${InspectorControls}>
         <${ImagePicker} 
@@ -45,12 +76,19 @@ export default ( props ) => {
           image=${Image}
           onSelect=${onSelectImage}
           onRemove=${onRemoveImage}
+          captionOptions=${attributes.caption}
+          onCaptionChange=${(caption) => setAttributes({caption})}
           panelAttributes=${{title: 'Select an Image'}}
         />
       </${InspectorControls}>
-      <div className=${classes}>
-        <img src=${imgSrc} loading="lazy" />
-      </div>
+      <figure style=${{display:'block'}}>
+        <div className=${classes} style=${{backgroundImage: `url(${imgSrc})`}}></div>
+        ${ (attributes.caption.show && captionText) && html`
+          <figcaption style=${{display:'block'}}>${captionText}</figcaption>
+        `}
+      </figure>
+      
+      
 
     </div>
   `;

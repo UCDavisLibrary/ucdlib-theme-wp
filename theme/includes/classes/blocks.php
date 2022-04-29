@@ -16,11 +16,18 @@ class UCDThemeBlocks {
     $this->editor_script_slug = $editor_script_slug;
     $this->set_settings($settings);
 
+    $this->iconsUsed = [
+      'ucd-public:fa-star',
+      'ucd-public:fa-circle-chevron-right'
+    ];
+
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
     add_action( 'enqueue_block_editor_assets', array( $this, "enqueue_block_editor_assets" ), 5 );
     add_action( 'init', array( $this, 'register_blocks'));
     add_action('block_categories_all', array($this, 'addCategories'), 10,2);
     add_filter( 'render_block', array($this, 'modifyCoreBlock'), 10, 2 );
+    add_action( 'init', array($this, 'setPageBlockTemplate'), 100);
+    add_filter('excerpt_allowed_wrapper_blocks', array($this, 'excerpt_allowed_wrapper_blocks'));
   }
 
   /**
@@ -28,7 +35,14 @@ class UCDThemeBlocks {
    */
   public static $registry = array(
     "ucd-theme/background-color" => array("twig" => "@ucd/blocks/background-color.twig"),
-    "ucd-theme/brand-textbox" => array("twig" => "@ucd/blocks/brand-textbox.twig"),
+    "ucd-theme/background-image" => array(
+      "twig" => "@ucd/blocks/background-image.twig",
+      "transform" => array("getImage")
+    ),
+    "ucd-theme/brand-textbox" => array(
+      "twig" => "@ucd/blocks/brand-textbox.twig",
+      "hasBrandColors" => true
+    ),
     "ucd-theme/button-link" => array(
       "twig" => "@ucd/blocks/button-link.twig", 
       "transform" => array("removeStylePrefix", 'getPermalink')
@@ -38,7 +52,8 @@ class UCDThemeBlocks {
       "transform" => array("getCategories")
     ),
     "ucd-theme/faq" => array(
-      "twig" => "@ucd/blocks/faq.twig"
+      "twig" => "@ucd/blocks/faq.twig",
+      "transform" => array("addSpacing")
     ),
     "ucd-theme/faq-item" => array(
       "twig" => "@ucd/blocks/faq-item.twig"
@@ -54,23 +69,23 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/hero-banner" => array(
       "twig" => "@ucd/blocks/hero-banner.twig",
-      "transform" => array("getPost"),
+      "transform" => array("getPost", 'addSpacing'),
       "hasBrandColors" => true
     ),
     "ucd-theme/image-landscape" => array(
       "twig" => "@ucd/blocks/image-landscape.twig", 
-      "transform" => array("getImage")
+      "transform" => array("getImage", "getPermalink", 'addSpacing')
     ),
     "ucd-theme/marketing-highlight" => array(
       "twig" => "@ucd/blocks/marketing-highlight.twig",
       "img" => "640x480.png",
-      "transform" => array("getPost"),
+      "transform" => array("getPost", "addSpacing"),
       "hasBrandColors" => true
     ),
     "ucd-theme/marketing-highlight-horizontal" => array(
       "twig" => "@ucd/blocks/marketing-highlight-horizontal.twig",
       "img" => "1280x720.png",
-      "transform" => array("getPost"),
+      "transform" => array("getPost", "addSpacing"),
       "hasBrandColors" => true
     ),
     "ucd-theme/media-link" => array(
@@ -81,12 +96,13 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/media-links" => array(
       "twig" => "@ucd/blocks/media-links.twig",
+      "transform" => array("addSpacing"),
       "provides_context" => array('media-links/hideImage' => 'hideImage')
     ),
     "ucd-theme/poster" => array(
       "twig" => "@ucd/blocks/poster.twig",
       "img" => "1280x720.png",
-      "transform" => array("getPost"),
+      "transform" => array("getPost", "addSpacing"),
       "hasBrandColors" => true
     ),
     "ucd-theme/poster-list" => array("twig" => "@ucd/blocks/poster-list.twig"),
@@ -97,7 +113,7 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/primary-subnav" => array(
       "twig" => "@ucd/blocks/primary-subnav.twig",
-      "transform" => array("getCurrentPost"),
+      "transform" => array("getCurrentPost", 'addSpacing'),
     ),
     "ucd-theme/priority-link" => array(
       "twig" => "@ucd/blocks/priority-link.twig",
@@ -110,13 +126,18 @@ class UCDThemeBlocks {
     "ucd-theme/priority-links" => array("twig" => "@ucd/blocks/priority-links.twig"),
     "ucd-theme/lander-nav" => array(
       "twig" => "@ucd/blocks/lander-nav.twig", 
-      "transform" => array("getCurrentPost", "getNavOrPageChildren")
+      "transform" => array("getCurrentPost", "getNavOrPageChildren", "addSpacing")
     ),
     "ucd-theme/layout-basic" => array("twig" => "@ucd/blocks/layout-basic.twig"),
     "ucd-theme/column" => array("twig" => "@ucd/blocks/layout-column.twig"),
     "ucd-theme/layout-columns" => array("twig" => "@ucd/blocks/layout-columns.twig"),
     "ucd-theme/layout-container" => array("twig" => "@ucd/blocks/layout-container.twig"),
+    "ucd-theme/layout-shrink" => array("twig" => "@ucd/blocks/layout-shrink.twig"),
     "ucd-theme/layout-quad" => array("twig" => "@ucd/blocks/layout-quad.twig"),
+    "ucd-theme/manual-subnav" => array(
+      "twig" => "@ucd/blocks/manual-subnav.twig",
+      "transform" => array('getNavPermalinks', 'addSpacing')
+    ),
     "ucd-theme/object-box" => array("twig" => "@ucd/blocks/object-box.twig"),
     "ucd-theme/panel-with-icon" => array(
       "twig" => "@ucd/blocks/panel-with-icon.twig",
@@ -125,11 +146,11 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/query" => array(
       "twig" => "@ucd/blocks/query.twig",
-      "transform" => array("getPosts")
+      "transform" => array("getPosts", 'addSpacing')
     ),
     "ucd-theme/recent-posts" => array(
       "twig" => "@ucd/blocks/recent-posts.twig",
-      "transform" => array("getRecentPosts")
+      "transform" => array("getPosts", 'addSpacing')
     ),
     "ucd-theme/sils-search-redirect" => array("twig" => "@ucd/blocks/sils-search-redirect.twig"),
     "ucd-theme/spacer" => array("twig" => "@ucd/blocks/spacer.twig"),
@@ -147,6 +168,7 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/teasers" => array(
       "twig" => "@ucd/blocks/teasers.twig",
+      "transform" => array('addSpacing'),
       "provides_context" => array(
         'teasers/hideImage' => 'hideImage',
         'teasers/hideByline' => 'hideByline',
@@ -171,6 +193,7 @@ class UCDThemeBlocks {
    * Core blocks to unregister. 
    * Most because they are redundant of a ucd block.
    */
+
   public static $excluded_core_blocks = array(
     "core/buttons",
     "core/button",
@@ -180,10 +203,10 @@ class UCDThemeBlocks {
     "core/column",
     "core/cover",
     "core/gallery",
-    "core/group",
     "core/latest-comments",
     "core/latest-posts",
     "core/loginout",
+    "core/navigation",
     "core/nextpage",
     "core/post-content",
     "core/post-date",
@@ -255,6 +278,20 @@ class UCDThemeBlocks {
       );
     }
     return $block_categories;
+  }
+
+  // let innerblocks of these blocks be rendered in an excerpt
+  // https://developer.wordpress.org/reference/functions/excerpt_remove_blocks/
+  public function excerpt_allowed_wrapper_blocks($blocks){
+    $b = [
+      "ucd-theme/layout-basic",
+      "ucd-theme/column",
+      "ucd-theme/layout-columns",
+      "ucd-theme/layout-container",
+      "ucd-theme/layout-shrink",
+      "ucd-theme/layout-quad"
+    ];
+    return array_merge( $blocks, $b );
   }
 
   /**
@@ -350,6 +387,13 @@ class UCDThemeBlocks {
       }
     }
 
+    // check for icons (so we can only load the svgs we actually use)
+    if ( 
+      array_key_exists('icon', $block_attributes) && 
+      !in_array($block_attributes['icon'], $this->iconsUsed)) {
+        $this->iconsUsed[] = $block_attributes['icon'];
+      }
+
     // Render twig
     ob_start();
     Timber::render( $meta['twig'], array("attributes" => $block_attributes, "content" => $content, "block" => $block) );
@@ -363,6 +407,22 @@ class UCDThemeBlocks {
     $editorBundleSlug = $this->editor_script_slug; 
     $editorBundleSlug = apply_filters( 'ucd-theme/assets/editor-settings-slug', $editorBundleSlug );
     wp_add_inline_script($editorBundleSlug, "window.UCDBlockSettings=" . json_encode($this->settings) , 'before');
+  }
+
+  /**
+   * Sets the default block template loaded when a new page is created
+   */
+  public function setPageBlockTemplate(){
+    if ( !get_theme_mod('layout_page_template') ) return;
+    $page_type_object = get_post_type_object( 'page' );
+    $template = [
+      ['ucd-theme/layout-basic', ['sideBarLocation' => 'right', 'modifier' => 'flipped'], [
+        ['ucd-theme/column', ['layoutClass' => 'l-content', 'forbidWidthEdit' => true], [['core/paragraph']]],
+        ['ucd-theme/column', ['layoutClass' => 'l-sidebar-first', 'forbidWidthEdit' => true], [['ucd-theme/primary-subnav']]]
+      ]]
+    ];
+    $template = apply_filters( 'ucd-theme/block-template/page', $template );
+    $page_type_object->template = $template;
   }
 
   /**

@@ -39,8 +39,10 @@ export default ( props ) => {
   const innerBlocksProps = useInnerBlocksProps( blockProps, {
     orientation: "vertical",
     templateLock: false,
+    //renderAppender: InnerBlocks.DefaultBlockAppender
     renderAppender: InnerBlocks.ButtonBlockAppender
   } );
+  
 
   return html`
     <${Fragment}>

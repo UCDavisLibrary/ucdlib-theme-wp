@@ -40,7 +40,7 @@ export default ( props ) => {
   let posts = SelectUtils.posts(
     queryParams,
     postType,
-    ['image']
+    ['image', 'thumbnail_1x1']
   );
   if ( !posts ) posts = [];
 
@@ -87,11 +87,14 @@ export default ( props ) => {
       p.href = post.link;
       p.title = decodeEntities(post.title.rendered);
       
-      let postExcerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
-      postExcerpt = decodeEntities(postExcerpt).replace(/(?:\r\n|\r|\n)/g, '');
-      p.excerpt = postExcerpt;
+      if ( post.excerpt ){
+        p.excerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
+        p.excerpt = decodeEntities(p.excerpt).replace(/(?:\r\n|\r|\n)/g, '');
+      }
 
-      if ( post.image ) {
+      if ( post.customImage ) {
+        p['img-src'] = post.customImage.source_url;
+      }else if ( post.image ) {
         p['img-src'] = post.image.source_url;
       } else {
         p['img-src'] = BlockSettings.getImage('media-link');

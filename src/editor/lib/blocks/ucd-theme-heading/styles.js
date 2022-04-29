@@ -1,5 +1,14 @@
 export default [
   {
+    name: 'underline',
+    label: 'Section Title (Underline)',
+    isDefault: true
+  },
+  {
+    name: 'weighted-underline',
+    label: 'Section Title (Weighted with Underline)'
+  },
+  {
     name: 'primary',
     label: 'Section Title (Primary)'
   },
@@ -16,17 +25,9 @@ export default [
     label: 'Section Title (Highlight)'
   },
   {
-    name: 'underline',
-    label: 'Section Title (Underline)'
-  },
-  {
     name: 'weighted',
     label: 'Section Title (Weighted)'
   }, 
-  {
-    name: 'weighted-underline',
-    label: 'Section Title (Weighted with Underline)'
-  },
   {
     name: 'invert',
     label: 'Section Title (White text)'

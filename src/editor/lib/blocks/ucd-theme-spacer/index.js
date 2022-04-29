@@ -6,7 +6,7 @@ const settings = {
   api_version: 2,
 	title: "Spacer",
 	description: "Add a blank, transparent block",
-	icon: UCDIcons.render('spacing.spacer'),
+	icon: UCDIcons.renderBlockIcon('spacer'),
 	category: 'ucd-layout',
 	keywords: [ "space", "padding", "margin" ],
   supports: {

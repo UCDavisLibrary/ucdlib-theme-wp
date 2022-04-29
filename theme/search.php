@@ -2,6 +2,8 @@
 /**
  * Search results page
  */
+do_action( 'ucd-theme/template/search' );
+
 global $wp_query;
 $context = Timber::context();
 $context['title'] = 'Search results for ' . get_search_query();
