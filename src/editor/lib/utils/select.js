@@ -60,6 +60,12 @@ export default class SelectUtils {
     }, [] );
   }
 
+  static isCurrentUserAdmin() {
+    return useSelect( ( select ) => {
+      return select( 'core' ).canUser('create', 'users');
+    }, [] );
+  }
+
   static editedPostAttribute(attr) {
     return useSelect( ( select ) => {
       return select( 'core/editor' ).getEditedPostAttribute(attr);
