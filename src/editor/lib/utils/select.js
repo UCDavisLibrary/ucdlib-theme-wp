@@ -148,10 +148,12 @@ export default class SelectUtils {
     } , [includeUncategorized]);  
   }
 
-  static terms(taxonomy){
+  static terms(taxonomy, query){
     if ( !taxonomy ) return null;
     return useSelect( (select) => {
-      let query = {per_page: 100, orderby: 'count', order: 'desc'};
+      if ( !query ) {
+        query = {per_page: 100, orderby: 'count', order: 'desc'};
+      }
       const Terms = select('core').getEntityRecords('taxonomy', taxonomy, query);
       return Terms ? Terms : [];
     } , [taxonomy]); 

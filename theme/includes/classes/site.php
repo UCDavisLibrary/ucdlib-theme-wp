@@ -3,6 +3,7 @@ require_once( __DIR__ . '/api.php' );
 require_once( __DIR__ . '/views.php' );
 require_once( __DIR__ . '/meta-data.php' );
 require_once( __DIR__ . '/customizer.php' );
+require_once( __DIR__ . '/html-import.php' );
 require_once( __DIR__ . '/menu.php' );
 require_once( __DIR__ . '/blocks.php' );
 require_once( __DIR__ . '/assets.php' );
@@ -92,6 +93,9 @@ class UcdThemeSite extends Timber\Site {
 
     // Set post featured image sizes
     new UcdThemeThumbnails();
+
+    // Set up html imports of twig partials
+    $this->htmlImport = new UCDThemeHtmlImport();
 
     // Hook onto actions and filters
     add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
