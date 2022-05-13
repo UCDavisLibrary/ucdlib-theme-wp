@@ -13,6 +13,7 @@ import {
   addSubmenu,
 	arrowUp,
 	arrowDown,
+  chevronDown,
   insertAfter,
   insertBefore,
   link,
@@ -359,7 +360,7 @@ export default ( props ) => {
       <${Dropdown} position="bottom right" renderToggle=${titleButton} renderContent=${titleContent}/>
       ${hasFocusedData && html`
         <${DropdownMenu} 
-          icon=${link}
+          icon=${chevronDown}
           label="Edit Selected Nav Item"
           controls=${itemControls}
         />

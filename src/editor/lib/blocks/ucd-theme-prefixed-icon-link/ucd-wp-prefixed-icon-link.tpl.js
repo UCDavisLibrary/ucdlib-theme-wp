@@ -23,7 +23,7 @@ export function styles() {
       width: 1rem;
       height: 1rem;
     }
-    a.icon-ucdlib {
+    a.icon-ucdlib, span.icon-ucdlib {
       display: flex;
       align-items: center;
     }
@@ -40,17 +40,16 @@ export function styles() {
 
 export function render() { 
 return html`
-  <a class=${classMap(this._getBaseClasses())}>
-    <ucdlib-icon icon=${this.icon} @click=${this.dispatchIconChangeRequest}></ucdlib-icon>
-    <div class="text-container">
-      <slot 
-        id="text-slot"
-        class=${this.text ? '' : 'show-placeholder'}
-        name="text" 
-        placeholder="Write text..."
-        @input=${this._onTextInput}>${this.text}</slot>
-    </div>
-  </a>
+  ${this.href ? html`
+    <a class=${classMap(this._getBaseClasses())}>
+      ${this._renderContent()}
+    </a>
+  ` : html`
+    <span class=${classMap(this._getBaseClasses())}>
+      ${this._renderContent()}
+    </span>
+  `}
+
 
 
 `;}
