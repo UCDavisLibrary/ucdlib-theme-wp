@@ -26,7 +26,7 @@ const settings = {
     },
     fullWidthOnMobile: {
       type: 'boolean',
-      default: false
+      default: true
     }
   },
   edit: Edit,

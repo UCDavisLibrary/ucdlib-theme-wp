@@ -16,7 +16,7 @@ export default ( props ) => {
   const classes = classnames({
     "l-shrink": true,
     [`l-shrink--${attributes.width}`]: attributes.width,
-    'u-width--100-in-mobile': attributes.fullWidthOnMobile
+    'u-width--100-in-tablet': attributes.fullWidthOnMobile
   });
 
   const blockProps = useBlockProps( {
