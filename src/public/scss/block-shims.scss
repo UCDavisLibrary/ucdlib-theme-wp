@@ -1,6 +1,10 @@
 @use "@ucd-lib/theme-sass/0_tools" as *;
 @use "@ucd-lib/theme-sass/2_base_class/tables-mixin" as *;
 
+figure table {
+  margin-bottom: 0;
+}
+
 .pullquote cite {
     position: relative;
     display: inline-block;
