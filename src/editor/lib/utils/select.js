@@ -148,7 +148,7 @@ export default class SelectUtils {
     } , [includeUncategorized]);  
   }
 
-  static terms(taxonomy, query){
+  static terms(taxonomy, query, watch=[]){
     if ( !taxonomy ) return null;
     return useSelect( (select) => {
       if ( !query ) {
@@ -156,7 +156,7 @@ export default class SelectUtils {
       }
       const Terms = select('core').getEntityRecords('taxonomy', taxonomy, query);
       return Terms ? Terms : [];
-    } , [taxonomy]); 
+    } , [taxonomy, ...watch]); 
   }
 
   static isPost(){
