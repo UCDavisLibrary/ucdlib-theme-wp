@@ -1,4 +1,4 @@
-import { LitElement } from 'lit';
+import { LitElement, html } from 'lit';
 import {render, styles} from "./ucd-wp-prefixed-icon-link.tpl.js";
 
 import { MainComponentElement, Mixin } from '../../utils';
@@ -11,6 +11,7 @@ export default class UcdWpPrefixedIconLink extends Mixin(LitElement)
       color: {type: String},
       icon: {type: String},
       text: {type: String},
+      href: {type: String}
     }
   }
 
@@ -23,6 +24,7 @@ export default class UcdWpPrefixedIconLink extends Mixin(LitElement)
     this.color = "";
     this.icon = "";
     this.text = "";
+    this.href = "";
     this.render = render.bind(this);
   }
 
@@ -37,6 +39,20 @@ export default class UcdWpPrefixedIconLink extends Mixin(LitElement)
     classes[`category-brand--${this.color}`] = this.color ? true : false;
 
     return classes;
+  }
+
+  _renderContent(){
+    return html`
+      <ucdlib-icon icon=${this.icon} @click=${this.dispatchIconChangeRequest}></ucdlib-icon>
+      <div class="text-container">
+        <slot 
+          id="text-slot"
+          class=${this.text ? '' : 'show-placeholder'}
+          name="text" 
+          placeholder="Write text..."
+          @input=${this._onTextInput}>${this.text}</slot>
+      </div>
+    `
   }
 
   dispatchIconChangeRequest(){

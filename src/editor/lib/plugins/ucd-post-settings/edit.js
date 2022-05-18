@@ -62,9 +62,9 @@ export default () => {
       `}
       ${isPage && html`
         <${ToggleControl} 
-          label="Show Hero Image"
-          checked=${meta.ucd_show_hero}
-          onChange="${ucd_show_hero => {editPost({meta: {ucd_show_hero}})}}" />
+          label="Hide Hero Image"
+          checked=${meta.ucd_hide_hero}
+          onChange="${ucd_hide_hero => {editPost({meta: {ucd_hide_hero}})}}" />
       `}
       ${isPost && html`
         <${ToggleControl} 

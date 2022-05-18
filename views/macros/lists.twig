@@ -92,7 +92,7 @@ kwargs:
   {% if kwargs.featured %}
     {% set classes = classes ~ " vm-teaser--featured" %}
     {% if kwargs.brandColor %}
-      {% set classes = classes ~ " " ~ kwargs.brandColor %}
+      {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
     {% endif %}
   {% elseif kwargs.partOfQuery %}
     {% if kwargs.post.featured %}

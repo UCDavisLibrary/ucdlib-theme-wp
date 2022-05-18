@@ -90,6 +90,7 @@ ucdlib-icon.panel__custom-icon {
 }
 .panel--icon .panel__title {
   align-items: center;
+  margin-bottom: 1rem;
 }
 .panel__title ucdlib-icon {
   width: 1.6055rem;
@@ -105,7 +106,7 @@ ucdlib-icon.panel__custom-icon {
 }
 
 // for the icon class
-a.icon-ucdlib {
+a.icon-ucdlib, span.icon-ucdlib {
   display: flex;
   align-items: center;
 
@@ -147,6 +148,11 @@ a.icon-ucdlib {
 // space utility
 @media (max-width: 479px) {
   .u-width--100-in-mobile {
+    width: 100% !important;
+  }
+}
+@media (max-width: 767px) {
+  .u-width--100-in-tablet {
     width: 100% !important;
   }
 }

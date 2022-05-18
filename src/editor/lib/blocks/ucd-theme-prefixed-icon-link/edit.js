@@ -46,6 +46,7 @@ export default ( props ) => {
     if ( attributes.brandColor ) p.color = attributes.brandColor;
     if ( attributes.icon ) p.icon = attributes.icon;
     if ( attributes.text ) p.text = attributes.text;
+    if ( attributes.href ) p.href = attributes.href;
 
     return p;
   }
@@ -85,7 +86,7 @@ export default ( props ) => {
   return html`
   <div ...${ blockProps }>
     <${BlockControls} group="block">
-      <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
+      <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} allowEmail allowPhone />
       <${ToolbarColorPicker} 
           onChange=${onColorChange}
           value=${attributes.brandColor}
