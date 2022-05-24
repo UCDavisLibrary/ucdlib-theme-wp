@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "wp-scripts start index.js --output-path=../../assets/js/editor/dev",
+    "init-bundle": "wp-scripts build index.js --output-path=../../assets/js/editor/dev",
     "dist": "wp-scripts build index.js --output-path=../../assets/js/editor/dist"
   },
   "author": "",
