@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "webpack --config webpack-watch.config.js --watch",
+    "init-bundle": "webpack --config webpack-watch.config.js",
     "dist": "webpack --config webpack-dist.config.js"
   },
   "author": "",
