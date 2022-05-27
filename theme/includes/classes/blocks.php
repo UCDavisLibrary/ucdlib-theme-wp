@@ -34,6 +34,7 @@ class UCDThemeBlocks {
    * Meta for each block goes here.
    */
   public static $registry = array(
+    "ucd-theme/fancy-text" => ["twig" => '@ucd/blocks/fancy-text.twig'],
     "ucd-theme/background-color" => array("twig" => "@ucd/blocks/background-color.twig"),
     "ucd-theme/background-image" => array(
       "twig" => "@ucd/blocks/background-image.twig",

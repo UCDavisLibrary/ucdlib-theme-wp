@@ -37,6 +37,8 @@ import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
 import teasers from "./ucd-theme-teasers";
 
+import fancyText from "./ucd-theme-fancy-text";
+
 export default [
   backgroundColor,
   backgroundImage,
@@ -75,5 +77,6 @@ export default [
   silsSearchRedirect,
   spacer,
   teaser,
-  teasers
+  teasers,
+  fancyText
 ];
