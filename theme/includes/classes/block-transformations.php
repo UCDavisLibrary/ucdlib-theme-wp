@@ -34,12 +34,20 @@ class UCDThemeBlockTransformations {
   public static function getPosts($attrs=array()){
     $args = [];
 
-    if ( array_key_exists('postType', $attrs) ) $args['post_type'] = $attrs['postType'];
+    if ( array_key_exists('postType', $attrs) ) {
+      $args['post_type'] = $attrs['postType'];
+    } else {
+      $args['post_type'] = 'post';
+    }
     if ( array_key_exists('author', $attrs) ) $args['author'] = $attrs['author'];
     if ( array_key_exists('search', $attrs) ) $args['s'] = $attrs['search'];
     if ( array_key_exists('orderBy', $attrs) ) $args['orderby'] = $attrs['orderBy'];
     if ( array_key_exists('order', $attrs) ) $args['order'] = $attrs['order'];
-    if ( array_key_exists('postCt', $attrs) ) $args['posts_per_page'] = $attrs['postCt'];
+    if ( array_key_exists('postCt', $attrs) ) {
+      $args['posts_per_page'] = $attrs['postCt'];
+    } else {
+      $args['posts_per_page'] = 5;
+    }
 
     if ( array_key_exists('terms', $attrs) ){
       $tax_query = [];
