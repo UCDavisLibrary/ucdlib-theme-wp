@@ -79,6 +79,12 @@ export default () => {
         help="Byline for this post will be hidden site wide."
         onChange="${ucd_hide_author => {editPost({meta: {ucd_hide_author}})}}"
       />
+      <${ToggleControl} 
+        label="Flush Top Margin on Footer"
+        checked=${meta.ucd_footer_mt_flush}
+        help="Removes top margin from site footer."
+        onChange="${ucd_footer_mt_flush => {editPost({meta: {ucd_footer_mt_flush}})}}"
+      />
       ${isPost && html`
         <${TextControl} 
           label="Subtitle Text"
@@ -101,6 +107,7 @@ export default () => {
           onChange=${onColorChange}
         />
       </${BaseControl}>
+      
     </${PluginDocumentSettingPanel}>
   `;
 }
