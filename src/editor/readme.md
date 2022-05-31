@@ -14,7 +14,7 @@ import { MediaPlaceholder, InspectorControls, BlockControls} from '@wordpress/bl
 import { ToolbarButton, ToggleControl } from '@wordpress/components';
 ```
 
-Even though the code is React, we avoid writing in [JSX](https://reactjs.org/docs/introducing-jsx.html) by using a little [shim layer](https://www.npmjs.com/package/htm), which is JSX-like syntax but in plain JavaScript, and is very similar to [lit-html](https://www.npmjs.com/package/lit-html):
+Even though the code is React, we avoid writing in [JSX](https://reactjs.org/docs/introducing-jsx.html) by using a little [shim layer](https://www.npmjs.com/package/htm), which is JSX-like syntax but in plain JavaScript, and is very similar to [lit-html](https://www.npmjs.com/package/lit-html).
 ```js
 import { createElement } from "@wordpress/element";
 import htm from 'htm';
@@ -27,6 +27,31 @@ export default ( props ) => {
             <p>I am a React Component but not in jsx.</p>
         </${Fragment}>
     `
+}
+```
+
+So, your block's `edit.js` file will always return this html template, which is a mash-up of JSX and Lit:
+
+```js
+import { html } from "../../utils";
+import { TextControl } from "@wordpress/components";
+import { useBlockProps
+} from '@wordpress/block-editor';
+
+export default ( props ) => {
+  const { attributes, setAttributes } = props;
+  const blockProps = useBlockProps();
+
+  return html`
+    <div ...${ blockProps} >
+      <h1>Your Gutenberg Block</h1>
+      <${TextControl}
+        label="your text"
+        value=${attributes.text}
+        onChange=${(text) => setAttributes({text})}
+      />    
+    </div>
+  `
 }
 ```
 

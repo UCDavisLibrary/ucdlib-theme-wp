@@ -99,6 +99,12 @@ class UCDThemeMetaData {
       'type' => 'string',
       'default' => ''
     ) );
+    register_post_meta( '', 'ucd_footer_mt_flush', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'boolean',
+      'default' => false
+    ) );
     register_post_meta( '', 'ucd_nav_parent', array(
       'show_in_rest' => true,
       'single' => true,

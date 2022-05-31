@@ -28,7 +28,8 @@ export default ( props ) => {
 
   const classes = classnames({
     'hero-banner': true,
-    [`category-brand--${attributes.brandColor}`]: attributes.brandColor
+    [`category-brand--${attributes.brandColor}`]: attributes.brandColor,
+    'category-brand__background': attributes.brandColor
   });
 
   const imgStyles = {};

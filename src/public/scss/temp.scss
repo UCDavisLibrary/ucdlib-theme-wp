@@ -156,3 +156,24 @@ a.icon-ucdlib, span.icon-ucdlib {
     width: 100% !important;
   }
 }
+
+// background brand colors
+.category-brand__background p {
+  color: var(--category-brand-contrast-color, inherit);
+}
+
+// linked header classes
+// https://github.com/UCDavisLibrary/ucdlib-theme-wp/issues/103
+$headingClasses: "primary" "secondary" "auxiliary" "highlight" "underline" "weighted" "weighted-underline" "invert" "invert-box" ;
+$headerLevels: 1,2,3,4,5;
+
+@each $level in $headerLevels {
+  h#{$level} {
+    @each $c in $headingClasses {
+      &.heading--#{$c} a {
+        color: inherit;
+      }
+    }
+  }
+}
+
