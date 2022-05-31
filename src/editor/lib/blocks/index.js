@@ -36,6 +36,8 @@ import silsSearchRedirect from "./ucd-theme-sils-search-redirect";
 import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
 import teasers from "./ucd-theme-teasers";
+import trumba from "./ucd-theme-trumba";
+import trumbaFilter from "./ucd-theme-trumba-filter";
 
 export default [
   backgroundColor,
@@ -75,5 +77,7 @@ export default [
   silsSearchRedirect,
   spacer,
   teaser,
-  teasers
+  teasers,
+  trumba,
+  trumbaFilter
 ];
