@@ -1,5 +1,3 @@
-{% from getUcdMacro('cards') import separator %}
-{% if attributes.permalink %}
-    {% set attributes = attributes|merge({'href': attributes.permalink}) %}
-{% endif %}
-{{ separator({attributes, content}) }}
+{% set style = attributes.style ? attributes.style : ''%}
+{% set brandColor = attributes.brandColor ? attributes.brandColor : ''%}
+<hr class="ucd-hr {{style}} {{brandColor}}" />

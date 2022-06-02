@@ -1,7 +1,7 @@
-import { html, UCDIcons } from "../../utils";
+import { html } from "../../utils";
 import { ToolbarColorPicker, ToolbarSeparatorStyle } from "../../block-components";
+import { HorizontalRule } from '@wordpress/components';
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
-import { lineDotted, lineSolid } from '@wordpress/icons';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -18,26 +18,14 @@ export default ( props ) => {
         />
         <${ToolbarSeparatorStyle} 
             value=${attributes.style}
-            icon="${attributes.style === 'dotted' ? 'lineDotted' : 'lineSolid' }"
+            icon="${attributes.style}"
             label="Border Style"
             onChange=${(v) => setAttributes({ style: v ? v.slug : '' })}
         />
     </${BlockControls}>
-    
-    <hr 
-      className="${attributes.brandColor} ${attributes.style}" 
-      style=${{
-        borderTop: `4px solid ${attributes.brandColor}`, 
-        borderStyle: `${attributes.style}`, 
-        borderTopWidth: `${attributes.style === 'dotted' ? '4px' : '1px'}`
-      }}
-    />
+
+    <${HorizontalRule} className="ucd-hr ${attributes.brandColor} ${attributes.style}" />
 
   </div>
   `
 }
-/* style=${{
-  borderTop: `4px solid ${attributes.brandColor}`, 
-  borderStyle: `${attributes.style}`, 
-  borderTopWidth: `${attributes.style === 'dotted' ? '4px' : '1px'}`
-}} */

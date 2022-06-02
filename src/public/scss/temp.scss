@@ -177,3 +177,10 @@ $headerLevels: 1,2,3,4,5;
   }
 }
 
+hr.ucd-hr {
+  border-top: 1px solid;
+}
+
+hr.ucd-hr .dotted {
+  border-top: 4px dotted;
+}

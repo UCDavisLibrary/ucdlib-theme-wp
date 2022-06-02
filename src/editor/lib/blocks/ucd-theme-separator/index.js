@@ -1,12 +1,13 @@
-import Edit from './edit';
+import { html } from "../../utils";
 import { separator } from '@wordpress/icons';
+import Edit from './edit';
 
 const name = 'ucd-theme/separator';
 const settings = {
   api_version: 2,
-	title: "Separator Customized",
+	title: "Separator",
 	description: "Add a separator line with style and colors",
-	icon: separator,
+	icon: html`${separator}`,
 	category: 'design',
 	keywords: [ 'color' ],
   supports: {

@@ -1,5 +1,6 @@
 import { html, UCDIcons } from "../utils";
 import { ToolbarDropdownMenu } from '@wordpress/components';
+import { lineDotted, lineSolid } from '@wordpress/icons';
 
 function ToolbarSeparatorStyle({
   value,
@@ -33,7 +34,7 @@ function ToolbarSeparatorStyle({
   })
   return html`
     <${ToolbarDropdownMenu} 
-      icon=${UCDIcons.renderBySlug(icon ? icon : 'format-size')}
+      icon=${icon && icon === 'dotted' ? html`${lineDotted}` : html`${lineSolid}` }
       label=${label ? label : 'Set Style'}
       controls=${controls}
     />
@@ -41,3 +42,11 @@ function ToolbarSeparatorStyle({
 }
 
 export default ToolbarSeparatorStyle;
+
+/*
+<${ToolbarDropdownMenu} 
+      icon=${UCDIcons.renderBySlug(icon ? icon : 'format-size')}
+      label=${label ? label : 'Set Style'}
+      controls=${controls}
+    />
+*/
