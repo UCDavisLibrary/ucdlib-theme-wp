@@ -7,6 +7,7 @@ import faq from "./ucd-theme-faq";
 import faqItem from "./ucd-theme-faq-item";
 import focalLink from "./ucd-theme-focal-link";
 import heading from "./ucd-theme-heading";
+import headingWithIcon from "./ucd-theme-heading-with-icon";
 import heroBanner from "./ucd-theme-hero-banner";
 import imageLandscape from "./ucd-theme-image-landscape";
 import landerNav from "./ucd-theme-lander-nav";
@@ -49,6 +50,7 @@ export default [
   faqItem,
   focalLink,
   heading,
+  headingWithIcon,
   heroBanner,
   imageLandscape,
   landerNav,

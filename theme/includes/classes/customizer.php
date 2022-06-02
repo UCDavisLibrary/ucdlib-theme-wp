@@ -381,6 +381,7 @@ class UcdThemeCustomizer {
       array("slug" => "prefixed-icon-link", "label" => "Prefixed Icon Link Palette"),
       array("slug" => "hero-banner", "label" => "Hero Banner Palette"),
       array("slug" => "brand-textbox", "label" => "Brand Textbox Palette"),
+      array("slug" => "heading-with-icon", "label" => "Heading With Palette"),
     );
     foreach ($blocks_with_colors as $block) {
       $name = 'colors_blocks_' . $block['slug'];

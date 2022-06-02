@@ -67,6 +67,10 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/heading.twig", 
       "transform" => array("removeStylePrefix")
     ),
+    "ucd-theme/heading-with-icon" => array(
+      "twig" => "@ucd/blocks/heading-with-icon.twig",
+      "hasBrandColors" => true
+    ),
     "ucd-theme/hero-banner" => array(
       "twig" => "@ucd/blocks/hero-banner.twig",
       "transform" => array("getPost", 'addSpacing'),
