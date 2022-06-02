@@ -8,7 +8,7 @@ import { useBlockProps,
   BlockControls,
   useInnerBlocksProps, 
 } from '@wordpress/block-editor';
-import { ToolbarButton, ToggleControl, PanelBody } from '@wordpress/components';
+import { ToolbarButton, ToggleControl, PanelBody, SelectControl } from '@wordpress/components';
 import { Fragment } from "@wordpress/element";
 
 export default ( props ) => {
@@ -21,7 +21,8 @@ export default ( props ) => {
   });
 
   const styles = attributes.hasWaterColor ? {
-    "backgroundImage": `url("${BlockSettings.getWatercolor(attributes.waterColorColor, attributes.waterColorPattern)}")`
+    "backgroundImage": `url("${BlockSettings.getWatercolor(attributes.waterColorColor, attributes.waterColorPattern)}")`,
+    "backgroundSize": 'cover'
   } : {}
 
   const blockProps = useBlockProps( {
@@ -54,6 +55,10 @@ export default ( props ) => {
       color: "#fff"
     }
   ];
+  const waterColorColors = [
+    {label: 'Blue', value: 'blue'},
+    {label: 'Gold', value: 'gold'}
+  ];
 
   return html`
     <${Fragment}>
@@ -78,6 +83,14 @@ export default ( props ) => {
             checked=${attributes.hasWaterColor}
             onChange=${() => setAttributes({hasWaterColor: !attributes.hasWaterColor})}
           />
+          ${attributes.hasWaterColor && html`
+            <${SelectControl} 
+              label="Color"
+              value=${attributes.waterColorColor}
+              options=${waterColorColors}
+              onChange=${waterColorColor => setAttributes({waterColorColor})}
+            />
+          `}
         </${PanelBody}>
       </${InspectorControls}>
       <div ...${ innerBlocksProps } >

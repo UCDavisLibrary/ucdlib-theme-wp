@@ -12,7 +12,7 @@
 
 {% if attributes.hasWaterColor %}
     {% set classes = classes|merge(['water-color']) %}
-    {% set color = attributes.waterColorColor ? attributes.waterColorColor : "light-blue" %}
+    {% set color = attributes.waterColorColor ? attributes.waterColorColor : "blue" %}
     {% set pattern = attributes.waterColorPattern ? attributes.waterColorPattern : "1" %}
     {% set styles = 'background-image:url("' ~ get_watercolor(color, pattern) ~ '"'%}
 {% endif %}
