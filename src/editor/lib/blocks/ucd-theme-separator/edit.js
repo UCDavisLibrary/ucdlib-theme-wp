@@ -24,7 +24,7 @@ export default ( props ) => {
         />
     </${BlockControls}>
 
-    <${HorizontalRule} className="ucd-hr ${attributes.brandColor} ${attributes.style}" />
+    <${HorizontalRule} className="${attributes.brandColor} ${attributes.style}" />
 
   </div>
   `

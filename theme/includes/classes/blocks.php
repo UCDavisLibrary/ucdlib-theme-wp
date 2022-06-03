@@ -224,6 +224,7 @@ class UCDThemeBlocks {
     "core/site-logo",
     "core/site-tagline",
     "core/site-title",
+    "core/separator",
     "core/spacer",
     "core/tag-cloud",
     "core/query",
