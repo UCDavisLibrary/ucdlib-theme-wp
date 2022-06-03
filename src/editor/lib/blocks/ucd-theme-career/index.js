@@ -6,6 +6,7 @@ const name = 'ucd-theme/career';
 const settings = {
   api_version: 2,
 	title: "Career",
+  parent: [ "ucd-theme/careers" ],
 	description: "Create a career section with basic job information",
 	icon: html`${people}`,
 	category: 'media',
@@ -37,7 +38,7 @@ const settings = {
     },
     finalFilingDate: {
       type: "object",
-      default: {}
+      default: null
     },
   },
   edit: Edit,

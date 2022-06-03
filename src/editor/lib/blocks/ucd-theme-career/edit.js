@@ -12,7 +12,7 @@ export default ( props ) => {
   const { attributes, setAttributes } = props;
 
   // modal state
-  const emptyModalData = {title: '', link: '', salaryMin: 0, salaryMax: 0, salaryFrequency: '', finalFilingDate: null};
+  const emptyModalData = {title: '', link: '', salaryMin: null, salaryMax: null, salaryFrequency: '', finalFilingDate: null};
   const [ modalIsOpen, setModalOpen ] = useState( false );
   const [ modalMode, setModalMode ] = useState( 'Add' );
   const [ modalData, setModalData ] = useState( emptyModalData );
@@ -85,6 +85,7 @@ export default ( props ) => {
   }
 
   const closeModal = () => {
+    setAttributes(modalData);
     setModalOpen(false);
   }
 
@@ -96,9 +97,9 @@ export default ( props ) => {
   return html`
     <div>
       <li onClick=${onCareerClicked} style=${{cursor: 'pointer' }}>
-        <a href="${modalData.link}"><strong>${modalData.title}</strong></a><br/>
-        <span style=${{ fontSize: '0.9em' }}><strong>Salary: </strong> ${currency.format(modalData.salaryMin)} - ${currency.format(modalData.salaryMax)}/<span style=${{ textTransform: 'capitalize'}}>${attributes.salaryFrequency}</span></span><br/>
-        <span style=${{ fontSize: '0.9em' }}><strong>Final Filing Date:</strong> ${modalData.finalFilingDate ? modalData.finalFilingDate.toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : ''}</span>  
+        <a href="${attributes.link}"><strong>${attributes.title}</strong></a><br/>
+        <span style=${{ fontSize: '0.9em' }}><strong>Salary: </strong> ${currency.format(attributes.salaryMin)} - ${currency.format(attributes.salaryMax)}/<span style=${{ textTransform: 'capitalize'}}>${attributes.salaryFrequency}</span></span><br/>
+        <span style=${{ fontSize: '0.9em' }}><strong>Final Filing Date:</strong> ${attributes.finalFilingDate ? attributes.finalFilingDate.toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : ''}</span>  
       </li>
 
       ${modalIsOpen && html`
@@ -129,7 +130,7 @@ export default ( props ) => {
             />
             <${SelectControl} 
               label="Salary Frequency"
-              value=${attributes.salaryFrequency}
+              value=${modalData.salaryFrequency}
               options=${salaryFreqencies}
               onChange=${onModalSalaryFreqChange}
             />
