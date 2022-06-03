@@ -2,6 +2,8 @@ import backgroundColor from "./ucd-theme-background-color";
 import backgroundImage from "./ucd-theme-background-image";
 import brandTextbox from "./ucd-theme-brand-textbox";
 import buttonLink from "./ucd-theme-button-link";
+import career from "./ucd-theme-career";
+import careers from "./ucd-theme-careers";
 import categoryFilter from "./ucd-theme-category-filter";
 import faq from "./ucd-theme-faq";
 import faqItem from "./ucd-theme-faq-item";
@@ -45,6 +47,8 @@ export default [
   backgroundImage,
   brandTextbox,
   buttonLink,
+  career,
+  careers,
   categoryFilter,
   faq,
   faqItem,
