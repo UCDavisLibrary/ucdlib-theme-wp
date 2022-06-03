@@ -33,6 +33,7 @@ import priorityLinksItem from "./ucd-theme-priority-links-item";
 import priorityLinks from "./ucd-theme-priority-links"
 import query from "./ucd-theme-query";
 import recentPosts from "./ucd-theme-recent-posts";
+import separator from "./ucd-theme-separator";
 import silsSearchRedirect from "./ucd-theme-sils-search-redirect";
 import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
@@ -76,6 +77,7 @@ export default [
   priorityLinks,
   query,
   recentPosts,
+  separator,
   silsSearchRedirect,
   spacer,
   teaser,
