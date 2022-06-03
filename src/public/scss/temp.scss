@@ -119,6 +119,13 @@ a.icon-ucdlib, span.icon-ucdlib {
     height: 1rem;
   }
 }
+.panel a.icon-ucdlib ucdlib-icon {
+  margin-right: .5rem;
+  min-width: .9rem;
+  min-height: .9rem;
+  width: .9rem;
+  height: .9rem;
+}
 
 // white space utility
 .u-white-space--normal {
