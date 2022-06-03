@@ -162,6 +162,29 @@ a.icon-ucdlib, span.icon-ucdlib {
   color: var(--category-brand-contrast-color, inherit);
 }
 
+.select-container--blue select{
+  background-color: #B0D0ED;
+  color: #022851;
+  font-weight: 700;
+  border: none;
+  font-size: 1rem;
+}
+.select-container--blue select:focus {
+  background-color: #b0d0ed;
+  border: 1px solid #999;
+}
+select.select--blue {
+  background-color: #B0D0ED;
+  color: #022851;
+  font-weight: 700;
+  border: none;
+  font-size: 1rem;
+}
+select.select--blue:focus {
+  background-color: #b0d0ed;
+  border: 1px solid #999;
+}
+
 // linked header classes
 // https://github.com/UCDavisLibrary/ucdlib-theme-wp/issues/103
 $headingClasses: "primary" "secondary" "auxiliary" "highlight" "underline" "weighted" "weighted-underline" "invert" "invert-box" ;
@@ -177,3 +200,10 @@ $headerLevels: 1,2,3,4,5;
   }
 }
 
+hr {
+  border-top: 1px solid;
+}
+
+hr.dotted {
+  border-top: 4px dotted;
+}

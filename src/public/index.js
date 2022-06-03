@@ -11,6 +11,9 @@ import '@ucd-lib/theme-elements/ucdlib/ucdlib-sils-search-redirect/ucdlib-sils-s
 import '@ucd-lib/theme-elements/brand/ucd-theme-list-accordion/ucd-theme-list-accordion';
 import '@ucd-lib/theme-elements/brand/ucd-theme-brand-textbox/ucd-theme-brand-textbox';
 
+// import our theme custom elements
+import "./elements/index.js"
+
 // TODO: move this to brand repo
 //import "./lib/temp/wp-editor";
 import "@ucd-lib/theme-elements/ucdlib/ucdlib-iconset/ucdlib-iconset";

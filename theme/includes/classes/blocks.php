@@ -67,6 +67,10 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/heading.twig", 
       "transform" => array("removeStylePrefix")
     ),
+    "ucd-theme/heading-with-icon" => array(
+      "twig" => "@ucd/blocks/heading-with-icon.twig",
+      "hasBrandColors" => true
+    ),
     "ucd-theme/hero-banner" => array(
       "twig" => "@ucd/blocks/hero-banner.twig",
       "transform" => array("getPost", 'addSpacing'),
@@ -153,6 +157,10 @@ class UCDThemeBlocks {
       "transform" => array("getPosts", 'addSpacing')
     ),
     "ucd-theme/sils-search-redirect" => array("twig" => "@ucd/blocks/sils-search-redirect.twig"),
+    "ucd-theme/separator" => array(
+      "twig" => "@ucd/blocks/separator.twig",
+      "hasBrandColors" => true
+    ),
     "ucd-theme/spacer" => array("twig" => "@ucd/blocks/spacer.twig"),
     "ucd-theme/teaser" => array(
       "twig" => "@ucd/blocks/teaser.twig",
@@ -220,6 +228,7 @@ class UCDThemeBlocks {
     "core/site-logo",
     "core/site-tagline",
     "core/site-title",
+    "core/separator",
     "core/spacer",
     "core/tag-cloud",
     "core/query",

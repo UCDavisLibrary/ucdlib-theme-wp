@@ -14,9 +14,9 @@ export default class BlockSettings {
     return image;
   }
 
-  static getWatercolor(color="light-blue", pattern=1){
+  static getWatercolor(color="blue", pattern=1){
     if (!color || !pattern ) return "";
-    return `${this.settings.watercolorBase}${color}--${pattern}.png`;
+    return `${this.settings.watercolorBase}${color}--${pattern}.webp`;
   }
 
   static getImageByAspectRatio(aspectRatio){

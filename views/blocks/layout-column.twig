@@ -7,7 +7,7 @@
 {% endif %}
 {% if attributes.verticalAlign == "center" %}
     {% set classes = classes|merge(["u-space-my--auto"]) %}
-{% elseif attributes.verticalAlign == "center" %}
+{% elseif attributes.verticalAlign == "bottom" %}
     {% set classes = classes|merge(["u-space-mt--auto"]) %}
 {% endif %}
 <div {{attributes.anchor ? "id='"~attributes.anchor~"'"}} {{classes ? "class='"~classes|join(' ')~"'"}}>{{content}}</div>

@@ -7,6 +7,7 @@ import faq from "./ucd-theme-faq";
 import faqItem from "./ucd-theme-faq-item";
 import focalLink from "./ucd-theme-focal-link";
 import heading from "./ucd-theme-heading";
+import headingWithIcon from "./ucd-theme-heading-with-icon";
 import heroBanner from "./ucd-theme-hero-banner";
 import imageLandscape from "./ucd-theme-image-landscape";
 import landerNav from "./ucd-theme-lander-nav";
@@ -32,10 +33,13 @@ import priorityLinksItem from "./ucd-theme-priority-links-item";
 import priorityLinks from "./ucd-theme-priority-links"
 import query from "./ucd-theme-query";
 import recentPosts from "./ucd-theme-recent-posts";
+import separator from "./ucd-theme-separator";
 import silsSearchRedirect from "./ucd-theme-sils-search-redirect";
 import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
 import teasers from "./ucd-theme-teasers";
+import trumba from "./ucd-theme-trumba";
+import trumbaFilter from "./ucd-theme-trumba-filter";
 
 export default [
   backgroundColor,
@@ -47,6 +51,7 @@ export default [
   faqItem,
   focalLink,
   heading,
+  headingWithIcon,
   heroBanner,
   imageLandscape,
   landerNav,
@@ -72,8 +77,11 @@ export default [
   priorityLinks,
   query,
   recentPosts,
+  separator,
   silsSearchRedirect,
   spacer,
   teaser,
-  teasers
+  teasers,
+  trumba,
+  trumbaFilter
 ];

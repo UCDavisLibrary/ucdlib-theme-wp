@@ -29,7 +29,7 @@ const settings = {
     },
     waterColorColor: {
       type: "string",
-      default: "light-blue"
+      default: "blue"
     },
     fullWidth: {
       type: "boolean",

@@ -16,6 +16,8 @@ import UcdThemePlugins from "./lib/plugins";
 import { modifyCoreBlocks } from "./lib/core-block-mods";
 import unRegisterCore from "./lib/exclude";
 
+// import our theme custom elements
+import "../public/elements/index.js"
 
 UcdThemeRichTextFormats.forEach(fmt => {
   registerFormatType(fmt.name, fmt.settings);

@@ -139,7 +139,7 @@ class UCDThemeAssets {
   }
 
   public function get_watercolor($color='light-blue', $pattern=1) {
-    return $this->uris['img'] . "/watercolors/" . $color . "--" . $pattern . ".png";
+    return $this->uris['img'] . "/watercolors/" . $color . "--" . $pattern . ".webp";
   }
 
   // prints ucdlib-iconset(s) used by the blocks on a page
