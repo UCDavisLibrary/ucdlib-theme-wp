@@ -9,7 +9,7 @@ export default ( props ) => {
 
   return html`
   <div ...${ blockProps }>
-    <ul class="list--arrow">
+    <ul className="list--arrow">
       <${InnerBlocks} 
         allowedBlocks=${allowedBlocks}
         template=${template}

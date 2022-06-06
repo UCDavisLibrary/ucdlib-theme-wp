@@ -1,0 +1,50 @@
+<div role="list-item">{{attributes.question}}</div>
+<div role="list-item">{{content}}</div>
+
+<li class="clickable">
+    <a href="{{attributes.link}}"><strong>{{attributes.title}}</strong></a><br/>
+    <span><strong>Salary: </strong> {{attributes.salaryMin}} - {{attributes.salaryMax}}/<span>{{attributes.salaryFrequency}}</span></span><br/>
+    <span><strong>Final Filing Date:</strong> {{attributes.finalFilingDate}}</span>
+</li>
+<script type="application/ld+json">
+{
+    "@context" : "https://schema.org/",
+    "@type" : "JobPosting",
+    "title" : "{{attributes.title}}",
+    {# "description" : "<p>Google aspires to be an organization that reflects the globally diverse audience that our products and technology serve. We believe that in addition to hiring the best talent, a diversity of perspectives, ideas and cultures leads to the creation of better products and services.</p>", #}
+    "identifier": {
+        "@type": "PropertyValue",
+        "name": "Google",
+        "value": "1234567"
+    },
+    "datePosted" : "2017-01-18",
+    "validThrough" : "2017-03-18T00:00",
+    "employmentType" : "CONTRACTOR",
+    "hiringOrganization" : {
+        "@type" : "Organization",
+        "name" : "UC Davis",
+        "sameAs" : "https://www.library.ucdavis.edu",
+        "logo" : "http://www.example.com/images/logo.png"
+    },
+    "jobLocation": {
+        "@type": "Place",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "1600 Amphitheatre Pkwy",
+            "addressLocality": "Mountain View",
+            "addressRegion": "CA",
+            "postalCode": "94043",
+            "addressCountry": "US"
+        }
+    },
+    "baseSalary": {
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": {
+            "@type": "QuantitativeValue",
+            "value": "{{attributes.salaryMin}} - {{attributes.salaryMax}}",
+            "unitText": "{{attributes.salaryFrequency}}"
+        }
+    }
+}
+</script>

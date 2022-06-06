@@ -1,4 +1,5 @@
 import { html } from '../../utils';
+import { useBlockProps } from '@wordpress/block-editor';
 import {
   Button,
   TextControl,
@@ -6,16 +7,18 @@ import {
   SelectControl,
   DatePicker
 } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
+  // const mainEleRef = useRef();
+  const blockProps = useBlockProps();
 
   // modal state
-  const emptyModalData = {title: '', link: '', salaryMin: null, salaryMax: null, salaryFrequency: '', finalFilingDate: null};
+  const startingModalData = {title: attributes.title || '', link: attributes.link || '', salaryMin: attributes.salaryMin || '', salaryMax: attributes.salaryMax || '', salaryFrequency: attributes.salaryFrequency || '', finalFilingDate: attributes.finalFilingDate || ''};
   const [ modalIsOpen, setModalOpen ] = useState( false );
   const [ modalMode, setModalMode ] = useState( 'Add' );
-  const [ modalData, setModalData ] = useState( emptyModalData );
+  const [ modalData, setModalData ] = useState( startingModalData );
 
   // modal validation
   const modalCanSave = (() => {
@@ -35,11 +38,11 @@ export default ( props ) => {
 
   // dropdown options
   const salaryFreqencies = [
-    {label: 'Hour', value: 'hour'},
-    {label: 'Day', value: 'day'},
-    {label: 'Week', value: 'week'},
-    {label: 'Month', value: 'month'},
-    {label: 'Year', value: 'year'}
+    {label: 'Hour', value: 'HOUR'},
+    {label: 'Day', value: 'DAY'},
+    {label: 'Week', value: 'WEEK'},
+    {label: 'Month', value: 'MONTH'},
+    {label: 'Year', value: 'YEAR'}
   ];
 
   // currency formatter
@@ -57,49 +60,53 @@ export default ( props ) => {
   const onModalTitleChange = (title) => {
     const data = {...modalData, title};
     setModalData(data);
+    setAttributes({title});
   }
   
   const onModalUrlChange = (link) => {
     const data = {...modalData, link};
     setModalData(data);
+    setAttributes({link});
   }
 
   const onModalSalaryStartChange = (salaryMin) => {
     const data = {...modalData, salaryMin};
     setModalData(data);
+    setAttributes({salaryMin});
   }
 
   const onModalSalaryEndChange = (salaryMax) => {
     const data = {...modalData, salaryMax};
     setModalData(data);
+    setAttributes({salaryMax});
   }
 
   const onModalSalaryFreqChange = (salaryFrequency) => {
     const data = {...modalData, salaryFrequency};
     setModalData(data);
+    setAttributes({salaryFrequency});
   }
 
   const onModalFilingDateChange = (finalFilingDate) => {
-    const data = {...modalData, finalFilingDate: new Date(finalFilingDate)};
+    const data = {...modalData, finalFilingDate};
     setModalData(data);
+    setAttributes({finalFilingDate});
   }
 
   const closeModal = () => {
-    setAttributes(modalData);
     setModalOpen(false);
   }
 
   const onModalSave = () => {
-    setAttributes(modalData);
     setModalOpen(false);
   }
 
   return html`
-    <div>
-      <li onClick=${onCareerClicked} style=${{cursor: 'pointer' }}>
+    <div ...${ blockProps }>
+      <li onClick=${onCareerClicked} className="clickable">
         <a href="${attributes.link}"><strong>${attributes.title}</strong></a><br/>
         <span style=${{ fontSize: '0.9em' }}><strong>Salary: </strong> ${currency.format(attributes.salaryMin)} - ${currency.format(attributes.salaryMax)}/<span style=${{ textTransform: 'capitalize'}}>${attributes.salaryFrequency}</span></span><br/>
-        <span style=${{ fontSize: '0.9em' }}><strong>Final Filing Date:</strong> ${attributes.finalFilingDate ? attributes.finalFilingDate.toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : ''}</span>  
+        <span style=${{ fontSize: '0.9em' }}><strong>Final Filing Date:</strong> ${attributes.finalFilingDate ? new Date(attributes.finalFilingDate).toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : ''}</span>
       </li>
 
       ${modalIsOpen && html`

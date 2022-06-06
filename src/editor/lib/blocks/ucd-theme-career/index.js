@@ -25,20 +25,20 @@ const settings = {
       default: ""
     },
     salaryMin: {
-      type: "number",
-      default: 0
-    },
-    salaryMax: {
-      type: "number",
-      default: 0
-    },
-    salaryFrequency: {
       type: "string",
       default: ""
     },
+    salaryMax: {
+      type: "string",
+      default: ""
+    },
+    salaryFrequency: {
+      type: "string",
+      default: "HOUR"
+    },
     finalFilingDate: {
-      type: "object",
-      default: null
+      type: "string",
+      default: ""
     },
   },
   edit: Edit,
