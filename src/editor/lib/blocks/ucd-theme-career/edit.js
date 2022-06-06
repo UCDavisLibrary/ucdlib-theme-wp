@@ -15,7 +15,15 @@ export default ( props ) => {
   const blockProps = useBlockProps();
 
   // modal state
-  const startingModalData = {title: attributes.title || '', link: attributes.link || '', salaryMin: attributes.salaryMin || '', salaryMax: attributes.salaryMax || '', salaryFrequency: attributes.salaryFrequency || '', finalFilingDate: attributes.finalFilingDate || ''};
+  const startingModalData = {
+    title: attributes.title || '', 
+    link: attributes.link || '', 
+    salaryMin: attributes.salaryMin || '', 
+    salaryMax: attributes.salaryMax || '', 
+    employmentType: attributes.employmentType || '',
+    salaryFrequency: attributes.salaryFrequency || '', 
+    finalFilingDate: attributes.finalFilingDate || ''
+  };
   const [ modalIsOpen, setModalOpen ] = useState( false );
   const [ modalMode, setModalMode ] = useState( 'Add' );
   const [ modalData, setModalData ] = useState( startingModalData );
@@ -43,6 +51,14 @@ export default ( props ) => {
     {label: 'Week', value: 'WEEK'},
     {label: 'Month', value: 'MONTH'},
     {label: 'Year', value: 'YEAR'}
+  ];
+
+  const employmentTypes = [
+    {label: 'Full-Time', value: 'FULL_TIME'},
+    {label: 'Part-Time', value: 'PART_TIME'},
+    {label: 'Contract', value: 'CONTRACT'},
+    {label: 'Temporary', value: 'TEMPORARY'},
+    {label: 'Internship', value: 'INTERNSHIP'},
   ];
 
   // currency formatter
@@ -85,6 +101,12 @@ export default ( props ) => {
     const data = {...modalData, salaryFrequency};
     setModalData(data);
     setAttributes({salaryFrequency});
+  }
+
+  const onModalEmploymentTypeChange = (employmentType) => {
+    const data = {...modalData, employmentType};
+    setModalData(data);
+    setAttributes({employmentType});
   }
 
   const onModalFilingDateChange = (finalFilingDate) => {
@@ -141,6 +163,13 @@ export default ( props ) => {
               options=${salaryFreqencies}
               onChange=${onModalSalaryFreqChange}
             />
+            <${SelectControl} 
+              label="Employment Type"
+              value=${modalData.employmentType}
+              options=${employmentTypes}
+              onChange=${onModalEmploymentTypeChange}
+            />
+            
             <div>Final Filing Date</div>
             <${DatePicker} 
               currentDate=${modalData.finalFilingDate}

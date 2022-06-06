@@ -40,6 +40,10 @@ const settings = {
       type: "string",
       default: ""
     },
+    employmentType: {
+      type: "string",
+      default: "FULL_TIME"
+    }
   },
   edit: Edit,
 };
