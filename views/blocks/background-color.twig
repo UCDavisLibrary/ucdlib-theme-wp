@@ -10,6 +10,11 @@
     {% set classes = classes|merge(['l-full-width']) %}
 {% endif %}
 
+{% if attributes.float %}
+    {% set classes = classes|merge(['u-align--'~attributes.float]) %}
+    {% set classes = classes|merge(['style="max-width:33%;']) %}    
+{% endif %}
+
 {% if attributes.hasWaterColor %}
     {% set classes = classes|merge(['water-color']) %}
     {% set color = attributes.waterColorColor ? attributes.waterColorColor : "blue" %}
