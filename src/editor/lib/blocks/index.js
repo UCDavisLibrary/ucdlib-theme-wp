@@ -1,3 +1,4 @@
+import alert from "./ucd-theme-alert";
 import backgroundColor from "./ucd-theme-background-color";
 import backgroundImage from "./ucd-theme-background-image";
 import brandTextbox from "./ucd-theme-brand-textbox";
@@ -42,6 +43,7 @@ import trumba from "./ucd-theme-trumba";
 import trumbaFilter from "./ucd-theme-trumba-filter";
 
 export default [
+  alert,
   backgroundColor,
   backgroundImage,
   brandTextbox,

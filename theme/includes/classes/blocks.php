@@ -18,7 +18,8 @@ class UCDThemeBlocks {
 
     $this->iconsUsed = [
       'ucd-public:fa-star',
-      'ucd-public:fa-circle-chevron-right'
+      'ucd-public:fa-circle-chevron-right',
+      'ucd-public:fa-circle-exclamation'
     ];
 
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
@@ -34,6 +35,7 @@ class UCDThemeBlocks {
    * Meta for each block goes here.
    */
   public static $registry = array(
+    "ucd-theme/alert-textbox" => array("twig" => "@ucd/blocks/alert.twig"),
     "ucd-theme/background-color" => array("twig" => "@ucd/blocks/background-color.twig"),
     "ucd-theme/background-image" => array(
       "twig" => "@ucd/blocks/background-image.twig",
