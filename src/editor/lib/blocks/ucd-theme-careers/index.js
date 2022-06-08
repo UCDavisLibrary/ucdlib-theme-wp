@@ -15,6 +15,19 @@ const settings = {
     "html": false,
     "customClassName": false
   },
+  attributes: {
+    noPostText: {
+      type: "string",
+      default: "There are no open positions at this time."
+    },
+    lock: {
+      type: "object",
+      default: {
+        move: true,
+        remove: true
+      }
+    }
+  },
 
   edit: Edit,
   save: Save,

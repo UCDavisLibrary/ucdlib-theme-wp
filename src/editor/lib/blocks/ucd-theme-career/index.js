@@ -43,6 +43,10 @@ const settings = {
     employmentType: {
       type: "string",
       default: "FULL_TIME"
+    },
+    isEmpty: {
+      type: "boolean",
+      default: false
     }
   },
   edit: Edit,

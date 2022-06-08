@@ -8,6 +8,7 @@ import {
   DatePicker
 } from '@wordpress/components';
 import { useRef, useState } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -20,13 +21,29 @@ export default ( props ) => {
     link: attributes.link || '', 
     salaryMin: attributes.salaryMin || '', 
     salaryMax: attributes.salaryMax || '', 
-    employmentType: attributes.employmentType || '',
-    salaryFrequency: attributes.salaryFrequency || '', 
+    employmentType: attributes.employmentType || 'FULL_TIME',
+    salaryFrequency: attributes.salaryFrequency || 'HOUR',
     finalFilingDate: attributes.finalFilingDate || ''
   };
   const [ modalIsOpen, setModalOpen ] = useState( false );
   const [ modalMode, setModalMode ] = useState( 'Add' );
   const [ modalData, setModalData ] = useState( startingModalData );
+
+  // check if all data is empty
+  const isEmpty = Object.values(startingModalData).every(x => x === null || x === '' || x === 'FULL_TIME' || x === 'HOUR');
+  setAttributes({isEmpty});
+
+  // get parent default no-job-listing text
+  const { parent, parentAttributes } = useSelect(select => ({
+    parent: select("core/block-editor").getBlockParents(props.clientId),
+    parentAttributes: select('core/block-editor').getBlockAttributes(select("core/block-editor").getBlockParents(parent)),
+  }));
+
+  // const parent = select('core/block-editor').getBlockParents(clientId);
+  // const parentAttributes = select('core/block-editor').getBlockAttributes(parent);
+  console.log(parentAttributes); // Block Attributes
+  console.log(props.attributes.label); // Passing Props
+
 
   // modal validation
   const modalCanSave = (() => {
