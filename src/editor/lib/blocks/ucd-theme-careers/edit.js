@@ -52,11 +52,16 @@ export default ( props ) => {
 
   // send updated noPostText to child
   // const { children } = useSelect(select => ({
-    const children = select('core/block-editor').getBlocksByClientId(clientId)[0].innerBlocks
+    // const children = select('core/block-editor').getBlocksByClientId(clientId)[0].innerBlocks
   // }));
 
-  children.forEach(function(child) {
-      dispatch('core/block-editor').updateBlockAttributes(child.clientId, { noPostText: attributes.noPostText });
+  // children.forEach(function(child) {
+  //     dispatch('core/block-editor').updateBlockAttributes(child.clientId, { noPostText: attributes.noPostText });
+  // });
+
+
+  select('core/editor').getBlocksByClientId(clientId)[0].innerBlocks.forEach(function (block) {
+    dispatch('core/editor').updateBlockAttributes(block.clientId, { noPostText: attributes.noPostText });
   });
 
   const closeModal = () => {
@@ -69,6 +74,7 @@ export default ( props ) => {
 
   return html`
     <${Fragment}>
+      <BlockTitle clientId={clientId}/>
       <${BlockControls} group="block">
         <${ToolbarButton} 
           icon=${html`${lock}`} 

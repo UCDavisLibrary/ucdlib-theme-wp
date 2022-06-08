@@ -47,7 +47,11 @@ const settings = {
     isEmpty: {
       type: "boolean",
       default: false
-    }
+    },
+    noPostText: {
+      type: "string",
+      default: "There are no open positions at this time."
+    },
   },
   edit: Edit,
 };

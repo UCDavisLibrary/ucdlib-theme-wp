@@ -23,27 +23,19 @@ export default ( props ) => {
     salaryMax: attributes.salaryMax || '', 
     employmentType: attributes.employmentType || 'FULL_TIME',
     salaryFrequency: attributes.salaryFrequency || 'HOUR',
-    finalFilingDate: attributes.finalFilingDate || ''
+    finalFilingDate: attributes.finalFilingDate || '',
+    noPostText: attributes.noPostText || ''
   };
   const [ modalIsOpen, setModalOpen ] = useState( false );
   const [ modalMode, setModalMode ] = useState( 'Add' );
   const [ modalData, setModalData ] = useState( startingModalData );
 
   // check if all data is empty
-  const isEmpty = Object.values(startingModalData).every(x => x === null || x === '' || x === 'FULL_TIME' || x === 'HOUR');
+  const isEmpty = Object.values(startingModalData).every(x => x === null || x === '' || x === 'FULL_TIME' || x === 'HOUR' || x === attributes.noPostText);
   setAttributes({isEmpty});
 
-  // get parent default no-job-listing text
-  const { parent, parentAttributes } = useSelect(select => ({
-    parent: select("core/block-editor").getBlockParents(props.clientId),
-    parentAttributes: select('core/block-editor').getBlockAttributes(select("core/block-editor").getBlockParents(parent)),
-  }));
-
-  // const parent = select('core/block-editor').getBlockParents(clientId);
-  // const parentAttributes = select('core/block-editor').getBlockAttributes(parent);
-  console.log(parentAttributes); // Block Attributes
-  console.log(props.attributes.label); // Passing Props
-
+  // this comes from the 'careers' parent block
+  setAttributes({noPostText: attributes.noPostText});
 
   // modal validation
   const modalCanSave = (() => {
