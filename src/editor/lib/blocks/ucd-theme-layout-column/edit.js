@@ -36,12 +36,18 @@ export default ( props ) => {
     style: {width: '100%'}
   } );
 
-  const innerBlocksProps = useInnerBlocksProps( blockProps, {
+  const innerProps = {
     orientation: "vertical",
     templateLock: false,
     //renderAppender: InnerBlocks.DefaultBlockAppender
     renderAppender: InnerBlocks.ButtonBlockAppender
-  } );
+  }
+
+  if ( attributes.allowedBlocks.length ) {
+    innerProps['allowedBlocks'] = attributes.allowedBlocks;
+  }
+
+  const innerBlocksProps = useInnerBlocksProps( blockProps,  innerProps);
   
 
   return html`
