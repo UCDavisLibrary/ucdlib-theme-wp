@@ -1,3 +1,5 @@
+@use '@ucd-lib/theme-sass/0_tools' as *;
+
 // things here should be moved to ucd-lib/theme-sass
 
 // used in see all links:
@@ -205,6 +207,14 @@ $headerLevels: 1,2,3,4,5;
       }
     }
   }
+}
+
+// new heading classes
+.heading--h5 {
+  @include h5();
+}
+.heading--h6 {
+  @include h6();
 }
 
 hr {

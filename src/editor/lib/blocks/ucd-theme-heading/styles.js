@@ -35,5 +35,13 @@ export default [
   {
     name: 'invert-box',
     label: 'Section Title (White Text on Blue Background)'
+  },
+  {
+    name: 'h5',
+    label: 'H5 Styles'
+  },
+  {
+    name: 'h6',
+    label: 'H6 Styles'
   }
 ];
