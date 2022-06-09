@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 
 import { html, BlockSettings } from "../../utils";
-import { ToolbarColorPicker } from "../../block-components";
+import { ToolbarColorPicker, ToolbarFloat } from "../../block-components";
 import { blueTints, goldTints } from "@ucd-lib/theme-sass/colors";
 import { useBlockProps,
   InspectorControls,
@@ -72,9 +72,14 @@ export default ( props ) => {
         />
         <${ToolbarButton} 
           icon=${html`<span>100%</span>`} 
-          onClick=${ () => {setAttributes({'fullWidth': !attributes.fullWidth})}} 
+          onClick=${ () => {setAttributes({'fullWidth': !attributes.fullWidth, 'float': ''})}} 
           isPressed=${attributes.fullWidth}
-          label="Make width of screen"/>
+          label="Make width of screen"
+        />
+        <${ToolbarFloat} 
+          value=${attributes.float}
+          onChange=${(v) => setAttributes({'float': v.slug, 'fullWidth': false})}
+        />
       </${BlockControls}>
       <${InspectorControls}>
         <${PanelBody} title="Watercolor Effect">

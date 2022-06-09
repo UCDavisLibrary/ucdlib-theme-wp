@@ -1,4 +1,5 @@
 {% set classes = ['colored-section'] %}
+{% set styles = "" %}
 
 {% if attributes.color %}
   {% set classes = classes|merge(['colored-section--'~attributes.color]) %}
@@ -10,11 +11,16 @@
     {% set classes = classes|merge(['l-full-width']) %}
 {% endif %}
 
+{% if attributes.float %}
+    {% set classes = classes|merge(['u-align--'~attributes.float]) %}
+    {% set styles = styles ~ 'max-width:33%;' %}
+{% endif %}
+
 {% if attributes.hasWaterColor %}
     {% set classes = classes|merge(['water-color']) %}
     {% set color = attributes.waterColorColor ? attributes.waterColorColor : "blue" %}
     {% set pattern = attributes.waterColorPattern ? attributes.waterColorPattern : "1" %}
-    {% set styles = 'background-image:url("' ~ get_watercolor(color, pattern) ~ '"'%}
+    {% set styles = styles ~ 'background-image:url("' ~ get_watercolor(color, pattern) ~ '");' %}
 {% endif %}
 
 
