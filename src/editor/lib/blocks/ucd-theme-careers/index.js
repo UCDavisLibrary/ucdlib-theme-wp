@@ -29,10 +29,6 @@ const settings = {
     }
   },
 
-  providesContext: {
-    'ucd-theme/noPostText': 'noPostText',
-  },
-
   edit: Edit,
   save: Save,
 };

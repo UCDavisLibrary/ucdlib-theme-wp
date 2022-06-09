@@ -7,11 +7,11 @@ import {
   SelectControl,
   DatePicker
 } from '@wordpress/components';
-import { useRef, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 // import { useSelect } from '@wordpress/data';
 
 export default ( props ) => {
-  const { attributes, setAttributes, context } = props;
+  const { attributes, setAttributes } = props;
   // const mainEleRef = useRef();
   const blockProps = useBlockProps();
 
@@ -24,18 +24,14 @@ export default ( props ) => {
     employmentType: attributes.employmentType || 'FULL_TIME',
     salaryFrequency: attributes.salaryFrequency || 'HOUR',
     finalFilingDate: attributes.finalFilingDate || '',
-    noPostText: context['ucd-theme/noPostText'] || ''
   };
   const [ modalIsOpen, setModalOpen ] = useState( false );
   const [ modalMode, setModalMode ] = useState( 'Add' );
   const [ modalData, setModalData ] = useState( startingModalData );
 
   // check if all data is empty (excluding default values)
-  const isEmpty = Object.values(startingModalData).every(x => x === null || x === '' || x === 'FULL_TIME' || x === 'HOUR' || context['ucd-theme/noPostText'] || '');
+  const isEmpty = Object.values(startingModalData).every(x => x === null || x === '' || x === 'FULL_TIME' || x === 'HOUR');
   setAttributes({isEmpty});
-
-  // this comes from the 'careers' parent block
-  setAttributes({noPostText: context['ucd-theme/noPostText']});
 
   // modal validation
   const modalCanSave = (() => {

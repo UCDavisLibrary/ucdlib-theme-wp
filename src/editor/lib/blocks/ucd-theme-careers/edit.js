@@ -12,21 +12,21 @@ import {
   Modal
 } from '@wordpress/components';
 import { useState, Fragment } from '@wordpress/element';
-// import { useSelect, dispatch, select } from '@wordpress/data';
 
 export default ( props ) => {
-  const { attributes, setAttributes, clientId } = props;
+  const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
   const allowedBlocks = ['ucd-theme/career']
   const template = [['ucd-theme/career', {}]];
   
+  const noPostText = attributes.noPostText || 'There are no open positions at this time.';
   // modal state
-  const startingModalData = {
-    noPostText: attributes.noPostText || ''
-  };
+  const startingModalData = {noPostText};
   const [ modalIsOpen, setModalOpen ] = useState( false );
   const [ modalMode, setModalMode ] = useState( 'Add' );
   const [ modalData, setModalData ] = useState( startingModalData );
+
+  setAttributes({noPostText});
 
   // modal validation
   const modalCanSave = (() => {
@@ -50,11 +50,6 @@ export default ( props ) => {
     setAttributes({noPostText});
   }
 
-  // send updated noPostText to child
-  // select('core/editor').getBlocksByClientId(clientId)[0].innerBlocks.forEach(function (block) {
-  //   dispatch('core/editor').updateBlockAttributes(block.clientId, { noPostText: attributes.noPostText });
-  // });
-
   const closeModal = () => {
     setModalOpen(false);
   }
@@ -65,7 +60,6 @@ export default ( props ) => {
 
   return html`
     <${Fragment}>
-      <BlockTitle clientId={clientId}/>
       <${BlockControls} group="block">
         <${ToolbarButton} 
           icon=${html`${lock}`} 

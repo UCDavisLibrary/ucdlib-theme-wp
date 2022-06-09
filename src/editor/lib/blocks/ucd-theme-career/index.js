@@ -15,7 +15,6 @@ const settings = {
     "html": false,
     "customClassName": false
   },
-  usesContext: ['ucd-theme/noPostText'],
   attributes: {
     title: {
       type: "string",
