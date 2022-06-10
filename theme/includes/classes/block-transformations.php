@@ -268,5 +268,17 @@ class UCDThemeBlockTransformations {
     $attrs = array_merge($attrs, $new);
     return $attrs;
   }
+
+
+  /**
+   * Makes alt style blocks backwards compatible
+   * https://github.com/UCDavisLibrary/ucdlib-theme-wp/issues/127
+   */
+  public static function mergeClassWithAttribute($attrs){
+    if ( array_key_exists('classSuffix', $attrs) ) {
+      $attrs['className'] = $attrs['classSuffix'];
+    }
+    return $attrs;
+  }
 }
 ?>

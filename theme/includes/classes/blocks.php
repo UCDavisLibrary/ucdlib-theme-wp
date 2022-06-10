@@ -65,7 +65,7 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/heading" => array(
       "twig" => "@ucd/blocks/heading.twig", 
-      "transform" => array("removeStylePrefix")
+      "transform" => array("removeStylePrefix", 'mergeClassWithAttribute')
     ),
     "ucd-theme/heading-with-icon" => array(
       "twig" => "@ucd/blocks/heading-with-icon.twig",
