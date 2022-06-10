@@ -202,7 +202,6 @@ class UCDThemeBlocks {
    * Core blocks to unregister. 
    * Most because they are redundant of a ucd block.
    */
-
   public static $excluded_core_blocks = array(
     "core/buttons",
     "core/button",
