@@ -161,6 +161,7 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/separator.twig",
       "hasBrandColors" => true
     ),
+    "ucd-theme/social-media" => array("twig" => "@ucd/blocks/social-media.twig"),
     "ucd-theme/spacer" => array("twig" => "@ucd/blocks/spacer.twig"),
     "ucd-theme/teaser" => array(
       "twig" => "@ucd/blocks/teaser.twig",

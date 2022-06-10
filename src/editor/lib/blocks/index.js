@@ -35,6 +35,7 @@ import query from "./ucd-theme-query";
 import recentPosts from "./ucd-theme-recent-posts";
 import separator from "./ucd-theme-separator";
 import silsSearchRedirect from "./ucd-theme-sils-search-redirect";
+import socialMedia from "./ucd-theme-social-media";
 import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
 import teasers from "./ucd-theme-teasers";
@@ -79,6 +80,7 @@ export default [
   recentPosts,
   separator,
   silsSearchRedirect,
+  socialMedia,
   spacer,
   teaser,
   teasers,
