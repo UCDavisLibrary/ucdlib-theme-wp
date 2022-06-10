@@ -183,6 +183,12 @@ class UCDThemeBlocks {
         'teasers/hideExcerpt' => 'hideExcerpt',
         'teasers/hideCategories' => 'hideCategories')
     ),
+    "ucd-theme/trumba" => [
+      'twig' => '@ucd/blocks/trumba.twig'
+    ],
+    'ucd-theme/trumba-filters' => [
+      'twig' => '@ucd/blocks/trumba-filters.twig'
+    ]
   );
 
   /**
