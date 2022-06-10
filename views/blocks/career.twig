@@ -1,11 +1,13 @@
 {% if attributes.isEmpty %}
     <div>
-        <p>{{attributes.noPostsText}}</p>
+        <p>There are no open positions at this time</p>
     </div>
 {% else %}
+    {% set salaryFrequency = attributes.salaryFrequency is null ? 'HOUR' : attributes.salaryFrequency %}
+    {% set employmentType = attributes.employmentType is null ? 'FULL_TIME' : attributes.employmentType %}
     <li class="clickable">
         <a href="{{attributes.link}}"><strong>{{attributes.title}}</strong></a><br/>
-        <span><strong>Salary: </strong> ${{attributes.salaryMin|number_format(2, '.', ',')}} - ${{attributes.salaryMax|number_format(2, '.', ',')}}/<span>{{attributes.salaryFrequency}}</span></span><br/>
+        <span><strong>Salary: </strong> ${{attributes.salaryMin|number_format(2, '.', ',')}} - ${{attributes.salaryMax|number_format(2, '.', ',')}}/<span>{{salaryFrequency}}</span></span><br/>
         <span><strong>Final Filing Date:</strong> {{attributes.finalFilingDate|date('F d, Y')}}</span>
     </li>
     <script type="application/ld+json">
@@ -19,7 +21,7 @@
             "value" => $post->id
         ),
         "validThrough" : "{{attributes.finalFilingDate}}",
-        "employmentType" : "{{attributes.employmentType}}",
+        "employmentType" : "${{attributes.employmentType}}",
         "hiringOrganization" => array(
             "@type" => "Organization",
             "name" => "UC Davis Library",
