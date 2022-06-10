@@ -3,6 +3,7 @@ import backgroundImage from "./ucd-theme-background-image";
 import brandTextbox from "./ucd-theme-brand-textbox";
 import buttonLink from "./ucd-theme-button-link";
 import categoryFilter from "./ucd-theme-category-filter";
+import contactList from "./ucd-theme-contact-list";
 import faq from "./ucd-theme-faq";
 import faqItem from "./ucd-theme-faq-item";
 import focalLink from "./ucd-theme-focal-link";
@@ -47,6 +48,7 @@ export default [
   brandTextbox,
   buttonLink,
   categoryFilter,
+  contactList,
   faq,
   faqItem,
   focalLink,
