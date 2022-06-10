@@ -16,10 +16,6 @@ const settings = {
     "customClassName": false
   },
   attributes: {
-    noPostText: {
-      type: "string",
-      default: "There are no open positions at this time."
-    },
     lock: {
       type: "object",
       default: {

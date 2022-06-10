@@ -8,11 +8,9 @@ import {
   DatePicker
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
-// import { useSelect } from '@wordpress/data';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
-  // const mainEleRef = useRef();
   const blockProps = useBlockProps();
 
   // modal state
