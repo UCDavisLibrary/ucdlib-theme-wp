@@ -15,7 +15,6 @@ export default ( props ) => {
   }
 
   const onEdit = (d) => {
-    console.log(d);
     setAttributes(d);
   }
 
