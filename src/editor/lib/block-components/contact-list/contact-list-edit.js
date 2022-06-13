@@ -1,4 +1,5 @@
-import { html } from "../utils";
+import { html } from "../../utils";
+import websiteTypes from "./website-types";
 import { TextControl, Modal, SelectControl, Button, __experimentalText as Text } from '@wordpress/components';
 import { 
   useState, 
@@ -6,34 +7,29 @@ import {
   forwardRef, 
   useImperativeHandle } from '@wordpress/element';
 
-const IconPicker = forwardRef((props, ref) => {
+const ContactListEdit = forwardRef((props, ref) => {
   let { 
     modalTitle,
     onClose,
     emails,
     phones,
     websites,
+    appointment,
     allowEmails,
     allowPhones,
-    allowWebsites
+    allowWebsites,
+    allowAppointment
   } = props;
   
   if ( !modalTitle ) modalTitle = 'Contact Information';
   if ( !emails ) emails = [];
   if ( !phones ) phones = [];
   if ( !websites ) websites = [];
+  if ( !appointment ) appointment = '';
   allowEmails = allowEmails == false ? false : true;
   allowPhones = allowPhones == false ? false : true;
   allowWebsites = allowWebsites == false ? false : true;
-
-  const websiteTypes = [
-    {value: '', label: 'Select a Type', disabled: true, icon: "ucd-public:fa-network-wired"},
-    {value: 'google-scholar', label: 'Google Scholar', icon: "ucd-public:fa-network-wired"},
-    {value: 'linkedin', label: 'LinkedIn', icon: 'ucd-public:fa-linkedin'},
-    {value: 'orcid', label: 'ORCID', icon: 'ucd-public:fa-orcid'},
-    {value: 'twitter', label: 'Twitter', icon: 'ucd-public:fa-twitter'},
-    {value: 'other', label: 'Other', icon: "ucd-public:fa-network-wired"}
-  ];
+  allowAppointment = allowAppointment == false ? false : true;
 
   // modal state
   const [ isOpen, setOpen ] = useState( false );
@@ -66,6 +62,9 @@ const IconPicker = forwardRef((props, ref) => {
     const after = _phones.slice(i+1);
     setPhones([...before, ...after]);
   };
+
+  // apointment setters
+  const [_appointment, setAppointment ] = useState(appointment); 
 
   // email setters
   const [_emails, setEmails] = useState(emails);
@@ -112,6 +111,7 @@ const IconPicker = forwardRef((props, ref) => {
       if ( allowEmails ) data['emails'] = _emails;
       if ( allowPhones ) data['phones'] = _phones;
       if ( allowWebsites ) data['websites'] = _websites;
+      if ( allowAppointment ) data['appointment'] = _appointment;
       onClose(data);
     };
   }
@@ -167,6 +167,7 @@ const IconPicker = forwardRef((props, ref) => {
         </${Text}>
       </div>
       `}
+      <hr />
     </div>
   `;
 
@@ -214,6 +215,7 @@ const IconPicker = forwardRef((props, ref) => {
         </${Text}>
       </div>
       `}
+      <hr />
     </div>
     `;
 
@@ -269,6 +271,18 @@ ${modalSectionHeader("Websites", addNewWebsite)}
 </div>
 `;
 
+const appointmentSection = () => html`
+  <div>
+    <h2>Appointments</h2>
+    <${TextControl} 
+      value=${_appointment}
+      label="Appointment URL"
+      onChange=${a => setAppointment(a)}
+    />
+    <hr />
+  </div>
+`;
+
 
 
   return html`
@@ -277,9 +291,8 @@ ${modalSectionHeader("Websites", addNewWebsite)}
       <${Modal} title=${modalTitle} onRequestClose=${ _onClose }>
         <div>
           ${allowPhones && phoneSection()}
-          ${allowPhones && html`<hr />`}
           ${allowEmails && emailSection()}
-          ${allowEmails && html`<hr />`}
+          ${allowAppointment && appointmentSection()}
           ${allowWebsites && websiteSection()}
           <${Button} variant="primary" onClick=${ _onClose }>Close</${Button}>
         </div>
@@ -290,4 +303,4 @@ ${modalSectionHeader("Websites", addNewWebsite)}
 
 })
 
-export default IconPicker
+export default ContactListEdit

@@ -1,6 +1,6 @@
 import { html } from "../../utils";
 import { useBlockProps, BlockControls, InnerBlocks } from '@wordpress/block-editor';
-import { ContactListEdit } from "../../block-components";
+import { ContactListEdit, ContactListDisplay } from "../../block-components";
 import { ToolbarButton } from '@wordpress/components';
 import { createRef } from "@wordpress/element";
 
@@ -16,15 +16,26 @@ export default ( props ) => {
 
   const onEdit = (d) => {
     console.log(d);
+    setAttributes(d);
   }
 
   return html`
   <div ...${ blockProps }>
-    <p onClick=${modalOpen}>click me!</p>
+    <${ContactListDisplay} 
+      placeholderText="Click to enter contact info..."
+      phones=${attributes.phones}
+      emails=${attributes.emails}
+      websites=${attributes.websites}
+      onClick=${modalOpen}
+    />
     <${ContactListEdit} 
       ref=${modalRef}
       modalTitle='Edit Contact Information'
       onClose=${onEdit}
+      phones=${attributes.phones}
+      emails=${attributes.emails}
+      websites=${attributes.websites}
+      allowAppointment=${false}
     />
   </div>
   `

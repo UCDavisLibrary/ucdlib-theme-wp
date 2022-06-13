@@ -1,5 +1,6 @@
 import AuthorPicker from "./author-picker";
-import ContactListEdit from "./contact-list-edit";
+import ContactListEdit from "./contact-list/contact-list-edit";
+import ContactListDisplay from "./contact-list/contact-list-display";
 import DebouncedText from "./debounced-text";
 import IconPicker from "./icon-picker/icon-picker";
 import ImagePicker from "./image-picker";
@@ -18,6 +19,7 @@ import ToolbarVerticalAlignPicker from "./toolbar-vertical-align-picker";
 export { 
   AuthorPicker,
   ContactListEdit,
+  ContactListDisplay,
   DebouncedText,
   IconPicker,
   ImagePicker, 

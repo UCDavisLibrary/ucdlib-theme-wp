@@ -14,7 +14,18 @@ const settings = {
     "customClassName": false
   },
   attributes: {
-    
+    phones: {
+      type: 'array',
+      default: []
+    },
+    emails: {
+      type: 'array',
+      default: []
+    },
+    websites: {
+      type: 'array',
+      default: []
+    }
   },
   edit: Edit
 };
