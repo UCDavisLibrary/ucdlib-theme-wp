@@ -1,28 +1,30 @@
 import { html, UCDIcons } from "../../utils";
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { TextControl, ToolbarButton, Button, Modal, URLInput } from '@wordpress/components';
-import { useRef, useState } from "@wordpress/element";
+import { useRef, useState, useEffect } from "@wordpress/element";
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
   const mainEleRef = useRef();
 
+  useEffect(() => {
+    setAttributes({facebookUrl: 'https://www.facebook.com/UCDavisLibrary/'});
+    setAttributes({twitterUrl: 'https://twitter.com/UCDavisLibrary'});
+    setAttributes({instagramUrl: 'https://www.instagram.com/ucdavislibrary/'});
+    setAttributes({youtubeUrl: 'https://www.youtube.com/channel/UCRjjo_jpHml_Z3_5ctYq1lA'});
+  }, []);
+
   const startingModalData = {
-    facebookUrl: 'https://www.facebook.com/UCDavisLibrary/',
-    twitterUrl: 'https://twitter.com/UCDavisLibrary',
-    instagramUrl: 'https://www.instagram.com/ucdavislibrary/',
-    youtubeUrl: 'https://www.youtube.com/channel/UCRjjo_jpHml_Z3_5ctYq1lA',
+    facebookUrl: !attributes.facebookUrl ? '' : 'https://www.facebook.com/UCDavisLibrary/',
+    twitterUrl: !attributes.twitterUrl ? '' : 'https://twitter.com/UCDavisLibrary',
+    instagramUrl: !attributes.instagramUrl ? '' : 'https://www.instagram.com/ucdavislibrary/',
+    youtubeUrl: !attributes.youtubeUrl ? '' : 'https://www.youtube.com/channel/UCRjjo_jpHml_Z3_5ctYq1lA',
     linkedinUrl: ''
   };
   const [ modalIsOpen, setModalOpen ] = useState( false );
   const [ modalMode, setModalMode ] = useState( 'Add' );
   const [ modalData, setModalData ] = useState( startingModalData );
-
-  setAttributes({facebookUrl: attributes.facebookUrl || startingModalData.facebookUrl});
-  setAttributes({twitterUrl: attributes.twitterUrl || startingModalData.twitterUrl});
-  setAttributes({instagramUrl: attributes.instagramUrl || startingModalData.instagramUrl});
-  setAttributes({youtubeUrl: attributes.youtubeUrl || startingModalData.youtubeUrl});
 
   const closeModal = () => {
     setModalOpen(false);
@@ -86,19 +88,19 @@ export default ( props ) => {
         </div>
       `}
       ${attributes.facebookUrl ? html`
-        <ucdlib-icon icon='ucd-public:facebook' style=${{display: 'inline-flex', marginRight: '.5em', width: '50px', height: '50px'}}></ucdlib-icon>
+        <ucdlib-icon icon='ucd-public:facebook' style=${{display: 'inline-flex', marginRight: '.4em', width: '50px', height: '50px'}}></ucdlib-icon>
       ` : html``}
       ${attributes.twitterUrl ? html`
-        <ucdlib-icon icon='ucd-public:twitter' style=${{display: 'inline-flex', marginRight: '.5em', width: '50px', height: '50px'}}></ucdlib-icon>
+        <ucdlib-icon icon='ucd-public:twitter' style=${{display: 'inline-flex', marginRight: '.4em', width: '50px', height: '50px'}}></ucdlib-icon>
       ` : html``}
       ${attributes.instagramUrl ? html`
-        <ucdlib-icon icon='ucd-public:instagram' style=${{display: 'inline-flex', marginRight: '.5em', width: '50px', height: '50px'}}></ucdlib-icon>
+        <ucdlib-icon icon='ucd-public:instagram' style=${{display: 'inline-flex', marginRight: '.4em', width: '50px', height: '50px'}}></ucdlib-icon>
       ` : html``}
       ${attributes.youtubeUrl ? html`
-        <ucdlib-icon icon='ucd-public:youtube' style=${{display: 'inline-flex', marginRight: '.5em', width: '50px', height: '50px'}}></ucdlib-icon>
+        <ucdlib-icon icon='ucd-public:youtube' style=${{display: 'inline-flex', marginRight: '.4em', width: '50px', height: '50px'}}></ucdlib-icon>
       ` : html``}
       ${attributes.linkedinUrl ? html`
-        <ucdlib-icon icon='ucd-public:linkedin' style=${{display: 'inline-flex', marginRight: '.5em', width: '50px', height: '50px'}}></ucdlib-icon>
+        <ucdlib-icon icon='ucd-public:linkedin' style=${{display: 'inline-flex', marginRight: '.4em', width: '50px', height: '50px'}}></ucdlib-icon>
       ` : html``}
 
       ${modalIsOpen && html`
