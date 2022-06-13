@@ -18,7 +18,11 @@ export default ( props ) => {
   const [ modalIsOpen, setModalOpen ] = useState( false );
   const [ modalMode, setModalMode ] = useState( 'Add' );
   const [ modalData, setModalData ] = useState( startingModalData );
-  setAttributes({facebookUrl: startingModalData.facebookUrl});
+
+  setAttributes({facebookUrl: attributes.facebookUrl || startingModalData.facebookUrl});
+  setAttributes({twitterUrl: attributes.twitterUrl || startingModalData.twitterUrl});
+  setAttributes({instagramUrl: attributes.instagramUrl || startingModalData.instagramUrl});
+  setAttributes({youtubeUrl: attributes.youtubeUrl || startingModalData.youtubeUrl});
 
   const closeModal = () => {
     setModalOpen(false);

@@ -229,6 +229,7 @@ class UCDThemeBlocks {
     "core/site-tagline",
     "core/site-title",
     "core/separator",
+    "core/social-links",
     "core/spacer",
     "core/tag-cloud",
     "core/query",
