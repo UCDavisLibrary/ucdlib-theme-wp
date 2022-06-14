@@ -8,18 +8,11 @@ export default ( props ) => {
   const blockProps = useBlockProps();
   const mainEleRef = useRef();
 
-  useEffect(() => {
-    setAttributes({facebookUrl: 'https://www.facebook.com/UCDavisLibrary/'});
-    setAttributes({twitterUrl: 'https://twitter.com/UCDavisLibrary'});
-    setAttributes({instagramUrl: 'https://www.instagram.com/ucdavislibrary/'});
-    setAttributes({youtubeUrl: 'https://www.youtube.com/channel/UCRjjo_jpHml_Z3_5ctYq1lA'});
-  }, []);
-
   const startingModalData = {
-    facebookUrl: !attributes.facebookUrl ? '' : 'https://www.facebook.com/UCDavisLibrary/',
-    twitterUrl: !attributes.twitterUrl ? '' : 'https://twitter.com/UCDavisLibrary',
-    instagramUrl: !attributes.instagramUrl ? '' : 'https://www.instagram.com/ucdavislibrary/',
-    youtubeUrl: !attributes.youtubeUrl ? '' : 'https://www.youtube.com/channel/UCRjjo_jpHml_Z3_5ctYq1lA',
+    facebookUrl: attributes.facebookUrl || '',
+    twitterUrl: attributes.twitterUrl || '',
+    instagramUrl: attributes.instagramUrl || '',
+    youtubeUrl: attributes.youtubeUrl || '',
     linkedinUrl: ''
   };
   const [ modalIsOpen, setModalOpen ] = useState( false );

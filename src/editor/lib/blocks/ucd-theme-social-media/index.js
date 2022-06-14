@@ -16,19 +16,19 @@ const settings = {
   attributes: {
     facebookUrl: {
       type: 'string',
-      default: ''
+      default: 'https://www.facebook.com/UCDavisLibrary/'
     },
     twitterUrl: {
       type: 'string',
-      default: ''
+      default: 'https://twitter.com/UCDavisLibrary'
     },
     instagramUrl: {
       type: 'string',
-      default: ''
+      default: 'https://www.instagram.com/ucdavislibrary/'
     },
     youtubeUrl: {
       type: 'string',
-      default: ''
+      default: 'https://www.youtube.com/channel/UCRjjo_jpHml_Z3_5ctYq1lA'
     },
     linkedinUrl: {
       type: 'string',
