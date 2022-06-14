@@ -223,7 +223,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "core/columns",
     "core/column",
     "core/cover",
-    "core/gallery",
+    //"core/gallery",
     "core/latest-comments",
     "core/latest-posts",
     "core/loginout",
