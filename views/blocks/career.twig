@@ -1,8 +1,4 @@
-{% if attributes.isEmpty %}
-    <div>
-        <p>There are no open positions at this time</p>
-    </div>
-{% else %}
+{% if attributes.title %} 
     {% set salaryFrequency = attributes.salaryFrequency is null ? 'HOUR' : attributes.salaryFrequency %}
     {% set employmentType = attributes.employmentType is null ? 'FULL_TIME' : attributes.employmentType %}
     <li>

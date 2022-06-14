@@ -79,43 +79,36 @@ export default ( props ) => {
   const onModalTitleChange = (title) => {
     const data = {...modalData, title};
     setModalData(data);
-    setAttributes({title});
   }
   
   const onModalUrlChange = (link) => {
     const data = {...modalData, link};
     setModalData(data);
-    setAttributes({link});
   }
 
   const onModalSalaryStartChange = (salaryMin) => {
     const data = {...modalData, salaryMin};
     setModalData(data);
-    setAttributes({salaryMin});
   }
 
   const onModalSalaryEndChange = (salaryMax) => {
     const data = {...modalData, salaryMax};
     setModalData(data);
-    setAttributes({salaryMax});
   }
 
   const onModalSalaryFreqChange = (salaryFrequency) => {
     const data = {...modalData, salaryFrequency};
     setModalData(data);
-    setAttributes({salaryFrequency});
   }
 
   const onModalEmploymentTypeChange = (employmentType) => {
     const data = {...modalData, employmentType};
     setModalData(data);
-    setAttributes({employmentType});
   }
 
   const onModalFilingDateChange = (finalFilingDate) => {
     const data = {...modalData, finalFilingDate};
     setModalData(data);
-    setAttributes({finalFilingDate});
   }
 
   const closeModal = () => {
@@ -124,6 +117,7 @@ export default ( props ) => {
 
   const onModalSave = () => {
     setModalOpen(false);
+    setAttributes(modalData);
   }
 
   return html`

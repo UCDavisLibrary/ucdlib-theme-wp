@@ -22,6 +22,10 @@ const settings = {
         move: true,
         remove: true
       }
+    },
+    noPostText: {
+      type: "string",
+      default: "There are no open positions at this time."
     }
   },
 
