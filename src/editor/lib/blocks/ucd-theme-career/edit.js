@@ -130,8 +130,8 @@ export default ( props ) => {
     <div ...${ blockProps }>
       <li onClick=${onCareerClicked} className="clickable">
         <a href="${attributes.link}"><strong>${attributes.title}</strong></a><br/>
-        <span style=${{ fontSize: '0.9em' }}><strong>Salary: </strong> ${currency.format(attributes.salaryMin)} - ${currency.format(attributes.salaryMax)}/<span style=${{ textTransform: 'capitalize'}}>${attributes.salaryFrequency}</span></span><br/>
-        <span style=${{ fontSize: '0.9em' }}><strong>Final Filing Date:</strong> ${attributes.finalFilingDate ? new Date(attributes.finalFilingDate).toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : ''}</span>
+        <span className="subtext"><strong>Salary: </strong> ${currency.format(attributes.salaryMin)} - ${currency.format(attributes.salaryMax)}/<span style=${{ textTransform: 'capitalize' }}>${attributes.salaryFrequency.toLowerCase()}</span></span><br/>
+        <span className="subtext"><strong>Final Filing Date:</strong> ${attributes.finalFilingDate ? new Date(attributes.finalFilingDate).toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : ''}</span>
       </li>
 
       ${modalIsOpen && html`
