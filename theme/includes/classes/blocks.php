@@ -50,6 +50,12 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "twig" => "@ucd/blocks/button-link.twig", 
       "transform" => array("removeStylePrefix", 'getPermalink')
     ),
+    "ucd-theme/career" => array(
+      "twig" => "@ucd/blocks/career.twig"
+    ),
+    "ucd-theme/careers" => array(
+      "twig" => "@ucd/blocks/careers.twig"
+    ),
     "ucd-theme/category-filter" => array(
       "twig" => "@ucd/blocks/category-filter.twig", 
       "transform" => array("getCategories")

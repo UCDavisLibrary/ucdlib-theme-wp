@@ -208,7 +208,13 @@ $headerLevels: 1,2,3,4,5;
     }
   }
 }
+.clickable {
+  cursor: pointer;
+}
 
+.subtext {
+  font-size: 0.8em;
+}
 // new heading classes
 .heading--h5 {
   @include h5();
