@@ -1,7 +1,6 @@
 import { html } from "../../utils";
-import { useBlockProps, BlockControls, InnerBlocks } from '@wordpress/block-editor';
+import { useBlockProps } from '@wordpress/block-editor';
 import { ContactListEdit, ContactListDisplay } from "../../block-components";
-import { ToolbarButton } from '@wordpress/components';
 import { createRef } from "@wordpress/element";
 
 

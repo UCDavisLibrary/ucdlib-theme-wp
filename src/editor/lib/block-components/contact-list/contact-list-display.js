@@ -75,7 +75,7 @@ const ContactListDisplay = ( props ) => {
         </ul>
       ` : html`
         <ul className="list--pipe u-space-mb">
-          <li className="icon icon--phone">Enter Your Contact Info</li>
+          <li className="icon icon--phone">${placeholderText}</li>
         </ul>
       `}
     </div>
