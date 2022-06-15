@@ -1,12 +1,11 @@
 import { html, UCDIcons } from "../../utils";
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { TextControl, ToolbarButton, Button, Modal, URLInput } from '@wordpress/components';
-import { useRef, useState, useEffect } from "@wordpress/element";
+import { useState } from "@wordpress/element";
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
-  const mainEleRef = useRef();
 
   const startingModalData = {
     facebookUrl: attributes.facebookUrl || '',
@@ -31,36 +30,32 @@ export default ( props ) => {
 
   const onModalSave = () => {
     setModalOpen(false);
+    setAttributes(modalData);
   }
 
   const onFacebookUrlChange = (facebookUrl) => {
     const data = {...modalData, facebookUrl};
     setModalData(data);
-    setAttributes({facebookUrl});
   }
 
   const onTwitterUrlChange = (twitterUrl) => {
     const data = {...modalData, twitterUrl};
     setModalData(data);
-    setAttributes({twitterUrl});
   }
 
   const onInstagramUrlChange = (instagramUrl) => {
     const data = {...modalData, instagramUrl};
     setModalData(data);
-    setAttributes({instagramUrl});
   }
 
   const onYoutubeUrlChange = (youtubeUrl) => {
     const data = {...modalData, youtubeUrl};
     setModalData(data);
-    setAttributes({youtubeUrl});
   }
 
   const onLinkedinUrlChange = (linkedinUrl) => {
     const data = {...modalData, linkedinUrl};
     setModalData(data);
-    setAttributes({linkedinUrl});
   }
 
   return html`
@@ -80,48 +75,50 @@ export default ( props ) => {
           <div style=${{backgroundColor: '#f00075', width: '40px', height: '40px', display: 'inline-block'}}></div>
         </div>
       `}
-      ${attributes.facebookUrl ? html`
-        <ucdlib-icon icon='ucd-public:facebook' class="media-icon"></ucdlib-icon>
-      ` : html``}
-      ${attributes.twitterUrl ? html`
-        <ucdlib-icon icon='ucd-public:twitter' class="media-icon"></ucdlib-icon>
-      ` : html``}
-      ${attributes.instagramUrl ? html`
-        <ucdlib-icon icon='ucd-public:instagram' class="media-icon"></ucdlib-icon>
-      ` : html``}
-      ${attributes.youtubeUrl ? html`
-        <ucdlib-icon icon='ucd-public:youtube' class="media-icon"></ucdlib-icon>
-      ` : html``}
-      ${attributes.linkedinUrl ? html`
-        <ucdlib-icon icon='ucd-public:linkedin' class="media-icon"></ucdlib-icon>
-      ` : html``}
+      <div class="social-follow">
+        ${attributes.facebookUrl ? html`
+          <a alt="Facebook icon link" class="social-follow__facebook media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
+        ` : html``}
+        ${attributes.twitterUrl ? html`
+          <a alt="Twitter icon link" class="social-follow__twitter media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
+        ` : html``}
+        ${attributes.instagramUrl ? html`
+          <a alt="Instagram icon link" class="social-follow__instagram media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
+        ` : html``}
+        ${attributes.youtubeUrl ? html`
+          <a alt="YouTube icon link" class="social-follow__youtube media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
+        ` : html``}
+        ${attributes.linkedinUrl ? html`
+          <a alt="LinkedIn icon link" class="social-follow__linkedin" style=${{ marginRight: '.5em' }} target="_blank"></a>
+        ` : html``}
+      </div>
 
       ${modalIsOpen && html`
         <${Modal} title=${modalMode + " Social Media Links"} onRequestClose=${closeModal}>
           <div>
             <${TextControl} 
               label="Facebook Url"
-              value=${attributes.facebookUrl}
+              value=${modalData.facebookUrl}
               onChange=${onFacebookUrlChange}
             />
             <${TextControl} 
               label="Twitter Url"
-              value=${attributes.twitterUrl}
+              value=${modalData.twitterUrl}
               onChange=${onTwitterUrlChange}
             />
             <${TextControl} 
               label="Instagram Url"
-              value=${attributes.instagramUrl}
+              value=${modalData.instagramUrl}
               onChange=${onInstagramUrlChange}
             />
             <${TextControl} 
               label="YouTube Url"
-              value=${attributes.youtubeUrl}
+              value=${modalData.youtubeUrl}
               onChange=${onYoutubeUrlChange}
             />
             <${TextControl} 
               label="LinkedIn Url"
-              value=${attributes.linkedinUrl}
+              value=${modalData.linkedinUrl}
               onChange=${onLinkedinUrlChange}
             />
             <${Button} 
