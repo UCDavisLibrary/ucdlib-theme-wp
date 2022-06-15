@@ -1,0 +1,9 @@
+<ul class="list--pipe u-space-mb">
+  {% for contact in attributes.contact %}
+    <li>
+      <a class="icon-ucdlib" href="{{contact.link}}">
+        <ucdlib-icon icon="{{contact.icon}}"></ucdlib-icon><div>{{contact.label}}</div>
+      </a>
+    </li>
+  {% endfor %}
+</ul>

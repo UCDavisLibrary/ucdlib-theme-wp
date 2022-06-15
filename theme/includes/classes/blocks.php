@@ -1,5 +1,6 @@
 <?php
 require_once( __DIR__ . '/block-transformations.php' );
+require_once( __DIR__ . '/block-renderer.php');
 
 /** 
  * Handles server-side rendering of UCD blocks through WP actions and filters on class instantiation.
@@ -8,11 +9,12 @@ require_once( __DIR__ . '/block-transformations.php' );
  * @param array $settings - Override any of the default settings
  * 
  */
-class UCDThemeBlocks {
+class UCDThemeBlocks extends UCDThemeBlockRenderer {
   public $editor_script_slug;
   public $settings;
 
   function __construct($editor_script_slug, $settings=array()) {
+    parent::__construct();
     $this->editor_script_slug = $editor_script_slug;
     $this->set_settings($settings);
 
@@ -23,12 +25,13 @@ class UCDThemeBlocks {
 
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
     add_action( 'enqueue_block_editor_assets', array( $this, "enqueue_block_editor_assets" ), 5 );
-    add_action( 'init', array( $this, 'register_blocks'));
     add_action('block_categories_all', array($this, 'addCategories'), 10,2);
     add_filter( 'render_block', array($this, 'modifyCoreBlock'), 10, 2 );
     add_action( 'init', array($this, 'setPageBlockTemplate'), 100);
     add_filter('excerpt_allowed_wrapper_blocks', array($this, 'excerpt_allowed_wrapper_blocks'));
   }
+
+  public static $transformationClass = 'UCDThemeBlockTransformations';
 
   /**
    * Meta for each block goes here.
@@ -57,6 +60,10 @@ class UCDThemeBlocks {
       "twig" => "@ucd/blocks/category-filter.twig", 
       "transform" => array("getCategories")
     ),
+    "ucd-theme/contact-list" => array(
+      "twig" => "@ucd/blocks/contact-list.twig", 
+      "transform" => array("formatContactList")
+    ),
     "ucd-theme/faq" => array(
       "twig" => "@ucd/blocks/faq.twig",
       "transform" => array("addSpacing")
@@ -71,7 +78,7 @@ class UCDThemeBlocks {
     ),
     "ucd-theme/heading" => array(
       "twig" => "@ucd/blocks/heading.twig", 
-      "transform" => array("removeStylePrefix")
+      "transform" => array("removeStylePrefix", 'mergeClassWithAttribute')
     ),
     "ucd-theme/heading-with-icon" => array(
       "twig" => "@ucd/blocks/heading-with-icon.twig",
@@ -163,6 +170,10 @@ class UCDThemeBlocks {
       "transform" => array("getPosts", 'addSpacing')
     ),
     "ucd-theme/sils-search-redirect" => array("twig" => "@ucd/blocks/sils-search-redirect.twig"),
+    "ucd-theme/separator" => array(
+      "twig" => "@ucd/blocks/separator.twig",
+      "hasBrandColors" => true
+    ),
     "ucd-theme/spacer" => array("twig" => "@ucd/blocks/spacer.twig"),
     "ucd-theme/teaser" => array(
       "twig" => "@ucd/blocks/teaser.twig",
@@ -185,6 +196,12 @@ class UCDThemeBlocks {
         'teasers/hideExcerpt' => 'hideExcerpt',
         'teasers/hideCategories' => 'hideCategories')
     ),
+    "ucd-theme/trumba" => [
+      'twig' => '@ucd/blocks/trumba.twig'
+    ],
+    'ucd-theme/trumba-filters' => [
+      'twig' => '@ucd/blocks/trumba-filters.twig'
+    ]
   );
 
   /**
@@ -212,7 +229,7 @@ class UCDThemeBlocks {
     "core/columns",
     "core/column",
     "core/cover",
-    "core/gallery",
+    //"core/gallery",
     "core/latest-comments",
     "core/latest-posts",
     "core/loginout",
@@ -230,6 +247,7 @@ class UCDThemeBlocks {
     "core/site-logo",
     "core/site-tagline",
     "core/site-title",
+    "core/separator",
     "core/spacer",
     "core/tag-cloud",
     "core/query",
@@ -340,74 +358,6 @@ class UCDThemeBlocks {
 
     $this->settings = $settings;
 
-  }
-
-  /**
-   * Registers serverside rendering callback of all UCD blocks
-   */
-  public function register_blocks( ) {
-    foreach (self::$registry as $name => $block) {
-      $settings = array(
-        'api_version' => 2, 
-        'render_callback' => array($this, 'render_callback')
-      );
-      if ( array_key_exists('uses_context', $block) ) {
-        $settings['uses_context'] = $block['uses_context'];
-      }
-      if ( array_key_exists('provides_context', $block) ) {
-        $settings['provides_context'] = $block['provides_context'];
-      };
-      register_block_type(
-        $name, 
-        $settings
-      );
-    }
-  }
-
-  /**
-   * Renders designated Twig and applies attribute transformations for a registered block
-   * 
-   * NOTE:
-   * We need access to the block name to determine what twig to render.
-   * Third 'block' arg is not part of documentation:
-   *  https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/block-tutorial/creating-dynamic-blocks.md
-   * Looks like this wp api is in flux, so this approach might break in the future:
-   *  https://github.com/WordPress/gutenberg/issues/4671
-   *  https://github.com/WordPress/gutenberg/issues/21797
-   *  https://github.com/WordPress/gutenberg/pull/21925
-   *  
-   */
-  public function render_callback($block_attributes, $content, $block) {
-    
-    // Retrieve metadata from registry
-    $blockName = $block->name;
-    if ( !$blockName ) return;
-    $meta = self::$registry[$blockName];
-
-    // Apply any transformations to block attributes specified in registry
-    if ( array_key_exists("transform", $meta) ){
-      if ( is_array($meta['transform']) ) {
-        $transformations = $meta['transform'];
-      }
-      else {
-        $transformations = array($meta['transform']);
-      }
-      foreach ($transformations as $transformation) {
-        $block_attributes = call_user_func("UCDThemeBlockTransformations::" . $transformation, $block_attributes);
-      }
-    }
-
-    // check for icons (so we can only load the svgs we actually use)
-    if ( 
-      array_key_exists('icon', $block_attributes) && 
-      !in_array($block_attributes['icon'], $this->iconsUsed)) {
-        $this->iconsUsed[] = $block_attributes['icon'];
-      }
-
-    // Render twig
-    ob_start();
-    Timber::render( $meta['twig'], array("attributes" => $block_attributes, "content" => $content, "block" => $block) );
-    return ob_get_clean();
   }
 
   /**

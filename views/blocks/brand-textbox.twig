@@ -3,12 +3,15 @@
     brand-color={{attributes.brandColor ? attributes.brandColor : ''}}
     {{attributes.collapsible ? 'collapsible'}}
     class="{{attributes.float ? 'u-align--'~attributes.float}}">
+    {{attributes.float ? 'style="max-width:33%;" '}}
     <div class="category-brand__background colored-section {{attributes.brandColor ? 'category-brand--'~attributes.brandColor}}">
     {{content}}
     </div>
 </ucd-theme-brand-textbox>
 {% else %}
-  <section class="colored-section brand-textbox category-brand__background {{attributes.brandColor ? 'category-brand--'~attributes.brandColor}} {{attributes.float ? 'u-align--'~attributes.float}}">
+  <section 
+    class="colored-section brand-textbox category-brand__background {{attributes.brandColor ? 'category-brand--'~attributes.brandColor}} {{attributes.float ? 'u-align--'~attributes.float}}"
+    {{attributes.float ? 'style="max-width:33%;" '}}>
   {{content}}
   </section>
 {% endif %}

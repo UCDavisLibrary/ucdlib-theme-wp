@@ -34,6 +34,10 @@ const settings = {
     fullWidth: {
       type: "boolean",
       default: false
+    },
+    float: {
+      type: "string",
+      default: ""
     }
   },
   edit: Edit,

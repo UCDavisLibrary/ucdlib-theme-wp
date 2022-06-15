@@ -41,6 +41,10 @@ const settings = {
     verticalAlign: {
       type: "string",
       default: "top"
+    },
+    allowedBlocks: {
+      type: 'array',
+      default: []
     }
   },
   edit: Edit,

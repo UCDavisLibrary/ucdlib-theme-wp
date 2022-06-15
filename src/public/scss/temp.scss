@@ -1,3 +1,5 @@
+@use '@ucd-lib/theme-sass/0_tools' as *;
+
 // things here should be moved to ucd-lib/theme-sass
 
 // used in see all links:
@@ -119,6 +121,13 @@ a.icon-ucdlib, span.icon-ucdlib {
     height: 1rem;
   }
 }
+.panel a.icon-ucdlib ucdlib-icon {
+  margin-right: .5rem;
+  min-width: .9rem;
+  min-height: .9rem;
+  width: .9rem;
+  height: .9rem;
+}
 
 // white space utility
 .u-white-space--normal {
@@ -199,11 +208,25 @@ $headerLevels: 1,2,3,4,5;
     }
   }
 }
-
 .clickable {
   cursor: pointer;
 }
 
 .subtext {
   font-size: 0.8em;
+}
+// new heading classes
+.heading--h5 {
+  @include h5();
+}
+.heading--h6 {
+  @include h6();
+}
+
+hr {
+  border-top: 1px solid;
+}
+
+hr.dotted {
+  border-top: 4px dotted;
 }

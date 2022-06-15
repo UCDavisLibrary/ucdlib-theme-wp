@@ -5,6 +5,7 @@ import buttonLink from "./ucd-theme-button-link";
 import career from "./ucd-theme-career";
 import careers from "./ucd-theme-careers";
 import categoryFilter from "./ucd-theme-category-filter";
+import contactList from "./ucd-theme-contact-list";
 import faq from "./ucd-theme-faq";
 import faqItem from "./ucd-theme-faq-item";
 import focalLink from "./ucd-theme-focal-link";
@@ -35,6 +36,7 @@ import priorityLinksItem from "./ucd-theme-priority-links-item";
 import priorityLinks from "./ucd-theme-priority-links"
 import query from "./ucd-theme-query";
 import recentPosts from "./ucd-theme-recent-posts";
+import separator from "./ucd-theme-separator";
 import silsSearchRedirect from "./ucd-theme-sils-search-redirect";
 import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
@@ -50,6 +52,7 @@ export default [
   career,
   careers,
   categoryFilter,
+  contactList,
   faq,
   faqItem,
   focalLink,
@@ -80,6 +83,7 @@ export default [
   priorityLinks,
   query,
   recentPosts,
+  separator,
   silsSearchRedirect,
   spacer,
   teaser,

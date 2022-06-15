@@ -302,7 +302,9 @@ class UcdThemePost extends Timber\Post {
     if ( ! empty( $this->hero ) ) {
       return $this->hero;
     }
-    if ( $this->thumbnail_id() && !get_post_meta($this->ID, 'ucd_hide_hero', true) ) {
+    if ( $this->post_type === 'post') {
+      $this->hero = false;
+    } else if ( $this->thumbnail_id() && !get_post_meta($this->ID, 'ucd_hide_hero', true) ) {
       $this->hero = $this->thumbnail();
     } else {
       $this->hero = false;
