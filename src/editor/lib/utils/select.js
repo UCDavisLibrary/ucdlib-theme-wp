@@ -3,6 +3,8 @@ import { useMemo } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
 import { decodeEntities } from "@wordpress/html-entities";
 
+import BlockSettings from "./settings";
+
 export default class SelectUtils {
   
   static card(attributes) {
@@ -33,6 +35,27 @@ export default class SelectUtils {
       const Image = imageId ? select('core').getMedia(imageId) : undefined;
       return Image;
     }, [imageId, force] );
+  }
+
+  static previewImage(post, aspectRatio='1x1') {
+    // would be nice if this just took postId, but doesn't appear to be possible
+    //https://wordpress.stackexchange.com/questions/388796/getentityrecord-without-knowing-the-post-type
+    const postId = post && post.id ? post.id : 0;
+    return useSelect( ( select ) => {
+      let url = BlockSettings.getImageByAspectRatio(aspectRatio);
+      if ( post ) {
+        let imageId;
+        if ( post.meta[`ucd_thumbnail_${aspectRatio}`]) {
+          imageId = post.meta[`ucd_thumbnail_${aspectRatio}`];
+        } else if ( post.featured_media ) {
+          imageId = post.featured_media;
+        }
+        const image = select('core').getMedia(imageId) || undefined;
+        if ( image ) url = image.source_url;
+      }
+      return url;
+      
+    }, [postId, aspectRatio] );
   }
 
   static selectedBlock() {

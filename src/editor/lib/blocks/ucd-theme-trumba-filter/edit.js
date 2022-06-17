@@ -11,6 +11,6 @@ export default ( props ) => {
   } );
 
   return html`
-    <ucdlib-trumba-events-filter></ucdlib-trumba-filter>
+    <ucdlib-trumba-events-filter></ucdlib-trumba-events-filter>
   `;
 }

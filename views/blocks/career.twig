@@ -1,0 +1,49 @@
+{% if attributes.title %} 
+    {% set salaryFrequency = attributes.salaryFrequency is null ? 'HOUR' : attributes.salaryFrequency %}
+    {% set employmentType = attributes.employmentType is null ? 'FULL_TIME' : attributes.employmentType %}
+    <li>
+        <a href="{{attributes.link}}" target="_blank"><strong>{{attributes.title}}</strong></a><br/>
+        <span class="subtext"><strong>Salary: </strong> ${{attributes.salaryMin|number_format(2, '.', ',')}} - ${{attributes.salaryMax|number_format(2, '.', ',')}}/<span>{{salaryFrequency|capitalize}}</span></span><br/>
+        <span class="subtext"><strong>Final Filing Date:</strong> {{attributes.finalFilingDate|date('F d, Y')}}</span>
+    </li>
+    <script type="application/ld+json">
+    {
+        "@context" : "https://schema.org/",
+        "@type" : "JobPosting",
+        "title" : "{{attributes.title}}",
+        "identifier" => array(
+            "@type" => "PropertyValue",
+            "name" => "UC Davis Library",
+            "value" => $post->id
+        ),
+        "validThrough" : "{{attributes.finalFilingDate}}",
+        "employmentType" : "${{attributes.employmentType}}",
+        "hiringOrganization" => array(
+            "@type" => "Organization",
+            "name" => "UC Davis Library",
+            "sameAs" => "https://www.library.ucdavis.edu/",
+            "logo" => "https://www.library.ucdavis.edu/wp-content/themes/ucdlib-theme-wp/assets/img/site-icon.png"
+        ),
+        "jobLocation": {
+            "@type": "Place",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "1 Shields Ave",
+                "addressLocality": "Davis",
+                "addressRegion": "CA",
+                "postalCode": "95616",
+                "addressCountry": "US"
+            }
+        },
+        "baseSalary": {
+            "@type": "MonetaryAmount",
+            "currency": "USD",
+            "value": {
+                "@type": "QuantitativeValue",
+                "value": "{{attributes.salaryMin}} - {{attributes.salaryMax}}",
+                "unitText": "{{attributes.salaryFrequency}}"
+            }
+        }
+    }
+    </script>
+{% endif %}
