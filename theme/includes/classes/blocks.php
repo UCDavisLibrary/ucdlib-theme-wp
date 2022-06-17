@@ -20,7 +20,12 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
 
     $this->iconsUsed = [
       'ucd-public:fa-star',
-      'ucd-public:fa-circle-chevron-right'
+      'ucd-public:fa-circle-chevron-right',
+      'ucd-public:facebook',
+      'ucd-public:twitter',
+      'ucd-public:instagram',
+      'ucd-public:youtube',
+      'ucd-public:linkedin'
     ];
 
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
@@ -174,6 +179,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "twig" => "@ucd/blocks/separator.twig",
       "hasBrandColors" => true
     ),
+    "ucd-theme/social-media" => array("twig" => "@ucd/blocks/social-media.twig"),
     "ucd-theme/spacer" => array("twig" => "@ucd/blocks/spacer.twig"),
     "ucd-theme/teaser" => array(
       "twig" => "@ucd/blocks/teaser.twig",
@@ -220,7 +226,6 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
    * Core blocks to unregister. 
    * Most because they are redundant of a ucd block.
    */
-
   public static $excluded_core_blocks = array(
     "core/buttons",
     "core/button",
@@ -248,6 +253,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "core/site-tagline",
     "core/site-title",
     "core/separator",
+    "core/social-links",
     "core/spacer",
     "core/tag-cloud",
     "core/query",
