@@ -149,9 +149,12 @@ a.icon-ucdlib, span.icon-ucdlib {
   white-space: break-spaces !important;
 }
 
-// shrink class
+// layouts
 .l-shrink.l-shrink--60 {
   width: 60%;
+}
+.l-maintain-grid {
+  display: grid !important;
 }
 
 // space utility
