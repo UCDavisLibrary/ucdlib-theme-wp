@@ -3,5 +3,7 @@
         {{content}}
     </ul>
 {% else %}
-    <p>{{ attributes.noPostText ? attributes.noPostText : "There are no open positions at this time." }}</p>
+    <ul class='list--arrow'>
+        <li>{{ attributes.noPostText ? attributes.noPostText : "There are no open positions at this time." }}</li>
+    </ul>
 {% endif %}
