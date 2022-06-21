@@ -2,14 +2,17 @@ import { html } from "../../utils";
 import { lock, paragraph } from '@wordpress/icons';
 import { useBlockProps, InnerBlocks, BlockControls } from '@wordpress/block-editor';
 import { ToolbarButton, Modal, Button, TextControl } from '@wordpress/components';
-import { Fragment } from '@wordpress/element';
-import { useState } from '@wordpress/element';
+import { Fragment, useState } from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
 
 export default ( props ) => {
-  const { attributes, setAttributes } = props;
+  const { clientId, attributes, setAttributes } = props;
   const blockProps = useBlockProps();
   const allowedBlocks = ['ucd-theme/career']
   const template = [['ucd-theme/career', {}]];
+  const { innerBlocksCount} = useSelect(select => ({
+    innerBlocksCount: select("core/block-editor").getBlockCount(clientId)
+  }));
 
   // modal state
   const startingModalData = {
@@ -84,10 +87,18 @@ export default ( props ) => {
 
       <div ...${ blockProps }>
         <ul className="list--arrow">
-          <${InnerBlocks} 
-            allowedBlocks=${allowedBlocks}
-            template=${template}
-          />
+          ${innerBlocksCount > 0 && html`
+            <${InnerBlocks} 
+              allowedBlocks=${allowedBlocks}
+              template=${template}
+            />
+          `}
+          ${innerBlocksCount === 0 && html`
+            <${InnerBlocks}
+              allowedBlocks=${allowedBlocks}
+              template=${template}
+            />
+          `}
         </ul>
       </div>
     </${Fragment}>
