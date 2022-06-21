@@ -19,8 +19,8 @@ const settings = {
     lock: {
       type: "object",
       default: {
-        move: true,
-        remove: true
+        move: false,
+        remove: false
       }
     },
     noPostText: {

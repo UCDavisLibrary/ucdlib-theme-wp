@@ -1,7 +1,7 @@
 {% if attributes.title %} 
     {% set salaryFrequency = attributes.salaryFrequency is null ? 'HOUR' : attributes.salaryFrequency %}
     {% set employmentType = attributes.employmentType is null ? 'FULL_TIME' : attributes.employmentType %}
-    <li>
+    <li class="job-posting">
         <a href="{{attributes.link}}" target="_blank"><strong>{{attributes.title}}</strong></a><br/>
         <span class="subtext"><strong>Salary: </strong> ${{attributes.salaryMin|number_format(2, '.', ',')}} - ${{attributes.salaryMax|number_format(2, '.', ',')}}/<span>{{salaryFrequency|capitalize}}</span></span><br/>
         <span class="subtext"><strong>Final Filing Date:</strong> {{attributes.finalFilingDate|date('F d, Y')}}</span>
