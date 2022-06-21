@@ -9,6 +9,7 @@ require_once( __DIR__ . '/blocks.php' );
 require_once( __DIR__ . '/assets.php' );
 require_once( __DIR__ . '/sidebars.php' );
 require_once( __DIR__ . '/user.php' );
+require_once( __DIR__ . '/patterns.php' );
 require_once( __DIR__ . '/post.php' );
 require_once( __DIR__ . '/comments.php' );
 require_once( __DIR__ . '/roles.php' );
@@ -71,6 +72,9 @@ class UcdThemeSite extends Timber\Site {
 
     // Queue up scripts and styles
     $this->assets = new UcdThemeAssets($this->scripts, $this->version);
+
+    // Register block patterns
+    $this->patterns = new UCDLibThemePatterns();
 
     // Menu locations
     new UcdThemeMenu();
