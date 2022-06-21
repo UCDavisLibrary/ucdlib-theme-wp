@@ -1,0 +1,19 @@
+{% set API_KEY = "AIzaSyDTmEJ0zs8dn3hCE4Z6NkxidduSijcV_Ng" %}
+{% set markerLocation = "UC+Davis+Library, Davis+CA" %}
+{% if attributes.markerLocation %}
+  {% set markerLocation = attributes.markerLocation %}
+{% endif %}
+{% set classes = "google-maps-embed" %}
+{% if attributes.size %}
+  {% set classes = classes ~ " " ~ attributes.size %}
+{% else %}
+  {% set classes = classes ~ " lg" %}
+{% endif %}
+
+<iframe
+  class="{{classes}}"
+  frameborder="0"
+  referrerpolicy="no-referrer-when-downgrade"
+  src="https://www.google.com/maps/embed/v1/place?key={{API_KEY}}&q={{markerLocation}}"
+  allowfullscreen>
+</iframe>

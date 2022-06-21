@@ -1,8 +1,8 @@
 import { html } from "../../utils";
-import { ToolbarColorPicker, ToolbarSeparatorStyle } from "../../block-components";
-import { Dropdown, ToolbarDropdownMenu, Modal } from '@wordpress/components';
+import { ToolbarDropdownMenu, Modal, ToolbarButton, Button, TextControl } from '@wordpress/components';
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
-import { useRef, useState, useEffect } from "@wordpress/element";
+import { useState } from "@wordpress/element";
+import { mapMarker } from '@wordpress/icons';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -10,18 +10,11 @@ export default ( props ) => {
 
   const sizeControls = [
     {title: "Small", onClick: () => {setAttributes({size: 'sm', width: '33%', height: '200px'})}},
-    {title: "Medium", onClick: () => {setAttributes({size: '', width: '50%', height: '300px'})}},
-    {title: "Large", onClick: () => {setAttributes({size: 'lg', width: '100%', height: '400px'})}}
+    {title: "Medium", onClick: () => {setAttributes({size: 'md', width: '50%', height: '300px'})}},
+    {title: "Large", onClick: () => {setAttributes({size: '', width: '100%', height: '300px'})}}
   ];
 
-  // set attributes on initial render so the default values are saved to db
-  useEffect(() => {
-    setAttributes({
-      markerLocation: attributes.markerLocation,
-      width: attributes.width,
-      height: attributes.height,
-    });
-  }, []);
+  const API_KEY = 'AIzaSyDTmEJ0zs8dn3hCE4Z6NkxidduSijcV_Ng';
 
   const startingModalData = {markerLocation: attributes.markerLocation || ''};
   const [ modalIsOpen, setModalOpen ] = useState( false );
@@ -42,27 +35,40 @@ export default ( props ) => {
     setModalOpen(false);
   }
 
+  const onOpenModal = (e) => {
+    setModalMode('Edit');
+    setModalOpen(true);
+  }
+
   const onModalMarkerLocationChange = (markerLocation) => {
-    const d = {...modalData, markerLocation};
+    const d = {...modalData, markerLocation: markerLocation.split(' ').join('+')};
     setModalData(d);
   }
 
   const onModalSave = () => {
     setModalOpen(false);
+    setAttributes(modalData);
   }
+
+  const mapsClasses = `google-maps-embed ${attributes.size ? attributes.size : 'lg'}`;
 
   return html`
   <div ...${ blockProps }>
 
     <${BlockControls} group="block">
-      <${ToolbarDropdownMenu} icon=${html`<span>${attributes.size ? attributes.size : 'md'}</span>`} label="Change button size" controls=${sizeControls}/>
+      <${ToolbarDropdownMenu} icon=${html`<span>${attributes.size ? attributes.size : 'lg'}</span>`} label="Change button size" controls=${sizeControls}/>
+      <${ToolbarButton} 
+          icon=${html`${mapMarker}`} 
+          onClick=${onOpenModal}
+          label="Change marker location"
+      />
     </${BlockControls}>
 
     <iframe
-      style=${{ width: attributes.width, height: attributes.height, border: '0' }}
+      class="${mapsClasses}"
       frameborder="0"
       referrerpolicy="no-referrer-when-downgrade"
-      src="http://localhost:3000/wp-admin/post.php?post=6783&action=edit"
+      src="https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${attributes.markerLocation}"
       allowfullscreen>
     </iframe>
 
@@ -71,17 +77,16 @@ export default ( props ) => {
         <div>
           <${TextControl} 
             label="Marker Location"
-            value=${modalData.markerLocation}
+            value=${modalData.markerLocation.replaceAll('+', ' ')}
             onChange=${onModalMarkerLocationChange}
           />
           <${Button} 
             onClick=${onModalSave}
             variant='primary' 
-            disabled=${!modalCanSave}>'Save Changes'</${Button}>
+            disabled=${!modalCanSave}>Save Changes</${Button}>
         </div>
       </${Modal}>
     `}
   </div>
   `
 }
-// https://www.google.com/maps/embed/v1/MAP_MODE?key=YOUR_API_KEY&q=${''}

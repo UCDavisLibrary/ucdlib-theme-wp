@@ -15,13 +15,9 @@ const settings = {
     "customClassName": false
   },
   attributes: {
-    markerLocation: {
-      type: "string",
-      default: "UC Davis Library, Davis CA"
-    },
     width: {
       type: "string",
-      default: "50%"
+      default: "100%"
     },
     height: {
       type: "string",
@@ -30,6 +26,10 @@ const settings = {
     size: {
       type: "string",
       default: ""
+    },
+    markerLocation: {
+      type: "string",
+      default: "UC+Davis+Library, Davis+CA"
     }
   },
 	edit: Edit

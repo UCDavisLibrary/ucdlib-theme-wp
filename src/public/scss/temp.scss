@@ -224,3 +224,22 @@ hr {
 hr.dotted {
   border-top: 4px dotted;
 }
+
+.google-maps-embed {
+  padding-top: 1.5em;
+}
+
+.google-maps-embed.sm {
+  width: 33%;
+  height: 200px;
+}
+
+.google-maps-embed.md {
+  width: 50%;
+  height: 300px;
+}
+
+.google-maps-embed.lg {
+  width: 100%;
+  height: 300px;
+}
