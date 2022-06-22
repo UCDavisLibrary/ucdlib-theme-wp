@@ -12,8 +12,8 @@
 {% endif %}
 
 {% if attributes.float %}
-    {% set classes = classes|merge(['u-align--'~attributes.float]) %}
-    {% set styles = styles ~ 'max-width:33%;' %}
+    {% set classes = classes|merge(['u-align u-align--'~attributes.float]) %}
+    {# {% set styles = styles ~ 'max-width:33%;' %} #}
 {% endif %}
 
 {% if attributes.hasWaterColor %}

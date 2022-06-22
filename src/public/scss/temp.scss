@@ -214,3 +214,13 @@ hr {
 hr.dotted {
   border-top: 4px dotted;
 }
+
+.u-align {
+  width: 33%;
+}
+
+@media (max-width: 767px) {
+  .u-align {
+    width: 50%;
+  }
+}
