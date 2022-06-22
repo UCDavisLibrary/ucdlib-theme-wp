@@ -1,3 +1,5 @@
+@use '@ucd-lib/theme-sass/0_tools' as *;
+
 // things here should be moved to ucd-lib/theme-sass
 
 // used in see all links:
@@ -147,9 +149,12 @@ a.icon-ucdlib, span.icon-ucdlib {
   white-space: break-spaces !important;
 }
 
-// shrink class
+// layouts
 .l-shrink.l-shrink--60 {
   width: 60%;
+}
+.l-maintain-grid {
+  display: grid !important;
 }
 
 // space utility
@@ -206,6 +211,24 @@ $headerLevels: 1,2,3,4,5;
     }
   }
 }
+.clickable {
+  cursor: pointer;
+}
+
+li.job-posting {
+  padding-bottom: 0.9em;
+}
+
+.subtext {
+  font-size: 0.8em;
+}
+// new heading classes
+.heading--h5 {
+  @include h5();
+}
+.heading--h6 {
+  @include h6();
+}
 
 hr {
   border-top: 1px solid;
@@ -223,4 +246,7 @@ hr.dotted {
   .bg-color-float {
     width: 50%;
   }
+}
+.social-follow a {
+  background-image:url(/wp-content/themes/ucdlib-theme-wp/assets/img/social-follow.svg);
 }

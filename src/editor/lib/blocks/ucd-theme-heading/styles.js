@@ -1,39 +1,43 @@
 export default [
   {
     name: 'underline',
-    label: 'Section Title (Underline)',
+    label: 'Underlined',
     isDefault: true
   },
   {
-    name: 'weighted-underline',
-    label: 'Section Title (Weighted with Underline)'
-  },
-  {
-    name: 'primary',
-    label: 'Section Title (Primary)'
-  },
-  {
-    name: 'secondary',
-    label: 'Section Title (Secondary)'
-  },
-  {
-    name: 'auxiliary',
-    label: 'Section Title (Auxiliary)'
-  },
-  {
-    name: 'highlight',
-    label: 'Section Title (Highlight)'
-  },
-  {
     name: 'weighted',
-    label: 'Section Title (Weighted)'
+    label: 'Not Underlined'
   }, 
   {
     name: 'invert',
-    label: 'Section Title (White text)'
+    label: 'White'
   },
   {
     name: 'invert-box',
-    label: 'Section Title (White Text on Blue Background)'
+    label: 'Blue Background'
+  },
+  {
+    name: 'primary',
+    label: 'H2 Medium Blue'
+  },
+  {
+    name: 'secondary',
+    label: 'H3 Gray'
+  },
+  {
+    name: 'auxiliary',
+    label: 'H3 Dark Blue Italic'
+  },
+  {
+    name: 'highlight',
+    label: 'H4 Dark Blue'
+  },
+  {
+    name: 'h5',
+    label: 'H5 Dark Blue'
+  },
+  {
+    name: 'h6',
+    label: 'H6 Dark Blue'
   }
 ];

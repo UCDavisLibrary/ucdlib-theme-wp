@@ -1,0 +1,9 @@
+{% if content|trim %}
+    <ul class='list--arrow'>
+        {{content}}
+    </ul>
+{% else %}
+    <ul class='list--arrow'>
+        <li>{{ attributes.noPostText ? attributes.noPostText : "There are no open positions at this time." }}</li>
+    </ul>
+{% endif %}

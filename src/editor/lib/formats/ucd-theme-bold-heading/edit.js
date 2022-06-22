@@ -8,10 +8,15 @@ export default (props) => {
   if ( selectedBlock && selectedBlock.name !== 'ucd-theme/heading' ) {
     return null;
   }
-  const allowedClasses = ['is-style-weighted-underline', 'is-style-weighted']
-  if ( selectedBlock.attributes && !allowedClasses.includes(selectedBlock.attributes.className) ){
-    return null;
-  }
+  const attributes = selectedBlock.attributes;
+  const allowedClasses = [
+    'is-style-underline',
+    'is-style-weighted-underline', 
+    'is-style-weighted'];
+  const allowedAltStyles = [
+    'underline', 'weighted-underline', 'weighted', ''
+  ];
+  if ( !(allowedClasses.includes(attributes.className) || allowedAltStyles.includes(attributes.classSuffix))) return null;
 
   return html`
     <${BlockControls} group="block">
