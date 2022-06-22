@@ -4,8 +4,10 @@
 class UCDLibThemePatterns {
   public function __construct(){
     $this->slug = 'ucdlib-theme-wp';
+    $this->groupIds = [];
 
     add_action( 'init', [$this, 'register']);
+    add_filter( 'render_block' , [$this, 'dedupeIds'], 10, 3);
   }
 
   public function register(){
@@ -15,7 +17,7 @@ class UCDLibThemePatterns {
     );
 
     register_block_pattern(
-      "$this->slug/contactus",
+      "$this->slug/contact-us",
       [
         'title' => 'Contact Us',
         'content' => $this->markupContactUs(),
@@ -26,7 +28,7 @@ class UCDLibThemePatterns {
     );
 
     register_block_pattern(
-      "$this->slug/contactusmulti",
+      "$this->slug/contact-us-multi",
       [
         'title' => 'Contact Us (Multi)',
         'content' => $this->markupContactUsMulti(),
@@ -37,7 +39,7 @@ class UCDLibThemePatterns {
     );
 
     register_block_pattern(
-      "$this->slug/langprizewinner",
+      "$this->slug/lang-prize-winner",
       [
         'title' => 'Lang Prize: Winner List',
         'content' => $this->markupLangPrizeWinner(),
@@ -48,7 +50,7 @@ class UCDLibThemePatterns {
     );
     
      register_block_pattern(
-      "$this->slug/langprize",
+      "$this->slug/lang-prize",
       [
         'title' => 'Lang Prize',
         'content' => $this->markupLangPrize(),
@@ -62,7 +64,7 @@ class UCDLibThemePatterns {
   public function markupContactUs(){
     return "
     <!-- wp:group -->
-    <div class=\"wp-block-group\">
+    <div id=\"contact-us\" class=\"wp-block-group\">
     <!-- wp:ucd-theme/heading {\"content\":\"Contact Us\",\"className\":\"is-style-highlight\"} /-->
     <!-- wp:paragraph -->
     <p>[Optional] For any questions related to [page topic], please contact us.</p>
@@ -79,7 +81,7 @@ class UCDLibThemePatterns {
   public function markupContactUsMulti(){
     return "
     <!-- wp:group -->
-    <div class=\"wp-block-group\">
+    <div id=\"contact-us-multi\" class=\"wp-block-group\">
     <!-- wp:ucd-theme/heading {\"content\":\"Contact Us\",\"className\":\"is-style-highlight\"} /-->
     <!-- wp:paragraph -->
     <p>[Optional] For any questions related to [page topic], please contact us.</p>
@@ -109,7 +111,7 @@ class UCDLibThemePatterns {
   public function markupLangPrize(){
     return "
     <!-- wp:group -->
-    <div class=\"wp-block-group\">
+    <div id=\"lang-prize\" class=\"wp-block-group\">
     <!-- wp:image -->
     <figure class=\"wp-block-image\"><img alt=\"\"/></figure>
     <!-- /wp:image -->
@@ -149,7 +151,7 @@ class UCDLibThemePatterns {
   public function markupLangPrizeWinner(){
     return "
     <!-- wp:group -->
-    <div class=\"wp-block-group\">
+    <div id=\"lang-prize-winner\" class=\"wp-block-group\">
     <!-- wp:ucd-theme/heading {\"content\":\"2022 Winners\"} /-->
     <!-- wp:ucd-theme/layout-columns -->
     <!-- wp:ucd-theme/column {\"layoutClass\":\"l-first\",\"forbidWidthEdit\":true} -->
@@ -179,6 +181,41 @@ class UCDLibThemePatterns {
     </div>
     <!-- /wp:group -->
     ";
+  }
+
+  // patterns are wrapped in a group with an id attribute
+  // ensure these ids are unique if more than one is used on a page
+  public function dedupeIds($block_content, $block, $instance){
+    if ( $block['blockName'] === 'core/group' ) {
+
+      // parse the html content
+      $dom = new DOMDocument;
+      libxml_use_internal_errors(true);
+      $dom->loadHTML( $block_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+      libxml_clear_errors();
+      $divs = $dom->getElementsByTagName('div');
+
+      // check for id attribute on parent div and increment --n suffix if a dupe
+      if ( count($divs) && $divs[0]->getAttribute('id') ) {
+        $groupId = $divs[0]->getAttribute('id');
+        while ( true ) {
+          if ( !in_array($groupId, $this->groupIds) ) {
+            $this->groupIds[] = $groupId;
+            break;
+          } 
+          $groupId = explode('--', $groupId);
+          if ( count($groupId) > 1  && is_numeric(end($groupId)) ) {
+            $groupId[count($groupId) - 1] = end($groupId) + 1;
+            $groupId = implode('--', $groupId );
+          } else {
+            $groupId = implode('--', $groupId ) . '--1';
+          }
+        }
+        $divs[0]->setAttribute('id', $groupId);
+        $block_content = $dom->saveHTML();
+      }
+    }
+    return $block_content;
   }
 
 }
