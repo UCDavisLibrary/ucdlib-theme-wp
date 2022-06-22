@@ -94,7 +94,7 @@ class UCDLibThemePatterns {
     <div class=\"wp-block-group\">
     <!-- wp:ucd-theme/heading {\"content\":\"Primary Headings\"} /-->
     <!-- wp:paragraph -->
-    <p>Normal text may be <strong>bolded</strong>, <em>italicized</em> and <a href=\"https://sandbox.library.ucdavis.edu/\" data-type=\"page\" data-id=\"111\">linked</a> but otherwise never underlined. Underlines are reserved for links.</p>
+    <p>Normal text may be <strong>bolded</strong>, <em>italicized</em> and <a href=\"/\" data-type=\"page\" data-id=\"111\">linked</a> but otherwise never underlined. Underlines are reserved for links.</p>
     <!-- /wp:paragraph -->
     <!-- wp:list {\"className\":\"list\u002d\u002darrow\"} -->
     <ul class=\"list--arrow\"><li>Preferred List Style (Gold Arrow)</li><li>Exception: Use \"Default\" list style in FAQ blocks due to the light blue background</li></ul>
