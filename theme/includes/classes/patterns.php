@@ -39,6 +39,8 @@ class UCDLibThemePatterns {
 
   public function markupContactUs(){
     return "
+    <!-- wp:group -->
+    <div class=\"wp-block-group\">
     <!-- wp:ucd-theme/heading {\"content\":\"Contact Us\",\"className\":\"is-style-highlight\"} /-->
     <!-- wp:paragraph -->
     <p>[Optional] For any questions related to [page topic], please contact us.</p>
@@ -47,12 +49,15 @@ class UCDLibThemePatterns {
     <div class=\"wp-block-group\"><!-- wp:ucd-theme/prefixed-icon-link {\"icon\":\"ucd-public:fa-envelope\"} /-->
     <!-- wp:ucd-theme/prefixed-icon-link {\"icon\":\"ucd-public:fa-phone\"} /--></div>
     <!-- /wp:group -->
-    <!-- wp:ucd-theme/spacer {\"x\":\"small\",\"y\":\"small\"} /-->
+    <!-- wp:ucd-theme/spacer {\"x\":\"small\",\"y\":\"small\"} /--></div>
+    <!-- /wp:group -->
     ";
   }
 
   public function markupContactUsMulti(){
     return "
+    <!-- wp:group -->
+    <div class=\"wp-block-group\">
     <!-- wp:ucd-theme/heading {\"content\":\"Contact Us\",\"className\":\"is-style-highlight\"} /-->
     <!-- wp:paragraph -->
     <p>[Optional] For any questions related to [page topic], please contact us.</p>
@@ -73,6 +78,8 @@ class UCDLibThemePatterns {
     <div class=\"wp-block-group\"><!-- wp:ucd-theme/heading {\"content\":\"Department or Audience\",\"level\":3,\"classSuffix\":\"h6\"} /-->
     <!-- wp:ucd-theme/prefixed-icon-link {\"icon\":\"ucd-public:fa-envelope\"} /-->
     <!-- wp:ucd-theme/prefixed-icon-link {\"icon\":\"ucd-public:fa-phone\"} /--></div>
+    <!-- /wp:group -->
+    <!-- wp:ucd-theme/spacer {\"x\":\"small\",\"y\":\"small\"} /--></div>
     <!-- /wp:group -->
     ";
   }
