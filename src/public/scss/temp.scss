@@ -238,6 +238,15 @@ hr.dotted {
   border-top: 4px dotted;
 }
 
+.bg-color-float {
+  width: 33%;
+}
+
+@media (max-width: 767px) {
+  .bg-color-float {
+    width: 50%;
+  }
+}
 .social-follow a {
   background-image:url(/wp-content/themes/ucdlib-theme-wp/assets/img/social-follow.svg);
 }
