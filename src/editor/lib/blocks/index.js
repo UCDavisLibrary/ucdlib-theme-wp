@@ -38,6 +38,7 @@ import query from "./ucd-theme-query";
 import recentPosts from "./ucd-theme-recent-posts";
 import separator from "./ucd-theme-separator";
 import silsSearchRedirect from "./ucd-theme-sils-search-redirect";
+import slideshow from "./ucd-theme-slideshow";
 import socialMedia from "./ucd-theme-social-media";
 import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
@@ -86,6 +87,7 @@ export default [
   recentPosts,
   separator,
   silsSearchRedirect,
+  slideshow,
   socialMedia,
   spacer,
   teaser,
