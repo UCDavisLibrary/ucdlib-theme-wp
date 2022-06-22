@@ -39,6 +39,17 @@ class UCDLibThemePatterns {
     );
 
     register_block_pattern(
+      "$this->slug/core-text-styles",
+      [
+        'title' => 'Core Text Styles',
+        'content' => $this->markupCoreTextStyles(),
+        'description' => 'Core Text Styles',
+        'categories' => [$this->slug],
+        'keywords' => ['core', 'text', 'style'],
+      ]
+    );
+    
+    register_block_pattern(
       "$this->slug/lang-prize-winner",
       [
         'title' => 'Lang Prize: Winner List',
@@ -183,6 +194,24 @@ class UCDLibThemePatterns {
     ";
   }
 
+  public function markupCoreTextStyles(){
+    return "
+    <!-- wp:group -->
+    <div class=\"wp-block-group\">
+    <!-- wp:ucd-theme/heading {\"content\":\"Primary Headings\"} /-->
+    <!-- wp:paragraph -->
+    <p>Normal text may be <strong>bolded</strong>, <em>italicized</em> and <a href=\"/\" data-type=\"page\" data-id=\"111\">linked</a> but otherwise never underlined. Underlines are reserved for links.</p>
+    <!-- /wp:paragraph -->
+    <!-- wp:list {\"className\":\"list\u002d\u002darrow\"} -->
+    <ul class=\"list--arrow\"><li>Preferred List Style (Gold Arrow)</li><li>Exception: Use \"Default\" list style in FAQ blocks due to the light blue background</li></ul>
+    <!-- /wp:list -->
+    <!-- wp:ucd-theme/heading {\"content\":\"2nd Level Headings\",\"level\":3,\"classSuffix\":\"highlight\"} /-->
+    <!-- wp:ucd-theme/heading {\"content\":\"3rd Level Headings\",\"level\":4,\"classSuffix\":\"h5\"} /-->
+    <!-- wp:ucd-theme/heading {\"content\":\"4th Level Headings\",\"level\":5,\"classSuffix\":\"h6\"} /--></div>
+    <!-- /wp:group -->
+    ";
+  } 
+  
   // patterns are wrapped in a group with an id attribute
   // ensure these ids are unique if more than one is used on a page
   public function dedupeIds($block_content, $block, $instance){
