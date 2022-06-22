@@ -37,6 +37,17 @@ class UCDLibThemePatterns {
     );
 
     register_block_pattern(
+      "$this->slug/langprizewinner",
+      [
+        'title' => 'Lang Prize: Winner List',
+        'content' => $this->markupLangPrizeWinner(),
+        'description' => 'Lang Prize: Winner List',
+        'categories' => [$this->slug],
+        'keywords' => ['lang', 'prize', 'winner', 'list'],
+      ]
+    );
+    
+     register_block_pattern(
       "$this->slug/langprize",
       [
         'title' => 'Lang Prize',
@@ -131,6 +142,41 @@ class UCDLibThemePatterns {
     <!-- wp:paragraph -->
     <p>Read &lt;winner name>'s reflective essay from their Lang Prize application.</p>
     <!-- /wp:paragraph --></div>
+    <!-- /wp:group -->
+    ";
+  }
+
+  public function markupLangPrizeWinner(){
+    return "
+    <!-- wp:group -->
+    <div class=\"wp-block-group\">
+    <!-- wp:ucd-theme/heading {\"content\":\"2022 Winners\"} /-->
+    <!-- wp:ucd-theme/layout-columns -->
+    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-first\",\"forbidWidthEdit\":true} -->
+    <!-- wp:ucd-theme/marketing-highlight {\"excerpt\":\"\u003cb\u003eArts, Humanities \u0026 Social Sciences \u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"1st Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
+    <!-- /wp:ucd-theme/column -->
+    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-second\",\"forbidWidthEdit\":true} -->
+    <!-- wp:ucd-theme/marketing-highlight {\"excerpt\":\"\u003cb\u003eScience, Engineering \u0026 Math\u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"1st Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
+    <!-- /wp:ucd-theme/column -->
+    <!-- /wp:ucd-theme/layout-columns -->
+    <!-- wp:ucd-theme/layout-columns -->
+    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-first\",\"forbidWidthEdit\":true} -->
+    <!-- wp:ucd-theme/marketing-highlight {\"brandColor\":\"rec-pool\",\"excerpt\":\"\u003cb\u003eArts, Humanities \u0026 Social Sciences \u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"2nd Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
+    <!-- /wp:ucd-theme/column -->
+    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-second\",\"forbidWidthEdit\":true} -->
+    <!-- wp:ucd-theme/marketing-highlight {\"brandColor\":\"rec-pool\",\"excerpt\":\"\u003cb\u003eScience, Engineering \u0026 Math\u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"2nd Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
+    <!-- /wp:ucd-theme/column -->
+    <!-- /wp:ucd-theme/layout-columns -->
+    <!-- wp:ucd-theme/layout-columns -->
+    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-first\",\"forbidWidthEdit\":true} -->
+    <!-- wp:ucd-theme/marketing-highlight {\"brandColor\":\"arboretum\",\"excerpt\":\"\u003cb\u003eArts, Humanities \u0026 Social Sciences \u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"3rd Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
+    <!-- /wp:ucd-theme/column -->
+    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-second\",\"forbidWidthEdit\":true} -->
+    <!-- wp:ucd-theme/marketing-highlight {\"brandColor\":\"arboretum\",\"excerpt\":\"\u003cb\u003eScience, Engineering \u0026 Math\u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"3rd Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
+    <!-- /wp:ucd-theme/column -->
+    <!-- /wp:ucd-theme/layout-columns -->
+    <!-- wp:ucd-theme/separator {\"brandColor\":\"secondary\",\"style\":\"dotted\"} /-->
+    </div>
     <!-- /wp:group -->
     ";
   }
