@@ -39,9 +39,9 @@ class UCDLibThemePatterns {
     register_block_pattern(
       "$this->slug/langprize",
       [
-        'title' => 'Lang Prize',
+        'title' => 'Lang Prize: Winner Profile',
         'content' => $this->markupLangPrize(),
-        'description' => 'Lang Prize',
+        'description' => 'Lang Prize: Winner Profile',
         'categories' => [$this->slug],
         'keywords' => ['lang', 'prize'],
       ]
