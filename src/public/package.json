@@ -15,7 +15,8 @@
     "@ucd-lib/brand-theme-editor": "file:../editor",
     "@ucd-lib/theme-elements": "^0.0.15",
     "@ucd-lib/theme-sass": "^5.0.16",
-    "normalize-scss": "^7.0.1"
+    "normalize-scss": "^7.0.1",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@ucd-lib/cork-app-build": "^0.2.0",

@@ -21,6 +21,10 @@ const settings = {
     images: {
       type: 'array',
       default: []
+    },
+    hideNav: {
+      type: 'boolean',
+      default: false
     }
   },
   edit: Edit
