@@ -111,7 +111,7 @@ export default ( props ) => {
       <${ToolbarColorPicker} 
         onChange=${onColorChange}
         value=${attributes.brandColor}
-        ucdBlock="priority-link"/>
+        ucdBlock="panel-with-icon"/>
       <${ToolbarPaddingPicker}
         value=${attributes.padding}
         onChange=${onPaddingChange}/>
