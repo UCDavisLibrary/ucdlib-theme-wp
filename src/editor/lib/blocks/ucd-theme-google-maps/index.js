@@ -23,10 +23,6 @@ const settings = {
       type: "string",
       default: "300px"
     },
-    size: {
-      type: "string",
-      default: ""
-    },
     markerLocation: {
       type: "string",
       default: "UC+Davis+Library, Davis+CA"

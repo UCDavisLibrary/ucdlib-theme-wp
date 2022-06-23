@@ -1,5 +1,5 @@
 import { html } from "../../utils";
-import { ToolbarDropdownMenu, Modal, ToolbarButton, Button, TextControl } from '@wordpress/components';
+import { Modal, ToolbarButton, Button, TextControl } from '@wordpress/components';
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { useState } from "@wordpress/element";
 import { mapMarker } from '@wordpress/icons';
@@ -7,12 +7,6 @@ import { mapMarker } from '@wordpress/icons';
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
-
-  const sizeControls = [
-    {title: "Small", onClick: () => {setAttributes({size: 'sm', width: '33%', height: '200px'})}},
-    {title: "Medium", onClick: () => {setAttributes({size: 'md', width: '50%', height: '300px'})}},
-    {title: "Large", onClick: () => {setAttributes({size: '', width: '100%', height: '300px'})}}
-  ];
 
   const API_KEY = 'AIzaSyDTmEJ0zs8dn3hCE4Z6NkxidduSijcV_Ng';
 
@@ -50,22 +44,18 @@ export default ( props ) => {
     setAttributes(modalData);
   }
 
-  const mapsClasses = `google-maps-embed ${attributes.size ? attributes.size : 'lg'}`;
-
   return html`
   <div ...${ blockProps }>
 
     <${BlockControls} group="block">
-      <${ToolbarDropdownMenu} icon=${html`<span>${attributes.size ? attributes.size : 'lg'}</span>`} label="Change button size" controls=${sizeControls}/>
       <${ToolbarButton} 
           icon=${html`${mapMarker}`} 
           onClick=${onOpenModal}
           label="Change marker location"
       />
     </${BlockControls}>
-
     <iframe
-      class="${mapsClasses}"
+      class="google-maps-embed"
       frameborder="0"
       referrerpolicy="no-referrer-when-downgrade"
       src="https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${attributes.markerLocation}"
