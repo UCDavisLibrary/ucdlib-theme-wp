@@ -35,7 +35,11 @@ const ContactListDisplay = ( props ) => {
     }
     return phone.value;
   }
-  const hasContactInfo = phones.length || emails.length || appointment || websites.length;
+  const hasContactInfo = 
+    phones.filter(x => x.value).length || 
+    emails.filter(x => x.value).length || 
+    appointment || 
+    websites.filter(x => x.value).length;
   return html`
     <div onClick=${onClick}>
       ${hasContactInfo ? html`
@@ -44,8 +48,13 @@ const ContactListDisplay = ( props ) => {
             <${Fragment} key=${email.value}>
             ${email.value.length > 0 && html`
               <li><a className="icon-ucdlib">
-                <ucdlib-icon icon=${ getLinkIcon('email')}></ucdlib-icon><div>${email.label ? email.label : email.value}</div>
-              </a></li>
+                <ucdlib-icon icon=${ getLinkIcon('email')}></ucdlib-icon>
+                <div>${email.label ? email.label : email.value}</div>
+              </a>
+                ${email.additionalText ? html`
+                  <div className='additional-text'>(${email.additionalText})</div>
+                ` : html``}
+              </li>
               `}
             </${Fragment}>
           `)}
@@ -53,29 +62,40 @@ const ContactListDisplay = ( props ) => {
             <${Fragment} key=${phone.value}>
             ${phone.value.length > 0 && html`
               <li><a className="icon-ucdlib">
-                <ucdlib-icon icon=${ getLinkIcon('phone')}></ucdlib-icon><div>${getPhoneLabel(phone)}</div>
-              </a></li>
+                <ucdlib-icon icon=${ getLinkIcon('phone')}></ucdlib-icon>
+                <div>${getPhoneLabel(phone)}</div>
+              </a>
+                ${phone.additionalText ? html`
+                  <div className='additional-text'>(${phone.additionalText})</div>
+                ` : html``}
+              </li>
               `}
             </${Fragment}>
           `)}
           ${appointment.length > 0 && html`
               <li><a className="icon-ucdlib">
-                <ucdlib-icon icon=${ getLinkIcon('appointment')}></ucdlib-icon><div>Book an Appointment</div>
+                <ucdlib-icon icon=${ getLinkIcon('appointment')}></ucdlib-icon>
+                <div>Book an Appointment</div>
               </a></li>
             `}
           ${websites.map(website => html`
             <${Fragment} key=${website.value}>
             ${website.value.length > 0 && html`
               <li><a className="icon-ucdlib">
-                <ucdlib-icon icon=${ getLinkIcon(website.type)}></ucdlib-icon><div>${website.label ? website.label : website.value}</div>
-              </a></li>
+                <ucdlib-icon icon=${ getLinkIcon(website.type)}></ucdlib-icon>
+                <div>${website.label ? website.label : website.value}</div>
+              </a>
+                ${website.additionalText ? html`
+                  <div className='additional-text'>(${website.additionalText})</div>
+                ` : html``}
+              </li>
               `}
             </${Fragment}>
           `)}
         </ul>
       ` : html`
         <ul className="list--pipe u-space-mb">
-          <li className="icon icon--phone">Enter Your Contact Info</li>
+          <li className="icon icon--phone">${placeholderText}</li>
         </ul>
       `}
     </div>

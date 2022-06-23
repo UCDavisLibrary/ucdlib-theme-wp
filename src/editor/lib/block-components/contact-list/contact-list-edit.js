@@ -18,7 +18,8 @@ const ContactListEdit = forwardRef((props, ref) => {
     allowEmails,
     allowPhones,
     allowWebsites,
-    allowAppointment
+    allowAppointment,
+    allowAdditionalText
   } = props;
   
   if ( !modalTitle ) modalTitle = 'Contact Information';
@@ -30,6 +31,13 @@ const ContactListEdit = forwardRef((props, ref) => {
   allowPhones = allowPhones == false ? false : true;
   allowWebsites = allowWebsites == false ? false : true;
   allowAppointment = allowAppointment == false ? false : true;
+  allowAdditionalText = allowAdditionalText ? true : false;
+
+  const baseContactStructure = (() => {
+    const x = {value: '', label: ''};
+    if ( allowAdditionalText ) x['additionalText'] = '';
+    return x;
+  })();
 
   // modal state
   const [ isOpen, setOpen ] = useState( false );
@@ -50,12 +58,12 @@ const ContactListEdit = forwardRef((props, ref) => {
       v = v.replace(/\D/g,'');
       phone.value = v;
     } else {
-      phone.label = v;
+      phone[field] = v;
     }
     setPhones([...before, phone, ...after]);
   };
   const addNewPhone = () => {
-    setPhones( [..._phones, {value: '', label: ''}])
+    setPhones( [..._phones, baseContactStructure])
   };
   const removePhone = (i) => {
     const before = _phones.slice(0, i);
@@ -77,7 +85,7 @@ const ContactListEdit = forwardRef((props, ref) => {
     setEmails([...before, email, ...after]);
   };
   const addNewEmail = () => {
-    setEmails([..._emails, {value: '', label: ''}])
+    setEmails([..._emails, baseContactStructure])
   };
   const removeEmail = (i) => {
     const before = _emails.slice(0, i);
@@ -95,7 +103,7 @@ const ContactListEdit = forwardRef((props, ref) => {
     setWebsites([...before, website, ...after]);
   };
   const addNewWebsite = () => {
-    setWebsites([..._websites, {value: '', label: '', type: ''}]);
+    setWebsites([..._websites, {...baseContactStructure, type: ''}]);
   };
   const removeWebsite = (i) => {
     const before = _websites.slice(0, i);
@@ -134,6 +142,7 @@ const ContactListEdit = forwardRef((props, ref) => {
             <div style=${{display: 'table-row', fontWeight: '700'}}>
               <div style=${{display: 'table-cell', paddingBottom: '10px'}}>Number</div>
               <div style=${{display: 'table-cell'}}>Link Label (optional)</div>
+              ${allowAdditionalText && html`<div style=${{display: 'table-cell'}}>Additional Text (optional)</div>`}
               <div style=${{display: 'table-cell'}}></div>
             </div>
           </div>
@@ -153,6 +162,14 @@ const ContactListEdit = forwardRef((props, ref) => {
                     onChange=${v => setPhone(v, i, 'label')}
                   />
                 </div>
+                ${allowAdditionalText && html`
+                  <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+                    <${TextControl} 
+                      value=${phone.additionalText}
+                      onChange=${v => setPhone(v, i, 'additionalText')}
+                    />
+                  </div>
+                `}
                 <div style=${{display: 'table-cell'}}>
                   <${Button} isDestructive=${true} onClick=${() => removePhone(i)} variant='link'>delete</${Button}>
                 </div>                
@@ -182,6 +199,7 @@ const ContactListEdit = forwardRef((props, ref) => {
             <div style=${{display: 'table-row', fontWeight: '700'}}>
               <div style=${{display: 'table-cell', paddingBottom: '10px'}}>Address</div>
               <div style=${{display: 'table-cell'}}>Link Label (optional)</div>
+              ${allowAdditionalText && html`<div style=${{display: 'table-cell'}}>Additional Text (optional)</div>`}
               <div style=${{display: 'table-cell'}}></div>
             </div>
           </div>
@@ -201,6 +219,14 @@ const ContactListEdit = forwardRef((props, ref) => {
                     onChange=${v => setEmail(v, i, 'label')}
                   />
                 </div>
+                ${allowAdditionalText && html`
+                  <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+                    <${TextControl} 
+                      value=${email.additionalText}
+                      onChange=${v => setEmail(v, i, 'additionalText')}
+                    />
+                  </div>
+                `}
                 <div style=${{display: 'table-cell'}}>
                   <${Button} isDestructive=${true} onClick=${() => removeEmail(i)} variant='link'>delete</${Button}>
                 </div>                
@@ -229,6 +255,7 @@ ${modalSectionHeader("Websites", addNewWebsite)}
           <div style=${{display: 'table-cell'}}>Type</div>
           <div style=${{display: 'table-cell', paddingBottom: '10px'}}>URL</div>
           <div style=${{display: 'table-cell'}}>Link Label (optional)</div>
+          ${allowAdditionalText && html`<div style=${{display: 'table-cell'}}>Additional Text (optional)</div>`}
           <div style=${{display: 'table-cell'}}></div>
         </div>
       </div>
@@ -254,6 +281,14 @@ ${modalSectionHeader("Websites", addNewWebsite)}
                 onChange=${v => setWebsite(v, i, 'label')}
               />
             </div>
+            ${allowAdditionalText && html`
+              <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+                <${TextControl} 
+                  value=${website.additionalText}
+                  onChange=${v => setWebsite(v, i, 'additionalText')}
+                />
+              </div>
+            `}
             <div style=${{display: 'table-cell'}}>
               <${Button} isDestructive=${true} onClick=${() => removeWebsite(i)} variant='link'>delete</${Button}>
             </div>                

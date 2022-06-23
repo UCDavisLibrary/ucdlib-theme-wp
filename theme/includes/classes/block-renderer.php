@@ -97,6 +97,9 @@ class UCDThemeBlockRenderer {
     }
 
     // check for icons (so we can only load the svgs we actually use)
+    if ( !isset($this->iconsUsed) || !is_array($this->iconsUsed) ){
+      $this->iconsUsed = [];
+    }
     if ( 
       array_key_exists('icon', $block_attributes) && 
       !in_array($block_attributes['icon'], $this->iconsUsed)) {

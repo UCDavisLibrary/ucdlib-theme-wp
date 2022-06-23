@@ -5,12 +5,8 @@ export default [
     isDefault: true
   },
   {
-    name: 'weighted-underline',
-    label: 'Underlined & Weighted'
-  },
-  {
     name: 'weighted',
-    label: 'Weighted'
+    label: 'Not Underlined'
   }, 
   {
     name: 'invert',
@@ -22,26 +18,26 @@ export default [
   },
   {
     name: 'primary',
-    label: 'H2'
+    label: 'H2 Medium Blue'
   },
   {
     name: 'secondary',
-    label: 'H3'
+    label: 'H3 Gray'
   },
   {
     name: 'auxiliary',
-    label: 'H3 Blue'
+    label: 'H3 Dark Blue Italic'
   },
   {
     name: 'highlight',
-    label: 'H4'
+    label: 'H4 Dark Blue'
   },
   {
     name: 'h5',
-    label: 'H5'
+    label: 'H5 Dark Blue'
   },
   {
     name: 'h6',
-    label: 'H6'
+    label: 'H6 Dark Blue'
   }
 ];

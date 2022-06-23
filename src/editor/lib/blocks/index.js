@@ -2,6 +2,8 @@ import backgroundColor from "./ucd-theme-background-color";
 import backgroundImage from "./ucd-theme-background-image";
 import brandTextbox from "./ucd-theme-brand-textbox";
 import buttonLink from "./ucd-theme-button-link";
+import career from "./ucd-theme-career";
+import careers from "./ucd-theme-careers";
 import categoryFilter from "./ucd-theme-category-filter";
 import contactList from "./ucd-theme-contact-list";
 import faq from "./ucd-theme-faq";
@@ -37,6 +39,8 @@ import query from "./ucd-theme-query";
 import recentPosts from "./ucd-theme-recent-posts";
 import separator from "./ucd-theme-separator";
 import silsSearchRedirect from "./ucd-theme-sils-search-redirect";
+import slideshow from "./ucd-theme-slideshow";
+import socialMedia from "./ucd-theme-social-media";
 import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
 import teasers from "./ucd-theme-teasers";
@@ -48,6 +52,8 @@ export default [
   backgroundImage,
   brandTextbox,
   buttonLink,
+  career,
+  careers,
   categoryFilter,
   contactList,
   faq,
@@ -83,6 +89,8 @@ export default [
   recentPosts,
   separator,
   silsSearchRedirect,
+  slideshow,
+  socialMedia,
   spacer,
   teaser,
   teasers,

@@ -20,7 +20,12 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
 
     $this->iconsUsed = [
       'ucd-public:fa-star',
-      'ucd-public:fa-circle-chevron-right'
+      'ucd-public:fa-circle-chevron-right',
+      'ucd-public:facebook',
+      'ucd-public:twitter',
+      'ucd-public:instagram',
+      'ucd-public:youtube',
+      'ucd-public:linkedin'
     ];
 
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
@@ -49,6 +54,12 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "ucd-theme/button-link" => array(
       "twig" => "@ucd/blocks/button-link.twig", 
       "transform" => array("removeStylePrefix", 'getPermalink')
+    ),
+    "ucd-theme/career" => array(
+      "twig" => "@ucd/blocks/career.twig"
+    ),
+    "ucd-theme/careers" => array(
+      "twig" => "@ucd/blocks/careers.twig"
     ),
     "ucd-theme/category-filter" => array(
       "twig" => "@ucd/blocks/category-filter.twig", 
@@ -169,6 +180,11 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "twig" => "@ucd/blocks/separator.twig",
       "hasBrandColors" => true
     ),
+    "ucd-theme/slideshow" => [
+      'twig' => '@ucd/blocks/slideshow.twig',
+      'transform' => ['getSlideshowPosts']
+    ],
+    "ucd-theme/social-media" => array("twig" => "@ucd/blocks/social-media.twig"),
     "ucd-theme/spacer" => array("twig" => "@ucd/blocks/spacer.twig"),
     "ucd-theme/teaser" => array(
       "twig" => "@ucd/blocks/teaser.twig",
@@ -215,7 +231,6 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
    * Core blocks to unregister. 
    * Most because they are redundant of a ucd block.
    */
-
   public static $excluded_core_blocks = array(
     "core/buttons",
     "core/button",
@@ -224,7 +239,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "core/columns",
     "core/column",
     "core/cover",
-    "core/gallery",
+    //"core/gallery",
     "core/latest-comments",
     "core/latest-posts",
     "core/loginout",
@@ -243,6 +258,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "core/site-tagline",
     "core/site-title",
     "core/separator",
+    "core/social-links",
     "core/spacer",
     "core/tag-cloud",
     "core/query",
