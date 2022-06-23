@@ -81,6 +81,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "hasBrandColors" => true,
       "transform" => array("getPermalink")
     ),
+    "ucd-theme/google-maps" => array( "twig" => "@ucd/blocks/google-maps.twig" ),
     "ucd-theme/heading" => array(
       "twig" => "@ucd/blocks/heading.twig", 
       "transform" => array("removeStylePrefix", 'mergeClassWithAttribute')

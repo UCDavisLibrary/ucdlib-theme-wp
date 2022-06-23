@@ -238,6 +238,13 @@ hr.dotted {
   border-top: 4px dotted;
 }
 
+
+.google-maps-embed {
+  padding-top: 1.5em;
+  width: 100%;
+  height: 300px;
+}
+
 .bg-color-float {
   width: 33%;
 }
@@ -250,3 +257,4 @@ hr.dotted {
 .social-follow a {
   background-image:url(/wp-content/themes/ucdlib-theme-wp/assets/img/social-follow.svg);
 }
+
