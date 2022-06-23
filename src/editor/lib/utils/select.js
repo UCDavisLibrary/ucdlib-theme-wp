@@ -141,7 +141,7 @@ export default class SelectUtils {
       }
 
       return posts;
-    }, [JSON.stringify(query), postType, extra_fields] )
+    }, [JSON.stringify(query), postType, JSON.stringify(extra_fields)] )
   }
 
   static taxonomies() {

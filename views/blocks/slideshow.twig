@@ -1,0 +1,28 @@
+{% if attributes.hasImages %}
+  <div class="block-slideshow">
+    <div class="slideshow">
+      {% for image in attributes.images %}
+          <div class="slideshow__item {{image.title ? 'slideshow__item--has-title'}}">
+            <img src="{{image.src}}" alt="{{image.alt}}" width="{{image.width}}" height="{{image.height}}" />
+            <div class="slideshow__text">
+              {% if image.title %}
+                <div class="slideshow__title">{{image.title}}</div>
+              {% endif %}
+              {% if image.post_excerpt %}
+                <div class="slideshow__caption">{{image.post_excerpt}}</div>
+              {% endif %}
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+    <div class="slider-nav">
+      {% for image in attributes.images %}
+        <div class="slideshow__item">
+          <img src="{{image.src}}" />
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+{% endif %}

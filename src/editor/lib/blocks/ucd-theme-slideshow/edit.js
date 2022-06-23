@@ -1,51 +1,83 @@
-import classnames from 'classnames';
-
-import { html, UCDIcons, SelectUtils } from "../../utils";
+import { html, SelectUtils } from "../../utils";
 import { useBlockProps,
   BlockControls,
   MediaPlaceholder,
   MediaReplaceFlow,
 } from '@wordpress/block-editor';
-import { useEffect } from '@wordpress/element';
-import { ToolbarDropdownMenu } from '@wordpress/components';
+import { useEffect, useState } from '@wordpress/element';
 import 'slick-carousel';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const hasImages = attributes.hasImages || false;
   const blockProps = useBlockProps();
+  const [ forcePostFetch, setForcePostFetch ] = useState( 0 );
+  const sliderSelector = `#${blockProps.id} .slideshow`;
+  const navSelector = `#${blockProps.id} .slider-nav`;
 
   const ALLOWED_MEDIA_TYPES = [ 'image' ];
   const uploadInstructions = attributes.hasImages ? 
-    'Upload image files or pick some from the media library' : 
-    'Add or edit images'
+    'Edit your slideshow gallery' : 
+    'Start creating a gallery for your slideshow...'
 
-  const onImageUpload = (images) => {
-    setAttributes({images})
+  const onImageSelect = (images) => {
+    setAttributes({images, hasImages: images.length > 0});
+    setForcePostFetch( forcePostFetch + 1 );
   }
 
-  const imgPosts = SelectUtils.posts({include: attributes.images.map(i => i.id)}, 'attachment');
+  const imgPosts = SelectUtils.posts({include: [...attributes.images.map(i => i.id), forcePostFetch]}, 'attachment');
   const imgTitles = {};
   imgPosts.forEach(i => {
     imgTitles[i.id] = i.title.rendered;
   })
 
+  // initialize slideshow
   useEffect( () => {
     (($) => {
-      if ( !$ || !typeof $.fn.slick === 'function') return; 
-
-      if ( $('.slideshow') && $('.slideshow').children().length > 0 ){
-        $('.slideshow').slick('unslick');
-      }
-
+      if ( !$ || !typeof $.fn.slick === 'function') return;
       const mainOptions = {
         lazyLoad: 'ondemand',
         slidesToShow: 1,
         slidesToScroll: 1,
         fade: true,
-        dots: true
+        dots: true,
+        asNavFor: navSelector
       };
-      $('.slideshow').slick(mainOptions);
+      $(sliderSelector).slick(mainOptions);
+
+      $(navSelector).slick({
+        lazyLoad: 'ondemand',
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        asNavFor: sliderSelector,
+        dots: false,
+        centerMode: true,
+        centerPadding: '70px',
+        focusOnSelect: true,
+        arrows: false
+      });
+    })(jQuery)
+	},  [] );
+
+
+  // update slides
+  useEffect( () => {
+    ( ($) => {
+      if ( !$ || !typeof $.fn.slick === 'function') return;
+
+      const s = $(sliderSelector);
+      const n = $(navSelector);
+
+      // remove existing slides
+      if ( s && s.children().length > 0 ){
+        const slideCount = s.slick('getSlick').slideCount
+        for (let i = 0; i < slideCount; i++) {
+          s.slick('slickRemove', null, false);
+          n.slick('slickRemove', null, false);
+        }
+      } 
+
+      // add slides
       attributes.images.forEach(img => {
         const title = imgTitles[img.id];
         const hasTitle = title ? true : false;
@@ -59,25 +91,36 @@ export default ( props ) => {
             </div>
           </div>
         `;
-        $('.slideshow').slick('slickAdd', html)
+       s.slick('slickAdd', html);
       })
+
+      // add nav thumbnails
+      attributes.images.forEach(img => {
+        const html = `
+        <div class="slideshow__item">
+          <img src="${img.sizes.full.url}" />
+        </div>
+        `;
+        n.slick('slickAdd', html);
+      })
+
     })(jQuery)
 	},  [JSON.stringify(attributes.images), JSON.stringify(imgPosts)] );
 
   return html`
     <div ...${ blockProps }>
       <div className="slideshow"></div>
+      <div className="slider-nav"></div>
       <${MediaPlaceholder} 
         accept="image/*"
 			  allowedTypes=${ ALLOWED_MEDIA_TYPES }
         multiple
-        addToGallery=${hasImages}
+        addToGallery=${!hasImages}
         labels=${{title: 'Slideshow Images', instructions: uploadInstructions}}
         isAppender=${hasImages}
         value=${attributes.images}
-        onSelect=${onImageUpload}
+        onSelect=${onImageSelect}
       />
-      <div>${JSON.stringify(attributes.images)}</div>
       <${BlockControls} group="block">
       </${BlockControls}>
     </div>

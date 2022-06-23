@@ -179,6 +179,10 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "twig" => "@ucd/blocks/separator.twig",
       "hasBrandColors" => true
     ),
+    "ucd-theme/slideshow" => [
+      'twig' => '@ucd/blocks/slideshow.twig',
+      'transform' => ['getSlideshowPosts']
+    ],
     "ucd-theme/social-media" => array("twig" => "@ucd/blocks/social-media.twig"),
     "ucd-theme/spacer" => array("twig" => "@ucd/blocks/spacer.twig"),
     "ucd-theme/teaser" => array(
