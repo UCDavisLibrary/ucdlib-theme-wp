@@ -1,4 +1,4 @@
-import { html, SelectUtils } from "../../utils";
+import { html, SelectUtils, UCDIcons } from "../../utils";
 import { useBlockProps,
   BlockControls,
   MediaPlaceholder,
@@ -6,6 +6,7 @@ import { useBlockProps,
 } from '@wordpress/block-editor';
 import { useEffect, useState } from '@wordpress/element';
 import 'slick-carousel';
+import { ToolbarButton } from "@wordpress/components";
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -83,11 +84,11 @@ export default ( props ) => {
         const hasTitle = title ? true : false;
         const hasCaption = img.caption ? true : false
         const html = `
-          <div class="slideshow__item ${hasTitle ? 'slideshow__item--has-title' : ''}">
+          <div class="slideshow__item ${hasTitle && attributes.showTitles? 'slideshow__item--has-title' : ''}">
             <img src="${img.sizes.full.url}" alt="${img.alt}" width="${img.sizes.full.width}" height="${img.sizes.full.height}" />
             <div class="slideshow__text">
-              ${hasTitle ? `<div class="slideshow__title">${title}</div>` : ''}
-              ${hasCaption ? `<div class="slideshow__caption">${img.caption}</div>` : ``}
+              ${hasTitle && attributes.showTitles ? `<div class="slideshow__title">${title}</div>` : ''}
+              ${hasCaption && attributes.showCaptions ? `<div class="slideshow__caption">${img.caption}</div>` : ``}
             </div>
           </div>
         `;
@@ -105,7 +106,13 @@ export default ( props ) => {
       })
 
     })(jQuery)
-	},  [JSON.stringify(attributes.images), JSON.stringify(imgPosts)] );
+	},  
+  [
+    JSON.stringify(attributes.images), 
+    JSON.stringify(imgPosts),
+    attributes.showTitles,
+    attributes.showCaptions
+  ] );
 
   return html`
     <div ...${ blockProps }>
@@ -122,6 +129,18 @@ export default ( props ) => {
         onSelect=${onImageSelect}
       />
       <${BlockControls} group="block">
+        <${ToolbarButton} 
+          label='Show Image Titles'
+          icon=${UCDIcons.renderPublic('fa-heading')}
+          isPressed=${attributes.showTitles}
+          onClick=${() => setAttributes({showTitles: !attributes.showTitles})}
+        />
+        <${ToolbarButton} 
+          label='Show Image Captions'
+          icon=${UCDIcons.renderPublic('fa-closed-captioning')}
+          isPressed=${attributes.showCaptions}
+          onClick=${() => setAttributes({showCaptions: !attributes.showCaptions})}
+        />
       </${BlockControls}>
     </div>
   `;

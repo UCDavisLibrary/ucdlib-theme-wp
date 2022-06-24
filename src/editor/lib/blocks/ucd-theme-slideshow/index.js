@@ -22,10 +22,18 @@ const settings = {
       type: 'array',
       default: []
     },
+    showTitles: {
+      type: 'boolean',
+      default: false
+    },
+    showCaptions: {
+      type: 'boolean',
+      default: false
+    },
     hideNav: {
       type: 'boolean',
       default: false
-    }
+    },
   },
   edit: Edit
 };
