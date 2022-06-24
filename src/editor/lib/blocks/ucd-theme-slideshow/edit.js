@@ -5,14 +5,17 @@ import { useBlockProps,
   MediaReplaceFlow,
 } from '@wordpress/block-editor';
 import { useEffect, useState } from '@wordpress/element';
+import { useDispatch } from "@wordpress/data";
 import 'slick-carousel';
 import { ToolbarButton } from "@wordpress/components";
 
+
+
 export default ( props ) => {
   const { attributes, setAttributes } = props;
+  const { invalidateResolution } = useDispatch('core/data');
   const hasImages = attributes.hasImages || false;
   const blockProps = useBlockProps();
-  const [ forcePostFetch, setForcePostFetch ] = useState( 0 );
   const sliderSelector = `#${blockProps.id} .slideshow`;
   const navSelector = `#${blockProps.id} .slider-nav`;
 
@@ -21,16 +24,18 @@ export default ( props ) => {
     'Edit your slideshow gallery' : 
     'Start creating a gallery for your slideshow...'
 
-  const onImageSelect = (images) => {
-    setAttributes({images, hasImages: images.length > 0});
-    setForcePostFetch( forcePostFetch + 1 );
-  }
 
-  const imgPosts = SelectUtils.posts({include: [...attributes.images.map(i => i.id), forcePostFetch]}, 'attachment');
+  const imgQuery = {include: [...attributes.images.map(i => i.id)]};
+  const imgPosts = SelectUtils.posts(imgQuery, 'attachment');
   const imgTitles = {};
   imgPosts.forEach(i => {
     imgTitles[i.id] = i.title.rendered;
   })
+
+  const onImageSelect = (images) => {
+    setAttributes({images, hasImages: images.length > 0});
+    invalidateResolution('core', 'getEntityRecords', ['postType', 'attachment', imgQuery]);
+  }
 
   // initialize slideshow
   useEffect( () => {
