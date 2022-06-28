@@ -58,7 +58,7 @@ export default ( props ) => {
       class="google-maps-embed"
       frameborder="0"
       referrerpolicy="no-referrer-when-downgrade"
-      src="https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${attributes.markerLocation}"
+      src="https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${attributes.markerLocation}&zoom=18"
       allowfullscreen>
     </iframe>
 
