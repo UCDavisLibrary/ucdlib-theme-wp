@@ -10,6 +10,15 @@ class UCDThemeAPI {
 
     add_action( 'rest_api_init', array($this, 'register_menu_endpoint') );
     add_action( 'rest_api_init', array($this, 'register_subnav_endpoint') );
+
+    add_filter("rest_post_tag_collection_params", function($params) {
+      $params['per_page']['maximum'] = 1000;
+      return $params;
+    });
+    add_filter("rest_category_collection_params", function($params) {
+      $params['per_page']['maximum'] = 1000;
+      return $params;
+    });
   }
 
   /**

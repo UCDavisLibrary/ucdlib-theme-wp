@@ -175,11 +175,11 @@ export default class SelectUtils {
     if ( !taxonomy ) return null;
     return useSelect( (select) => {
       if ( !query ) {
-        query = {per_page: 100, orderby: 'count', order: 'desc'};
+        query = {per_page: -1, orderby: 'count', order: 'desc'};
       }
       const Terms = select('core').getEntityRecords('taxonomy', taxonomy, query);
       return Terms ? Terms : [];
-    } , [taxonomy, ...watch]); 
+    } , [taxonomy, JSON.stringify(query), ...watch]); 
   }
 
   static isPost(){
