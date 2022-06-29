@@ -21,7 +21,7 @@ const settings = {
     },
     height: {
       type: "string",
-      default: "300px"
+      default: "400px"
     },
     markerLocation: {
       type: "string",
