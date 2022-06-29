@@ -32,7 +32,7 @@ export default class SelectUtils {
 
   static image(imageId, force=0) {
     return useSelect( ( select ) => {
-      const Image = imageId ? select('core').getMedia(imageId) : undefined;
+      const Image = imageId && imageId != 0 ? select('core').getMedia(imageId) : undefined;
       return Image;
     }, [imageId, force] );
   }
