@@ -48,6 +48,19 @@
     
   }
 }
+.btn--seq-container {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .btn--seq__prev {
+    margin-right: .5rem;
+    margin-top: .5rem;
+  }
+  .btn--seq__next {
+    margin-top: .5rem;
+  }
+}
 
 // used in see all links:
 //http://dev.webstyleguide.ucdavis.edu/redesign/?p=organisms-article-list
