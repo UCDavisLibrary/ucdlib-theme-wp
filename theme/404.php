@@ -6,6 +6,7 @@
 do_action( 'ucd-theme/template/404' );
 
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 $content['title'] = "Page Not Found";
 echo "this is a true 404";
 status_header(404);

@@ -16,6 +16,7 @@ if ( false !== ( $htmlImport = get_transient( "htmlImport_$template" ) ) ) {
 
 // get context
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('html-import') );
 $context['template'] = $template;
