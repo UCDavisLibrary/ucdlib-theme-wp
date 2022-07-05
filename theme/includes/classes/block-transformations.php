@@ -269,6 +269,21 @@ class UCDThemeBlockTransformations {
     return $attrs;
   }
 
+  public static function getSlideshowPosts($attrs=[]){
+    if ( !array_key_exists('images', $attrs) ) {
+      $attrs['images'] = [];
+      return;
+    }
+    $images = [];
+    foreach ($attrs['images'] as $image) {
+      $id = $image['id'];
+      if ( !$id ) continue;
+      $images[] = Timber::get_image($id);
+    }
+    $attrs['images'] = $images;
+    return $attrs;
+  }
+
 
   /**
    * Makes alt style blocks backwards compatible

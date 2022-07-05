@@ -9,6 +9,7 @@
 do_action( 'ucd-theme/template/home' );
 
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 
 $page_for_posts_id = get_option('page_for_posts');
 if ( $page_for_posts_id ) {

@@ -122,7 +122,7 @@ export default ( props ) => {
 
   return html`
     <div ...${ blockProps }>
-      <li onClick=${onCareerClicked} className="clickable">
+      <li onClick=${onCareerClicked} className="clickable job-posting">
         <a href="${attributes.link}"><strong>${attributes.title}</strong></a><br/>
         <span className="subtext"><strong>Salary: </strong> ${currency.format(attributes.salaryMin)} - ${currency.format(attributes.salaryMax)}/<span style=${{ textTransform: 'capitalize' }}>${attributes.salaryFrequency.toLowerCase()}</span></span><br/>
         <span className="subtext"><strong>Final Filing Date:</strong> ${attributes.finalFilingDate ? new Date(attributes.finalFilingDate).toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : ''}</span>

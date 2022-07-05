@@ -9,6 +9,7 @@ import contactList from "./ucd-theme-contact-list";
 import faq from "./ucd-theme-faq";
 import faqItem from "./ucd-theme-faq-item";
 import focalLink from "./ucd-theme-focal-link";
+import googleMap from "./ucd-theme-google-maps";
 import heading from "./ucd-theme-heading";
 import headingWithIcon from "./ucd-theme-heading-with-icon";
 import heroBanner from "./ucd-theme-hero-banner";
@@ -38,6 +39,7 @@ import query from "./ucd-theme-query";
 import recentPosts from "./ucd-theme-recent-posts";
 import separator from "./ucd-theme-separator";
 import silsSearchRedirect from "./ucd-theme-sils-search-redirect";
+import slideshow from "./ucd-theme-slideshow";
 import socialMedia from "./ucd-theme-social-media";
 import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
@@ -57,6 +59,7 @@ export default [
   faq,
   faqItem,
   focalLink,
+  googleMap,
   heading,
   headingWithIcon,
   heroBanner,
@@ -86,6 +89,7 @@ export default [
   recentPosts,
   separator,
   silsSearchRedirect,
+  slideshow,
   socialMedia,
   spacer,
   teaser,

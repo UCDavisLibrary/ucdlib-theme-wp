@@ -5,6 +5,7 @@
 do_action( 'ucd-theme/template/tag' );
 
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 $context['term'] = Timber::get_term();
 $context['title'] = $context['term']->name;
 $context['brandColor'] = $context['term']->meta('brand-color');

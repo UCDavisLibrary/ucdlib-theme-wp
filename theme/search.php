@@ -6,6 +6,7 @@ do_action( 'ucd-theme/template/search' );
 
 global $wp_query;
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 $context['title'] = 'Search results for ' . get_search_query();
 
 $context['posts'] = Timber::get_posts($wp_query);

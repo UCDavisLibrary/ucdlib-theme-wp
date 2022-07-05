@@ -81,6 +81,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "hasBrandColors" => true,
       "transform" => array("getPermalink")
     ),
+    "ucd-theme/google-maps" => array( "twig" => "@ucd/blocks/google-maps.twig" ),
     "ucd-theme/heading" => array(
       "twig" => "@ucd/blocks/heading.twig", 
       "transform" => array("removeStylePrefix", 'mergeClassWithAttribute')
@@ -179,6 +180,10 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "twig" => "@ucd/blocks/separator.twig",
       "hasBrandColors" => true
     ),
+    "ucd-theme/slideshow" => [
+      'twig' => '@ucd/blocks/slideshow.twig',
+      'transform' => ['getSlideshowPosts']
+    ],
     "ucd-theme/social-media" => array("twig" => "@ucd/blocks/social-media.twig"),
     "ucd-theme/spacer" => array("twig" => "@ucd/blocks/spacer.twig"),
     "ucd-theme/teaser" => array(
