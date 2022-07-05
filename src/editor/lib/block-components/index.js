@@ -11,6 +11,7 @@ import ToolbarColorPicker from "./toolbar-color-picker";
 import ToolbarFloat from "./toolbar-float";
 import ToolbarPostReset from "./toolbar-post-reset";
 import ToolbarSectionDisplay from "./toolbar-section-display";
+import ToolbarSelectMenu from "./toolbar-select-menu";
 import ToolbarSeparatorStyle from "./toolbar-separator-style";
 import ToolbarSizePicker from "./toolbar-size-picker";
 import ToolbarPaddingPicker from "./toolbar-padding-picker";
@@ -28,6 +29,7 @@ export {
   ToolbarColorPicker,
   ToolbarFloat,
   ToolbarSectionDisplay,
+  ToolbarSelectMenu,
   ToolbarSeparatorStyle,
   ToolbarSizePicker,
   ToolbarPaddingPicker,
