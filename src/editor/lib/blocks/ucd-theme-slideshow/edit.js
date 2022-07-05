@@ -1,4 +1,5 @@
 import { html, SelectUtils, UCDIcons } from "../../utils";
+import { ToolbarSelectMenu } from "../../block-components";
 import { useBlockProps,
   BlockControls,
   MediaPlaceholder,
@@ -88,12 +89,16 @@ export default ( props ) => {
         const title = imgTitles[img.id];
         const hasTitle = title ? true : false;
         const hasCaption = img.caption ? true : false
+        const aspectRatio = attributes.aspectRatio != 'inherit' ? `aspect--${attributes.aspectRatio}` : '';
         const html = `
-          <div class="slideshow__item ${hasTitle && attributes.showTitles? 'slideshow__item--has-title' : ''}">
-            <img src="${img.sizes.full.url}" alt="${img.alt}" width="${img.sizes.full.width}" height="${img.sizes.full.height}" />
-            <div class="slideshow__text">
-              ${hasTitle && attributes.showTitles ? `<div class="slideshow__title">${title}</div>` : ''}
-              ${hasCaption && attributes.showCaptions ? `<div class="slideshow__caption">${img.caption}</div>` : ``}
+          <div>
+            <div 
+              class="slideshow__item ${aspectRatio} ${hasTitle && attributes.showTitles? 'slideshow__item--has-title' : ''}">
+              <img src="${img.sizes.full.url}" class="${attributes.objectFit ? 'o-fit--cover' : ''}" alt="${img.alt}" width="${img.sizes.full.width}" height="${img.sizes.full.height}" />
+              <div class="slideshow__text">
+                ${hasTitle && attributes.showTitles ? `<div class="slideshow__title">${title}</div>` : ''}
+                ${hasCaption && attributes.showCaptions ? `<div class="slideshow__caption">${img.caption}</div>` : ``}
+              </div>
             </div>
           </div>
         `;
@@ -116,12 +121,42 @@ export default ( props ) => {
     JSON.stringify(attributes.images), 
     JSON.stringify(imgPosts),
     attributes.showTitles,
-    attributes.showCaptions
+    attributes.showCaptions,
+    attributes.aspectRatio,
+    attributes.objectFit
   ] );
+
+
+  const aspectRatioOptions = [
+    {
+      title: '16x9',
+      slug: '16x9'
+    },
+    {
+      title: '4x3',
+      slug: '4x3'
+    },
+    {
+      title: 'Inherit from Photo',
+      slug: 'inherit'
+    }
+  ];
+
+  const objectFitOptions = [
+    {
+      title: 'Contain',
+      slug: ''
+    },
+    {
+      title: 'Cover',
+      slug: 'cover'
+    }
+  ];
+
 
   return html`
     <div ...${ blockProps }>
-      <div className="slideshow"></div>
+      <div className="slideshow ${attributes.aspectRatio ? 'has-aspect-ratio': ''}"></div>
       <div className="slider-nav"></div>
       <${MediaPlaceholder} 
         accept="image/*"
@@ -146,6 +181,22 @@ export default ( props ) => {
           isPressed=${attributes.showCaptions}
           onClick=${() => setAttributes({showCaptions: !attributes.showCaptions})}
         />
+        <${ToolbarSelectMenu} 
+          label='Set Aspect Ratio'
+          icon=${UCDIcons.renderPublic('fa-crop-simple')}
+          options=${aspectRatioOptions}
+          value=${attributes.aspectRatio}
+          onChange=${v => setAttributes({aspectRatio: v.slug})}
+        /> 
+        ${attributes.aspectRatio != 'inherit' && html`
+          <${ToolbarSelectMenu} 
+            label='Set Object Fit'
+            icon=${UCDIcons.renderPublic('fa-object-group')}
+            options=${objectFitOptions}
+            value=${attributes.objectFit}
+            onChange=${v => setAttributes({objectFit: v.slug})}
+          /> 
+        `}
       </${BlockControls}>
     </div>
   `;

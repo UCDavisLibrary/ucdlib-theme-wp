@@ -90,6 +90,20 @@ a.icon--circle-arrow-right::before {
   top: 0;
 }
 
+// slideshow
+.slideshow {
+  &.has-aspect-ratio {
+    img {
+      height: 100% !important;
+      background-color: #333333;
+      object-fit: contain
+    }
+    img.o-fit--cover {
+      object-fit: cover;
+    }
+  }
+}
+
 //marketing highlight
 .marketing-highlight:hover .marketing-highlight__image .u-background-image {
   transform: scale(1.1);

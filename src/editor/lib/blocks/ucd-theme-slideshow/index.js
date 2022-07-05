@@ -34,6 +34,14 @@ const settings = {
       type: 'boolean',
       default: false
     },
+    aspectRatio: {
+      type: 'string',
+      default: '16x9'
+    },
+    objectFit: {
+      type: 'string',
+      default: ''
+    }
   },
   edit: Edit
 };
