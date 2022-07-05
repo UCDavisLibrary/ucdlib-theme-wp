@@ -36,10 +36,14 @@ const settings = {
     className: {
       type: "string",
       default: ""
+    },
+    classSuffix: {
+      type: 'string',
+      default: ''
     }
   },
 	edit: Edit,
-  styles: styleClasses
+  //styles: styleClasses
 };
 
 export default { name, settings };

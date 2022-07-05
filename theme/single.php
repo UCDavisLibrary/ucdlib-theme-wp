@@ -5,6 +5,7 @@
 do_action( 'ucd-theme/template/single' );
 
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 $context['title'] = $context['post']->title();
 $context['breadcrumbs'] = true;
 $template = 'single';

@@ -10,6 +10,7 @@
 do_action( 'ucd-theme/template/date' );
 
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 
 $title = ucwords(get_theme_mod('layout_posts_title', 'Posts'));
 

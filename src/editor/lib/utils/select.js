@@ -3,6 +3,8 @@ import { useMemo } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
 import { decodeEntities } from "@wordpress/html-entities";
 
+import BlockSettings from "./settings";
+
 export default class SelectUtils {
   
   static card(attributes) {
@@ -30,9 +32,30 @@ export default class SelectUtils {
 
   static image(imageId, force=0) {
     return useSelect( ( select ) => {
-      const Image = imageId ? select('core').getMedia(imageId) : undefined;
+      const Image = imageId && imageId != 0 ? select('core').getMedia(imageId) : undefined;
       return Image;
     }, [imageId, force] );
+  }
+
+  static previewImage(post, aspectRatio='1x1') {
+    // would be nice if this just took postId, but doesn't appear to be possible
+    //https://wordpress.stackexchange.com/questions/388796/getentityrecord-without-knowing-the-post-type
+    const postId = post && post.id ? post.id : 0;
+    return useSelect( ( select ) => {
+      let url = BlockSettings.getImageByAspectRatio(aspectRatio);
+      if ( post ) {
+        let imageId;
+        if ( post.meta[`ucd_thumbnail_${aspectRatio}`]) {
+          imageId = post.meta[`ucd_thumbnail_${aspectRatio}`];
+        } else if ( post.featured_media ) {
+          imageId = post.featured_media;
+        }
+        const image = select('core').getMedia(imageId) || undefined;
+        if ( image ) url = image.source_url;
+      }
+      return url;
+      
+    }, [postId, aspectRatio] );
   }
 
   static selectedBlock() {
@@ -118,7 +141,7 @@ export default class SelectUtils {
       }
 
       return posts;
-    }, [query, postType, extra_fields] )
+    }, [JSON.stringify(query), postType, JSON.stringify(extra_fields)] )
   }
 
   static taxonomies() {
@@ -152,11 +175,11 @@ export default class SelectUtils {
     if ( !taxonomy ) return null;
     return useSelect( (select) => {
       if ( !query ) {
-        query = {per_page: 100, orderby: 'count', order: 'desc'};
+        query = {per_page: -1, orderby: 'count', order: 'desc'};
       }
       const Terms = select('core').getEntityRecords('taxonomy', taxonomy, query);
       return Terms ? Terms : [];
-    } , [taxonomy, ...watch]); 
+    } , [taxonomy, JSON.stringify(query), ...watch]); 
   }
 
   static isPost(){

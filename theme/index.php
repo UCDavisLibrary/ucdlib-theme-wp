@@ -8,6 +8,7 @@
 do_action( 'ucd-theme/template/index' );
 
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('404') );
 
