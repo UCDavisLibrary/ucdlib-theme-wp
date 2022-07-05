@@ -298,14 +298,26 @@ hr.dotted {
   border-top: 4px dotted;
 }
 
-.alert-icon {
-  color:"blue"; 
+.alertIcon {
+  color:red; 
   min-width: 15px;
+  vertical-align:middle;
+
 }
-.alert-div {
-  background-color: "#FFFFFF";
-  padding:"5px";
-  color:"green";
+.divAlertIcon {
+  display:inline-block; 
+  margin-right:7px;
+
+}
+.divAlertContent {
+  display:inline-block;
+  vertical-align:top;
+  font-weight: bold;
+}
+.alertdiv {
+  background-color: #FFFFFF;
+  padding:5px;
+  color: red;
 }
 
 .google-maps-embed {

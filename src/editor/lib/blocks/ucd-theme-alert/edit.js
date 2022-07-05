@@ -19,10 +19,9 @@ export default ( props ) => {
 
   return html`
   <div ...${ blockProps }>
-
-    <div style=${{backgroundColor: "#FFFFFF", padding:"5px",color:"red"}}>
-      <div style=${{display:"inline-block", marginRight:"7px"}}><ucdlib-icon style=${{color:"red", minWidth: '15px'}} icon="ucd-public:fa-circle-exclamation"></ucdlib-icon></div>
-      <div style=${{display:"inline-block", verticalAlign: 'top'}}><b><${InnerBlocks} /></b></div>
+    <div className="alertdiv">
+      <div className="divAlertIcon"><ucdlib-icon class="alertIcon" icon="ucd-public:fa-circle-exclamation"></ucdlib-icon></div>
+      <div className="divAlertContent"><b><${InnerBlocks} /></b></div>
     </div>
 
   </div>
