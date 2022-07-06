@@ -32,7 +32,7 @@
           {% if posts.found_posts %}
             {% for post in posts %}
               {% if not post.is_sticky %}
-                {{ teaser({post, partOfQuery: true}) }}
+                {{ teaser({post, partOfQuery: true, hideExcerpt: true}) }}
               {% endif %}
             {% endfor %}
 
