@@ -25,6 +25,9 @@ function ToolbarPostReset({
     } else if (p.slug === 'excerpt') {
       control.icon = UCDIcons.render("post.excerpt", {style:iconStyle});
       control.title = "Post Excerpt";
+    } else if (p.slug === 'subTitle') {
+      control.icon = UCDIcons.render("post.title", {style:iconStyle});
+      control.title = "Post SubTitle";
     }
 
     if ( p.icon ) control.icon = UCDIcons.render(p.icon, {style:iconStyle});

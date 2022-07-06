@@ -71,6 +71,10 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "ucd-theme/faq-item" => array(
       "twig" => "@ucd/blocks/faq-item.twig"
     ),
+    'ucd-theme/featured-article' => [
+      'twig' => "@ucd/blocks/featured-article.twig",
+      "transform" => array("getPost", "addSpacing")
+    ],
     "ucd-theme/focal-link" => array(
       "twig" => "@ucd/blocks/focal-link.twig",
       "hasBrandColors" => true,

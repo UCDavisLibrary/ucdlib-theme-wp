@@ -90,6 +90,14 @@ a.icon--circle-arrow-right::before {
   top: 0;
 }
 
+.vm-featured-article a {
+  text-decoration: none;
+}
+
+.vm-featured-article img {
+  width: 100%;
+}
+
 // slideshow
 .slideshow {
   &.has-aspect-ratio {

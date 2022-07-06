@@ -8,6 +8,7 @@ import categoryFilter from "./ucd-theme-category-filter";
 import contactList from "./ucd-theme-contact-list";
 import faq from "./ucd-theme-faq";
 import faqItem from "./ucd-theme-faq-item";
+import featuredArticle from "./ucd-theme-featured-article";
 import focalLink from "./ucd-theme-focal-link";
 import googleMap from "./ucd-theme-google-maps";
 import heading from "./ucd-theme-heading";
@@ -58,6 +59,7 @@ export default [
   contactList,
   faq,
   faqItem,
+  featuredArticle,
   focalLink,
   googleMap,
   heading,
