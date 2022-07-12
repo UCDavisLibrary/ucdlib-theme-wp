@@ -80,6 +80,15 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "hasBrandColors" => true,
       "transform" => array("getPermalink")
     ),
+    "ucd-theme/footer-column" => array(
+      "twig" => "@ucd/blocks/footer-column.twig"
+    ),
+    "ucd-theme/footer-columns" => array(
+      "twig" => "@ucd/blocks/footer-columns.twig"
+    ),
+    "ucd-theme/footer-nav" => array(
+      "twig" => "@ucd/blocks/footer-nav.twig"
+    ),
     "ucd-theme/google-maps" => array( "twig" => "@ucd/blocks/google-maps.twig" ),
     "ucd-theme/heading" => array(
       "twig" => "@ucd/blocks/heading.twig", 

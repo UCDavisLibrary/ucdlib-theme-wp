@@ -9,6 +9,15 @@ class UcdThemeSidebars {
   public function register(){
     register_sidebar(
       array(
+        'id'            => 'footer-columns',
+        'name'          => "Footer Columns",
+        'description'   => "The columns at the top of the footer.",
+        'before_widget' => '',
+        'after_widget' => ''
+      )
+    );
+    register_sidebar(
+      array(
         'id'            => 'single-post',
         'name'          => "Single Post",
         'description'   => "Widgets for a single news/blog item.",
@@ -64,6 +73,7 @@ class UcdThemeSidebars {
   }
   public function add_to_context( $context ) {
     $context['widgets_below_nav'] = Timber::get_widgets( 'below-nav' );
+    $context['widgets_footer_columns'] = Timber::get_widgets( 'footer-columns' );
     return $context;
   }
 }
