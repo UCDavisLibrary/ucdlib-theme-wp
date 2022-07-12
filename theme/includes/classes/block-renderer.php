@@ -12,17 +12,11 @@ class UCDThemeBlockRenderer {
 
   // make sure icons used by blocks are loaded
   public function loadIcons($icons){
-    if ( 
-      isset(static::$transformationClass) && 
-      static::$transformationClass == 'UCDThemeBlockTransformations') {
-        return $icons;
-      }
     if ( isset($this->iconsUsed) ) {
       foreach ($this->iconsUsed as $icon) {
         if ( !array_key_exists($icon, $icons) ) $icons[] = $icon;
       }
     }
-
     return $icons;
   }
 
@@ -112,10 +106,14 @@ class UCDThemeBlockRenderer {
         }
       }
     }
+    $context = array("attributes" => $block_attributes, "content" => $content, "block" => $block);
+    if ( isset( $GLOBALS['timberContext'] ) ) {
+      $context['siteContext'] = $GLOBALS['timberContext'];
+    }
 
     // Render twig
     ob_start();
-    Timber::render( $meta['twig'], array("attributes" => $block_attributes, "content" => $content, "block" => $block) );
+    Timber::render( $meta['twig'], $context );
     return ob_get_clean();
   }
 }

@@ -145,7 +145,7 @@ class UCDThemeAssets {
   // prints ucdlib-iconset(s) used by the blocks on a page
   public function loadIcons(){
 
-    $iconSlugs = $GLOBALS['UcdSite']->customBlocks->iconsUsed;
+    $iconSlugs = [];
     $iconSlugs = apply_filters( 'ucd-theme/loaded-icons', $iconSlugs );
     
     // map icons by set

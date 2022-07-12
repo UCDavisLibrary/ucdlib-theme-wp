@@ -7,7 +7,7 @@ import {
   ToggleControl, 
   TextareaControl } from "@wordpress/components";
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { useState } from '@wordpress/element';
+import { useState, Fragment } from '@wordpress/element';
 import { useSelect, useDispatch, dispatch } from "@wordpress/data";
 import apiFetch from '@wordpress/api-fetch';
 import { store as noticesStore } from '@wordpress/notices';
@@ -18,13 +18,17 @@ function ImagePicker({
   onSelect,
   onRemove,
   onClose,
+  onOpen,
   helpText,
   defaultImageId,
   panelAttributes,
   captionOptions,
   onCaptionChange,
-  cloneText
+  cloneText,
+  notPanel
 }){
+  const { invalidateResolution } = useDispatch('core/data');
+
   const _panelAttributes = {
     title: "Image",
     initialOpen: true
@@ -59,7 +63,10 @@ function ImagePicker({
   }
 
   const _onClose = () => {
-    if ( imageId ) dispatch('core').saveMedia(imageId);
+    if ( imageId ) {
+      invalidateResolution('core', 'getMedia', [imageId]);
+      //dispatch('core').saveMedia(imageId);
+    }
     if ( onClose ){
       onClose();
     }
@@ -92,7 +99,9 @@ function ImagePicker({
 			} );
   }
 
-  const uploadButton = ({open}) => html`
+  const uploadButton = ({open}) => {
+    if ( onOpen ) onOpen();
+    return html`
     <${Button}
      className=${imageId == 0 ? 'editor-post-featured-image__toggle' : 'editor-post-featured-image__preview'}
      onClick=${open}
@@ -107,14 +116,15 @@ function ImagePicker({
         </${ResponsiveWrapper}>
       `}
     </${Button}>
-  `;
+  `};
 
-  const replaceButton = ({open}) => html`
+  const replaceButton = ({open}) => {
+    if ( onOpen ) onOpen();
+    return html`
     <${Button} onClick=${open} isSecondary>Replace Image</${Button}>
-  `;
+  `;}
 
-  return html`
-  <${PanelBody} title=${_panelAttributes.title} initialOpen=${_panelAttributes.initialOpen}>
+  const renderMediaUpload = () => html`
     <div className="editor-post-featured-image">
       <${MediaUploadCheck}>
         <${MediaUpload}
@@ -161,26 +171,51 @@ function ImagePicker({
         </${MediaUploadCheck}>
       `}
     </div> 
-    ${helpText && html`<${PanelRow}><small>${helpText}</small></${PanelRow}>`}
-    ${showCaptionOptions && html`
-      <div style=${{marginTop:'15px'}}>
-        <${PanelRow}>
-          <${ToggleControl} 
-            label="Show Caption"
-            checked=${captionOptions.show}
-            onChange=${() => _onCaptionChange({show: !captionOptions.show })}
+  `;
+
+  const renderHelpText = () => html`
+    <${Fragment}>
+      ${helpText && html`<${PanelRow}><small>${helpText}</small></${PanelRow}>`}
+    </${Fragment}>
+  `
+
+  const renderCaptions = () => html`
+    <${Fragment}>
+      ${showCaptionOptions && html`
+        <div style=${{marginTop:'15px'}}>
+          <${PanelRow}>
+            <${ToggleControl} 
+              label="Show Caption"
+              checked=${captionOptions.show}
+              onChange=${() => _onCaptionChange({show: !captionOptions.show })}
+            />
+          </${PanelRow}>
+          <${TextareaControl} 
+            label="Custom Caption"
+            help="Will be displayed instead of caption for image from media library"
+            value=${ captionOptions.customText }
+            onChange=${ ( customText ) => _onCaptionChange({customText}) }
           />
-        </${PanelRow}>
-        <${TextareaControl} 
-          label="Custom Caption"
-          help="Will be displayed instead of caption for image from media library"
-          value=${ captionOptions.customText }
-          onChange=${ ( customText ) => _onCaptionChange({customText}) }
-        />
-      </div>
-      
-    `}
-  </${PanelBody}>
+        </div>
+      `}
+    </${Fragment}>
+  `
+
+  return html`
+  ${notPanel === true ? html`
+    <div>
+      ${renderMediaUpload()}
+      ${renderHelpText()}
+      ${renderCaptions()}
+    </div>
+  ` : html`
+    <${PanelBody} title=${_panelAttributes.title} initialOpen=${_panelAttributes.initialOpen}>
+      ${renderMediaUpload()}
+      ${renderHelpText()}
+      ${renderCaptions()}
+    </${PanelBody}>
+  `}
+
 `;
 }
 

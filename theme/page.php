@@ -5,6 +5,7 @@
 do_action( 'ucd-theme/template/page' );
 
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 $context['title'] = $context['post']->title();
 $context['breadcrumbs'] = true;
 

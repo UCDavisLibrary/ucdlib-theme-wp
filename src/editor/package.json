@@ -17,6 +17,7 @@
     "@wordpress/icons": "^9.2.0",
     "classnames": "^2.3.1",
     "htm": "^3.1.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "slick-carousel": "^1.8.1"
   }
 }

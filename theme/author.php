@@ -9,6 +9,7 @@ global $wp_query;
 
 $views = $GLOBALS['UcdSite']->views;
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 if ( isset( $wp_query->query_vars['author'] ) ) {
   $author = Timber::get_user( $wp_query->query_vars['author'] );
   $context['author'] = $author;

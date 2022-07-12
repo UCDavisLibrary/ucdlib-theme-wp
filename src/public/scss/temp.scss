@@ -1,6 +1,66 @@
 @use '@ucd-lib/theme-sass/0_tools' as *;
+@use '@ucd-lib/theme-sass/2_base_class/_buttons-mixin.scss' as *;
 
 // things here should be moved to ucd-lib/theme-sass
+
+// buttons
+
+.btn--seq {
+  @include btn();
+  border-color: transparent;
+  background-color: $brand--secondary;
+  --btn-arrow-color: #fff;
+  padding-right: $button-arrow-spacing * 1.5;
+  padding-left: $button-arrow-spacing * 1.5;
+
+  &:hover {
+    color: $brand--secondary;
+    background-color: $brand--primary;
+  }
+
+  &.btn--seq__prev {
+    padding-left: $button-arrow-spacing;
+    &:before {
+      width: $button-arrow-width;
+      color: var(--btn-arrow-color);
+      content: "\f054";
+      font-family: $font-family--icons;
+      font-size: .75em;
+      font-weight: $font-weight--icons;
+      opacity: 1;
+      transform: rotate(180deg);
+      margin-right: .5em;
+    }
+
+  }
+  &.btn--seq__next {
+    padding-right: $button-arrow-spacing;
+    &:after {
+      width: $button-arrow-width;
+      color: var(--btn-arrow-color);
+      content: "\f054";
+      font-family: $font-family--icons;
+      font-size: .75em;
+      font-weight: $font-weight--icons;
+      opacity: 1;
+      margin-left: .5em;
+    }
+    
+  }
+}
+.btn--seq-container {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .btn--seq__prev {
+    margin-right: .5rem;
+    margin-top: .5rem;
+  }
+  .btn--seq__next {
+    margin-top: .5rem;
+  }
+}
 
 // used in see all links:
 //http://dev.webstyleguide.ucdavis.edu/redesign/?p=organisms-article-list
@@ -30,6 +90,28 @@ a.icon--circle-arrow-right::before {
   top: 0;
 }
 
+.vm-featured-article a {
+  text-decoration: none;
+}
+
+.vm-featured-article img {
+  width: 100%;
+}
+
+// slideshow
+.slideshow {
+  &.has-aspect-ratio {
+    img {
+      height: 100% !important;
+      background-color: #333333;
+      object-fit: contain
+    }
+    img.o-fit--cover {
+      object-fit: cover;
+    }
+  }
+}
+
 //marketing highlight
 .marketing-highlight:hover .marketing-highlight__image .u-background-image {
   transform: scale(1.1);
@@ -48,6 +130,16 @@ a.icon--circle-arrow-right::before {
 .marketing-highlight-horizontal {
   display: block;
 }
+.marketing-highlight-horizontal__title {
+  font-size: 1rem;
+}
+@media (min-width: 480px) {
+  .marketing-highlight-horizontal__title {
+    font-size: 1.207rem;
+    line-height: 1.3;
+  }
+}
+
 
 // hero banner
 .hero-banner__film {
@@ -238,6 +330,12 @@ hr.dotted {
   border-top: 4px dotted;
 }
 
+
+.google-maps-embed {
+  width: 100%;
+  height: 400px;
+}
+
 .bg-color-float {
   width: 33%;
 }
@@ -250,3 +348,4 @@ hr.dotted {
 .social-follow a {
   background-image:url(/wp-content/themes/ucdlib-theme-wp/assets/img/social-follow.svg);
 }
+

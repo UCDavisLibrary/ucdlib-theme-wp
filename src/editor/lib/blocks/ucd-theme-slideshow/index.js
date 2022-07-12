@@ -21,6 +21,26 @@ const settings = {
     images: {
       type: 'array',
       default: []
+    },
+    showTitles: {
+      type: 'boolean',
+      default: false
+    },
+    showCaptions: {
+      type: 'boolean',
+      default: false
+    },
+    hideNav: {
+      type: 'boolean',
+      default: false
+    },
+    aspectRatio: {
+      type: 'string',
+      default: '16x9'
+    },
+    objectFit: {
+      type: 'string',
+      default: ''
     }
   },
   edit: Edit

@@ -32,7 +32,7 @@ export default class SelectUtils {
 
   static image(imageId, force=0) {
     return useSelect( ( select ) => {
-      const Image = imageId ? select('core').getMedia(imageId) : undefined;
+      const Image = imageId && imageId != 0 ? select('core').getMedia(imageId) : undefined;
       return Image;
     }, [imageId, force] );
   }
@@ -141,7 +141,7 @@ export default class SelectUtils {
       }
 
       return posts;
-    }, [query, postType, extra_fields] )
+    }, [JSON.stringify(query), postType, JSON.stringify(extra_fields)] )
   }
 
   static taxonomies() {
@@ -175,11 +175,11 @@ export default class SelectUtils {
     if ( !taxonomy ) return null;
     return useSelect( (select) => {
       if ( !query ) {
-        query = {per_page: 100, orderby: 'count', order: 'desc'};
+        query = {per_page: -1, orderby: 'count', order: 'desc'};
       }
       const Terms = select('core').getEntityRecords('taxonomy', taxonomy, query);
       return Terms ? Terms : [];
-    } , [taxonomy, ...watch]); 
+    } , [taxonomy, JSON.stringify(query), ...watch]); 
   }
 
   static isPost(){
