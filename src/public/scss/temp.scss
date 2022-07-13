@@ -201,12 +201,14 @@ ucdlib-icon.panel__custom-icon {
   width: 1.6055rem;
   height: 1.6055rem;
   margin-right: .5rem;
+  min-width: 45px;
 }
 @media (min-width: 768px) {
   .panel__title ucdlib-icon {
     width: 2.47rem;
     height: 2.47rem;
     margin-right: 1rem;
+    min-width: 45px;
   }
 }
 

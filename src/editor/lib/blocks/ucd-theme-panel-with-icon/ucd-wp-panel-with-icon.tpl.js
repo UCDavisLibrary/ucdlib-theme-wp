@@ -42,6 +42,7 @@ export function styles() {
       width: 1.6055rem;
       height: 1.6055rem;
       margin-right: .5rem;
+      min-width: 45px;
     }
     .panel {
       background-color: transparent;
@@ -54,6 +55,7 @@ export function styles() {
         width: 2.47rem;
         height: 2.47rem;
         margin-right: 1rem;
+        min-width: 45px;
       }
       #title-slot:before {
         left: 55px;
