@@ -1,6 +1,6 @@
 import { addFilter } from "@wordpress/hooks";
 import { createHigherOrderComponent } from "@wordpress/compose";
-import { Fragment } from "@wordpress/element";
+import { Fragment, useEffect } from "@wordpress/element";
 import { InspectorControls } from "@wordpress/block-editor";
 import { PanelBody, SelectControl } from "@wordpress/components";
 
@@ -11,6 +11,8 @@ import { html } from "../../utils";
 // So we make our own little dropdown.
 // Hopefully will not be needed in the future:
 // https://github.com/WordPress/gutenberg/issues/11763
+// However, the OOB custom block styles really slow things down if you have more than 2 or 3.
+// So this might still be necessary
 export default (coreBlock) => {
   if ( !coreBlock.higherComponentName ) return;
 
@@ -20,7 +22,19 @@ export default (coreBlock) => {
     createHigherOrderComponent( (BlockEdit) => {
       return ( props ) => {
         const { attributes, setAttributes, isSelected } = props;
+        if ( props.name != coreBlock.name ){
+          return html`<${BlockEdit} ...${props} />`
+        }
         const classValues = coreBlock.styles.map(c => c.value);
+
+        let customDefault = coreBlock.styles.filter(s => s.default);
+        customDefault = customDefault.length ? customDefault[0] : false;
+
+        useEffect(() => {
+          if ( customDefault && !attributes.className) {
+            onChange(customDefault.value);
+          }
+        }, [])
 
         let currentValue = attributes.className ? attributes.className.split(" ") : [];
         currentValue = currentValue.filter(c => classValues.includes(c));
@@ -45,6 +59,10 @@ export default (coreBlock) => {
           setAttributes( {className: classes.join(" ")} );
         }
 
+        const selectOptions = (() => {
+          return customDefault ? coreBlock.styles : [{value: 'default', label: defaultLabel}].concat(coreBlock.styles);
+        })()
+
         return html`
           <${Fragment}>
             <${BlockEdit} ...${props} />
@@ -54,7 +72,7 @@ export default (coreBlock) => {
                     <${SelectControl}
                       label=${selectLabel}
                       value=${currentValue}
-                      options=${[{value: 'default', label: defaultLabel}].concat(coreBlock.styles)}
+                      options=${selectOptions}
                       onChange=${onChange}
                     >
                     </${SelectControl}>
