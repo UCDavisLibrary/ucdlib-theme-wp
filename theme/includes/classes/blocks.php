@@ -87,7 +87,8 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "twig" => "@ucd/blocks/footer-columns.twig"
     ),
     "ucd-theme/footer-nav" => array(
-      "twig" => "@ucd/blocks/footer-nav.twig"
+      "twig" => "@ucd/blocks/footer-nav.twig",
+      'transform' => ['getMenu']
     ),
     "ucd-theme/google-maps" => array( "twig" => "@ucd/blocks/google-maps.twig" ),
     "ucd-theme/heading" => array(

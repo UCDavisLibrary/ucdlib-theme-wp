@@ -1,0 +1,9 @@
+{% if attributes.menu %}
+  <div class="footer-nav">
+    <ul class="menu">
+    {% for m in attributes.menu.items %}
+      <li><a href='{{m.link}}'>{{m.title}}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+{% endif %}

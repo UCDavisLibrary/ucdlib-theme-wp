@@ -1,9 +1,10 @@
-import { html } from "../../utils";
-import { useBlockProps, BlockControls, InnerBlocks } from '@wordpress/block-editor';
-import { ToolbarColorPicker, ToolbarFloat, MenuPicker } from "../../block-components";
+import { html, UCDIcons } from "../../utils";
+import { useBlockProps, BlockControls } from '@wordpress/block-editor';
+import { MenuPicker } from "../../block-components";
 import { ToolbarButton } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
+import { decodeEntities } from "@wordpress/html-entities";
 
 
 export default ( props ) => {
@@ -34,14 +35,33 @@ export default ( props ) => {
     if ( !m ) return [];
     return m;
   })();
-  console.log(selectedMenu);
 
   return html`
   <div ...${ blockProps }>
-    <${MenuPicker} 
-      value=${attributes.menuId}
-      onChange=${menuId => setAttributes({menuId})}
-    />
+    <${BlockControls}>
+      ${selectedMenu.length > 0 && html`
+        <${ToolbarButton} 
+          label='Clear Menu'
+          icon=${UCDIcons.renderPublic('fa-circle-minus')}
+          onClick=${() => setAttributes({menuId: 0})}
+        />
+      `}
+    </${BlockControls}>
+    ${selectedMenu.length ? html`
+      <div className="footer-nav">
+        <ul className="menu">
+          ${selectedMenu.map(m => html`
+            <li key=${m.id}><a>${decodeEntities(m.title)}</a></li>
+          `)}
+        </ul>
+      </div>
+    ` : html`
+      <${MenuPicker} 
+        value=${attributes.menuId}
+        onChange=${menuId => setAttributes({menuId})}
+      />
+    `}
+
   </div>
   `
 }

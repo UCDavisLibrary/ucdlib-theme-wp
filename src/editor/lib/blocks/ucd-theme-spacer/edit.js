@@ -13,6 +13,7 @@ export default ( props ) => {
   const classes = classnames({
     "u-space-px": !selectedSpacing,
     "u-space-py": !selectedSpacing,
+    'u-space-pt--small': selectedSpacing == 'extra-small',
     [`u-space-px--${selectedSpacing}`]: selectedSpacing,
     [`u-space-py--${selectedSpacing}`]: selectedSpacing,
   });
@@ -27,6 +28,7 @@ export default ( props ) => {
   }
 
   const spaceControls = [
+    {slug: 'extra-small', label: '.25x'},
     {slug: "small", label: ".5x"},
     {slug: "", label: "1x"},
     {slug: "medium", label: "1.5x"},
