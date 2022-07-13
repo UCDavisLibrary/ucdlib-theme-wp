@@ -3,6 +3,11 @@
 
 // things here should be moved to ucd-lib/theme-sass
 
+// base
+ul, ol {
+  overflow: auto;
+}
+
 // buttons
 
 .btn--seq {
