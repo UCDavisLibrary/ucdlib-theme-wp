@@ -161,6 +161,12 @@ a.icon--circle-arrow-right::before {
 .hero-banner__body--no-padding {
   padding: 0 !important;
 }
+.category-brand--tahoe, .category-brand--putah-creek, .category-brand--quad, .category-brand--strawberry {
+  .hero-banner__body--innerblocks {
+    --category-brand-contrast-color: #fff;
+    --category-brand-featured: unset;
+  }
+} 
 
 // background image utility
 .u-background-image {

@@ -47,7 +47,7 @@ kwargs:
       {% endif %}
     {% endif %}
 
-    <p>
+    <p {{pClasses ? 'class="'~pClasses~'"' : ''}}>
       <a {{href}} {{target}} class="{{classes}}">{{kwargs.content}}</a>
     </p>
   {% endif %}
