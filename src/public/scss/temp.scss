@@ -349,10 +349,14 @@ hr.dotted {
   background-image:url(/wp-content/themes/ucdlib-theme-wp/assets/img/social-follow.svg);
 }
 
-.table--bordered.aligncenter {
+.table--bordered.aligncenter,
+[data-align="center"] figure {
   margin: 0 auto;
 }
 
-.table--bordered.alignright {
+.table--bordered.alignright,
+[data-align="right"] figure {
   float: right;
 }
+
+
