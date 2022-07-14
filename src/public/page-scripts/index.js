@@ -1,4 +1,5 @@
 import missingGuide from './missing-guide.js'
+import contra from './contra.js'
 
 /**
  * Register your scripts here.  Should be a regex pattern to a script
@@ -8,6 +9,10 @@ const registration = {
   missingGuide : {
     exec : missingGuide,
     regex : /^\/guide-missing(\?|\/).*/
+  },
+  contra : {
+    exec : contra,
+    regex : /^\/directory\/online-strategy\/?/
   }
 }
 
