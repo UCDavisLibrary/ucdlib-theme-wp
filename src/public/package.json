@@ -17,7 +17,8 @@
     "@ucd-lib/theme-sass": "^5.0.16",
     "jquery": "^3.6.0",
     "normalize-scss": "^7.0.1",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "striptags": "^3.2.0"
   },
   "devDependencies": {
     "@ucd-lib/cork-app-build": "^0.2.0",
