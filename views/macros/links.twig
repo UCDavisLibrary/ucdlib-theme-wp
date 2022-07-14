@@ -39,8 +39,11 @@ kwargs:
           {% set classes = classes ~ " btn--" ~ m %}
         {% endif %}
       {% endfor %}
-      {% if kwargs.className %}
-        {% set classes = classes ~ " btn--" ~ kwargs.className|replace({'is-style-': ''}) %}
+      {% if  kwargs.className == 'default' %}
+      {% elseif kwargs.className %}
+        {% set classes = classes ~ " btn--" ~ kwargs.className %}
+      {% else %}
+        {% set classes = classes ~ " btn--primary" %}
       {% endif %}
     {% endif %}
 

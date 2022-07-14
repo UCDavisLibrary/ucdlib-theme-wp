@@ -60,8 +60,6 @@ export default ( props ) => {
   const displayedValues = (() => {
     let p = {};
 
-    if ( attributes.featured ) p.featured = "true";
-    if ( attributes.brandColor ) p.color = attributes.brandColor;
     if ( attributes.href || post ) p.href = attributes.href ? attributes.href : post.link;
 
     if ( attributes.title ){

@@ -3,6 +3,11 @@
 
 // things here should be moved to ucd-lib/theme-sass
 
+// base
+ul, ol {
+  overflow: auto;
+}
+
 // buttons
 
 .btn--seq {
@@ -156,6 +161,12 @@ a.icon--circle-arrow-right::before {
 .hero-banner__body--no-padding {
   padding: 0 !important;
 }
+.category-brand--tahoe, .category-brand--putah-creek, .category-brand--quad, .category-brand--strawberry {
+  .hero-banner__body--innerblocks {
+    --category-brand-contrast-color: #fff;
+    --category-brand-featured: unset;
+  }
+} 
 
 // background image utility
 .u-background-image {
@@ -190,12 +201,14 @@ ucdlib-icon.panel__custom-icon {
   width: 1.6055rem;
   height: 1.6055rem;
   margin-right: .5rem;
+  min-width: 1.6055rem;
 }
 @media (min-width: 768px) {
   .panel__title ucdlib-icon {
     width: 2.47rem;
     height: 2.47rem;
     margin-right: 1rem;
+    min-width: 2.47rem;
   }
 }
 
@@ -330,6 +343,14 @@ hr.dotted {
   border-top: 4px dotted;
 }
 
+hr.y1 {
+  margin: 1rem 0;
+}
+
+hr.y2 {
+  margin: 2rem 0;
+}
+
 
 .google-maps-embed {
   width: 100%;
@@ -348,4 +369,15 @@ hr.dotted {
 .social-follow a {
   background-image:url(/wp-content/themes/ucdlib-theme-wp/assets/img/social-follow.svg);
 }
+
+.table--bordered.aligncenter,
+[data-align="center"] figure {
+  margin: 0 auto;
+}
+
+.table--bordered.alignright,
+[data-align="right"] figure {
+  float: right;
+}
+
 
