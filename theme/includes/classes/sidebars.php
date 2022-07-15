@@ -63,6 +63,15 @@ class UcdThemeSidebars {
     );
     register_sidebar(
       array(
+        'id'            => 'four-oh-four',
+        'name'          => "404 (Page Not Found)",
+        'description'   => "Displays in main content area of 404 page",
+        'before_widget' => '',
+        'after_widget' => ''
+      )
+    );
+    register_sidebar(
+      array(
         'id'            => 'below-nav',
         'name'          => "Below Primary Nav",
         'description'   => "For site-wide alerts",
