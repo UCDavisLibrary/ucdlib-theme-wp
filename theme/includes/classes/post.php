@@ -9,6 +9,21 @@ require_once( __DIR__ . '/menu.php' );
  */
 class UcdThemePost extends Timber\Post {
 
+  function __construct() {
+    parent::__construct();
+    $this->iconsUsed = [];
+    add_filter( 'ucd-theme/loaded-icons', array($this, 'loadIcons'), 10, 1);
+  }
+
+  public function loadIcons($icons){
+    if ( isset($this->iconsUsed) ) {
+      foreach ($this->iconsUsed as $icon) {
+        if ( !array_key_exists($icon, $icons) ) $icons[] = $icon;
+      }
+    }
+    return $icons;
+  }
+
   protected $hide_title;
   public function hide_title(){
     if ( ! empty( $this->hide_title ) ) {
