@@ -5,7 +5,10 @@
 
 // base
 ul, ol {
-  overflow: auto;
+
+  &.list--arrow, &.list--bordered, &.list--white-arrow {
+    overflow: auto;
+  }
 }
 
 // buttons
