@@ -377,6 +377,13 @@ hr.y2 {
   background-image:url(/wp-content/themes/ucdlib-theme-wp/assets/img/social-follow.svg);
 }
 
+.social-follow__facebook,
+.social-follow__twitter,
+.social-follow__instagram,
+.social-follow__youtube {
+  margin-right: .5rem;
+}
+
 .table--bordered.aligncenter,
 [data-align="center"] figure {
   margin: 0 auto;
