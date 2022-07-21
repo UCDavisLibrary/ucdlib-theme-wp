@@ -49,6 +49,7 @@ import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
 import teasers from "./ucd-theme-teasers";
 import trumba from "./ucd-theme-trumba";
+import trumbaUpcoming from "./ucd-theme-trumba-upcoming";
 import trumbaFilter from "./ucd-theme-trumba-filter";
 
 export default [
@@ -103,5 +104,6 @@ export default [
   teaser,
   teasers,
   trumba,
+  trumbaUpcoming,
   trumbaFilter
 ];
