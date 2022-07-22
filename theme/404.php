@@ -7,9 +7,21 @@ do_action( 'ucd-theme/template/404' );
 
 $context = Timber::context();
 $GLOBALS['timberContext'] = $context;
-$content['title'] = "Page Not Found";
-echo "this is a true 404";
+$title = "Page Not Found";
+$context['title'] = $title;
 status_header(404);
+
+$widgetArea =  Timber::get_widgets( 'four-oh-four' );
+if ( trim($widgetArea) ) {
+  $context['content'] = $widgetArea;
+} else {
+  $context['content'] = "<p>Sorry, we couldn't find what you're looking for.</p>";
+}
+
+$context['breadcrumbs'] = [
+  ['link' => '/', 'title' => 'Home'],
+  ['link' => "", 'title' => $title]
+];
 
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('404') );

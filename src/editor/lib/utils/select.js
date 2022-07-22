@@ -10,7 +10,7 @@ export default class SelectUtils {
   static card(attributes) {
     return useSelect((select) => {
       if (!attributes) return {};
-      const customImage = attributes.imageId ? select('core').getMedia(attributes.imageId) : undefined;
+      const customImage = attributes.imageId ? select('core').getMedia(attributes.imageId, {context: 'view'}) : undefined;
       const post = attributes.post.id ? select('core').getEntityRecord('postType', attributes.post.type, attributes.post.id) : undefined;
       
       let postTitle = undefined;
@@ -19,7 +19,7 @@ export default class SelectUtils {
       }
 
       let postImage = undefined;
-      if ( post && post.featured_media ) postImage = select('core').getMedia(post.featured_media);
+      if ( post && post.featured_media ) postImage = select('core').getMedia(post.featured_media, {context: 'view'});
       
       let postExcerpt = undefined;
       if ( post && post.excerpt && post.excerpt.rendered ) {
@@ -32,7 +32,7 @@ export default class SelectUtils {
 
   static image(imageId, force=0) {
     return useSelect( ( select ) => {
-      const Image = imageId && imageId != 0 ? select('core').getMedia(imageId) : undefined;
+      const Image = imageId && imageId != 0 ? select('core').getMedia(imageId, {context: 'view'}) : undefined;
       return Image;
     }, [imageId, force] );
   }
@@ -50,7 +50,7 @@ export default class SelectUtils {
         } else if ( post.featured_media ) {
           imageId = post.featured_media;
         }
-        const image = select('core').getMedia(imageId) || undefined;
+        const image = select('core').getMedia(imageId, {context: 'view'}) || undefined;
         if ( image ) url = image.source_url;
       }
       return url;
@@ -116,15 +116,15 @@ export default class SelectUtils {
       if ( extra_fields.length ){
         posts = posts.map(p => {
           if ( extra_fields.includes('image') ){
-            if ( p.featured_media ) p.image = select('core').getMedia(p.featured_media);
+            if ( p.featured_media ) p.image = select('core').getMedia(p.featured_media, {context: 'view'});
           }
 
           if ( extra_fields.includes('thumbnail_1x1')){
-            if ( p.meta.ucd_thumbnail_1x1 ) p.customImage = select('core').getMedia(p.meta.ucd_thumbnail_1x1);
+            if ( p.meta.ucd_thumbnail_1x1 ) p.customImage = select('core').getMedia(p.meta.ucd_thumbnail_1x1, {context: 'view'});
           }
 
           if ( extra_fields.includes('thumbnail_4x3')){
-            if ( p.meta.ucd_thumbnail_4x3 ) p.customImage = select('core').getMedia(p.meta.ucd_thumbnail_4x3);
+            if ( p.meta.ucd_thumbnail_4x3 ) p.customImage = select('core').getMedia(p.meta.ucd_thumbnail_4x3, {context: 'view'});
           }
 
           if ( extra_fields.includes('author') ){
@@ -133,7 +133,7 @@ export default class SelectUtils {
 
           if ( extra_fields.includes('categories') ){
             if ( p.categories && p.categories.length ) {
-              p.categoriesData = select('core').getEntityRecords('taxonomy', 'category', {per_page: 100, include: p.categories});
+              p.categoriesData = select('core').getEntityRecords('taxonomy', 'category', {context: 'view', per_page: 100, include: p.categories});
             }
           }
           return p;
@@ -157,14 +157,14 @@ export default class SelectUtils {
 
   static categoriesById(termIds) {
     return useSelect( (select) => {
-      const Terms = termIds && termIds.length ? select('core').getEntityRecords('taxonomy', 'category', {per_page: -1, include: termIds}) : [];
+      const Terms = termIds && termIds.length ? select('core').getEntityRecords('taxonomy', 'category', {per_page: -1, include: termIds, context: 'view'}) : [];
       return Terms;
     } , [termIds]);  
   }
 
   static categories(includeUncategorized=false) {
     return useSelect( (select) => {
-      let query = {per_page: -1}
+      let query = {per_page: -1, context: 'view'};
       if ( !includeUncategorized ) query['exclude'] = 1;
       const Terms = select('core').getEntityRecords('taxonomy', 'category', query);
       return Terms;
@@ -177,6 +177,7 @@ export default class SelectUtils {
       if ( !query ) {
         query = {per_page: -1, orderby: 'count', order: 'desc'};
       }
+      if ( query.context != 'view' ) query.context = 'view';
       const Terms = select('core').getEntityRecords('taxonomy', taxonomy, query);
       return Terms ? Terms : [];
     } , [taxonomy, JSON.stringify(query), ...watch]); 

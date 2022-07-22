@@ -221,6 +221,9 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     ],
     'ucd-theme/trumba-filters' => [
       'twig' => '@ucd/blocks/trumba-filters.twig'
+    ],
+    'ucd-theme/trumba-upcoming' => [
+      'twig' => '@ucd/blocks/trumba-upcoming.twig'
     ]
   );
 

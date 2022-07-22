@@ -18,6 +18,9 @@ import "./elements/index.js";
 import "slick-carousel";
 import './lib/slideshow.js';
 
+// page scripts
+import "./page-scripts/index.js"
+
 // TODO: move this to brand repo
 //import "./lib/temp/wp-editor";
 import "@ucd-lib/theme-elements/ucdlib/ucdlib-iconset/ucdlib-iconset";
