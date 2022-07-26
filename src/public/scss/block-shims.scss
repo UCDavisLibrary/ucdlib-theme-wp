@@ -85,6 +85,27 @@ $sizes: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100;
     }
   }
 }
+@media ( min-width: 769px ) {
+  figure.alignright {
+    float: right;
+    margin-right: 0;
+    margin-left: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  figure.alignleft {
+    float: left;
+    margin-left: 0;
+    margin-right: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  figure.aligncenter {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 
 .list--pipe li {
   display: inline-flex;
@@ -93,5 +114,12 @@ $sizes: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100;
 .list--pipe li .additional-text {
   white-space: nowrap;
   margin-left: 5px;
+}
+
+.show-placeholder:before {
+  content: attr(placeholder);
+  position: absolute;
+  pointer-events: none;
+  opacity: .6;
 }
 

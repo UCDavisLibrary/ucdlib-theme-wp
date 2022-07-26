@@ -219,8 +219,9 @@ class UCDLibThemePatterns {
 
       // parse the html content
       $dom = new DOMDocument;
+      $dom->encoding = 'utf-8';
       libxml_use_internal_errors(true);
-      $dom->loadHTML( $block_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+      $dom->loadHTML( utf8_decode(mb_convert_encoding($block_content, 'HTML-ENTITIES', 'UTF-8')), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
       libxml_clear_errors();
       $divs = $dom->getElementsByTagName('div');
 

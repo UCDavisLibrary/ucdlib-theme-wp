@@ -23,6 +23,10 @@ const settings = {
       type: "string",
       default: ""
     },  
+    marginY: {
+      type: "string",
+      default: ""
+    }
   },
 	edit: Edit
 };

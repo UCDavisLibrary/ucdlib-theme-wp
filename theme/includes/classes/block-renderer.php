@@ -12,17 +12,11 @@ class UCDThemeBlockRenderer {
 
   // make sure icons used by blocks are loaded
   public function loadIcons($icons){
-    if ( 
-      isset(static::$transformationClass) && 
-      static::$transformationClass == 'UCDThemeBlockTransformations') {
-        return $icons;
-      }
     if ( isset($this->iconsUsed) ) {
       foreach ($this->iconsUsed as $icon) {
         if ( !array_key_exists($icon, $icons) ) $icons[] = $icon;
       }
     }
-
     return $icons;
   }
 

@@ -39,14 +39,14 @@ return html`
     </div>
     ${!this.hideTitle ? html`
       <div class="marketing-highlight-horizontal__body">
-        <h3 class="marketing-highlight-horizontal__title">
+        <h5 class="marketing-highlight-horizontal__title">
           <slot 
             id="title-slot"
             class=${this.title ? '' : 'show-placeholder'}
             name="title" 
             placeholder="Write a title..."
             @input=${this._onTitleInput}>${this.title}</slot>
-        </h3>
+        </h5>
       </div>
     ` : html``}
   </a>
