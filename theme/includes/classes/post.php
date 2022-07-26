@@ -287,9 +287,6 @@ class UcdThemePost extends Timber\Post {
   // delete when sorted out
   protected $excerpt;
   public function excerpt( $options=[] ){
-    if ( !empty( $this->excerpt ) ){
-      return $this->excerpt;
-    }
     $this->excerpt = new UcdThemePostExcerpt( $this, $options );
     return $this->excerpt;
   }
