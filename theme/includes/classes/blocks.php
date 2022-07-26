@@ -21,13 +21,6 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     $this->iconsUsed = [
       'ucd-public:fa-star',
       'ucd-public:fa-circle-chevron-right',
-      'ucd-public:fa-circle-exclamation',
-      'ucd-public:facebook',
-      'ucd-public:twitter',
-      'ucd-public:instagram',
-      'ucd-public:youtube',
-      'ucd-public:linkedin',
-      'ucd-public:fa-circle-chevron-right',
       'ucd-public:fa-circle-exclamation'
     ];
 
