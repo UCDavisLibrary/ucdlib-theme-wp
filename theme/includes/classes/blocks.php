@@ -28,6 +28,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       'ucd-public:youtube',
       'ucd-public:linkedin',
       'ucd-public:fa-circle-chevron-right',
+      'ucd-public:fa-circle-exclamation'
     ];
 
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
