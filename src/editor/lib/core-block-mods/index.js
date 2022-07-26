@@ -2,7 +2,6 @@ import image from "./image";
 import list from "./list";
 import mediaText from "./media-text";
 import quote from "./quote";
-import separator from "./separator";
 import table from "./table";
 
 import { addCustomStyles, unregisterStyles, defaultClassName } from "./utils";
@@ -12,7 +11,6 @@ export const coreBlockStyles = [
   list,
   mediaText,
   quote,
-  separator,
   table
 ];
 

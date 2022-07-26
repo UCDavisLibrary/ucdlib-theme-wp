@@ -9,7 +9,11 @@ import categoryFilter from "./ucd-theme-category-filter";
 import contactList from "./ucd-theme-contact-list";
 import faq from "./ucd-theme-faq";
 import faqItem from "./ucd-theme-faq-item";
+import featuredArticle from "./ucd-theme-featured-article";
 import focalLink from "./ucd-theme-focal-link";
+import footerColumns from "./ucd-theme-footer-columns";
+import footerColumn from "./ucd-theme-footer-column";
+import footerNav from "./ucd-theme-footer-nav";
 import googleMap from "./ucd-theme-google-maps";
 import heading from "./ucd-theme-heading";
 import headingWithIcon from "./ucd-theme-heading-with-icon";
@@ -46,6 +50,7 @@ import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
 import teasers from "./ucd-theme-teasers";
 import trumba from "./ucd-theme-trumba";
+import trumbaUpcoming from "./ucd-theme-trumba-upcoming";
 import trumbaFilter from "./ucd-theme-trumba-filter";
 
 export default [
@@ -60,7 +65,11 @@ export default [
   contactList,
   faq,
   faqItem,
+  featuredArticle,
   focalLink,
+  footerColumn,
+  footerColumns,
+  footerNav,
   googleMap,
   heading,
   headingWithIcon,
@@ -97,5 +106,6 @@ export default [
   teaser,
   teasers,
   trumba,
+  trumbaUpcoming,
   trumbaFilter
 ];

@@ -39,8 +39,11 @@ kwargs:
           {% set classes = classes ~ " btn--" ~ m %}
         {% endif %}
       {% endfor %}
-      {% if kwargs.className %}
-        {% set classes = classes ~ " btn--" ~ kwargs.className|replace({'is-style-': ''}) %}
+      {% if  kwargs.className == 'default' %}
+      {% elseif kwargs.className %}
+        {% set classes = classes ~ " btn--" ~ kwargs.className %}
+      {% else %}
+        {% set classes = classes ~ " btn--primary" %}
       {% endif %}
     {% endif %}
 
@@ -102,7 +105,7 @@ kwargs:
     </div>
     {% if not kwargs.hideTitle %}
       <div class="marketing-highlight-horizontal__body">
-        <h3 class="marketing-highlight-horizontal__title">{{title}}</h3>
+        <h5 class="marketing-highlight-horizontal__title">{{title}}</h5>
       </div>
     {% endif %}
   </a>

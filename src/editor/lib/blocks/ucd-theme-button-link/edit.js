@@ -1,9 +1,8 @@
 import { html, StyleUtils, UCDIcons } from "../../utils";
-import { useBlockProps, BlockControls, AlignmentControl } from '@wordpress/block-editor';
+import { useBlockProps, BlockControls, AlignmentControl, RichText } from '@wordpress/block-editor';
 import { ToolbarButton, Dropdown, ToolbarDropdownMenu } from '@wordpress/components';
 import { link } from '@wordpress/icons';
-import { useRef, useEffect } from "@wordpress/element";
-import "./ucd-wp-button-link";
+import classnames from 'classnames';
 
 // Still experimental component. Looks to be close to release though.
 const {__experimentalLinkControl } = wp.blockEditor;
@@ -11,7 +10,6 @@ const LinkControl = __experimentalLinkControl;
 
 export default ({ attributes, setAttributes }) => {
   const blockProps = useBlockProps();
-  const buttonLinkRef = useRef();
   const altStyle = StyleUtils.extractStyleModifiers( blockProps.className );
   const sizeControls = [
     {title: "Small", onClick: () => {setAttributes({size: 'sm'})}},
@@ -22,10 +20,6 @@ export default ({ attributes, setAttributes }) => {
     {icon: UCDIcons.render("shapes.square"), title: "Rectangle", onClick: () => {setAttributes({shape: ''})}},
     {icon: UCDIcons.render("shapes.circle"), title: "Round", onClick: () => {setAttributes({shape: 'round'})}}
   ];
-
-  const onTextChange = (e) => {
-    setAttributes({content: e.detail.value});
-  }
 
   // set up link picker
   const onHrefChange = (value) => {
@@ -42,19 +36,6 @@ export default ({ attributes, setAttributes }) => {
     setAttributes(attrs);
   }
 
-  useEffect(() => {
-    let buttonLink = null;
-    if ( buttonLinkRef.current ) {
-      buttonLinkRef.current.addEventListener('text-change', onTextChange);
-      buttonLink = buttonLinkRef.current;
-    }
-    return () => {
-      if ( buttonLink ) {
-        buttonLink.removeEventListener('text-change', onTextChange);
-      }
-    };
-  });
-
   const hrefButton = ({ isOpen, onToggle }) => {
     return html`
       <${ToolbarButton} onClick=${ onToggle } aria-expanded=${ isOpen } icon=${link} label="Add a Link"/>
@@ -65,6 +46,15 @@ export default ({ attributes, setAttributes }) => {
     const value = {url: attributes.href, opensInNewTab: attributes.newTab}
     return html`<${LinkControl} value=${value} onChange=${onHrefChange}/>`;
   }
+
+  const buttonClasses = classnames({
+    "btn": true,
+    [`btn--${attributes.size}`]: attributes.size,
+    [`btn--${attributes.shape}`]: attributes.shape,
+    [`btn--${attributes.display}`]: attributes.display,
+    'btn--primary' : !altStyle,
+    [`btn--${altStyle}`]: altStyle
+  });
 
   return html`
   <div ...${ blockProps }>
@@ -82,16 +72,18 @@ export default ({ attributes, setAttributes }) => {
         onChange=${ ( nextAlign ) => {setAttributes( { textAlign: nextAlign } );} }
       />
     </${BlockControls}>
-    <ucd-wp-button-link 
-      ref=${buttonLinkRef}
-      size=${attributes.size}
-      shape=${attributes.shape}
-      display=${attributes.display}
-      text-align=${attributes.textAlign}
-      alt-style=${altStyle}
-      text=${attributes.content}>
-      <div slot="text" contentEditable="true" style=${{width: '100%'}}></div>
-    </ucd-wp-button-link>
+    <p className='u-text-align--${attributes.textAlign}'>
+      <a className=${buttonClasses}>
+        <${RichText}  
+          tagName='span'
+          value=${attributes.content} 
+          disableLineBreaks
+          allowedFormats=${ [ ] }
+          onChange=${ (content) => setAttributes({content}) }
+          placeholder='Write text...'
+          />
+      </a>
+    </p>
   </div>
   `;
 }

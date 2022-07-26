@@ -31,6 +31,11 @@ class UCDThemeAPI {
       'callback' => array($this, 'epcb_nav'),
       'permission_callback' => function (){return true;}
     ) );
+    register_rest_route($this->slug, "$this->menuSlug", array(
+      'methods' => 'GET',
+      'callback' => array($this, 'epcb_all_menus'),
+      'permission_callback' => function (){return true;}
+    ) );
   }
 
   /**
@@ -52,6 +57,11 @@ class UCDThemeAPI {
     $menu = $post->primay_nav_item();
     if ( !$menu ) return new WP_Error( 'rest_not_found', 'Post does not have subnav', array( 'status' => 404 ) );
     return rest_ensure_response($this->menuToArray($menu));
+  }
+
+  public function epcb_all_menus( $request ){
+    $menus = get_terms( 'nav_menu', array( 'hide_empty' => true ) ); 
+    return rest_ensure_response($menus);
   }
 
   public function epcb_nav( $request ){

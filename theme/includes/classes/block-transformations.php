@@ -284,6 +284,15 @@ class UCDThemeBlockTransformations {
     return $attrs;
   }
 
+  public static function getMenu( $attrs=[] ){
+    if ( !array_key_exists('menuId', $attrs) ) {
+      $attrs['menuId'] = [];
+      return;
+    }
+    $attrs['menu'] = Timber::get_menu($attrs['menuId']);
+    return $attrs;
+  }
+
 
   /**
    * Makes alt style blocks backwards compatible

@@ -27,6 +27,7 @@ const MainComponentElement = (superClass) => class extends superClass {
   updateSlotContent(props, prop, slotId){
     if (!props || !prop || !props.has(prop) || !slotId ) return false;
     let slot = this.shadowRoot.getElementById(slotId);
+    //let slot = this.renderRoot.querySelector(`#${slotId}`);
     if ( !slot ) return false;
     let slotted = slot.assignedNodes()[0];
     //console.log(slotted.innerText, this[prop]);

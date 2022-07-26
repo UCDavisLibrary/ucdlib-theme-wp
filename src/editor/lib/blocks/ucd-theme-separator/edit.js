@@ -1,11 +1,22 @@
 import { html } from "../../utils";
-import { ToolbarColorPicker, ToolbarSeparatorStyle } from "../../block-components";
+import { ToolbarColorPicker, ToolbarSeparatorStyle, ToolbarSelectMenu } from "../../block-components";
 import { HorizontalRule } from '@wordpress/components';
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
+
+  const marginYOptions = [
+    {
+      title: '1x',
+      slug: '1x'
+    },
+    {
+      title: '2x',
+      slug: '2x'
+    }
+  ];
 
   return html`
   <div ...${ blockProps }>
@@ -22,9 +33,16 @@ export default ( props ) => {
             label="Border Style"
             onChange=${(v) => setAttributes({ style: v ? v.slug : '' })}
         />
+        <${ToolbarSelectMenu} 
+          label='Set Y Margin'
+          icon=${html`<span>${attributes.marginY || '2x'}</span>`}
+          options=${marginYOptions}
+          value=${attributes.marginY || '2x'}
+          onChange=${v => setAttributes({marginY: v.slug})}
+        /> 
     </${BlockControls}>
 
-    <${HorizontalRule} className="${attributes.brandColor} ${attributes.style}" />
+    <${HorizontalRule} className="${attributes.brandColor} ${attributes.style} ${attributes.marginY === '1x' ? 'y1' : 'y2'}" />
 
   </div>
   `

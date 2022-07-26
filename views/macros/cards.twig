@@ -81,6 +81,53 @@ kwargs:
   </a>
 {% endmacro %}
 
+{% macro featured_article( kwargs ) %}
+
+  {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set subTitle = kwargs.subTitle ? kwargs.subTitle : kwargs.post.meta('ucd_subtitle') %}
+  {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  {% if kwargs.image %}
+    {% set src = kwargs.image.src %}
+    {% set alt = kwargs.image.alt %}
+  {% elseif kwargs.imageId %}
+    {% set i = get_post(kwargs.imageId) %}
+    {% set src = i.src %}
+    {% set alt = i.alt %}
+  {% elseif kwargs.post.thumbnail %}
+    {% set src = kwargs.post.thumbnail.src %}
+    {% set alt = kwargs.post.thumbnail.alt %}
+  {% else %}
+    {% set src = DefaultImageByAspectRatio('16x9') %}
+  {% endif %}
+   
+
+  {% set classes = 'vm-featured-article' %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " u-space-mb" %}
+  {% endif %}
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
+
+  <div class='{{classes}}'>
+    <a href="{{href}}" {{target}}>
+      {% if src %}
+      <div class='aspect--16x9'>
+        <img src='{{src}}' alt='{{alt}}' />
+      </div>
+      {% endif %}
+      {% if title %}
+        <h2 class="vm-featured-article__title">{{title}}</h2>
+      {% endif %}
+      {% if subTitle %}
+        <h3 class="vm-featured-article__subtitle">{{subTitle}}</h3>
+      {% endif %}
+    </a>
+  </div>
+{% endmacro %}
+
 {#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-hero-banner
 kwargs:

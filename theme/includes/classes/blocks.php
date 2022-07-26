@@ -26,7 +26,8 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       'ucd-public:twitter',
       'ucd-public:instagram',
       'ucd-public:youtube',
-      'ucd-public:linkedin'
+      'ucd-public:linkedin',
+      'ucd-public:fa-circle-chevron-right',
     ];
 
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
@@ -78,10 +79,24 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "ucd-theme/faq-item" => array(
       "twig" => "@ucd/blocks/faq-item.twig"
     ),
+    'ucd-theme/featured-article' => [
+      'twig' => "@ucd/blocks/featured-article.twig",
+      "transform" => array("getPost", "addSpacing")
+    ],
     "ucd-theme/focal-link" => array(
       "twig" => "@ucd/blocks/focal-link.twig",
       "hasBrandColors" => true,
       "transform" => array("getPermalink")
+    ),
+    "ucd-theme/footer-column" => array(
+      "twig" => "@ucd/blocks/footer-column.twig"
+    ),
+    "ucd-theme/footer-columns" => array(
+      "twig" => "@ucd/blocks/footer-columns.twig"
+    ),
+    "ucd-theme/footer-nav" => array(
+      "twig" => "@ucd/blocks/footer-nav.twig",
+      'transform' => ['getMenu']
     ),
     "ucd-theme/google-maps" => array( "twig" => "@ucd/blocks/google-maps.twig" ),
     "ucd-theme/heading" => array(
@@ -214,6 +229,9 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     ],
     'ucd-theme/trumba-filters' => [
       'twig' => '@ucd/blocks/trumba-filters.twig'
+    ],
+    'ucd-theme/trumba-upcoming' => [
+      'twig' => '@ucd/blocks/trumba-upcoming.twig'
     ]
   );
 
