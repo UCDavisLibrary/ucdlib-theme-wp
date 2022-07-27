@@ -44,6 +44,8 @@
         {% if breadcrumbs and not post.hide_breadcrumbs %}
           {% if post.breadcrumbs %}
             {{render_crumbs(post.breadcrumbs)}}
+          {% elseif breadcrumbs is iterable %}
+            {{render_crumbs(breadcrumbs)}}
           {% else %}
             {{render_crumbs([{title: 'Home', link: '/'}, {title}])}}
           {% endif %}
