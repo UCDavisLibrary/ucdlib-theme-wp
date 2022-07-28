@@ -79,10 +79,17 @@ kwargs:
 #}
 {% macro subnav( kwargs={} ) %}
 
+  {% set show_grandchildren = true %}
   {% if kwargs.items %}
     {% set items = kwargs.items %}
     {% set title = kwargs.title %}
     {% set link = kwargs.titleLink %}
+    {% if kwargs.show_grandchildren is defined %}
+      {% set show_grandchildren = kwargs.show_grandchildren %}
+    {% endif %}
+    {% if kwargs.show_children is defined %}
+      {% set show_children = kwargs.show_children %}
+    {% endif %}
   {% elseif kwargs %}
     {% set items = kwargs %}
   {% endif %}
@@ -96,16 +103,16 @@ kwargs:
 {% endif %}
 
   <ucd-theme-subnav class="{{classes}}" nav-title="{{title}}" title-href="{{link}}">
-    {{ _self._wp_menu_to_ucd_menu(items) }}
+    {{ _self._wp_menu_to_ucd_menu(items, show_grandchildren, show_children) }}
   </ucd-theme-subnav>
 
 {% endmacro %}
 
 {# utility function for converting timber menuitems to children for slotting into ucd theme navs #}
-{% macro _wp_menu_to_ucd_menu( items=[], show_grandchildren=true ) %}
+{% macro _wp_menu_to_ucd_menu( items=[], show_grandchildren=true, show_children=true ) %}
   {% for item in items %}
     
-    {% if item.children %}
+    {% if item.children and show_children %}
       <ul link-text="{{item.title}}" href="{{item.link}}">
       {% for child in item.children %}
 

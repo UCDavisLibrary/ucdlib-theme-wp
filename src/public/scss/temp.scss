@@ -67,9 +67,14 @@ ul, ol {
   }
 }
 .btn--seq-container {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: space-between;
+
+  &.btn--seq-container-first {
+    justify-content: flex-end;
+  }
 
   .btn--seq__prev {
     margin-right: .5rem;
@@ -165,6 +170,9 @@ a.icon--circle-arrow-right::before {
   height: 100%;
   grid-area: hero;
   opacity: 60%;
+}
+.hero-banner__title {
+  font-size: 2.5rem;
 }
 .hero-banner__body--innerblocks {
   z-index: 1;
