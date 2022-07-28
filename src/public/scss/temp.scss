@@ -310,6 +310,7 @@ select.select--blue:focus {
   border: 1px solid #999;
 }
 
+// headers
 // linked header classes
 // https://github.com/UCDavisLibrary/ucdlib-theme-wp/issues/103
 $headingClasses: "primary" "secondary" "auxiliary" "highlight" "underline" "weighted" "weighted-underline" "invert" "invert-box" ;
@@ -324,6 +325,17 @@ $headerLevels: 1,2,3,4,5;
     }
   }
 }
+.heading--underline::after {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.heading--h5 {
+  @include h5();
+}
+.heading--h6 {
+  @include h6();
+}
+
 .clickable {
   cursor: pointer;
 }
@@ -336,12 +348,7 @@ li.job-posting {
   font-size: 0.8em;
 }
 // new heading classes
-.heading--h5 {
-  @include h5();
-}
-.heading--h6 {
-  @include h6();
-}
+
 
 hr {
   border-top: 1px solid;
@@ -373,9 +380,6 @@ hr.y2 {
   .bg-color-float {
     width: 50%;
   }
-}
-.social-follow a {
-  background-image:url(/wp-content/themes/ucdlib-theme-wp/assets/img/social-follow.svg);
 }
 
 .social-follow__facebook,
