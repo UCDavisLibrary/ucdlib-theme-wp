@@ -20,10 +20,14 @@
           </div>
       {% endfor %}
     </div>
-    <div class="slider-nav">
+    <div class="slider-nav {{aspectRatio ? 'has-aspect-ratio'}}">
       {% for image in attributes.images %}
-        <div class="slideshow__item">
-          <img src="{{image.src}}" />
+        <div>
+          <div class="slideshow__item">
+            <div class="{{aspectRatio}}">
+              <img src="{{image.src}}" class='{{attributes.objectFit == 'cover' ? 'o-fit--cover'}}'/>
+            </div>
+          </div>
         </div>
       {% endfor %}
     </div>

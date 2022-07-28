@@ -112,7 +112,7 @@ a.icon--circle-arrow-right::before {
 }
 
 // slideshow
-.slideshow {
+.slideshow, .slider-nav {
   &.has-aspect-ratio {
     img {
       height: 100% !important;

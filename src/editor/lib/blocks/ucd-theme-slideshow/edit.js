@@ -74,6 +74,7 @@ export default ( props ) => {
 
       const s = $(sliderSelector);
       const n = $(navSelector);
+      const aspectRatio = attributes.aspectRatio != 'inherit' ? `aspect--${attributes.aspectRatio}` : '';
 
       // remove existing slides
       if ( s && s.children().length > 0 ){
@@ -89,7 +90,6 @@ export default ( props ) => {
         const title = imgTitles[img.id];
         const hasTitle = title ? true : false;
         const hasCaption = img.caption ? true : false
-        const aspectRatio = attributes.aspectRatio != 'inherit' ? `aspect--${attributes.aspectRatio}` : '';
         const html = `
           <div>
             <div 
@@ -108,8 +108,12 @@ export default ( props ) => {
       // add nav thumbnails
       attributes.images.forEach(img => {
         const html = `
-        <div class="slideshow__item">
-          <img src="${img.sizes.full.url}" />
+        <div>
+          <div class="slideshow__item">
+            <div class="${aspectRatio}">
+              <img class="${attributes.objectFit ? 'o-fit--cover' : ''}" src="${img.sizes.full.url}" />
+            </div>
+          </div>
         </div>
         `;
         n.slick('slickAdd', html);
@@ -157,7 +161,7 @@ export default ( props ) => {
   return html`
     <div ...${ blockProps }>
       <div className="slideshow ${attributes.aspectRatio ? 'has-aspect-ratio': ''}"></div>
-      <div className="slider-nav"></div>
+      <div className="slider-nav ${attributes.aspectRatio ? 'has-aspect-ratio': ''}"></div>
       <${MediaPlaceholder} 
         accept="image/*"
 			  allowedTypes=${ ALLOWED_MEDIA_TYPES }
