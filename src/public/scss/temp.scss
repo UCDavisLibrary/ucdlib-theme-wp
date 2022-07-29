@@ -371,6 +371,27 @@ hr.dotted {
   border-top: 4px dotted;
 }
 
+.alertIcon {
+  color:red; 
+  min-width: 15px;
+  vertical-align:middle;
+
+}
+.divAlertIcon {
+  display:inline-block; 
+  margin-right:7px;
+
+}
+.divAlertContent {
+  display:inline-block;
+  vertical-align:top;
+  font-weight: bold;
+}
+.alertdiv {
+  background-color: #FFFFFF;
+  padding:5px;
+  color: red;
+}
 hr.y1 {
   margin: 1rem 0;
 }
