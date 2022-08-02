@@ -8,11 +8,10 @@
     </head>
 {% endblock %}
 
-{% block post_head %}
-  {% include getUcdHook('base') with {'hook': 'postHead'} %}
-{% endblock %}
-
 	<body class="{{body_class}}">
+  {% block post_head %}
+    {% include getUcdHook('base') with {'hook': 'postHead'} %}
+  {% endblock %}
   <a href="#main-content" class="u-hidden--visually">Skip to main content</a>
 		
   {% block header %}
