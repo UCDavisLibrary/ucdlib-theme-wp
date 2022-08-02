@@ -30,13 +30,12 @@ class UCDThemeViews {
       $context['twigHooks']['admin-profile']['organizational-info'] = array();
       $context['twigHooks']['admin-profile']['about-yourself'] = array();
     } else {
+
+      $context['twigHooks']['base'] = [];
+      $context['twigHooks']['base']['postHead'] = [];
+
       // footer hooks
       $context['twigHooks']['footer'] = array();
-      $context['twigHooks']['footer']['column_1'] = array();
-      $context['twigHooks']['footer']['column_2'] = array();
-      $context['twigHooks']['footer']['column_3'] = array();
-      $context['twigHooks']['footer']['column_4'] = array();
-      $context['twigHooks']['footer']['column_5'] = array();
       $context['twigHooks']['footer']['postColumns'] = array();
       $context['twigHooks']['footer']['postSpacer'] = array();
       $context['twigHooks']['footer']['bottom'] = array();
