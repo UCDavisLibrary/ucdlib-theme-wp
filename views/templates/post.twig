@@ -35,6 +35,11 @@
           <li>{{ post.date }}</li>
         </ul>
 
+        <div class="social-share">
+          <!-- Go to www.addthis.com/dashboard to customize this block --> 
+          <div class="addthis_inline_share_toolbox"></div> 
+        </div>
+
         <div class="u-clearfix">
           {{post.content}}
         </div>
@@ -67,3 +72,9 @@
   </div>
   
 {% endblock %}
+
+{% block footer %}
+  {{ parent() }}
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-62e12681cbb25d2b"></script> 
+{% endblock %}
+
