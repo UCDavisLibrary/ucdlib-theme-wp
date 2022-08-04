@@ -379,6 +379,8 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
 
     $settings["watercolorBase"] = dirname( get_template_directory_uri() ) . "/assets/img/watercolors/";
 
+    $settings = apply_filters( 'ucd-theme/block-settings', $settings );
+
     $this->settings = $settings;
 
   }
