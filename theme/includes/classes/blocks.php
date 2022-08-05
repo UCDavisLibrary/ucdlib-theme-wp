@@ -340,7 +340,8 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "ucd-theme/layout-columns",
       "ucd-theme/layout-container",
       "ucd-theme/layout-shrink",
-      "ucd-theme/layout-quad"
+      "ucd-theme/layout-quad",
+      "ucd-theme/object-box"
     ];
     return array_merge( $blocks, $b );
   }
