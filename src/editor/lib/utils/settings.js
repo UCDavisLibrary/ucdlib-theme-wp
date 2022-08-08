@@ -29,6 +29,11 @@ export default class BlockSettings {
     return image;
   }
 
+  static getPageColors(){
+    const block = this.settings.pageColors || 'teaser';
+    return this.getBlockColors(block);
+  }
+
   static getBlockColors(blockSlug) {
     if ( !blockSlug || !this.settings[`color--${blockSlug}`] ) return Object.values(categoryBrands);
     let colors = [];

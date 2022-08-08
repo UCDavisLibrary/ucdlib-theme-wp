@@ -14,7 +14,7 @@ export default () => {
   const editPost = useDispatch( 'core/editor' ).editPost;
   const isPost = SelectUtils.isPost();
   const isPage = SelectUtils.isPage();
-  const colors = BlockSettings.getBlockColors('teaser').map(c => Object({name: c.title, slug: c.id, color: c.hex}));
+  const colors = BlockSettings.getPageColors().map(c => Object({name: c.title, slug: c.id, color: c.hex}));
 
   const getColorObject = (val, key) => {
     for (const color of colors) {
