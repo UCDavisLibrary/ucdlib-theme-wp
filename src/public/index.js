@@ -10,7 +10,7 @@ import '@ucd-lib/theme-elements/brand/ucd-theme-search-popup/ucd-theme-search-po
 import '@ucd-lib/theme-elements/ucdlib/ucdlib-sils-search-redirect/ucdlib-sils-search-redirect'
 import '@ucd-lib/theme-elements/brand/ucd-theme-list-accordion/ucd-theme-list-accordion';
 import '@ucd-lib/theme-elements/brand/ucd-theme-brand-textbox/ucd-theme-brand-textbox';
-import '@ucd-lib/theme-elements/brand/ucd-theme-author-profile/ucd-theme-author-profile';
+import '@ucd-lib/theme-elements/ucdlib/ucdlib-author-profile/ucdlib-author-profile.js';
 
 // import our theme custom elements
 import "./elements/index.js";
