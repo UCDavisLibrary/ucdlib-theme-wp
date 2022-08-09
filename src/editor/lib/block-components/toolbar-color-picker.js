@@ -32,8 +32,7 @@ function ToolbarColorPicker({
 
   const buttonIcon = () => {
     if ( value ) {
-      //return html`<${ColorIndicator} colorValue=${ _value().color } />`;
-      return html`<span className="component-color-indicator" style=${{background: _value().color, marginLeft: 0}}></span>`;
+      return html`<span className="component-color-indicator" style=${{background: _value ? _value.color : '', marginLeft: 0}}></span>`;
     }
     return UCDIcons.render("color.palette");
   }
@@ -42,13 +41,13 @@ function ToolbarColorPicker({
     for (const color of colors) {
       if ( color[key] === val ) return color;
     }
-    return undefined;
+    return '';
   }
 
-  const _value = () => {
-    if ( !value ) return undefined;
-    return getColorObject(value, valueKey)
-  }
+  const _value = (() => {
+    if ( !value ) return '';
+    return getColorObject(value, valueKey);
+  })();
 
   const _onChange = ( v ) => {
     onChange(getColorObject(v, 'color'));
@@ -74,7 +73,7 @@ function ToolbarColorPicker({
           <${MenuGroup} label="${popoverTitle}">
           <${ColorPalette}
             colors=${ colors }
-            value=${ _value() }
+            value=${ _value ? _value.color : '' }
             disableCustomColors
             clearable
             onChange=${ _onChange }
