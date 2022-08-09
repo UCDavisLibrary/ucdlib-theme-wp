@@ -9,12 +9,25 @@ function main() {
   if( domain === 'localhost' ) domain = 'stage';
 
   // author link
-  ele = document.querySelector('ucdlib-theme-author-profile');
-  if( ele ) {
-    let contactId = params.get('contact_id').trim();
-    ele.setAttribute('domain', domain);
-    ele.setAttribute('email', contactId+'@ucdavis.edu');
-  }  
+  const authorInterval = setInterval(() => {
+    if ( customElements.get('ucdlib-author-profile') ) {
+      clearInterval(authorInterval);
+      ele = document.querySelector('ucdlib-author-profile');
+      if( ele ) {
+        let contactId = params.get('contact_id');
+        if ( contactId ) {
+          contactId = contactId.trim();
+          ele.setAttribute('domain', domain);
+          ele.setAttribute('email', contactId+'@ucdavis.edu');
+        } else {
+          console.warn('contact_id url param not set');
+        }
+
+      }  
+    }
+
+  }, 500);
+
 
   
 }

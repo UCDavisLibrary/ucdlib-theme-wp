@@ -2,15 +2,16 @@
 
 {% set default_bar = theme.theme_mod('sf_branding_bar') %}
 {% set logo_id = theme.theme_mod('custom_logo') %}
-
 <ucd-theme-header
   site-name="{{default_bar and site.name ? site.name : ''}}"
+  site-url={{site.url}}
   slogan="{{default_bar and site.description ? site.description : ''}}"
   figure-src="{{default_bar and logo_id ? get_post(logo_id).src : ''}}">
 
   {% if not default_bar %}
     <ucdlib-branding-bar
       site-name="{{site.name}}"
+      site-url={{site.url}}
       slogan="{{site.description}}">
       
       {% if menu.brandingBar %}
