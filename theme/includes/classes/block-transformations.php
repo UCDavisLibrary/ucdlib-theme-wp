@@ -16,6 +16,9 @@ class UCDThemeBlockTransformations {
     } 
     elseif ( array_key_exists('postId', $attrs) ) {
       $post_id = $attrs['postId'];
+    } 
+    elseif ( array_key_exists('blockId', $attrs) ){
+      $post_id = $attrs['blockId'];
     }
 
     if ( isset($post_id) ) {
