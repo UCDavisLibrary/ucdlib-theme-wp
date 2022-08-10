@@ -184,6 +184,10 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "twig" => "@ucd/blocks/recent-posts.twig",
       "transform" => array("getPosts", 'addSpacing')
     ),
+    "ucd-theme/reusable" => array(
+      "twig" => "@ucd/blocks/reusable.twig",
+      "transform" => array("getPost")
+    ),
     "ucd-theme/sils-search-redirect" => array("twig" => "@ucd/blocks/sils-search-redirect.twig"),
     "ucd-theme/separator" => array(
       "twig" => "@ucd/blocks/separator.twig",

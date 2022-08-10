@@ -55,6 +55,7 @@ export default ( props ) => {
       />
     </${BlockControls}>
     <iframe
+      title="Google Maps"
       class="google-maps-embed"
       frameborder="0"
       referrerpolicy="no-referrer-when-downgrade"
