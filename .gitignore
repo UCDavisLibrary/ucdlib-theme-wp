@@ -5,4 +5,6 @@ node_modules
 /assets/js/dev
 /assets/js/dist
 /assets/css
+/theme/acf-json
 .DS_Store
+/src/public/lib/icons/ucd-public.html

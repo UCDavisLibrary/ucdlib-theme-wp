@@ -2,4 +2,10 @@
 @use './fonts.scss' as fonts;
 @use './temp.scss' as temp;
 
+// move to style-ucdlib.scss in theme-sass
+@use '@ucd-lib/theme-sass/css-properties.scss' as cssProps;
+
 @use './block-shims.scss' as blockShims;
+@use './watercolors.scss' as waterColors;
+
+@use 'slick-carousel/slick/slick.scss' as slick;

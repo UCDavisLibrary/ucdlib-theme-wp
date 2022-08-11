@@ -12,34 +12,8 @@ kwargs:
   {% if kwargs.menu %}
     {% set navType = kwargs.navType ? "nav-type='" ~ kwargs.navType ~ "'" : "" %}
     {% set styleModifiers = kwargs.styleModifiers ? "style-modifiers='" ~ kwargs.styleModifiers ~ "'" : "" %}
-
     <ucd-theme-primary-nav {{navType}} {{styleModifiers}}>
-      {% for item in kwargs.menu.items %}
-        
-        {% if item.children %}
-          <ul link-text="{{item.title}}" href="{{item.link}}">
-          {% for child in item.children %}
-
-            {% if child.children and kwargs.navType != "mega" %}
-              <ul link-text="{{child.title}}" href="{{child.link}}">
-                {% for grandchild in child.children %}
-                  <li><a href="{{ grandchild.link }}" {{ grandchild.is_target_blank ? 'target="_blank"' }}>{{ grandchild.title }}</a></li>
-                {% endfor %}
-              </ul>
-
-            {% else %}
-              <li><a href="{{ child.link }}" {{ child.is_target_blank ? 'target="_blank"' }}>{{ child.title }}</a></li>
-            {% endif %}
-
-          {% endfor %}
-          </ul>
-
-        {% else %}
-          <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
-        {% endif %}
-        
-      {% endfor %}
-
+      {{ _self._wp_menu_to_ucd_menu(kwargs.menu.items, kwargs.navType != "mega")}}
     </ucd-theme-primary-nav>
   {% endif %}
 {% endmacro %}
@@ -94,4 +68,71 @@ kwargs:
         {% endfor %}
       </ul>
   {% endif %}
+{% endmacro %}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-sub-nav
+kwargs:
+  items {Array of Timber\MenuItem} - A list of links to display
+  title {String} - An optional menu title to display
+  titleLink {String} - An optional href for the menu title
+#}
+{% macro subnav( kwargs={} ) %}
+
+  {% set show_grandchildren = true %}
+  {% if kwargs.items %}
+    {% set items = kwargs.items %}
+    {% set title = kwargs.title %}
+    {% set link = kwargs.titleLink %}
+    {% if kwargs.show_grandchildren is defined %}
+      {% set show_grandchildren = kwargs.show_grandchildren %}
+    {% endif %}
+    {% if kwargs.show_children is defined %}
+      {% set show_children = kwargs.show_children %}
+    {% endif %}
+  {% elseif kwargs %}
+    {% set items = kwargs %}
+  {% endif %}
+
+{% set classes = "" %}
+{% if kwargs.panel %}
+  {% set classes = classes ~ " panel" %}
+{% endif %}
+{% if kwargs.oBox %}
+  {% set classes = classes ~ " o-box" %}
+{% endif %}
+
+  <ucd-theme-subnav class="{{classes}}" nav-title="{{title}}" title-href="{{link}}">
+    {{ _self._wp_menu_to_ucd_menu(items, show_grandchildren, show_children) }}
+  </ucd-theme-subnav>
+
+{% endmacro %}
+
+{# utility function for converting timber menuitems to children for slotting into ucd theme navs #}
+{% macro _wp_menu_to_ucd_menu( items=[], show_grandchildren=true, show_children=true ) %}
+  {% for item in items %}
+    
+    {% if item.children and show_children %}
+      <ul link-text="{{item.title}}" href="{{item.link}}">
+      {% for child in item.children %}
+
+        {% if child.children and show_grandchildren %}
+          <ul link-text="{{child.title}}" href="{{child.link}}">
+            {% for grandchild in child.children %}
+              <li><a href="{{ grandchild.link }}" {{ grandchild.is_target_blank ? 'target="_blank"' }}>{{ grandchild.title }}</a></li>
+            {% endfor %}
+          </ul>
+
+        {% else %}
+          <li><a href="{{ child.link }}" {{ child.is_target_blank ? 'target="_blank"' }}>{{ child.title }}</a></li>
+        {% endif %}
+
+      {% endfor %}
+      </ul>
+
+    {% else %}
+      <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
+    {% endif %}
+    
+  {% endfor %}
 {% endmacro %}

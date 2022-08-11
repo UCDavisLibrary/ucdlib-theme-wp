@@ -3,10 +3,11 @@
  * Loads Timber, which is required for this theme.
  * Assumes it has been installed in the WP root
  */
-$composer_autoload = '/var/www/html/vendor/autoload.php';
+require_once(ABSPATH . 'wp-admin/includes/file.php');
+$composer_autoload = get_home_path() . 'vendor/autoload.php';
 if ( file_exists( $composer_autoload ) ) {
 	require_once $composer_autoload;
-	$timber = new Timber\Timber();
+	Timber\Timber::init();
 }
 
 /**

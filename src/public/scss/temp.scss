@@ -1,4 +1,89 @@
+@use '@ucd-lib/theme-sass/0_tools' as *;
+@use '@ucd-lib/theme-sass/2_base_class/_buttons-mixin.scss' as *;
+
 // things here should be moved to ucd-lib/theme-sass
+
+// base
+ul, ol {
+
+  &.list--arrow, &.list--bordered, &.list--white-arrow {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+// footer
+.footer-nav a {
+  text-decoration: underline;
+}
+
+// buttons
+
+.btn--seq {
+  @include btn();
+  border-color: transparent;
+  background-color: $brand--secondary;
+  --btn-arrow-color: #fff;
+  padding-right: $button-arrow-spacing * 1.5;
+  padding-left: $button-arrow-spacing * 1.5;
+
+  &:hover {
+    color: $brand--secondary;
+    background-color: $brand--primary;
+  }
+
+  &.btn--seq__prev {
+    padding-left: $button-arrow-spacing;
+    &:before {
+      width: $button-arrow-width;
+      color: var(--btn-arrow-color);
+      content: "\f054";
+      font-family: $font-family--icons;
+      font-size: .75em;
+      font-weight: $font-weight--icons;
+      opacity: 1;
+      transform: rotate(180deg);
+      margin-right: .5em;
+    }
+
+  }
+  &.btn--seq__next {
+    padding-right: $button-arrow-spacing;
+    &:after {
+      width: $button-arrow-width;
+      color: var(--btn-arrow-color);
+      content: "\f054";
+      font-family: $font-family--icons;
+      font-size: .75em;
+      font-weight: $font-weight--icons;
+      opacity: 1;
+      margin-left: .5em;
+    }
+    
+  }
+}
+.btn--seq-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  &.btn--seq-container-first {
+    justify-content: flex-end;
+  }
+
+  .btn--seq__prev {
+    margin-right: .5rem;
+    margin-top: .5rem;
+  }
+  .btn--seq__next {
+    margin-top: .5rem;
+  }
+}
 
 // used in see all links:
 //http://dev.webstyleguide.ucdavis.edu/redesign/?p=organisms-article-list
@@ -21,9 +106,310 @@ a.icon--circle-arrow-right::before {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding-top: 20.91%;
+  padding-top: 23.07%;
 }
 .aspect--13x3 > img {
   position: absolute;
   top: 0;
 }
+
+.vm-featured-article a {
+  text-decoration: none;
+}
+
+.vm-featured-article img {
+  width: 100%;
+}
+
+// slideshow
+.slideshow, .slider-nav {
+  &.has-aspect-ratio {
+    img {
+      height: 100% !important;
+      background-color: #333333;
+      object-fit: contain
+    }
+    img.o-fit--cover {
+      object-fit: cover;
+    }
+  }
+}
+
+//marketing highlight
+.marketing-highlight:hover .marketing-highlight__image .u-background-image {
+  transform: scale(1.1);
+}
+.marketing-highlight__image .u-background-image {
+  transition: transform .3s ease-in-out;
+}
+
+// marketing highlight horizontal
+.marketing-highlight-horizontal:hover .u-background-image {
+  transform: scale(1.05);
+}
+.marketing-highlight-horizontal__image .u-background-image {
+  transition: transform .3s ease-in-out;
+}
+.marketing-highlight-horizontal {
+  display: block;
+}
+.marketing-highlight-horizontal__title {
+  font-size: 1rem;
+}
+@media (min-width: 480px) {
+  .marketing-highlight-horizontal__title {
+    font-size: 1.207rem;
+    line-height: 1.3;
+  }
+}
+
+
+// hero banner
+.hero-banner__film {
+  background: var(--category-brand, #fff);
+  height: 100%;
+  grid-area: hero;
+  opacity: 60%;
+}
+.hero-banner__title {
+  font-size: 2.5rem;
+}
+.hero-banner__body--innerblocks {
+  z-index: 1;
+  grid-area: hero;
+  padding: 2rem 8%;
+}
+.hero-banner__body--no-padding {
+  padding: 0 !important;
+}
+.category-brand--tahoe, .category-brand--putah-creek, .category-brand--quad, .category-brand--strawberry {
+  .hero-banner__body--innerblocks {
+    --category-brand-contrast-color: #fff;
+    --category-brand-featured: unset;
+  }
+} 
+
+// background image utility
+.u-background-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// for priority links
+.vertical-link--circle ucdlib-icon.vertical-link__image {
+  height: 50%;
+}
+
+// for focal link
+
+.focal-link__icon ucdlib-icon {
+  width: 35px;
+  min-width: 35px;
+  height: 35px;
+  min-height: 35px;
+}
+
+// for panel w/ icon
+ucdlib-icon.panel__custom-icon {
+  color: var(--category-brand, #022851)
+}
+.panel--icon .panel__title {
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.panel__title ucdlib-icon {
+  width: 1.6055rem;
+  height: 1.6055rem;
+  margin-right: .5rem;
+  min-width: 1.6055rem;
+}
+@media (min-width: 768px) {
+  .panel__title ucdlib-icon {
+    width: 2.47rem;
+    height: 2.47rem;
+    margin-right: 1rem;
+    min-width: 2.47rem;
+  }
+}
+
+// for the icon class
+a.icon-ucdlib, span.icon-ucdlib {
+  display: flex;
+  align-items: center;
+
+  ucdlib-icon {
+    color: var(--category-brand, #73abdd);
+    margin-right: .25rem;
+    min-width: 1rem;
+    min-height: 1rem;
+    width: 1rem;
+    height: 1rem;
+  }
+}
+.panel a.icon-ucdlib ucdlib-icon {
+  margin-right: .5rem;
+  min-width: .9rem;
+  min-height: .9rem;
+  width: .9rem;
+  height: .9rem;
+}
+
+// white space utility
+.u-white-space--normal {
+  white-space: normal !important;
+}
+.u-white-space--nowrap {
+  white-space: nowrap !important;
+}
+.u-white-space--pre {
+  white-space: pre !important;
+}
+.u-white-space--pre-wrap {
+  white-space: pre-wrap !important;
+}
+.u-white-space--pre-line {
+  white-space: pre-line !important;
+}
+.u-white-space--break-spaces {
+  white-space: break-spaces !important;
+}
+
+// layouts
+.l-shrink.l-shrink--60 {
+  width: 60%;
+}
+.l-maintain-grid {
+  display: grid !important;
+}
+
+// space utility
+@media (max-width: 479px) {
+  .u-width--100-in-mobile {
+    width: 100% !important;
+  }
+}
+@media (max-width: 767px) {
+  .u-width--100-in-tablet {
+    width: 100% !important;
+  }
+}
+
+// background brand colors
+.category-brand__background p {
+  color: var(--category-brand-contrast-color, inherit);
+}
+
+.select-container--blue select{
+  background-color: #B0D0ED;
+  color: #022851;
+  font-weight: 700;
+  border: none;
+  font-size: 1rem;
+}
+.select-container--blue select:focus {
+  background-color: #b0d0ed;
+  border: 1px solid #999;
+}
+select.select--blue {
+  background-color: #B0D0ED;
+  color: #022851;
+  font-weight: 700;
+  border: none;
+  font-size: 1rem;
+}
+select.select--blue:focus {
+  background-color: #b0d0ed;
+  border: 1px solid #999;
+}
+
+// headers
+// linked header classes
+// https://github.com/UCDavisLibrary/ucdlib-theme-wp/issues/103
+$headingClasses: "primary" "secondary" "auxiliary" "highlight" "underline" "weighted" "weighted-underline" "invert" "invert-box" ;
+$headerLevels: 1,2,3,4,5;
+
+@each $level in $headerLevels {
+  h#{$level} {
+    @each $c in $headingClasses {
+      &.heading--#{$c} a {
+        color: inherit;
+      }
+    }
+  }
+}
+.heading--underline::after {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.heading--h5 {
+  @include h5();
+}
+.heading--h6 {
+  @include h6();
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+li.job-posting {
+  padding-bottom: 0.9em;
+}
+
+.subtext {
+  font-size: 0.8em;
+}
+// new heading classes
+
+
+hr {
+  border-top: 1px solid;
+}
+
+hr.dotted {
+  border-top: 4px dotted;
+}
+
+hr.y1 {
+  margin: 1rem 0;
+}
+
+hr.y2 {
+  margin: 2rem 0;
+}
+
+
+.google-maps-embed {
+  width: 100%;
+  height: 400px;
+}
+
+.bg-color-float {
+  width: 33%;
+}
+
+@media (max-width: 767px) {
+  .bg-color-float {
+    width: 50%;
+  }
+}
+
+.social-follow__facebook,
+.social-follow__twitter,
+.social-follow__instagram,
+.social-follow__youtube {
+  margin-right: .5rem;
+}
+
+.table--bordered.aligncenter,
+[data-align="center"] figure {
+  margin: 0 auto;
+}
+
+.table--bordered.alignright,
+[data-align="right"] figure {
+  float: right;
+}
+
+

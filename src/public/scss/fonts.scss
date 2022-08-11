@@ -1,3 +1,5 @@
+@use "@ucd-lib/theme-sass/0_tools" as *;
+
 /*!
  * Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
@@ -14,49 +16,13 @@
   .fas {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
-  } 
+  }
 
-  @font-face {
-    font-display: swap;
-    font-family: Proxima-Nova;
-    font-style: normal;
-    font-weight: 400;
-    src: url("../fonts/proximanova/proximanova-regular-webfont.woff2") format("woff2"), url("../fonts/proximanova/proximanova-regular-webfont.woff") format("woff"), url("../fonts/proximanova/proximanova-regular-webfont.ttf") format("truetype"), url("../fonts/proximanova/proximanova-regular-webfont.svg#Proxima-Nova") format("svg");
-  }
-  @font-face {
-    font-display: swap;
-    font-family: Proxima-Nova;
-    font-style: normal;
-    font-weight: 700;
-    src: url("../fonts/proximanova/proximanova-bold-webfont.woff2") format("woff2"), url("../fonts/proximanova/proximanova-bold-webfont.woff") format("woff"), url("../fonts/proximanova/proximanova-bold-webfont.ttf") format("truetype"), url("../fonts/proximanova/proximanova-bold-webfont.svg#Proxima-Nova") format("svg");
-  }
-  @font-face {
-    font-display: swap;
-    font-family: Proxima-Nova;
-    font-style: normal;
-    font-weight: 900;
-    src: url("../fonts/proximanova/proximanova-black-webfont.woff2") format("woff2"), url("../fonts/proximanova/proximanova-black-webfont.woff") format("woff"), url("../fonts/proximanova/proximanova-black-webfont.ttf") format("truetype"), url("../fonts/proximanova/proximanova-black-webfont.svg#Proxima-Nova") format("svg");
-  }
-  @font-face {
-    font-display: swap;
-    font-family: Proxima-Nova;
-    font-style: italic;
-    font-weight: 400;
-    src: url("../fonts/proximanova/proximanova-regularit-webfont.woff2") format("woff2"), url("../fonts/proximanova/proximanova-regularit-webfont.woff") format("woff"), url("../fonts/proximanova/proximanova-regularit-webfont.ttf") format("truetype"), url("../fonts/proximanova/proximanova-regularit-webfont.svg#Proxima-Nova") format("svg");
-  }
-  @font-face {
-    font-display: swap;
-    font-family: Proxima-Nova;
-    font-style: italic;
-    font-weight: 700;
-    src: url("../fonts/proximanova/proximanova-boldit-webfont.woff2") format("woff2"), url("../fonts/proximanova/proximanova-boldit-webfont.woff") format("woff"), url("../fonts/proximanova/proximanova-boldit-webfont.ttf") format("truetype"), url("../fonts/proximanova/proximanova-boldit-webfont.svg#Proxima-Nova") format("svg");
-  }
-  @font-face {
-    font-display: swap;
-    font-family: "Ryman Eco";
-    font-stretch: normal;
-    font-style: normal;
-    font-weight: 400;
-    src: url(".../fonts/ryman-eco.woff2") format("woff2"), url(".../fonts/ryman-eco.woff") format("woff"), url(".../fonts/ryman-eco.svg#Ryman Eco") format("svg");
-    unicode-range: U+0020-00FE;
-  }
+  @include font-face(Proxima-Nova, "../fonts/proximanova/proximanova-regular-webfont", 400, normal);
+  @include font-face(Proxima-Nova, "../fonts/proximanova/proximanova-bold-webfont", 700, normal);
+  @include font-face(Proxima-Nova, "../fonts/proximanova/proximanova-extrabold-webfont", 800, normal);
+  @include font-face(Proxima-Nova, "../fonts/proximanova/proximanova-regularit-webfont", 400, italic);
+  @include font-face(Proxima-Nova, "../fonts/proximanova/proximanova-boldit-webfont", 700, italic);
+  // @include font-face(Proxima-Nova, "../fonts/proximanova/proximanova_extrabolditalic_macroman/proximanova-extraboldit-webfont", 800, italic);
+  // @include font-face(proxima-nova, "../fonts/proximanova/proximanova_light_macroman/proximanova-light-webfont", 200, normal);
+  // @include font-face(proxima-nova, "../fonts/proximanova/proximanova_lightitalic_macroman/proximanova-lightit-webfont", 200, italic);

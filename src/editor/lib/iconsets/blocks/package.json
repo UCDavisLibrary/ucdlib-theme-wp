@@ -1,0 +1,15 @@
+{
+  "name": "iconset",
+  "version": "1.0.0",
+  "description": "",
+  "main": "blocks.js",
+  "private": true,
+  "scripts": {
+    "icons": "cork-icon-set-generator blocks . -uv --label 'Blocks'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4"
+  }
+}

@@ -1,0 +1,27 @@
+@use "@ucd-lib/theme-sass/0_tools" as *;
+
+.colored-section-- {
+
+    &light-blue {
+        background-color: $brand--primary-30;
+    }
+
+    &light-yellow {
+        background-color: $brand--secondary-30;
+    }
+
+    &white {
+        background-color: #fff;
+    }
+}
+.water-color {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.colored-section {
+
+    .panel {
+        background-color: transparent;
+    }
+}

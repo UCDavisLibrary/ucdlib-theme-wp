@@ -14,8 +14,7 @@
         {% if post.thumbnail %}
           <div class="figcaption--left">
             <figure class="u-block">
-              <div class="aspect--16x9">
-                <img src="{{post.thumbnail.src|resize(1280, 720)}}" alt="16x9 Image" loading="lazy" width="1280" height="720">
+              <div class="aspect--16x9 u-background-image" style={{"background-image:url('"~post.thumbnail.src~"')"}}>
               </div>
             {% if post.thumbnail.caption %}
               <figcaption class="u-block">{{ post.thumbnail.caption }}</figcaption>
@@ -35,6 +34,11 @@
           {% endif %}
           <li>{{ post.date }}</li>
         </ul>
+
+        <div class="social-share">
+          <!-- Go to www.addthis.com/dashboard to customize this block --> 
+          <div class="addthis_inline_share_toolbox"></div> 
+        </div>
 
         <div class="u-clearfix">
           {{post.content}}
@@ -68,3 +72,9 @@
   </div>
   
 {% endblock %}
+
+{% block footer %}
+  {{ parent() }}
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-62e12681cbb25d2b"></script> 
+{% endblock %}
+

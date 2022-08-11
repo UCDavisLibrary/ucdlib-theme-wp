@@ -1,0 +1,26 @@
+{% set classes = ['colored-section'] %}
+{% set styles = "" %}
+
+{% if attributes.color %}
+  {% set classes = classes|merge(['colored-section--'~attributes.color]) %}
+{% else %}
+    {% set classes = classes|merge(['colored-section--light-blue']) %}
+{% endif %}
+
+{% if attributes.fullWidth %}
+    {% set classes = classes|merge(['l-full-width']) %}
+{% endif %}
+
+{% if attributes.float %}
+    {% set classes = classes|merge(['bg-color-float u-align--'~attributes.float]) %}
+{% endif %}
+
+{% if attributes.hasWaterColor %}
+    {% set classes = classes|merge(['water-color']) %}
+    {% set color = attributes.waterColorColor ? attributes.waterColorColor : "blue" %}
+    {% set pattern = attributes.waterColorPattern ? attributes.waterColorPattern : "1" %}
+    {% set styles = styles ~ 'background-image:url("' ~ get_watercolor(color, pattern) ~ '");' %}
+{% endif %}
+
+
+<div class="{{classes|join(' ')}}" {{styles ? "style='"~styles~"'"}}>{{content}}</div>

@@ -57,7 +57,19 @@ class UCDThemeMetaData {
       'default' => false,
       'type' => 'boolean',
     ) );
-    register_post_meta( 'page', 'ucd_show_hero', array(
+    register_post_meta( 'page', 'ucd_hide_sidebar', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'default' => get_theme_mod('layout_page_sidebar_default') ? true : false,
+      'type' => 'boolean',
+    ) );
+    register_post_meta( 'page', 'ucd_full_width', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'default' => false,
+      'type' => 'boolean',
+    ) );
+    register_post_meta( 'page', 'ucd_hide_hero', array(
       'show_in_rest' => true,
       'single' => true,
       'default' => false,
@@ -86,6 +98,31 @@ class UCDThemeMetaData {
       'single' => true,
       'type' => 'string',
       'default' => ''
+    ) );
+    register_post_meta( '', 'ucd_footer_mt_flush', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'boolean',
+      'default' => false
+    ) );
+    register_post_meta( '', 'ucd_nav_parent', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'number',
+      'default' => 0
+    ) );
+
+    register_post_meta( '', 'ucd_thumbnail_1x1', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'number',
+      'default' => 0
+    ) );
+    register_post_meta( '', 'ucd_thumbnail_4x3', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'number',
+      'default' => 0
     ) );
   }
 

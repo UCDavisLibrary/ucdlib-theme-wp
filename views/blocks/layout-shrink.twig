@@ -1,0 +1,8 @@
+{% set classes = ['l-shrink'] %}
+{% if attributes.width %}
+    {% set classes = classes|merge(['l-shrink--'~attributes.width]) %}
+{% endif %}
+{% if not attributes.fullWidthOnMobile is same as(false) %}
+    {% set classes = classes|merge(['u-width--100-in-tablet']) %}
+{% endif %}
+<div {{attributes.anchor ? "id='"~attributes.anchor~"'"}} {{classes ? "class='"~classes|join(' ')~"'"}}>{{content}}</div>

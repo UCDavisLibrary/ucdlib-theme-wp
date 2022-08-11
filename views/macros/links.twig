@@ -23,6 +23,10 @@ kwargs:
       {% set href = "href='"~kwargs.href~"'" %}
     {% endif %}
 
+    {% if kwargs.textAlign and kwargs.textAlign != 'left' %}
+      {% set pClasses = "u-text-align--"~kwargs.textAlign %}
+    {% endif %}
+
     {% if kwargs.newTab %}
       {% set target = "target='_blank'" %}
     {% endif %}
@@ -35,12 +39,17 @@ kwargs:
           {% set classes = classes ~ " btn--" ~ m %}
         {% endif %}
       {% endfor %}
-      {% if kwargs.className %}
-        {% set classes = classes ~ " btn--" ~ kwargs.className|replace({'is-style-': ''}) %}
+      {% if  kwargs.className == 'default' %}
+      {% elseif kwargs.className %}
+        {% set classes = classes ~ " btn--" ~ kwargs.className %}
+      {% else %}
+        {% set classes = classes ~ " btn--primary" %}
       {% endif %}
     {% endif %}
 
-    <p><a {{href}} {{target}} class="{{classes}}">{{kwargs.content}}</a></p>
+    <p {{pClasses ? 'class="'~pClasses~'"' : ''}}>
+      <a {{href}} {{target}} class="{{classes}}">{{kwargs.content}}</a>
+    </p>
   {% endif %}
   
 {% endmacro %}
@@ -70,9 +79,9 @@ kwargs:
     {% set i = get_post(kwargs.imageId) %}
     {% set src = i.src %}
     {% set alt = i.alt %}
-  {% elseif kwargs.post.thumbnail %}
-    {% set src = kwargs.post.thumbnail.src %}
-    {% set alt = kwargs.post.thumbnail.alt %}
+  {% elseif kwargs.post.card_image %}
+    {% set src = kwargs.post.card_image.src %}
+    {% set alt = kwargs.post.card_image.alt %}
   {% else %}
     {% set src = DefaultImage('marketing-highlight-horizontal') %}
   {% endif %}
@@ -82,15 +91,21 @@ kwargs:
   {% if kwargs.brandColor %}
     {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
   {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " panel" %}
+  {% endif %}
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
 
 
   <a href="{{href}}" class="{{classes}}" {{target}}>
-    <div class="marketing-highlight-horizontal__image aspect--16x9">
-      <img src="{{src}}" alt="{{alt}}" width="640" height="480" loading="lazy" />
+    <div class="marketing-highlight-horizontal__image">
+      <div class="aspect--16x9 u-background-image" role='img' aria-label='{{alt}}' style="background-image:url({{src}});"></div>
     </div>
     {% if not kwargs.hideTitle %}
       <div class="marketing-highlight-horizontal__body">
-        <h3 class="marketing-highlight-horizontal__title">{{title}}</h3>
+        <h5 class="marketing-highlight-horizontal__title">{{title}}</h5>
       </div>
     {% endif %}
   </a>
@@ -205,4 +220,114 @@ kwargs:
   {% if kwargs.href %}
     <a href="{{ kwargs.href }}" class="{{ classes }}">{{ text }}</a>
   {% endif %}
+{% endmacro %}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-vertical-link-icon-circle
+kwargs:
+  href {String}: link
+  icon {String}: icon parameter of a ucdlib-icon element
+  text {String}: Text to display below icon
+  brandColor {String} - UCD alt color slug
+  newTab {Boolean} - If link opens in new tab
+#}
+{% macro priority_link( kwargs={} ) %}
+  {% set classes = ['vertical-link', 'vertical-link--circle'] %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes|merge(['category-brand--' ~ kwargs.brandColor]) %}
+  {% endif %}
+  {% set classes = classes|join(' ') %}
+
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  <a class="{{classes}}" href="{{kwargs.href}}" {{target}}>
+    <div class="vertical-link__figure">
+      {% if kwargs.icon %}
+        <ucdlib-icon class="vertical-link__image" icon="{{kwargs.icon}}"></ucdlib-icon>
+      {% endif %}
+    </div>
+    {% if kwargs.text %}
+      <div class="vertical-link__title">{{kwargs.text}}</div>
+    {% endif %}
+  </a>
+{% endmacro %}
+
+{# 
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-focal-link-icon
+kwargs:
+  href {String}: link
+  icon {String}: icon parameter of a ucdlib-icon element
+  text {String}: Text to display below icon
+  brandColor {String} - UCD alt color slug
+  newTab {Boolean} - If link opens in new tab
+#}
+{% macro focal_link( kwargs={} ) %}
+  {% set classes = ['focal-link'] %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes|merge(['category-brand--' ~ kwargs.brandColor]) %}
+  {% endif %}
+  {% set classes = classes|join(' ') %}
+
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  <a class="{{classes}}" href="{{kwargs.href}}" {{target}}>
+    <div class="focal-link__figure focal-link__icon">
+      {% if kwargs.icon %}
+        <ucdlib-icon icon="{{kwargs.icon}}"></ucdlib-icon>
+      {% endif %}
+    </div>
+    {% if kwargs.text %}
+      <div class="focal-link__body"><strong>{{kwargs.text}}</strong></div>
+    {% endif %}
+  </a>
+{% endmacro %}
+
+{#
+http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-breadcrumbs
+crumbs (array): result of UcdThemePost->breadcrumbs()
+ #}
+{% macro breadcrumbs( crumbs ) %}
+{% if crumbs %}
+  <ol class="breadcrumbs">
+    {% for crumb in crumbs %}
+      <li>
+        {% if loop.last %}
+          {{crumb.title}}
+        {% else %}
+          <a href="{{crumb.link}}">{{crumb.title}}</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+{% endif %}
+{% endmacro %}
+
+{# 
+Renders a link with a little icon inlined before it
+kwargs:
+  href {String}: link
+  icon {String}: icon parameter of a ucdlib-icon element
+  text {String}: Text to display below icon
+  brandColor {String} - UCD alt color slug
+  newTab {Boolean} - If link opens in new tab
+#}
+{% macro prefixed_icon_link( kwargs={} ) %}
+  {% set classes = ['icon-ucdlib'] %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes|merge(['category-brand--' ~ kwargs.brandColor]) %}
+  {% endif %}
+  {% set classes = classes|join(' ') %}
+
+  {% set icon = 'ucd-public:fa-circle-chevron-right' %}
+  {% if kwargs.icon %}
+    {% set icon = kwargs.icon %}
+  {% endif %}
+
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+
+  <{{kwargs.href ? 'a' : 'span'}} class="{{classes}}" href="{{kwargs.href}}" {{target}}>
+    <ucdlib-icon icon="{{icon}}"></ucdlib-icon>
+    <div>{{kwargs.text}}</div>
+  </{{kwargs.href ? 'a' : 'span'}} >
 {% endmacro %}

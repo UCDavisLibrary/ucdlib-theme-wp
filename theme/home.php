@@ -6,7 +6,10 @@
  * which will render this file instead of page.php.
  */
 
+do_action( 'ucd-theme/template/home' );
+
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 
 $page_for_posts_id = get_option('page_for_posts');
 if ( $page_for_posts_id ) {
@@ -43,7 +46,11 @@ if ( !$context['sidebar'] and !$context['hideSidebar'] ){
    ));
 }
 
-
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('post-archive'));
+
+// Filters
+$context = apply_filters( 'ucd-theme/context/home', $context );
+$templates = apply_filters( 'ucd-theme/templates/home', $templates, $context );
+
 Timber::render( $templates, $context );

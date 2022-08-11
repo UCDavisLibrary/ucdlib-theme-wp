@@ -1,0 +1,13 @@
+{% from getUcdMacro('lists') import media_link %}
+{% set classes = "media-links" %}
+{% if attributes.panel %}
+  {% set classes = classes ~ " u-space-mb" %}
+{% endif %}
+{% if attributes.oBox %}
+  {% set classes = classes ~ " o-box" %}
+{% endif %}
+<section class='{{classes}}'>
+  {% for post in attributes.posts %}
+    {{ media_link({post}) }}
+  {% endfor %}
+</section>

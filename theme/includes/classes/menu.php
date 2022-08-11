@@ -12,11 +12,6 @@ class UcdThemeMenu {
       "primary" => "Header (Primary)",
       "brandingBar" => "Header (Branding Bar)",
       "quickLinks" => "Header (Quick Links)",
-      "footerCol1" => "Footer (Column 1)",
-      "footerCol2" => "Footer (Column 2)",
-      "footerCol3" => "Footer (Column 3)",
-      "footerCol4" => "Footer (Column 4)",
-      "footerCol5" => "Footer (Column 5)",
       "copyright" => "Footer (Copyright)"
     );
     add_filter( 'timber/context', array( $this, 'add_to_context' ) );
@@ -40,4 +35,115 @@ class UcdThemeMenu {
     }
     return $context;
   }
+
+  /**
+   * @method getDirectHierarchybyId
+   * @description Gets all ancestor menu items of a menu item (by its id)
+   * @returns An array of menu items.
+   */
+  public static function getDirectHierarchybyId( $menu, $item_id ){
+    $out = [];
+    if ( !$menu->items || !$item_id ) return $out;
+    foreach ($menu->items as $parent) {
+      if ( $parent->id == $item_id ){
+        $out[] = self::getMenuItemBasics($parent);
+        return $out;
+      }
+      foreach ( $parent->children as $child ){
+        if ( $child->id == $item_id ){
+          $out[] = self::getMenuItemBasics($parent);
+          $out[] = self::getMenuItemBasics($child);
+          return $out;
+        }
+        foreach ( $child->children as $grandchild ){
+          if ( $grandchild->id == $item_id ){
+            $out[] = self::getMenuItemBasics($parent);
+            $out[] = self::getMenuItemBasics($child);
+            $out[] = self::getMenuItemBasics($grandchild);
+            return $out;
+          }
+        }
+      }
+    }
+    return $out;
+  }
+  
+  /**
+   * @method getDirectHierarchyinMenu
+   * @description Gets all ancestor menu items of a post in a menu (also menu item of the post itself)
+   * @returns An array of menu items.
+   */
+  public static function getDirectHierarchyinMenu($menu, $post_id=0) {
+    $out = [];
+    if ( !$menu->items ) return $out;
+
+    foreach ($menu->items as $parent) {
+      
+      // we are finding the currently displayed page in the menu
+      if ( !$post_id ) {
+        if ( $parent->current ) {
+          $out[] = $parent;
+          return $out;
+        }
+        if ( !$parent->current_item_ancestor ) continue;
+        $out[] = self::getMenuItemBasics($parent);
+
+        foreach ( $parent->children as $child ){
+          if ( $child->current ) {
+            $out[] = self::getMenuItemBasics($child);
+            return $out;
+          }
+          if ( !$child->current_item_ancestor ) continue;
+          $out[] = self::getMenuItemBasics($child);
+
+          foreach ( $child->children as $grandchild ){
+            if ( $grandchild->current ) {
+              $out[] = self::getMenuItemBasics($grandchild);
+              return $out;
+            }
+            if ( !$grandchild->current_item_ancestor ) continue;
+            $out[] = self::getMenuItemBasics($grandchild);
+          }
+        }
+
+
+      // we are finding a different page than what is currently displayed
+      } else {
+        if ( $parent->object_id == $post_id ){
+          $out[] = self::getMenuItemBasics($parent);
+          return $out;
+        }
+        foreach ( $parent->children as $child ){
+          if ( $child->object_id == $post_id ){
+            $out[] = self::getMenuItemBasics($parent);
+            $out[] = self::getMenuItemBasics($child);
+            return $out;
+          }
+          foreach ( $child->children as $grandchild ){
+            if ( $grandchild->object_id == $post_id ){
+              $out[] = self::getMenuItemBasics($parent);
+              $out[] = self::getMenuItemBasics($child);
+              $out[] = self::getMenuItemBasics($grandchild);
+              return $out;
+            }
+          }
+        }
+      }
+    }
+    return $out;
+  }
+
+  public static function menuItemIsPost( $menu_item, $post_id ){
+    return $menu_item->object_id == $post_id;
+  }
+
+  private static function getMenuItemBasics( $menu_item ){
+    return [
+      'link' => $menu_item->link(),
+      'title' => $menu_item->title(),
+      'id' => $menu_item->id,
+      'object_id' => $menu_item->object_id
+    ];
+  }
+
 }

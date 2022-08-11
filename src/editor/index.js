@@ -1,15 +1,23 @@
-import "@polymer/iron-icons/iron-icons";
-import "@polymer/iron-icons/editor-icons";
+import "./lib/iconsets/wp-editor/wp-editor";
+import "./lib/iconsets/blocks/blocks";
+
+import "@ucd-lib/theme-elements/ucdlib/ucdlib-sils-search-redirect/ucdlib-sils-search-redirect";
+import '@ucd-lib/theme-elements/brand/ucd-theme-brand-textbox/ucd-theme-brand-textbox';
+import '@ucd-lib/theme-elements/brand/ucd-theme-subnav/ucd-theme-subnav';
+
 import { registerBlockType } from '@wordpress/blocks';
 import { registerFormatType } from '@wordpress/rich-text';
 import { registerPlugin } from '@wordpress/plugins';
+import { select } from "@wordpress/data";
 
-import UcdThemeBlocks from "./blocks";
-import UcdThemeRichTextFormats from "./formats";
-import UcdThemePlugins from "./plugins";
-import { modifyCoreBlocks } from "./core-block-mods";
-import unRegisterCore from "./exclude";
+import UcdThemeBlocks from "./lib/blocks";
+import UcdThemeRichTextFormats from "./lib/formats";
+import UcdThemePlugins from "./lib/plugins";
+import { modifyCoreBlocks } from "./lib/core-block-mods";
+import unRegisterCore from "./lib/exclude";
 
+// import our theme custom elements
+import "../public/elements/index.js"
 
 UcdThemeRichTextFormats.forEach(fmt => {
   registerFormatType(fmt.name, fmt.settings);
@@ -17,10 +25,15 @@ UcdThemeRichTextFormats.forEach(fmt => {
 
 UcdThemeBlocks.forEach(block => {
   registerBlockType( block.name, block.settings );
+  if ( block.hooks ){
+    block.hooks();
+  }
 });
 
 UcdThemePlugins.forEach(plugin => {
-  registerPlugin( plugin.name, plugin.settings );
+  if ( select('core/editor') ){
+    registerPlugin( plugin.name, plugin.settings );
+  }
 });
 
 modifyCoreBlocks();

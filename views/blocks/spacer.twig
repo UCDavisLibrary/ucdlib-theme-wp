@@ -1,0 +1,17 @@
+{% set spacingClasses = [] %}
+{% if attributes.x %}
+  {% set spacingClasses = spacingClasses|merge(['u-space-px--'~attributes.x]) %}
+{% else %}
+  {% set spacingClasses = spacingClasses|merge(['u-space-px']) %}
+{% endif %}
+{% if attributes.y %}
+  {% if attributes.y == 'extra-small' %}
+    {% set spacingClasses = spacingClasses|merge(['u-space-pt--small']) %}
+  {% else %}
+    {% set spacingClasses = spacingClasses|merge(['u-space-py--'~attributes.y]) %}
+  {% endif %}
+{% else %}
+  {% set spacingClasses = spacingClasses|merge(['u-space-py']) %}
+{% endif %}
+
+<div class="{{spacingClasses|join(' ')}}"></div>

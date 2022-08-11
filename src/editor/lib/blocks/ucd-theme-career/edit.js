@@ -1,0 +1,191 @@
+import { html } from '../../utils';
+import { useBlockProps } from '@wordpress/block-editor';
+import {
+  Button,
+  TextControl,
+  Modal,
+  SelectControl,
+  DatePicker
+} from '@wordpress/components';
+import { useState } from '@wordpress/element';
+
+export default ( props ) => {
+  const { attributes, setAttributes } = props;
+  const blockProps = useBlockProps();
+
+  // modal state
+  const startingModalData = {
+    title: attributes.title || '', 
+    link: attributes.link || '', 
+    salaryMin: attributes.salaryMin || '', 
+    salaryMax: attributes.salaryMax || '', 
+    employmentType: attributes.employmentType || 'FULL_TIME',
+    salaryFrequency: attributes.salaryFrequency || 'HOUR',
+    finalFilingDate: attributes.finalFilingDate || '',
+  };
+  const [ modalIsOpen, setModalOpen ] = useState( false );
+  const [ modalMode, setModalMode ] = useState( 'Add' );
+  const [ modalData, setModalData ] = useState( startingModalData );
+
+  // check if all data is empty (excluding default values)
+  const isEmpty = Object.values(startingModalData).every(x => x === null || x === '' || x === 'FULL_TIME' || x === 'HOUR');
+  setAttributes({isEmpty});
+
+  // modal validation
+  const modalCanSave = (() => {
+    if ( 
+      !modalData || 
+      !modalData.title || 
+      !modalData.link || 
+      !modalData.salaryMin ||
+      !modalData.salaryMax ||
+      !modalData.salaryFrequency ||
+      !modalData.finalFilingDate
+      ) {
+        return false
+      }
+    return true;
+  })();
+
+  // dropdown options
+  const salaryFreqencies = [
+    {label: 'Hour', value: 'HOUR'},
+    {label: 'Day', value: 'DAY'},
+    {label: 'Week', value: 'WEEK'},
+    {label: 'Month', value: 'MONTH'},
+    {label: 'Year', value: 'YEAR'}
+  ];
+
+  const employmentTypes = [
+    {label: 'Full-Time', value: 'FULL_TIME'},
+    {label: 'Part-Time', value: 'PART_TIME'},
+    {label: 'Contract', value: 'CONTRACT'},
+    {label: 'Temporary', value: 'TEMPORARY'},
+    {label: 'Internship', value: 'INTERNSHIP'},
+  ];
+
+  // currency formatter
+  const currency = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  });
+
+  const onCareerClicked = (e) => {
+    setModalMode('Edit');
+    setModalOpen(true);
+  }
+
+  // modal data change events
+  const onModalTitleChange = (title) => {
+    const data = {...modalData, title};
+    setModalData(data);
+  }
+  
+  const onModalUrlChange = (link) => {
+    const data = {...modalData, link};
+    setModalData(data);
+  }
+
+  const onModalSalaryStartChange = (salaryMin) => {
+    const data = {...modalData, salaryMin};
+    setModalData(data);
+  }
+
+  const onModalSalaryEndChange = (salaryMax) => {
+    const data = {...modalData, salaryMax};
+    setModalData(data);
+  }
+
+  const onModalSalaryFreqChange = (salaryFrequency) => {
+    const data = {...modalData, salaryFrequency};
+    setModalData(data);
+  }
+
+  const onModalEmploymentTypeChange = (employmentType) => {
+    const data = {...modalData, employmentType};
+    setModalData(data);
+  }
+
+  const onModalFilingDateChange = (finalFilingDate) => {
+    const data = {...modalData, finalFilingDate};
+    setModalData(data);
+  }
+
+  const closeModal = () => {
+    setModalOpen(false);
+  }
+
+  const onModalSave = () => {
+    setModalOpen(false);
+    setAttributes(modalData);
+  }
+
+  return html`
+    <div ...${ blockProps }>
+      <li onClick=${onCareerClicked} className="clickable job-posting">
+        <a href="${attributes.link}"><strong>${attributes.title}</strong></a><br/>
+        <span className="subtext"><strong>Salary: </strong> ${currency.format(attributes.salaryMin)} - ${currency.format(attributes.salaryMax)}/<span style=${{ textTransform: 'capitalize' }}>${attributes.salaryFrequency.toLowerCase()}</span></span><br/>
+        <span className="subtext"><strong>Final Filing Date:</strong> ${attributes.finalFilingDate ? new Date(attributes.finalFilingDate).toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : ''}</span>
+      </li>
+
+      ${modalIsOpen && html`
+        <${Modal} title=${modalMode + " Career"} onRequestClose=${closeModal}>
+          <div>
+            <${TextControl} 
+              label="Job Title"
+              value=${modalData.title}
+              onChange=${onModalTitleChange}
+            />
+            <${TextControl} 
+              label="Url"
+              value=${modalData.link}
+              onChange=${onModalUrlChange}
+              type="url"
+            />
+            <${TextControl} 
+              label="Salary Start"
+              value=${modalData.salaryMin}
+              onChange=${onModalSalaryStartChange}
+              type="number"
+            />
+            <${TextControl} 
+              label="Salary End"
+              value=${modalData.salaryMax}
+              onChange=${onModalSalaryEndChange}
+              type="number"
+            />
+            <${SelectControl} 
+              label="Salary Frequency"
+              value=${modalData.salaryFrequency}
+              options=${salaryFreqencies}
+              onChange=${onModalSalaryFreqChange}
+            />
+            <${SelectControl} 
+              label="Employment Type"
+              value=${modalData.employmentType}
+              options=${employmentTypes}
+              onChange=${onModalEmploymentTypeChange}
+            />
+            
+            <div>Final Filing Date</div>
+            <${DatePicker} 
+              currentDate=${modalData.finalFilingDate}
+              onChange=${onModalFilingDateChange}
+            />
+            <${Button} 
+              onClick=${onModalSave}
+              variant='primary' 
+              disabled=${!modalCanSave}>${modalMode == 'Add' ? 'Add Career' : 'Save Changes'}</${Button}>
+          </div>
+        </${Modal}>
+      `}
+    </div>
+  `;
+}
+/*
+capitalize frequency
+
+p::first-letter {
+  text-transform:capitalize;
+}
+*/

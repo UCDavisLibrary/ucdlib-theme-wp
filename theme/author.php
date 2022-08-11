@@ -4,10 +4,12 @@
  *
  */
 
+do_action( 'ucd-theme/template/author' );
 global $wp_query;
 
 $views = $GLOBALS['UcdSite']->views;
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 if ( isset( $wp_query->query_vars['author'] ) ) {
   $author = Timber::get_user( $wp_query->query_vars['author'] );
   $context['author'] = $author;
@@ -59,4 +61,9 @@ if ( !$context['sidebar'] and !$context['hideSidebar'] ){
 }
 
 $templates = array( $views->getTemplate('author'));
+
+// Filters
+$context = apply_filters( 'ucd-theme/context/author', $context );
+$templates = apply_filters( 'ucd-theme/templates/author', $templates, $context );
+
 Timber::render( $templates, $context );

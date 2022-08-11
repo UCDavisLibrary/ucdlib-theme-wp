@@ -1,60 +1,9 @@
 {% from getUcdMacro('menus') import footer_nav, list_pipe %}
 
-{% set hide_column_1 = theme.theme_mod('footer_hide_column_1') %}
-
-<footer class="l-footer footer dark-background">
+<footer class="l-footer footer dark-background {{post.meta('ucd_footer_mt_flush') ? 'u-space-mt--flush'}}">
   <div class="l-container">
-    <div class="flex-footer">
 
-    {% if not hide_column_1 %}
-      {% set site_credits_text = theme.theme_mod('site_credits_text') %}
-      {% set site_credits_logo = theme.theme_mod('site_credits_logo') %}
-
-      <div class="flex-footer__item">
-
-        {% if site_credits_text %}
-
-          {% if site_credits_logo %}
-            {% set site_credits_logo = get_post(site_credits_logo) %}
-            {% set logo_href = theme.theme_mod('site_credits_logo_href') %}
-            {% set logo_width = theme.theme_mod('site_credits_logo_width') %}
-            <div class="site-credits__logo">
-              <a {{logo_href ? "href='" ~ logo_href ~ "'"}}>
-                <img {{logo_width ? "width='" ~ logo_width ~ "'"}} loading="lazy" src="{{site_credits_logo.src}}" class="site-logo" alt="{{site_credits_logo.alt ? site_credits_logo : 'Site Logo'}}" />
-              </a>
-            </div>
-          {% endif %}
-
-          <div class="site-credits">
-            <p>{{site_credits_text}}</p>
-          </div>
-        {% else %}
-          {% if theme.theme_mod('footer_column_1_header') %}
-            <h2>{{theme.theme_mod('footer_column_1_header')}}</h2>
-          {% endif %}
-          {{ footer_nav({menu: menu.footerCol1}) }}
-        {% endif %}
-
-        {% include getUcdHook('footer') with {'hook': 'column_1'} %}
-
-      </div>
-    {% endif %}
-
-    {% for col_index in [2,3,4,5] %}
-      {% if not theme.theme_mod('footer_hide_column_' ~ col_index) %}
-        <div class="flex-footer__item">
-          {% if theme.theme_mod('footer_column_'~ col_index ~'_header') %}
-            <h2>{{theme.theme_mod('footer_column_'~ col_index ~'_header')}}</h2>
-          {% endif %}
-
-          {{ footer_nav({menu: menu['footerCol'~col_index]}) }}
-
-          {% include getUcdHook('footer') with {'hook': 'column_'~col_index} %}
-        </div>
-      {% endif %}
-    {% endfor %}
-
-    </div> {# .flex-footer #}
+    {{widgets_footer_columns}}
 
     {% include getUcdHook('footer') with {'hook': 'postColumns'} %}
 
@@ -77,11 +26,24 @@
               <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
             </li>
           {% endfor %}
-          <li><a href="{{ theme.get('ThemeURI') }}">Theme version: {{theme.version}}</a></li>
         {% endif %}
       </ul>
       <p>Copyright © The Regents of the University of California, Davis campus. All rights reserved.</p>
     </div>
+
+    {% if not theme.theme_mod('footer_hide_build') %}
+      <div class="u-align--center">
+        <ul class="list--pipe">
+          {% for param in site.buildParams %}
+            {% if param.value %}
+              <li>{{param.label}}{{param.value}}</li>
+            {% endif %}
+          {% endfor %}
+          <li><a href="{{ theme.get('ThemeURI') }}">Theme: {{theme.version}}</a></li>
+          {% include getUcdHook('footer') with {'hook': 'postBuild'} %}
+        </ul>
+      </div>
+    {% endif %}
 
     {% include getUcdHook('footer') with {'hook': 'bottom'} %}
   </div> {# .l-container #}

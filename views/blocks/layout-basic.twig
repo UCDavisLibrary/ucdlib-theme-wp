@@ -1,1 +1,4 @@
+{% if not attributes.sideBarLocation and not attributes.modifier %}
+  {% set attributes = attributes|merge({modifier: 'flipped'})%}
+{% endif %}
 <div {{attributes.anchor ? "id='"~attributes.anchor~"'"}} class="l-basic{{attributes.modifier ? '--' ~ attributes.modifier : ''}}">{{content}}</div>

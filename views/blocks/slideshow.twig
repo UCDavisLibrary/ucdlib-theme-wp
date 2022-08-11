@@ -1,0 +1,37 @@
+{% if attributes.hasImages %}
+  {% if attributes.aspectRatio == 'inherit' %}
+    {% set aspectRatio = '' %}
+  {% else %}
+    {% set aspectRatio = attributes.aspectRatio ? 'aspect--'~attributes.aspectRatio : 'aspect--16x9' %}
+  {% endif %}
+  <div class="block-slideshow">
+    <div class="slideshow {{aspectRatio ? 'has-aspect-ratio'}}">
+      {% for image in attributes.images %}
+          <div class="{{aspectRatio}} slideshow__item {{image.title and attributes.showTitles ? 'slideshow__item--has-title'}}">
+            <img src="{{image.src}}" class='{{attributes.objectFit == 'cover' ? 'o-fit--cover'}}' alt="{{image.alt}}" width="{{image.width}}" height="{{image.height}}" />
+            <div class="slideshow__text">
+              {% if image.title and attributes.showTitles %}
+                <div class="slideshow__title">{{image.title}}</div>
+              {% endif %}
+              {% if image.post_excerpt and attributes.showCaptions %}
+                <div class="slideshow__caption">{{image.post_excerpt}}</div>
+              {% endif %}
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+    <div class="slider-nav {{aspectRatio ? 'has-aspect-ratio'}}">
+      {% for image in attributes.images %}
+        <div>
+          <div class="slideshow__item">
+            <div class="{{aspectRatio}}">
+              <img src="{{image.src}}" class='{{attributes.objectFit == 'cover' ? 'o-fit--cover'}}'/>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+{% endif %}

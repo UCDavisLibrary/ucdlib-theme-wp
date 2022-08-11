@@ -80,69 +80,16 @@ class UcdThemeCustomizer {
       'description' => "Customize the footer layout and links"
     ));
 
-    // column1/site credits
-    $wp_customize->add_section( 'footer_column_1', array(
-      'title' => 'Column 1',
+    $wp_customize->add_section( 'footer_build', array(
+      'title' => 'Website Build Info',
       'panel' => 'footer'
     ));
-    $wp_customize->add_setting('footer_hide_column_1');
-    $wp_customize->add_control('footer_hide_column_1', array(
+    $wp_customize->add_setting('footer_hide_build');
+    $wp_customize->add_control('footer_hide_build', array(
       'type' => "checkbox",
-      'section' => 'footer_column_1',
-      'label' => 'Hide This Column'
+      'section' => 'footer_build',
+      'label' => 'Hide All Build Info'
     ));
-    $wp_customize->add_setting('site_credits_logo');
-    $wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'site_credits_logo', array(
-      'label' => 'Site Credits Logo',
-      'section' => 'footer_column_1',
-      'mime_type' => 'image',
-    ) ) );
-    $wp_customize->add_setting('site_credits_logo_href');
-    $wp_customize->add_control('site_credits_logo_href', array(
-      'type' => "url",
-      'section' => 'footer_column_1',
-      'label' => 'Logo Link'
-    ));
-    $wp_customize->add_setting('site_credits_logo_width');
-    $wp_customize->add_control('site_credits_logo_width', array(
-      'type' => "text",
-      'section' => 'footer_column_1',
-      'label' => 'Logo Width'
-    ));
-    $wp_customize->add_setting('site_credits_text');
-    $wp_customize->add_control('site_credits_text', array(
-      'type' => "textarea",
-      'section' => 'footer_column_1',
-      'label' => 'Site Credits',
-      "description" => "Your unit's address/contact info."
-    ));
-    $wp_customize->add_setting('footer_column_1_header');
-    $wp_customize->add_control('footer_column_1_header', array(
-      'type' => "text",
-      'section' => 'footer_column_1',
-      'label' => 'Column Title',
-      "description" => "Only displays if 'Site Credits' is empty. "
-    ));
-
-    // Other columns
-    for ($i=2; $i < 6; $i++) { 
-      $wp_customize->add_section( 'footer_column_' . $i, array(
-        'title' => 'Column ' . $i,
-        'panel' => 'footer'
-      ));
-      $wp_customize->add_setting('footer_hide_column_' . $i);
-      $wp_customize->add_control('footer_hide_column_' . $i, array(
-        'type' => "checkbox",
-        'section' => 'footer_column_' . $i,
-        'label' => 'Hide This Column'
-      ));
-      $wp_customize->add_setting('footer_column_' . $i . '_header');
-      $wp_customize->add_control('footer_column_' . $i . '_header', array(
-        'type' => "text",
-        'section' => 'footer_column_' . $i,
-        'label' => 'Column Title'
-      ));
-    }
 
   }
 
@@ -190,6 +137,40 @@ class UcdThemeCustomizer {
       'section' => 'layout_post',
       'label' => 'Flip the sidbar location',
       'description' => 'Sidebar will display on the right'
+    ));
+
+    // pages
+    $wp_customize->add_section( 'layout_page', array(
+      'title' => 'Page',
+      'panel' => 'layout'
+    ));
+    $wp_customize->add_setting('layout_page_sidebar_hide');
+    $wp_customize->add_control('layout_page_sidebar_hide', array(
+      'type' => "checkbox",
+      'section' => 'layout_page',
+      'label' => 'Globally disable the sitewide sidebar.'
+    ));
+    $wp_customize->add_setting('layout_page_sidebar_flipped');
+    $wp_customize->add_control('layout_page_sidebar_flipped', array(
+      'type' => "checkbox",
+      'section' => 'layout_page',
+      'label' => 'Flip the sidbar location',
+      'description' => 'Sidebar will display on the right'
+    ));
+    $wp_customize->add_setting('layout_page_sidebar_default');
+    $wp_customize->add_control('layout_page_sidebar_default', array(
+      'type' => "checkbox",
+      'section' => 'layout_page',
+      'label' => 'Hide by default',
+      'description' => 'Can still be displayed by author in page settings.'
+    ));
+    $wp_customize->add_setting('layout_page_template');
+    $wp_customize->add_control('layout_page_template', array(
+      'type' => "checkbox",
+      'section' => 'layout_page',
+      'label' => 'Use a page block template',
+      'description' => 'By default, all new pages will be loaded with a starter template. 
+      Can be customized programmatically with the "ucd-theme/block-template/page" filter.'
     ));
 
     // category
@@ -329,7 +310,15 @@ class UcdThemeCustomizer {
       array("slug" => "teaser", "label" => "Teaser Block Palette", "description" => 'Also used as color palette for "featured" post.'),
       array("slug" => "marketing-highlight", "label" => "Marketing Highlight Block Palette"),
       array("slug" => "marketing-highlight-horizontal", "label" => "Marketing Highlight (Horizontal) Block Palette"),
-      array("slug" => "marketing-highlight-poster", "label" => "Poster Block Palette")
+      array("slug" => "poster", "label" => "Poster Block Palette"),
+      array("slug" => "panel-with-icon", "label" => "Panel with Icon"),
+      array("slug" => "priority-link", "label" => "Priority Link Palette"),
+      array("slug" => "focal-link", "label" => "Focal Link Palette"),
+      array("slug" => "prefixed-icon-link", "label" => "Prefixed Icon Link Palette"),
+      array("slug" => "hero-banner", "label" => "Hero Banner Palette"),
+      array("slug" => "brand-textbox", "label" => "Brand Textbox Palette"),
+      array("slug" => "heading-with-icon", "label" => "Heading With Icon Palette"),
+      array("slug" => "separator", "label" => "Separator Palette"),
     );
     foreach ($blocks_with_colors as $block) {
       $name = 'colors_blocks_' . $block['slug'];

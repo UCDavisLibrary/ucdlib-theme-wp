@@ -1,0 +1,11 @@
+{% set classes = "" %}
+{% if attributes.panel %}
+  {% set classes = classes ~ " u-space-mb" %}
+{% endif %}
+{% if attributes.oBox %}
+  {% set classes = classes ~ " u-space-px u-space-py" %}
+{% endif %}
+<div class="{{classes}}">
+    <ucd-theme-list-accordion>
+        {{content}}
+    </ucd-theme-list-accordion></div>

@@ -1,7 +1,25 @@
 {% extends getUcdTemplate('base') %}
 
 {% block content_container %}
-  <div class="l-container">
-    {{post.content}}
-  </div>
+{% if post.meta('ucd_full_width') and post.meta('ucd_hide_sidebar')  %}
+  {{post.content}}
+{% else %}
+  <div class="l-container {{not hideSidebar ? 'l-basic'}}{{rightSidebar and not hideSidebar ? '--flipped'}}">
+
+      <div class="l-content">
+        {{post.content}}
+      </div>
+
+      {% if not hideSidebar %}
+        <div class="l-sidebar-second">
+          {% if sidebar %}
+            {{sidebar}}
+          {% else %}
+            {% include getUcdSidebarDefault('single-page') %}
+          {% endif %} 
+        </div>
+      {% endif %}
+
+    </div>
+  {% endif %}
 {% endblock %}

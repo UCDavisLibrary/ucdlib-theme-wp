@@ -1,0 +1,4 @@
+{% set style = attributes.style ? attributes.style : ''%}
+{% set brandColor = attributes.brandColor ? attributes.brandColor : ''%}
+{% set marginY = attributes.marginY == '1x' ? 'y1' : 'y2' %}
+<hr class="{{style}} {{brandColor}} {{marginY}}" />

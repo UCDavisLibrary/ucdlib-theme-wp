@@ -2,10 +2,12 @@
 /**
  * The template for displaying all single posts with a post type of 'post' or something custom.
  */
+do_action( 'ucd-theme/template/single' );
 
 $context = Timber::context();
+$GLOBALS['timberContext'] = $context;
 $context['title'] = $context['post']->title();
-
+$context['breadcrumbs'] = true;
 $template = 'single';
 if ( $context['post']->post_type == 'post' ) {
   $template = 'post';
@@ -21,8 +23,11 @@ if ( $context['post']->post_type == 'post' ) {
 
 }
 
-
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate($template) );
+
+// Filters
+$context = apply_filters( 'ucd-theme/context/single', $context );
+$templates = apply_filters( 'ucd-theme/templates/single', $templates, $context );
 
 Timber::render( $templates, $context );

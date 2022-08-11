@@ -1,4 +1,5 @@
-{% from getUcdMacro('placeholders') import breadcrumbs as render_crumbs %}
+{% from getUcdMacro('links') import breadcrumbs as render_crumbs %}
+{% from getUcdMacro('media') import image_title_banner %}
 
 {% block html_head_container %}
   {% include getUcdPartial('html-header') %}
@@ -8,6 +9,9 @@
 {% endblock %}
 
 	<body class="{{body_class}}">
+  {% block post_head %}
+    {% include getUcdHook('base') with {'hook': 'postHead'} %}
+  {% endblock %}
   <a href="#main-content" class="u-hidden--visually">Skip to main content</a>
 		
   {% block header %}
@@ -16,12 +20,14 @@
 
 
 		<main id="main-content" class="l-main">
-      {% block hero_image %}
-        {% if post.hero %}
-        <div class="aspect--13x3">
-          <img src="{{post.hero.src}}" alt="{{post.hero.alt}}" loading="lazy" />
-        </div>
+      {% block below_nav %}
+        {% if widgets_below_nav %}
+          {{ widgets_below_nav }}
         {% endif %}
+      {% endblock %}
+
+      {% block hero_image %}
+        {{ image_title_banner(post.hero) }}
       {% endblock %}
 
       {% block page_title %}
@@ -39,7 +45,13 @@
 
       {% block breadcrumbs %}
         {% if breadcrumbs and not post.hide_breadcrumbs %}
-          {{render_crumbs()}}
+          {% if post.breadcrumbs %}
+            {{render_crumbs(post.breadcrumbs)}}
+          {% elseif breadcrumbs is iterable %}
+            {{render_crumbs(breadcrumbs)}}
+          {% else %}
+            {{render_crumbs([{title: 'Home', link: '/'}, {title}])}}
+          {% endif %}
         {% endif %}
       {% endblock %}
 
@@ -56,6 +68,7 @@
 		{% block footer %}
 			{% include getUcdPartial('footer') %}
 			{{ function('wp_footer') }}
+      {{ load_icons() }}
 		{% endblock %}
 	</body>
 </html>

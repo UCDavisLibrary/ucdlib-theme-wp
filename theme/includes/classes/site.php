@@ -1,14 +1,20 @@
 <?php
+require_once( __DIR__ . '/api.php' );
 require_once( __DIR__ . '/views.php' );
 require_once( __DIR__ . '/meta-data.php' );
 require_once( __DIR__ . '/customizer.php' );
+require_once( __DIR__ . '/html-import.php' );
 require_once( __DIR__ . '/menu.php' );
 require_once( __DIR__ . '/blocks.php' );
 require_once( __DIR__ . '/assets.php' );
 require_once( __DIR__ . '/sidebars.php' );
 require_once( __DIR__ . '/user.php' );
+require_once( __DIR__ . '/patterns.php' );
 require_once( __DIR__ . '/post.php' );
 require_once( __DIR__ . '/comments.php' );
+require_once( __DIR__ . '/roles.php' );
+require_once( __DIR__ . '/rewrite.php' );
+require_once( __DIR__ . '/thumbnails.php' );
 
 
 /**
@@ -35,6 +41,14 @@ class UcdThemeSite extends Timber\Site {
       "publicStyles" => "ucd-public"
     );
 
+    // Build params
+    $this->buildParams = array(
+      "APP_VERSION" => array("label" => "Build: ", "value" => getenv('APP_VERSION')),
+      "BUILD_TIME" => array("label" => "Build Time: ", "value" => getenv('BUILD_TIME')),
+      "WEBSITE_TAG" => array("label" => "Website Tag: ", "value" => getenv('WEBSITE_TAG'))
+    );
+
+    // Custom gutenberg block modifications
     $this->blockSettings = array();
     foreach (UCDThemeBlocks::$registry as $slug => $meta) {
       if ( !array_key_exists('hasBrandColors', $meta) || !$meta['hasBrandColors']) continue;
@@ -43,6 +57,9 @@ class UcdThemeSite extends Timber\Site {
       if (!$customColors || !is_array($customColors) || !count($customColors) ) continue;
       $this->blockSettings['color--' . $shortSlug] = $customColors;
     }
+
+    // Register custom API endpoints
+    $this->api = new UCDThemeAPI('ucd');
 
     // Register view paths with theme
     $this->views = new UCDThemeViews();
@@ -56,12 +73,15 @@ class UcdThemeSite extends Timber\Site {
     // Queue up scripts and styles
     $this->assets = new UcdThemeAssets($this->scripts, $this->version);
 
+    // Register block patterns
+    $this->patterns = new UCDLibThemePatterns();
+
     // Menu locations
     new UcdThemeMenu();
 
     // Gutenberg blocks
-    $this->blockSettings = apply_filters('ucd-block-settings', $this->blockSettings);
-    new UCDThemeBlocks( $this->scripts['editor'], $this->blockSettings );
+    $this->blockSettings = apply_filters('ucd-theme_block_settings', $this->blockSettings);
+    $this->customBlocks = new UCDThemeBlocks( $this->scripts['editor'], $this->blockSettings );
 
     // Register widget areas (sidebars)
     new UcdThemeSidebars();
@@ -69,13 +89,27 @@ class UcdThemeSite extends Timber\Site {
     // Remove comments
     new UcdThemeComments();
 
+    // Customizations to roles and capabilities
+    new UcdThemeRoles();
+
+    // Permalink/routing customizations
+    new UcdThemeRewrite();
+
+    // Set post featured image sizes
+    new UcdThemeThumbnails();
+
+    // Set up html imports of twig partials
+    $this->htmlImport = new UCDThemeHtmlImport();
+
     // Hook onto actions and filters
     add_action( 'after_setup_theme', array( $this, 'theme_supports' ) );
     add_filter( 'timber/context', array( $this, 'add_to_context' ), 4);
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
     add_action( 'init', array( $this, 'modify_native_post_types' ) );
     add_filter( 'timber/user/class', array( $this, 'extend_user' ), 10, 2 );
-    add_filter( 'timber/post/classmap', array($this, 'extend_post') );
+    add_filter( 'timber/post/classmap', array($this, 'extend_post'), 4 );
+    add_filter( 'post_type_labels_post', array($this, 'change_post_labels') );
+
     parent::__construct();
     }
 
@@ -96,6 +130,15 @@ class UcdThemeSite extends Timber\Site {
     public function modify_native_post_types() {
       add_post_type_support( 'page', 'excerpt' );
     }
+
+    function change_post_labels( $args ) {
+      foreach( $args as $key => $label ){
+          $args->{$key} = str_replace( [ __( 'Posts' ), __( 'Post' ) ], __( 'News' ), $label );
+      }
+
+      return $args;
+    }
+
   
     public function add_to_context( $context ) {
       $context['site']  = $this;
@@ -179,7 +222,7 @@ class UcdThemeSite extends Timber\Site {
         }
         if ( !$link ) return $out;
 
-        $link = preg_replace( '/page\/[0-9]\//', '', $link );
+        $link = preg_replace( '/page\/\d+\//', '', $link );
         $link = parse_url($link);
         if ( array_key_exists('path', $link) ) $out['path'] = $link['path'];
         if ( array_key_exists('query', $link) ) $out['query'] = $link['query'];
