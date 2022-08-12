@@ -26,10 +26,14 @@
               <a href="{{ item.link }}" {{ item.is_target_blank ? 'target="_blank"' }}>{{ item.title }}</a>
             </li>
           {% endfor %}
+          <li>
+              Last update: August 16, 2022
+          </li>
         {% endif %}
       </ul>
       <p>Copyright © The Regents of the University of California, Davis campus. All rights reserved.</p>
     </div>
+    <div class="u-align--center u-space-mt--large">This site is officially grown in <a href="https://sitefarm.ucdavis.edu">SiteFarm</a>.</div>
 
     {% if not theme.theme_mod('footer_hide_build') %}
       <div class="u-align--center">
