@@ -109,8 +109,8 @@ kwargs:
 
   <article class="{{classes}}" {{target}}>
     {% if not kwargs.hideImage %}
-      <div class="vm-teaser__figure category" style="width:20%;max-width:135px;" role='image' aria-label='{{alt}}'>
-        <a href="{{href}}" style="display:block;background-image:url({{src}})" class="aspect--1x1 u-background-image">
+      <div class="vm-teaser__figure category" style="width:20%;max-width:135px;" role='img' aria-label='{{title}}'>
+        <a href="{{href}}" style="display:block;background-image:url({{src}})" class="aspect--1x1 u-background-image" aria-label='{{title}}'>
         </a>
       </div>
     {% endif %}
