@@ -17,6 +17,7 @@ import '@ucd-lib/theme-elements/brand/ucd-theme-list-accordion/ucd-theme-list-ac
 import '@ucd-lib/theme-elements/brand/ucd-theme-brand-textbox/ucd-theme-brand-textbox';
 import "@ucd-lib/theme-elements/ucdlib/ucdlib-iconset/ucdlib-iconset";
 import "@ucd-lib/theme-elements/ucdlib/ucdlib-icon/ucdlib-icon";
+import '@ucd-lib/theme-elements/ucdlib/ucdlib-author-profile/ucdlib-author-profile.js';
 
 // import our theme custom elements
 import "./elements/index.js";
@@ -34,11 +35,12 @@ class DynamicScriptLoader {
       {
         name: 'slideshow',
         cssQuery: '.block-slideshow'
-      },
-      {
-        name: 'author-profile',
-        cssQuery: 'ucdlib-author-profile'
       }
+      // JM - emergency patch
+      // {
+      //   name: 'author-profile',
+      //   cssQuery: 'ucdlib-author-profile'
+      // }
     ];
   }
   
@@ -57,9 +59,11 @@ class DynamicScriptLoader {
 
     if ( bundleName == 'slideshow' ){
       this.loaded[bundleName] = import(/* webpackChunkName: "slideshow" */ './lib/slideshow');
-    } else if ( bundleName == 'author-profile' ) {
-      this.loaded[bundleName] = import(/* webpackChunkName: "author-profile" */ '@ucd-lib/theme-elements/ucdlib/ucdlib-author-profile/ucdlib-author-profile.js');
-    }
+    } 
+    // JM - emergency patch
+    // else if ( bundleName == 'author-profile' ) {
+    //   this.loaded[bundleName] = import(/* webpackChunkName: "author-profile" */ );
+    // }
     
     return this.loaded[bundleName]
   }
