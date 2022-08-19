@@ -76,7 +76,7 @@ figure.table--bordered table {
 
 $sizes: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100;
 @each $size in $sizes {
-  .wp-block-image.pct-width--#{$size} {
+  div.wp-block-image.pct-width--#{$size} {
     figure {
       width: #{$size + '%'};
       img {
@@ -84,9 +84,15 @@ $sizes: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100;
       }
     }
   }
-  .wp-block-image.pct-width--#{$size} {
+  div.wp-block-image.pct-width--#{$size} {
     > img {
       width: #{$size + '%'};
+    }
+  }
+  figure.wp-block-image.pct-width--#{$size} {
+    width: #{$size + '%'};
+    img {
+      width: 100%;
     }
   }
 }
