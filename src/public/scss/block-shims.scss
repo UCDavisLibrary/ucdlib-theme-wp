@@ -110,6 +110,11 @@ $sizes: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100;
     margin-right: auto;
   }
 }
+.wp-block-gallery.has-nested-images figure.wp-block-image figcaption {
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 0.875rem;
+  padding: 8px 8px 0 8px;
+}
 
 
 .list--pipe li {
