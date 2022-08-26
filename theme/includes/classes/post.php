@@ -157,7 +157,6 @@ class UcdThemePost extends Timber\Post {
       $this->breadcrumbs = $breadcrumbs;
       return $this->breadcrumbs;
     }
-      
     $customParent = get_post_meta($this->ID, 'ucd_nav_parent', true);
     $in_nav = UcdThemeMenu::getDirectHierarchyinMenu( $primary_nav, $this->id );
     
@@ -181,6 +180,8 @@ class UcdThemePost extends Timber\Post {
           if ( count($man_breadcrumb) ){
             array_splice( $breadcrumbs, 1, 0, [['link' => $ancestor->link(), 'title' => $ancestor->title()]] );
             array_splice( $breadcrumbs, 1, 0, $man_breadcrumb );
+          } else {
+            $ancestors_with_auto_breadcrumb[] = $ancestor;
           }
           break;
         } else {

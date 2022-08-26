@@ -1,1 +1,2 @@
-<ucdlib-trumba-events-upcoming></ucdlib-trumba-events-upcoming>
+{% set events = attributes.events ? attributes.events : 3 %}
+<ucdlib-trumba-events-upcoming events="{{events}}"></ucdlib-trumba-events-upcoming>

@@ -14,6 +14,10 @@ const settings = {
     "customClassName": false
   },
   attributes: {
+    events: {
+      type: 'number',
+      default: 3
+    }
   },
   edit: Edit
 };
