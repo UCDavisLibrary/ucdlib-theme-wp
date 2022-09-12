@@ -20,6 +20,10 @@ const settings = {
       type: "string",
       default: ""
     },
+    description: {
+      type: "string",
+      default: ""
+    },
     link: {
       type: "string",
       default: ""
@@ -47,6 +51,10 @@ const settings = {
     isEmpty: {
       type: "boolean",
       default: false
+    },
+    relatedMaterials: {
+      type: 'array',
+      default: []
     }
   },
   edit: Edit,
