@@ -3,9 +3,11 @@ import { useBlockProps } from '@wordpress/block-editor';
 import {
   Button,
   TextControl,
+  TextareaControl,
   Modal,
   SelectControl,
-  DatePicker
+  DatePicker,
+  __experimentalText as Text
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 
@@ -16,12 +18,14 @@ export default ( props ) => {
   // modal state
   const startingModalData = {
     title: attributes.title || '', 
+    description: attributes.description || '',
     link: attributes.link || '', 
     salaryMin: attributes.salaryMin || '', 
     salaryMax: attributes.salaryMax || '', 
     employmentType: attributes.employmentType || 'FULL_TIME',
     salaryFrequency: attributes.salaryFrequency || 'HOUR',
     finalFilingDate: attributes.finalFilingDate || '',
+    relatedMaterials: attributes.relatedMaterials || []
   };
   const [ modalIsOpen, setModalOpen ] = useState( false );
   const [ modalMode, setModalMode ] = useState( 'Add' );
@@ -64,10 +68,16 @@ export default ( props ) => {
     {label: 'Internship', value: 'INTERNSHIP'},
   ];
 
+  const baseRelatedMaterialsStructure = (() => {
+    return {value: '', label: ''};
+  })();
+
   // currency formatter
   const currency = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   });
 
   const onCareerClicked = (e) => {
@@ -78,6 +88,11 @@ export default ( props ) => {
   // modal data change events
   const onModalTitleChange = (title) => {
     const data = {...modalData, title};
+    setModalData(data);
+  }
+
+  const onModalDescriptionChange = (description) => {
+    const data = {...modalData, description};
     setModalData(data);
   }
   
@@ -120,12 +135,100 @@ export default ( props ) => {
     setAttributes(modalData);
   }
 
+  const setRelatedMaterial = (v, i, field) => {
+    const before = modalData.relatedMaterials.slice(0, i);
+    const after = modalData.relatedMaterials.slice(i+1);
+    const relatedMaterial = {...modalData.relatedMaterials[i]};
+    relatedMaterial[field] = v;
+    const relatedMaterials = [...before, relatedMaterial, ...after];
+    const data = {...modalData, relatedMaterials};
+    setModalData(data);
+  };
+
+  const addRelatedMaterials = () => {
+    const relatedMaterials = [...modalData.relatedMaterials, {...baseRelatedMaterialsStructure, type: ''}];
+    const data = {...modalData, relatedMaterials};
+    setModalData(data);
+  }
+
+  const removeRelatedMaterials = (i) => {
+    const before = modalData.relatedMaterials.slice(0, i);
+    const after = modalData.relatedMaterials.slice(i+1);
+    const relatedMaterials = [...before, ...after];
+    const data = {...modalData, relatedMaterials};
+    setModalData(data);
+  };
+
+  const relatedMaterialsSection = () => html`
+  <div style=${{paddingTop: '10px', paddingBottom: '20px'}}>
+    <div style=${{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '15px'}}>
+      <span>Related Materials (optional)</span>
+      <${Button} variant="primary" onClick=${addRelatedMaterials}>Add</${Button}>
+    </div>
+    ${modalData.relatedMaterials.length > 0 ? html`
+      <div style=${{display: 'table'}}>
+        <div style=${{display: 'table-header-group'}}>
+          <div style=${{display: 'table-row', fontWeight: '400'}}>
+            <div style=${{display: 'table-cell', paddingBottom: '10px'}}>URL</div>
+            <div style=${{display: 'table-cell'}}>Link Label (optional)</div>
+            <div style=${{display: 'table-cell'}}></div>
+          </div>
+        </div>
+        <div style=${{display: 'table-row-group'}}>
+          ${modalData.relatedMaterials.map((relatedMaterials, i) => html`
+            <div style=${{display: 'table-row'}} key=${i}>
+              <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+                <${TextControl} 
+                  value=${relatedMaterials.value}
+                  onChange=${v => setRelatedMaterial(v, i, 'value')}
+                />
+              </div>
+              <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+                <${TextControl} 
+                  value=${relatedMaterials.label}
+                  onChange=${v => setRelatedMaterial(v, i, 'label')}
+                />
+              </div>
+              <div style=${{display: 'table-cell'}}>
+                <${Button} isDestructive=${true} onClick=${() => removeRelatedMaterials(i)} variant='link'>delete</${Button}>
+              </div>                
+            </div>
+          `)}
+        </div>
+      </div>
+    ` : html`
+    <div>
+        <${Text} isBlock=${true} variant="muted" style=${{marginBottom: '15px'}}>
+          You don't have any related materials listed. <${Button} onClick=${ addRelatedMaterials } variant='link'>Add one</${Button}>
+        </${Text}>
+    </div>
+    `}
+  </div>
+  `;
+
   return html`
     <div ...${ blockProps }>
       <li onClick=${onCareerClicked} className="clickable job-posting">
         <a href="${attributes.link}"><strong>${attributes.title}</strong></a><br/>
+        ${attributes.description.length > 0 && html`
+          <span className="subtext">${attributes.description}</span><br/>
+        `}
         <span className="subtext"><strong>Salary: </strong> ${currency.format(attributes.salaryMin)} - ${currency.format(attributes.salaryMax)}/<span style=${{ textTransform: 'capitalize' }}>${attributes.salaryFrequency.toLowerCase()}</span></span><br/>
-        <span className="subtext"><strong>Final Filing Date:</strong> ${attributes.finalFilingDate ? new Date(attributes.finalFilingDate).toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : ''}</span>
+        <span className="subtext"><strong>Final Filing Date:</strong> ${attributes.finalFilingDate ? new Date(attributes.finalFilingDate).toLocaleString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : ''}</span><br/>
+
+        ${attributes.relatedMaterials.length > 0 && html`
+          <span className="subtext"><strong>Related Materials:</strong> 
+            <ul className="list--pipe" style=${{ display: 'inline-block', paddingLeft: '.5em'}}>
+            ${attributes.relatedMaterials.map((material, i) => html`
+              <li key=${i}>
+                <a href="${ material.value }">
+                    ${ material.label || material.value }
+                </a>
+              </li>
+            `)}
+            </ul>
+          </span>
+        `}
       </li>
 
       ${modalIsOpen && html`
@@ -135,6 +238,11 @@ export default ( props ) => {
               label="Job Title"
               value=${modalData.title}
               onChange=${onModalTitleChange}
+            />
+            <${TextareaControl}
+                label="Description (optional)"
+                value=${modalData.description} 
+                onChange=${onModalDescriptionChange}
             />
             <${TextControl} 
               label="Url"
@@ -167,6 +275,8 @@ export default ( props ) => {
               onChange=${onModalEmploymentTypeChange}
             />
             
+            ${relatedMaterialsSection()}
+            
             <div>Final Filing Date</div>
             <${DatePicker} 
               currentDate=${modalData.finalFilingDate}
@@ -182,10 +292,3 @@ export default ( props ) => {
     </div>
   `;
 }
-/*
-capitalize frequency
-
-p::first-letter {
-  text-transform:capitalize;
-}
-*/

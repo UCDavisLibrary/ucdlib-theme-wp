@@ -1,10 +1,30 @@
-{% if attributes.title %} 
+{% if attributes.title and 'now'|date('Y-m-d') <= attributes.finalFilingDate|date('Y-m-d') %} 
     {% set salaryFrequency = attributes.salaryFrequency is null ? 'HOUR' : attributes.salaryFrequency %}
     {% set employmentType = attributes.employmentType is null ? 'FULL_TIME' : attributes.employmentType %}
     <li class="job-posting">
         <a href="{{attributes.link}}" target="_blank"><strong>{{attributes.title}}</strong></a><br/>
-        <span class="subtext"><strong>Salary: </strong> ${{attributes.salaryMin|number_format(2, '.', ',')}} - ${{attributes.salaryMax|number_format(2, '.', ',')}}/<span>{{salaryFrequency|capitalize}}</span></span><br/>
-        <span class="subtext"><strong>Final Filing Date:</strong> {{attributes.finalFilingDate|date('F d, Y')}}</span>
+        {% if attributes.description %} 
+            <span class="subtext">{{attributes.description}}</span><br/>
+        {% endif %}
+        <span class="subtext"><strong>Salary: </strong> ${{attributes.salaryMin|number_format(0, '.', ',')}} - ${{attributes.salaryMax|number_format(0, '.', ',')}}/<span>{{salaryFrequency|capitalize}}</span></span><br/>
+        <span class="subtext"><strong>Final Filing Date:</strong> {{attributes.finalFilingDate|date('F j, Y')}}</span><br/>
+        {% if attributes.relatedMaterials %} 
+            <span class="subtext"><strong>Related Materials:</strong> 
+                <ul class="list--pipe" style="display: inline-block">
+                {% for material in attributes.relatedMaterials %}
+                    <li>
+                        <a href="{{ material.value }}">
+                        {% if material.label|trim|length %}
+                            {{ material.label }}
+                        {% else %}
+                            {{ material.value }}
+                        {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+                </ul>
+            </span>
+        {% endif %}
     </li>
     <script type="application/ld+json">
     {
