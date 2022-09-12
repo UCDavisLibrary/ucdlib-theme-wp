@@ -1,4 +1,4 @@
-{% if attributes.title and date('-1days') <= date(attributes.finalFilingDate) %} 
+{% if attributes.title and 'now'|date('Y-m-d') <= attributes.finalFilingDate|date('Y-m-d') %} 
     {% set salaryFrequency = attributes.salaryFrequency is null ? 'HOUR' : attributes.salaryFrequency %}
     {% set employmentType = attributes.employmentType is null ? 'FULL_TIME' : attributes.employmentType %}
     <li class="job-posting">
