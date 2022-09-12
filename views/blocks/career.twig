@@ -4,12 +4,12 @@
     <li class="job-posting">
         <a href="{{attributes.link}}" target="_blank"><strong>{{attributes.title}}</strong></a><br/>
         {% if attributes.description %} 
-            <span class="subtext">{{attributes.description}}</span><br/>
+            <span class="subtext" style="padding-bottom: 0.5rem; display: inline-block;">{{attributes.description}}</span>
         {% endif %}
-        <span class="subtext"><strong>Salary: </strong> ${{attributes.salaryMin|number_format(0, '.', ',')}} - ${{attributes.salaryMax|number_format(0, '.', ',')}}/<span>{{salaryFrequency|capitalize}}</span></span><br/>
-        <span class="subtext"><strong>Final Filing Date:</strong> {{attributes.finalFilingDate|date('F j, Y')}}</span><br/>
+        <span class="subtext" style="display: block;"><strong>Salary: </strong> ${{attributes.salaryMin|number_format(2, '.', ',')|replace({'.00' : ''})}} - ${{attributes.salaryMax|number_format(2, '.', ',')|replace({'.00' : ''})}}/<span>{{salaryFrequency|capitalize}}</span></span>
+        <span class="subtext" style="display: block;"><strong>Final Filing Date:</strong> {{attributes.finalFilingDate|date('F j, Y')}}</span>
         {% if attributes.relatedMaterials %} 
-            <span class="subtext"><strong>Related Materials:</strong> 
+            <span class="subtext" style="display: block;"><strong>Related Materials:</strong> 
                 <ul class="list--pipe" style="display: inline-block">
                 {% for material in attributes.relatedMaterials %}
                     <li>

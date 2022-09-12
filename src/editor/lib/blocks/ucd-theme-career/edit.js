@@ -77,7 +77,7 @@ export default ( props ) => {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    maximumFractionDigits: 2,
   });
 
   const onCareerClicked = (e) => {
@@ -199,7 +199,7 @@ export default ( props ) => {
     ` : html`
     <div>
         <${Text} isBlock=${true} variant="muted" style=${{marginBottom: '15px'}}>
-          You don't have any related materials listed. <${Button} onClick=${ addRelatedMaterials } variant='link'>Add one</${Button}>
+          You don't have any related materials listed.
         </${Text}>
     </div>
     `}
