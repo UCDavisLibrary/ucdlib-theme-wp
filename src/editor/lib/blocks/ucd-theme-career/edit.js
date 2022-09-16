@@ -7,6 +7,7 @@ import {
   Modal,
   SelectControl,
   DatePicker,
+  CheckboxControl,
   __experimentalText as Text
 } from '@wordpress/components';
 import { useState } from '@wordpress/element';
@@ -25,6 +26,7 @@ export default ( props ) => {
     employmentType: attributes.employmentType || 'FULL_TIME',
     salaryFrequency: attributes.salaryFrequency || 'HOUR',
     finalFilingDate: attributes.finalFilingDate || '',
+    startFilingDateChecked: attributes.startFilingDateChecked || false,
     relatedMaterials: attributes.relatedMaterials || []
   };
   const [ modalIsOpen, setModalOpen ] = useState( false );
@@ -123,6 +125,11 @@ export default ( props ) => {
 
   const onModalFilingDateChange = (finalFilingDate) => {
     const data = {...modalData, finalFilingDate};
+    setModalData(data);
+  }
+
+  const onStartFilingDateChange = (startFilingDateChecked) => {
+    const data = {...modalData, startFilingDateChecked};
     setModalData(data);
   }
 
@@ -277,7 +284,16 @@ export default ( props ) => {
             
             ${relatedMaterialsSection()}
             
-            <div>Final Filing Date</div>
+            <div style=${{ height: '2rem' }}>
+              <span>Filing Date</span>
+              <div style=${{ display: 'inline-block', float: 'right' }}>
+                <${CheckboxControl}
+                    label="Open until filled"
+                    checked=${ modalData.startFilingDateChecked }
+                    onChange=${ onStartFilingDateChange }
+                />
+              </div>
+            </div>
             <${DatePicker} 
               currentDate=${modalData.finalFilingDate}
               onChange=${onModalFilingDateChange}
