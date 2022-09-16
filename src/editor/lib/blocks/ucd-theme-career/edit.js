@@ -294,6 +294,7 @@ export default ( props ) => {
                 />
               </div>
             </div>
+
             <${DatePicker} 
               currentDate=${modalData.finalFilingDate}
               onChange=${onModalFilingDateChange}
