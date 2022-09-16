@@ -1,4 +1,4 @@
-{% if attributes.title and 'now'|date('Y-m-d') <= attributes.finalFilingDate|date('Y-m-d') %} 
+{% if (attributes.title and 'now'|date('Y-m-d') <= attributes.finalFilingDate|date('Y-m-d')) or attributes.startFilingDateChecked %} 
     {% set salaryFrequency = attributes.salaryFrequency is null ? 'HOUR' : attributes.salaryFrequency %}
     {% set employmentType = attributes.employmentType is null ? 'FULL_TIME' : attributes.employmentType %}
     <li class="job-posting">
@@ -7,7 +7,13 @@
             <span class="subtext" style="padding-bottom: 0.5rem; display: inline-block;">{{attributes.description}}</span>
         {% endif %}
         <span class="subtext" style="display: block;"><strong>Salary: </strong> ${{attributes.salaryMin|number_format(2, '.', ',')|replace({'.00' : ''})}} - ${{attributes.salaryMax|number_format(2, '.', ',')|replace({'.00' : ''})}}/<span>{{salaryFrequency|capitalize}}</span></span>
-        <span class="subtext" style="display: block;"><strong>Final Filing Date:</strong> {{attributes.finalFilingDate|date('F j, Y')}}</span>
+        <span class="subtext" style="display: block;">
+            {% if attributes.startFilingDateChecked %} 
+                <strong>Filing Date:</strong> {{attributes.finalFilingDate|date('F j, Y')}} for first consideration, open until filled                
+            {% else %}
+                <strong>Final Filing Date:</strong> {{attributes.finalFilingDate|date('F j, Y')}}
+            {% endif %}
+        </span>
         {% if attributes.relatedMaterials %} 
             <span class="subtext" style="display: block;"><strong>Related Materials:</strong> 
                 <ul class="list--pipe" style="display: inline-block">

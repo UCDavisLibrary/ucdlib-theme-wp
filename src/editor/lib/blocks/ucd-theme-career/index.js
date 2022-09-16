@@ -44,6 +44,10 @@ const settings = {
       type: "string",
       default: ""
     },
+    startFilingDateChecked: {
+      type: "boolean",
+      default: false
+    },
     employmentType: {
       type: "string",
       default: "FULL_TIME"
