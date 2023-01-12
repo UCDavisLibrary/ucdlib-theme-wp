@@ -25,6 +25,11 @@ kwargs:
     {% set caption = "" %}
   {% endif %}
 
+  {% if alt %}
+    {% set alt = alt|striptags %}
+  {% endif %}
+
+
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
   {% if attributes.permalink %}
     {% set kwargs = kwargs|merge({'href': kwargs.permalink}) %}
