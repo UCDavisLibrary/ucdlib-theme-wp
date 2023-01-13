@@ -28,6 +28,10 @@ const settings = {
       type: "string",
       default: ""
     },
+    datePosted: {
+      type: "string",
+      default: ''
+    },
     salaryMin: {
       type: "string",
       default: ""

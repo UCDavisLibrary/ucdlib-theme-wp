@@ -51,7 +51,8 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "transform" => array("removeStylePrefix", 'getPermalink')
     ),
     "ucd-theme/career" => array(
-      "twig" => "@ucd/blocks/career.twig"
+      "twig" => "@ucd/blocks/career.twig",
+      "transform" => ['makeJobJsonLd']
     ),
     "ucd-theme/careers" => array(
       "twig" => "@ucd/blocks/careers.twig"
