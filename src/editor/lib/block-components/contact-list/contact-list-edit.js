@@ -1,11 +1,14 @@
 import { html } from "../../utils";
 import websiteTypes from "./website-types";
+import { IconPicker } from "../../block-components";
 import { TextControl, Modal, SelectControl, Button, __experimentalText as Text } from '@wordpress/components';
 import { 
   useState, 
   Fragment, 
   forwardRef, 
-  useImperativeHandle } from '@wordpress/element';
+  useImperativeHandle,
+  createRef
+} from '@wordpress/element';
 
 const ContactListEdit = forwardRef((props, ref) => {
   let { 
@@ -32,12 +35,25 @@ const ContactListEdit = forwardRef((props, ref) => {
   allowWebsites = allowWebsites == false ? false : true;
   allowAppointment = allowAppointment == false ? false : true;
   allowAdditionalText = allowAdditionalText ? true : false;
+  const iconPickerRef = createRef();
 
   const baseContactStructure = (() => {
     const x = {value: '', label: ''};
     if ( allowAdditionalText ) x['additionalText'] = '';
     return x;
   })();
+
+  const onIconChangeRequest = () => {
+    if ( iconPickerRef.current ){
+      iconPickerRef.current.openModal();
+    }
+  }
+
+  // set up icon picker
+  const onIconSelect = (icon) => {
+    setAttributes({icon: `${icon.iconSet}:${icon.icon}`})
+    websites
+  }
 
   // modal state
   const [ isOpen, setOpen ] = useState( false );
@@ -269,6 +285,16 @@ ${modalSectionHeader("Websites", addNewWebsite)}
                 onChange=${v => setWebsite(v, i, 'type')}
               />
             </div>
+            ${website.type == "Other" ? html`
+              <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+                <${IconPicker} 
+                  ref=${iconPickerRef}
+                  onChange=${v => setWebsite(v, i, 'icon')}
+                  selectedIcon=${website.icon}
+                ></${IconPicker}>
+              </div>
+            `:html``}
+
             <div style=${{display: 'table-cell', paddingRight: '15px'}}>
               <${TextControl} 
                 value=${website.value}
