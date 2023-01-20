@@ -32,44 +32,9 @@
             </span>
         {% endif %}
     </li>
-    <script type="application/ld+json">
-    {
-        "@context" : "https://schema.org/",
-        "@type" : "JobPosting",
-        "title" : "{{attributes.title}}",
-        "identifier" => array(
-            "@type" => "PropertyValue",
-            "name" => "UC Davis Library",
-            "value" => $post->id
-        ),
-        "validThrough" : "{{attributes.finalFilingDate}}",
-        "employmentType" : "${{attributes.employmentType}}",
-        "hiringOrganization" => array(
-            "@type" => "Organization",
-            "name" => "UC Davis Library",
-            "sameAs" => "https://www.library.ucdavis.edu/",
-            "logo" => "https://www.library.ucdavis.edu/wp-content/themes/ucdlib-theme-wp/assets/img/site-icon.png"
-        ),
-        "jobLocation": {
-            "@type": "Place",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "1 Shields Ave",
-                "addressLocality": "Davis",
-                "addressRegion": "CA",
-                "postalCode": "95616",
-                "addressCountry": "US"
-            }
-        },
-        "baseSalary": {
-            "@type": "MonetaryAmount",
-            "currency": "USD",
-            "value": {
-                "@type": "QuantitativeValue",
-                "value": "{{attributes.salaryMin}} - {{attributes.salaryMax}}",
-                "unitText": "{{attributes.salaryFrequency}}"
-            }
-        }
-    }
-    </script>
+    {% if attributes.json %}
+        <script type="application/ld+json">
+            {{ attributes.json }}
+        </script>
+    {% endif %}
 {% endif %}

@@ -224,6 +224,72 @@ class UCDThemeBlockTransformations {
     return $attrs;
   }
 
+  public static function makeJobJsonLd($attrs=[]){
+    if ( !array_key_exists('title', $attrs) || !$attrs['title'] ) return $attrs;
+    
+    $attrs['json'] = [
+      "@context" => "https://schema.org/",
+      "@type" => "JobPosting",
+      "title" => $attrs['title'],
+      "hiringOrganization" => [
+        "@type" => "Organization",
+        "name" => "UC Davis Library",
+        "sameAs" => "https://library.ucdavis.edu/",
+        "logo" => "https://library.ucdavis.edu/wp-content/themes/ucdlib-theme-wp/assets/img/site-icon.png"
+      ],
+      "jobLocation" => [
+        "@type" => "Place",
+        "address" => [
+            "@type" => "PostalAddress",
+            "streetAddress" => "1 Shields Ave",
+            "addressLocality" => "Davis",
+            "addressRegion" => "CA",
+            "postalCode" => "95616",
+            "addressCountry" => "US"
+        ]
+      ],
+      "employmentType" => array_key_exists('employmentType', $attrs) ? $attrs['employmentType'] : 'FULL_TIME'
+    ];
+
+    if ( !array_key_exists('datePosted', $attrs)){
+      $attrs['json']['datePosted'] = (new DateTime('now'))->format('Y-m-d');
+    } else {
+      $attrs['json']['datePosted'] = $attrs['datePosted'];
+    }
+
+    if ( array_key_exists('link', $attrs) ) {
+      $attrs['json']['url'] = $attrs['link'];
+    }
+
+    if ( array_key_exists('finalFilingDate', $attrs) ) {
+      $attrs['json']['validThrough'] = $attrs['finalFilingDate'];
+    }
+
+    if (array_key_exists('description', $attrs) ){
+      $attrs['json']['description'] = $attrs['description'];
+    } else {
+      $attrs['json']['description'] = "This is a job at the UC Davis Library.";
+    }
+
+    if ( !array_key_exists('salaryFrequency', $attrs) ){
+      $attrs['salaryFrequency'] = 'HOUR';
+    }
+    if ( array_key_exists('salaryMin', $attrs) && array_key_exists('salaryMax', $attrs)){
+      $attrs['json']['baseSalary'] = [
+        "@type" => "MonetaryAmount",
+        "currency" => "USD",
+        "value" => [
+          "@type" => "QuantitativeValue",
+          "value" => $attrs['salaryMin'] . ' - ' . $attrs['salaryMax'],
+          "unitText" => $attrs['salaryFrequency']
+        ]
+      ];
+    }
+
+    $attrs['json'] = json_encode($attrs['json']);
+    return $attrs;
+  }
+
   /**
    * Retrieves image object and saves in "image" attribute
    */

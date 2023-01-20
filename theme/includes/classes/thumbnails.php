@@ -8,7 +8,7 @@ require_once( __DIR__ . '/views.php' );
  */
 class UcdThemeThumbnails {
   public function __construct() {
-    add_action( 'admin_init', array($this, 'modify_native_wp_sizes') );
+    add_action( 'pre_update_option', array($this, 'modify_native_wp_sizes'), 10, 3 );
     //add_action( 'after_setup_theme', array($this, 'add_custom_sizes') );
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
   }
@@ -22,21 +22,25 @@ class UcdThemeThumbnails {
 
   }
 
-  public function modify_native_wp_sizes(){
+  public function modify_native_wp_sizes($value, $option, $old_value){
 
-    // http://dev.webstyleguide.ucdavis.edu/redesign/?p=atoms-thumbnail
-    update_option('thumbnail_size_w', 135);
-    update_option('thumbnail_size_h', 135);
-    update_option('thumbnail_crop', 1);
+    $options = [
+      "thumbnail_size_w" => 135,
+      "thumbnail_size_h" => 135,
+      "thumbnail_crop" => 1,
+      "large_size_w" => 2000,
+      "large_size_h" => 9999,
+      "large_crop" => 0,
+      "medium_size_w" => 1000,
+      "medium_size_h" => 9999,
+      "medium_crop" => 0
+    ];
 
+    if ( array_key_exists($option, $options) ) {
+      $value = $options[$option];
+    }
 
-    update_option('large_size_w', 2000);
-    update_option('large_size_h', 9999);
-    update_option('large_crop', 0);
-
-    update_option('medium_size_w', 1000);
-    update_option('medium_size_h', 9999);
-    update_option('medium_crop', 0);
+    return $value;
 
   }
 

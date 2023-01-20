@@ -15,6 +15,7 @@ kwargs:
 {% macro media_link( kwargs = {}) %}
 
   {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
   {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
   {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
@@ -31,6 +32,10 @@ kwargs:
     {% set alt = kwargs.post.teaser_image.alt %}
   {% else %}
     {% set src = DefaultImage('media-link') %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
   {% endif %}
 
   <a href="{{href}}" class="media-link">
@@ -69,6 +74,7 @@ kwargs:
 {% macro teaser( kwargs = {}) %}
 
   {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
   {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
   {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
@@ -85,6 +91,10 @@ kwargs:
     {% set alt = kwargs.post.teaser_image.alt %}
   {% else %}
     {% set src = DefaultImage('teaser') %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
   {% endif %}
    
 

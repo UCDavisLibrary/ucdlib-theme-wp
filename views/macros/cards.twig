@@ -22,6 +22,7 @@ kwargs:
 {% macro marketing_highlight( kwargs ) %}
 
   {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
   {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
   {% set buttonText = kwargs.buttonText ? kwargs.buttonText : "More Info" %}
   {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
@@ -39,6 +40,10 @@ kwargs:
     {% set alt = kwargs.post.card_image.alt %}
   {% else %}
     {% set src = DefaultImage('marketing-highlight') %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
   {% endif %}
    
 
@@ -84,6 +89,7 @@ kwargs:
 {% macro featured_article( kwargs ) %}
 
   {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
   {% set subTitle = kwargs.subTitle ? kwargs.subTitle : kwargs.post.meta('ucd_subtitle') %}
   {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
@@ -100,6 +106,10 @@ kwargs:
     {% set alt = kwargs.post.thumbnail.alt %}
   {% else %}
     {% set src = DefaultImageByAspectRatio('16x9') %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
   {% endif %}
    
 
@@ -143,6 +153,7 @@ kwargs:
 #}
 {% macro hero_banner( kwargs ) %}
   {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
   {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
   {% set buttonText = kwargs.buttonText ? kwargs.buttonText : "More Info" %}
   {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
@@ -158,6 +169,10 @@ kwargs:
   {% elseif kwargs.post.thumbnail %}
     {% set src = kwargs.post.thumbnail.src %}
     {% set alt = kwargs.post.thumbnail.alt %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
   {% endif %}
 
   {% set classes = 'hero-banner' %}
@@ -206,6 +221,7 @@ kwargs:
 #}
 {% macro poster( kwargs ) %}
   {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
   {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
   {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
@@ -222,6 +238,10 @@ kwargs:
     {% set alt = kwargs.post.card_image.alt %}
   {% else %}
     {% set src = DefaultImage('poster') %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
   {% endif %}
 
   {% set classes = 'vm-poster' %}
@@ -264,6 +284,7 @@ kwargs:
 #}
 {% macro listing( kwargs={}) %}
   {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
   {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
 
@@ -279,6 +300,10 @@ kwargs:
     {% set alt = kwargs.post.thumbnail.alt %}
   {% else %}
     {% set src = DefaultImageByAspectRatio("1x1") %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
   {% endif %}
 
   <div class="vm-listing">
@@ -312,6 +337,7 @@ kwargs:
 #}
 {% macro search_result( kwargs = {} ) %}
   {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
   {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
   {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
   {% if kwargs.post.author.first_name and kwargs.post.author.last_name %}

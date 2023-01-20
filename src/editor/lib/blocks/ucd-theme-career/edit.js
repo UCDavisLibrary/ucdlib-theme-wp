@@ -139,6 +139,9 @@ export default ( props ) => {
 
   const onModalSave = () => {
     setModalOpen(false);
+    if ( !attributes.datePosted ) {
+      setAttributes({datePosted: (new Date).toISOString().split('T')[0] })
+    }
     setAttributes(modalData);
   }
 

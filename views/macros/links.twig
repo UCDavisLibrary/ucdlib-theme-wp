@@ -69,6 +69,7 @@ kwargs:
 {% macro marketing_highlight_horizontal( kwargs ) %}
 
   {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
   {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
 
@@ -84,6 +85,10 @@ kwargs:
     {% set alt = kwargs.post.card_image.alt %}
   {% else %}
     {% set src = DefaultImage('marketing-highlight-horizontal') %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
   {% endif %}
    
 
