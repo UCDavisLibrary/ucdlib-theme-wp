@@ -19,11 +19,20 @@ const ContactListDisplay = ( props ) => {
   if ( !websites ) websites = [];
   if ( !appointment ) appointment = '';
 
-  const getLinkIcon = (t) => {
+  const getLinkIcon = (element) => {
+    let t;
+    if( typeof element ==='object' ){
+      t = element.type;
+    } else {
+      t = element;
+    }
+
     if ( t === 'phone' ) return 'ucd-public:fa-phone';
     if ( t === 'email' ) return 'ucd-public:fa-envelope';
     if ( t === 'appointment' ) return 'ucd-public:fa-calendar-check';
+    if ( element.icon && t === 'other') return element.icon.iconSet + ':' + element.icon.icon;
     return (websiteTypes.find( ({ value }) => value === t )).icon;
+    
   }
   const getPhoneLabel = (phone) => {
     if ( phone.label ) return phone.label;
@@ -82,7 +91,7 @@ const ContactListDisplay = ( props ) => {
             <${Fragment} key=${website.value}>
             ${website.value.length > 0 && html`
               <li><a className="icon-ucdlib">
-                <ucdlib-icon icon=${ getLinkIcon(website.type)}></ucdlib-icon>
+                <ucdlib-icon icon=${ getLinkIcon(website)}></ucdlib-icon>
                 <div>${website.label ? website.label : website.value}</div>
               </a>
                 ${website.additionalText ? html`

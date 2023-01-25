@@ -323,7 +323,7 @@ class UCDThemeBlockTransformations {
     ];
     $attrs['icons'] = [];
 
-    if ( is_array($attrs['emails']) && count($attrs['emails'])) {
+    if ( array_key_exists('emails', $attrs) && is_array($attrs['emails']) && count($attrs['emails'])) {
       $attrs['icons'][] = $icons['email'];
       foreach ($attrs['emails'] as $email) {
         if ( array_key_exists('value', $email) && $email['value'] ) {
@@ -336,8 +336,8 @@ class UCDThemeBlockTransformations {
         }
       }
     }
-
-    if ( is_array($attrs['phones']) && count($attrs['phones'])) {
+    
+    if ( array_key_exists('phones', $attrs) && is_array($attrs['phones']) && count($attrs['phones'])) {
       $attrs['icons'][] = $icons['phone'];
       foreach ($attrs['phones'] as $phone) {
         if ( array_key_exists('value', $phone) && $phone['value'] ) {
@@ -372,7 +372,14 @@ class UCDThemeBlockTransformations {
     if ( is_array($attrs['websites']) ) {
       foreach ($attrs['websites'] as $website) {
         if ( array_key_exists('value', $website) && $website['value'] ) {
-          $icon = array_key_exists('type', $website) && $website['type'] && array_key_exists($website['type'], $icons) ? $icons[$website['type']] : $defaultIcon;
+
+          if(array_key_exists('icon', $website) && $website['type'] && $website['type'] == 'other'){
+            $ic = $website['icon'];
+            $icon = $ic['iconSet'] . ':' . $ic['icon'];
+          } else {
+            $icon = array_key_exists('type', $website) && $website['type'] && array_key_exists($website['type'], $icons) ? $icons[$website['type']] : $defaultIcon;
+          }
+
           $attrs['icons'][] = $icon;
           $contact[] = [
             'value' => $website['value'],
