@@ -2,10 +2,14 @@ import { html } from "../../utils";
 import websiteTypes from "./website-types";
 import { TextControl, Modal, SelectControl, Button, __experimentalText as Text } from '@wordpress/components';
 import { 
-  useState, 
+  useState,
+  useEffect, 
+  useRef,
+  createRef,
   Fragment, 
   forwardRef, 
   useImperativeHandle } from '@wordpress/element';
+import { IconPicker } from "../../block-components";
 
 const ContactListEdit = forwardRef((props, ref) => {
   let { 
@@ -32,13 +36,24 @@ const ContactListEdit = forwardRef((props, ref) => {
   allowWebsites = allowWebsites == false ? false : true;
   allowAppointment = allowAppointment == false ? false : true;
   allowAdditionalText = allowAdditionalText ? true : false;
-
+  const onMainEleUpdated = (e) => {
+    const propName = e.detail.propName;
+    const propValue = e.detail.propValue;
+    const newAttrs = {};
+    newAttrs[propName] = propValue;
+    setAttributes(newAttrs);
+  }
   const baseContactStructure = (() => {
     const x = {value: '', label: ''};
     if ( allowAdditionalText ) x['additionalText'] = '';
     return x;
   })();
 
+  const mainEleProps = () => {
+    let p = {ref: mainEleRef};
+
+    return p;
+  }
   // modal state
   const [ isOpen, setOpen ] = useState( false );
   const openModal = () => setOpen( true );
@@ -47,6 +62,41 @@ const ContactListEdit = forwardRef((props, ref) => {
     openModal,
     closeModal
   }));
+
+  const mainEleRef = useRef();
+  const iconPickerRef = createRef();
+
+
+  useEffect(() => {
+    let mainEle = null;
+    if ( mainEleRef.current ) {
+      mainEleRef.current.addEventListener('updated', onMainEleUpdated);
+      mainEleRef.current.addEventListener('icon-change', onIconChangeRequest);
+      mainEle = mainEleRef.current;
+    }
+    return () => {
+      if ( mainEle ) {
+        mainEle.removeEventListener('updated', onMainEleUpdated);
+        mainEle.removeEventListener('icon-change', onIconChangeRequest);
+      }
+    };
+  });
+
+  const onIconChangeRequest = () => {
+    
+    if ( iconPickerRef.current ){
+      iconPickerRef.current.openModal();
+    }
+  }
+
+  const addIconPicker = (v, website, i) => {
+
+    if ( mainEleRef.current ) {
+      mainEleRef.current.dispatchEvent(new CustomEvent('icon-change'));    
+    }
+    
+
+  };
 
   // phone setters
   const [_phones, setPhones] = useState(phones);
@@ -289,9 +339,20 @@ ${modalSectionHeader("Websites", addNewWebsite)}
                 />
               </div>
             `}
+            ${website.type == 'other' ? html`
+              <div style=${{display: 'table-cell', paddingRight: '15px'}} ...${ mainEleProps() } >
+                <${Button} variant="primary" onClick=${v => addIconPicker(v, website, i)}>Icon</${Button}>
+                <${IconPicker} 
+                  ref=${iconPickerRef}
+                  onChange=${v => setWebsite(v, i, 'icon')}
+                  selectedIcon=${website.icon}
+                ></${IconPicker}>
+            </div>
+            `: html``} 
             <div style=${{display: 'table-cell'}}>
               <${Button} isDestructive=${true} onClick=${() => removeWebsite(i)} variant='link'>delete</${Button}>
-            </div>                
+            </div>   
+          
           </div>
         `)}
       </div>
