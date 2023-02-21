@@ -133,7 +133,9 @@ kwargs:
           {% else %}
             {% set author = kwargs.post.author.name %}
           {% endif %}
-          {% if not kwargs.post or (kwargs.post and not kwargs.post.hide_author) %}
+          {% if kwargs.post and kwargs.post.additional_authors %}
+            {% include getUcdHook('teaser') with {'hook': 'additionalAuthors', 'post': kwargs.post} %}
+          {% elseif not kwargs.post or (kwargs.post and not kwargs.post.hide_author) %}
             <li><span class="byline">by {{author}}</span></li>
           {% endif %}
           <li>{{kwargs.post.date}}</li>

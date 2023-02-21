@@ -1,4 +1,7 @@
 {# hooks are defined in classes/views.php #}
+{% if not twigHooks %}
+  {% set twigHooks = getTwigHooks() %}
+{% endif %}
 {% if hook and hook_category %}
   {% set hookArray = twigHooks[hook_category][hook] %}
   {% if hookArray is iterable %}

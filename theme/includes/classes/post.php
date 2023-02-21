@@ -301,6 +301,41 @@ class UcdThemePost extends Timber\Post {
     return $this->hide_author;
   }
 
+  /**
+   * To be used in conjunction with additional_authors.
+   * Should the original wp core author be displayed?
+   */
+  protected $hide_og_author;
+  public function hide_og_author(){
+    if ( ! empty( $this->hide_og_author ) ) {
+      return $this->hide_og_author;
+    }
+    $this->hide_og_author = get_post_meta($this->ID, 'ucd_hide_og_author', true);
+    return $this->hide_og_author;
+  }
+
+  /**
+   * Returns array of additional author ids
+   */
+  protected $additional_author_ids;
+  public function additional_author_ids(){
+    if ( ! empty( $this->additional_author_ids ) ) {
+      return $this->additional_author_ids;
+    }
+    $this->additional_author_ids = get_post_meta($this->ID, 'ucd_additional_authors', false);
+    if ( !$this->additional_author_ids ) $this->additional_author_ids = [];
+    return $this->additional_author_ids;
+  }
+
+  protected $additional_authors;
+  public function additional_authors(){
+    if ( ! empty( $this->additional_authors ) ) {
+      return $this->additional_authors;
+    }
+    $this->additional_authors = apply_filters( 'ucd-theme/post/additional_authors', [], $this->additional_author_ids() );
+    return $this->additional_authors;
+  }
+
   protected $featured;
   public function featured(){
     if ( ! empty( $this->featured ) ) {

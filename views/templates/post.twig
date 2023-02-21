@@ -29,9 +29,12 @@
         {% endif %}
 
         <ul class="list--pipe byline byline--italic">
-          {% if not post.hide_author %}
+          {% if post.hide_author %}
+          {% elseif post.additional_authors and post.hide_og_author %}
+          {% else %}
             <li>{{post.author.name}}</li>
           {% endif %}
+          {% include getUcdHook('post') with {'hook': 'additionalAuthors'} %}
           <li>{{ post.date }}</li>
         </ul>
 

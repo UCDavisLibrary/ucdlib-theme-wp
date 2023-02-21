@@ -45,6 +45,7 @@ class UCDThemeViews {
       $context['twigHooks']['post'] = array();
       $context['twigHooks']['post']['sidebarTop'] = array();
       $context['twigHooks']['post']['sidebarBottom'] = array();
+      $context['twigHooks']['post']['additionalAuthors'] = array();
 
       // single author page hooks
       $context['twigHooks']['author'] = array();
@@ -52,6 +53,11 @@ class UCDThemeViews {
       $context['twigHooks']['author']['bottom'] = array();
       $context['twigHooks']['author']['aboveDescription'] = array();
       $context['twigHooks']['author']['aboveContactList'] = array();
+
+      // teaser hooks
+      $context['twigHooks']['teaser'] = [
+        'additionalAuthors' => []
+      ];
     }
 
     return $context;
@@ -108,6 +114,14 @@ class UCDThemeViews {
   }
 
   /**
+   * Returns all twigHooks with any registered twig files from global context
+   */
+  public function getTwigHooks(){
+    $context = Timber::context();
+    return $context['twigHooks'];
+  }
+
+  /**
    * Adds view-getter functions to twig context
    */
   public function add_twig_functions( $twig ){
@@ -117,6 +131,7 @@ class UCDThemeViews {
     $twig->addFunction( new Twig\TwigFunction( 'getUcdBlock', array( $this, 'getBlock' ) ) );
     $twig->addFunction( new Twig\TwigFunction( 'getUcdHook', array( $this, 'getHook' ) ) );
     $twig->addFunction( new Twig\TwigFunction( 'getUcdSidebarDefault', array( $this, 'getSidebarDefault' ) ) );
+    $twig->addFunction( new Twig\TwigFunction( 'getTwigHooks', array( $this, 'getTwigHooks' ) ) );
     return $twig;
   }
 }

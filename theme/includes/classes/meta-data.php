@@ -93,6 +93,17 @@ class UCDThemeMetaData {
       'default' => false,
       'type' => 'boolean',
     ) );
+    register_post_meta( '', 'ucd_additional_authors', array(
+      'show_in_rest' => true,
+      'single' => false,
+      'type' => 'number'
+    ) );
+    register_post_meta( '', 'ucd_hide_og_author', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'default' => false,
+      'type' => 'boolean',
+    ) );
     register_post_meta( '', 'ucd_brand_color', array(
       'show_in_rest' => true,
       'single' => true,
