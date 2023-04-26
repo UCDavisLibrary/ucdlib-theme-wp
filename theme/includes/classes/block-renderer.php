@@ -113,6 +113,7 @@ class UCDThemeBlockRenderer {
 
     // Render twig
     ob_start();
+    if ( !isset($meta['twig']) ) return "";
     Timber::render( $meta['twig'], $context );
     return ob_get_clean();
   }
