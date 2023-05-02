@@ -25,7 +25,9 @@ function ImagePicker({
   captionOptions,
   onCaptionChange,
   cloneText,
-  notPanel
+  notPanel,
+  horizontal,
+  renderImageName
 }){
   const { invalidateResolution } = useDispatch('core/data');
 
@@ -101,13 +103,29 @@ function ImagePicker({
 
   const uploadButton = ({open}) => {
     if ( onOpen ) onOpen();
+    const showText = 
+      image != undefined && 
+      renderImageName &&
+      image.title &&
+      image.title.rendered;
+    const showImage = image != undefined && !renderImageName;
+    if ( showText ) return html`
+      <div style=${{flexGrow: 1}}>${image.title.rendered}</div>
+    `;
+    if ( renderImageName && imageId == 0 ) {
+      return html`
+        <${Button} isSecondary onClick=${open}>
+          Choose an Image
+        </${Button}>
+      `;
+    }
     return html`
     <${Button}
      className=${imageId == 0 ? 'editor-post-featured-image__toggle' : 'editor-post-featured-image__preview'}
      onClick=${open}
     >
       ${imageId == 0 && 'Choose an Image'}
-      ${image != undefined && html`
+      ${showImage && html`
         <${ResponsiveWrapper}
           naturalWidth=${image.media_details.width}
           naturalHeight=${image.media_details.height}
@@ -121,11 +139,11 @@ function ImagePicker({
   const replaceButton = ({open}) => {
     if ( onOpen ) onOpen();
     return html`
-    <${Button} onClick=${open} isSecondary>Replace Image</${Button}>
+    <${Button} onClick=${open} isSecondary  style=${horizontal ? {marginTop: 0} : {}}>Replace Image</${Button}>
   `;}
 
   const renderMediaUpload = () => html`
-    <div className="editor-post-featured-image">
+    <div className="editor-post-featured-image" style=${horizontal ? {display: 'flex', alignItems: 'center'} : {}}>
       <${MediaUploadCheck}>
         <${MediaUpload}
           onSelect=${onSelect}
@@ -155,6 +173,7 @@ function ImagePicker({
             onClick=${onRemove}
             isLink 
             isDestructive
+            style=${horizontal ? {marginTop: 0} : {}}
           >Remove Image
           </${Button}>
         </${MediaUploadCheck}>
