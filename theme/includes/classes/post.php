@@ -131,13 +131,27 @@ class UcdThemePost extends Timber\Post {
     return $this->ancestors;
   }
 
+  /**
+   * Retrieves either custom breadcrumb text from page meta or page title
+   */
+  protected $breadcrumbText;
+  public function breadcrumbText(){
+    if ( ! empty( $this->breadcrumbText) ) return $this->breadcrumbText;
+
+    $this->breadcrumbText = get_post_meta($this->ID, 'ucd_custom_breadcrumb_text', true);
+    if ( !$this->breadcrumbText ) {
+      $this->breadcrumbText = $this->title();
+    }
+    return $this->breadcrumbText;
+  }
+
   protected $breadcrumbs;
   public function breadcrumbs(){
     if ( ! empty( $this->breadcrumbs) ) return $this->breadcrumbs;
     $primary_nav = Timber::get_menu( 'primary' );
     $breadcrumbs = [
       ['link' => '/', 'title' => 'Home', 'object_id' => get_option('page_on_front')],
-      ['link' => $this->link(), 'title' => $this->title(), 'object_id' => $this->id]
+      ['link' => $this->link(), 'title' => $this->breadcrumbText(), 'object_id' => $this->id]
     ];
     $ancestors = $this->ancestors();
 
@@ -146,7 +160,7 @@ class UcdThemePost extends Timber\Post {
       $page_for_posts_id = get_option('page_for_posts');
       if ( $page_for_posts_id ) {
         $page_for_posts = Timber::get_post( $page_for_posts_id );
-        array_splice( $breadcrumbs, 1, 0, [['link' => $page_for_posts->link(), 'title' => $page_for_posts->title(), 'object_id' => $page_for_posts_id]] );
+        array_splice( $breadcrumbs, 1, 0, [['link' => $page_for_posts->link(), 'title' => $page_for_posts->breadcrumbText(), 'object_id' => $page_for_posts_id]] );
         $this->breadcrumbs = $breadcrumbs;
         return $this->breadcrumbs;
       }
@@ -178,7 +192,7 @@ class UcdThemePost extends Timber\Post {
         if ( $customParent ) {
           $man_breadcrumb = UcdThemeMenu::getDirectHierarchybyId( $primary_nav, $customParent );
           if ( count($man_breadcrumb) ){
-            array_splice( $breadcrumbs, 1, 0, [['link' => $ancestor->link(), 'title' => $ancestor->title()]] );
+            array_splice( $breadcrumbs, 1, 0, [['link' => $ancestor->link(), 'title' => $ancestor->breadcrumbText()]] );
             array_splice( $breadcrumbs, 1, 0, $man_breadcrumb );
           } else {
             $ancestors_with_auto_breadcrumb[] = $ancestor;
@@ -190,7 +204,7 @@ class UcdThemePost extends Timber\Post {
       }
       if ( count($ancestors) != count($ancestors_with_auto_breadcrumb) ){
         foreach (array_reverse($ancestors_with_auto_breadcrumb) as $ancestor ) {
-          array_splice($breadcrumbs, -1, 0, [['link' => $ancestor->link(), 'title' => $ancestor->title()]]);
+          array_splice($breadcrumbs, -1, 0, [['link' => $ancestor->link(), 'title' => $ancestor->breadcrumbText()]]);
         }
         $this->breadcrumbs = $breadcrumbs;
         return $this->breadcrumbs;
@@ -216,7 +230,7 @@ class UcdThemePost extends Timber\Post {
         $ancestors_not_in_nav[] = $ancestor;
       }
       foreach (array_reverse($ancestors_not_in_nav) as $ancestor ) {
-        array_splice($breadcrumbs, -1, 0, [['link' => $ancestor->link(), 'title' => $ancestor->title()]]);
+        array_splice($breadcrumbs, -1, 0, [['link' => $ancestor->link(), 'title' => $ancestor->breadcrumbText()]]);
       }
 
     }

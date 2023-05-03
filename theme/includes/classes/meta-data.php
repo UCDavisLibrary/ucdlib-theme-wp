@@ -51,12 +51,6 @@ class UCDThemeMetaData {
       'default' => false,
       'type' => 'boolean',
     ) );
-    register_post_meta( 'page', 'ucd_hide_breadcrumbs', array(
-      'show_in_rest' => true,
-      'single' => true,
-      'default' => false,
-      'type' => 'boolean',
-    ) );
     register_post_meta( 'page', 'ucd_hide_sidebar', array(
       'show_in_rest' => true,
       'single' => true,
@@ -116,11 +110,25 @@ class UCDThemeMetaData {
       'type' => 'boolean',
       'default' => false
     ) );
+
+    // breadcrumbs panel
+    register_post_meta( 'page', 'ucd_hide_breadcrumbs', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'default' => false,
+      'type' => 'boolean',
+    ) );
     register_post_meta( '', 'ucd_nav_parent', array(
       'show_in_rest' => true,
       'single' => true,
       'type' => 'number',
       'default' => 0
+    ) );
+    register_post_meta( '', 'ucd_custom_breadcrumb_text', array(
+      'show_in_rest' => true,
+      'single' => true,
+      'type' => 'string',
+      'default' => ''
     ) );
 
     register_post_meta( '', 'ucd_thumbnail_1x1', array(

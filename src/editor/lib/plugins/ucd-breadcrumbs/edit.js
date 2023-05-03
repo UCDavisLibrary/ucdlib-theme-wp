@@ -1,5 +1,5 @@
 import { html, SelectUtils } from "../../utils";
-import { ToggleControl, SelectControl } from '@wordpress/components';
+import { ToggleControl, SelectControl, TextControl } from '@wordpress/components';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { useDispatch } from "@wordpress/data";
 import { Fragment, useEffect, useState } from "@wordpress/element";
@@ -51,6 +51,12 @@ export default () => {
               label="Hide Breadcrumbs"
               checked=${meta.ucd_hide_breadcrumbs}
               onChange="${ucd_hide_breadcrumbs => {editPost({meta: {ucd_hide_breadcrumbs}})}}" />
+            <${TextControl} 
+              label="Custom Text"
+              value=${meta.ucd_custom_breadcrumb_text}
+              onChange="${ucd_custom_breadcrumb_text => {editPost({meta: {ucd_custom_breadcrumb_text}})}}"
+              help="Instead of the page title, this text is used for the breadcrumb. Unless this page is part of the primary site navigation, then the nav item text is used."
+            />
             <${SelectControl}
               label="Custom Parent"
               value=${meta.ucd_nav_parent}
