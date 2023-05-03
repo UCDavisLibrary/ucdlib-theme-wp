@@ -31,6 +31,10 @@ const settings = {
       type: 'string',
       default: ''
     },
+    template: {
+      type: 'string',
+      default: 'teaser'
+    },
     hideImage: {
       type: "boolean",
       default: false

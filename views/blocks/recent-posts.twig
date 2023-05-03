@@ -1,5 +1,10 @@
 {% from getUcdMacro('lists') import teaser %}
-{% set classes = "teasers" %}
+{% from getUcdMacro('cards') import featured_article %}
+
+{% set classes = "" %}
+{% if attributes.template == 'teaser' or not attributes.template %}
+  {% set classes = classes ~ ' teasers' %}
+{% endif %}
 {% if attributes.panel %}
   {% set classes = classes ~ " u-space-mb" %}
 {% endif %}
@@ -8,6 +13,11 @@
 {% endif %}
 <section class='{{classes}}'>
 {% for post in attributes.posts %}
-  {{ teaser( attributes|merge({post})) }}
+  {% if attributes.template == 'featured' %}
+    {{ featured_article( {post}) }}
+  {% else %}
+    {{ teaser( attributes|merge({post})) }}
+  {% endif %}
+  
 {% endfor %}
 </section>

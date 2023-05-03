@@ -1,6 +1,6 @@
 import { html, BlockSettings, SelectUtils } from "../../utils";
 import { AuthorPicker, TermPicker, DebouncedText, ToolbarSectionDisplay } from "../../block-components";
-import { RangeControl, PanelBody, Spinner } from '@wordpress/components';
+import { RangeControl, PanelBody, Spinner, SelectControl } from '@wordpress/components';
 import "../ucd-theme-teaser/ucd-wp-teaser";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { decodeEntities } from "@wordpress/html-entities";
@@ -9,27 +9,27 @@ export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
 
-    // using block attributes, construct and do api query for posts
-    const queryParams = (() => {
-      const q = {
-        per_page: attributes.postCt
-      };
-      if ( attributes.author ) q.author = attributes.author;
-      if ( attributes.search ) q.search = attributes.search;
-      
-      for (const tax in attributes.terms) {
-        const v = attributes.terms[tax].join(",");
-        if ( !v ) continue;
-        if ( tax == 'category') {
-          q.categories = v;
-        } else if( tax == 'post_tag' ) {
-          q.tags = v;
-        } else {
-          q[tax] = v;
-        }
+  // using block attributes, construct and do api query for posts
+  const queryParams = (() => {
+    const q = {
+      per_page: attributes.postCt
+    };
+    if ( attributes.author ) q.author = attributes.author;
+    if ( attributes.search ) q.search = attributes.search;
+    
+    for (const tax in attributes.terms) {
+      const v = attributes.terms[tax].join(",");
+      if ( !v ) continue;
+      if ( tax == 'category') {
+        q.categories = v;
+      } else if( tax == 'post_tag' ) {
+        q.tags = v;
+      } else {
+        q[tax] = v;
       }
-      return q;
-    })();
+    }
+    return q;
+  })();
 
   // retrieve needed wp data
   let posts = SelectUtils.posts(
@@ -44,6 +44,14 @@ export default ( props ) => {
   if (  postTypesTaxonomiesMap ) {
     taxonomies = postTypesTaxonomiesMap['post'];
   }
+
+  // set up template picker
+  const templateOptions = [
+    { value: 'teaser', label: 'Teaser' },
+    { value: 'featured', label: 'Featured Article' }
+  ];
+  const isTeaser = attributes.template == 'teaser';
+  const isFeatured = attributes.template == 'featured';
 
   // set up term picker
   const onTermChange = ( v ) => {
@@ -102,6 +110,8 @@ export default ( props ) => {
         p.author = post.authorData.first_name && post.authorData.last_name ? `${post.authorData.first_name} ${post.authorData.last_name}` : post.authorData.name;
       }
 
+      if ( post.meta && post.meta.ucd_subtitle ) p.subtitle = post.meta.ucd_subtitle;
+
       if ( post.categoriesData && post.categoriesData.length ){
         p.categories = JSON.stringify(post.categoriesData.map(c => Object({link: c.link, name: c.name, color: c.themeColor})));
       }
@@ -113,13 +123,31 @@ export default ( props ) => {
     return p
   }
 
+  const featuredArticle = (post) => {
+    const p = teaserProps(post);
+    return html`
+    <div className='vm-featured-article u-space-mb--large'>
+      <div className='aspect--16x9'>
+        <img src=${p['img-src']} />
+      </div>
+      <h2 className="vm-featured-article__title">${p.title}</h2>
+      ${p.subtitle != undefined && html`
+        <h3 className="vm-featured-article__subtitle">${p.subtitle}</h3>
+      `}
+    </div>
+    `;
+  };
+
   return html`
     <div ...${ blockProps }>
       <${BlockControls} group="block">
-      <${ToolbarSectionDisplay}
-          sections=${cardSections}
-          onChange=${onSectionToggle}
-        />
+        ${isTeaser && html`
+          <${ToolbarSectionDisplay}
+            sections=${cardSections}
+            onChange=${onSectionToggle}
+          />
+        `}
+
       </${BlockControls}>
       <${InspectorControls}>
       <${PanelBody} title="Query Filters">
@@ -149,6 +177,12 @@ export default ( props ) => {
             min=${1}
             max=${20}
           />
+          <${SelectControl} 
+            label='Template'
+            value=${attributes.template}
+            options=${templateOptions}
+            onChange=${(template) => setAttributes({template})}
+          />
         </${PanelBody}>
 
       </${InspectorControls}>
@@ -156,7 +190,10 @@ export default ( props ) => {
         <${Spinner} />
       `}
       ${posts.map((p, i) => html`
-        <ucd-wp-teaser ...${ teaserProps(p, i) }></ucd-wp-teaser>
+        <div key=${i}>
+          ${isTeaser && html`<ucd-wp-teaser ...${ teaserProps(p, i) }></ucd-wp-teaser>`}
+          ${isFeatured && featuredArticle(p)}
+        </div>
       `)}
     </div>
 
