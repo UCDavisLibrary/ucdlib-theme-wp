@@ -9,7 +9,7 @@ class UCDThemeAssets {
     $this->version = $version;
     $this->directories = array();
     $this->isDevEnv = getenv('UCD_THEME_ENV') == 'dev';
-    
+
     $this->uris = array(
       'base' => dirname( get_template_directory_uri() ) . "/assets"
     );
@@ -39,7 +39,7 @@ class UCDThemeAssets {
       add_editor_style( "../assets/css/ucd-styles.css" );
     }
     add_action('wp_head', array($this, 'add_styles_to_head'));
-    
+
   }
 
   public function add_styles_to_head(){
@@ -58,7 +58,7 @@ class UCDThemeAssets {
   }
 
   public function enqueue_block_editor_assets(){
-    
+
     // customizer not working properly when editor bundle is loaded.
     // TODO: figure out why?? 2021-10-25
     //$adminScreens = array('widgets', 'customize');
@@ -67,17 +67,17 @@ class UCDThemeAssets {
 
     if ( $this->isDevEnv ){
       wp_enqueue_script(
-        $this->scripts['editor'], 
-        $this->uris['js'] . "/editor/dev/index.js", 
-        array(), 
-        $this->version, 
+        $this->scripts['editor'],
+        $this->uris['js'] . "/editor/dev/index.js",
+        array(),
+        $this->version,
         true);
     } else {
       wp_enqueue_script(
-        $this->scripts['editor'], 
-        $this->uris['js'] . "/editor/dist/index.js", 
-        array(), 
-        $this->version, 
+        $this->scripts['editor'],
+        $this->uris['js'] . "/editor/dist/index.js",
+        array(),
+        $this->version,
         true);
     }
   }
@@ -85,10 +85,10 @@ class UCDThemeAssets {
   public function wp_enqueue_scripts(){
 
     if ( $this->isDevEnv ){
-      wp_enqueue_style( 
+      wp_enqueue_style(
         $this->scripts['publicStyles'],
         $this->uris['css'] . "/ucd-styles-dev.css",
-        array(), 
+        array(),
         $this->version );
       wp_enqueue_script(
         $this->scripts['public'],
@@ -98,10 +98,10 @@ class UCDThemeAssets {
         true
       );
     } else {
-      wp_enqueue_style( 
+      wp_enqueue_style(
         $this->scripts['publicStyles'],
         $this->uris['css'] . "/ucd-styles.css",
-        array(), 
+        array(),
         $this->version );
       wp_enqueue_script(
         $this->scripts['public'],
@@ -147,7 +147,7 @@ class UCDThemeAssets {
 
     $iconSlugs = [];
     $iconSlugs = apply_filters( 'ucd-theme/loaded-icons', $iconSlugs );
-    
+
     // map icons by set
     $iconsBySet = array();
     foreach ($iconSlugs as $icon) {
@@ -172,7 +172,13 @@ class UCDThemeAssets {
       for( $ii = count($icons)-1; $ii >= 0; $ii--  ) {
         $icon = $icons->item($ii);
         if ( !in_array($icon->getAttribute('id'), $iconsBySet[$iconsetName])){
-          $icon->parentNode->removeChild($icon);
+
+          // only remove g element if it is not nested within another g element
+          $nodePath = $icon->getNodePath();
+          $nodePath = explode('/', $nodePath);
+          if ( count($nodePath) == 6 ){
+            $icon->parentNode->removeChild($icon);
+          }
         }
       }
     }
@@ -181,7 +187,7 @@ class UCDThemeAssets {
     $out = str_replace(array('<html>','</html>') , '' , $dom->saveHTML());
     $out = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $out);
     echo $out;
-    
+
     // move iconset(s) to head where ucdlib-icon elements know to look for it
     foreach ($iconsBySet as $name => $icons) {
       $this->moveIconsetToHead($name);
