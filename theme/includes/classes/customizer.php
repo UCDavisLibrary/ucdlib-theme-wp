@@ -169,7 +169,7 @@ class UcdThemeCustomizer {
       'type' => "checkbox",
       'section' => 'layout_page',
       'label' => 'Use a page block template',
-      'description' => 'By default, all new pages will be loaded with a starter template. 
+      'description' => 'By default, all new pages will be loaded with a starter template.
       Can be customized programmatically with the "ucd-theme/block-template/page" filter.'
     ));
 
@@ -320,6 +320,7 @@ class UcdThemeCustomizer {
       array("slug" => "heading-with-icon", "label" => "Heading With Icon Palette"),
       array("slug" => "separator", "label" => "Separator Palette"),
     );
+    $blocks_with_colors = apply_filters( 'ucd-theme/customizer/block-colors', $blocks_with_colors );
     foreach ($blocks_with_colors as $block) {
       $name = 'colors_blocks_' . $block['slug'];
       $wp_customize->add_setting($name, array('default' => array()));

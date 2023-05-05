@@ -28,7 +28,7 @@ class UcdThemeSite extends Timber\Site {
 
     // Declare class properties
     $this->version = wp_get_theme()->get( 'Version' );
-  
+
     $this->directories = array(
       "root" => dirname(get_stylesheet_directory(), 1),
       "views" => dirname(get_stylesheet_directory(), 1) . "/views",
@@ -57,6 +57,7 @@ class UcdThemeSite extends Timber\Site {
       if (!$customColors || !is_array($customColors) || !count($customColors) ) continue;
       $this->blockSettings['color--' . $shortSlug] = $customColors;
     }
+    $this->blockSettings = apply_filters( 'ucd-theme/site/block-settings', $this->blockSettings );
 
     // Register custom API endpoints
     $this->api = new UCDThemeAPI('ucd');
@@ -139,20 +140,20 @@ class UcdThemeSite extends Timber\Site {
       return $args;
     }
 
-  
+
     public function add_to_context( $context ) {
       $context['site']  = $this;
       return $context;
     }
-  
+
     public function theme_supports() {
-      // Adds RSS feed links to <head>. 
+      // Adds RSS feed links to <head>.
       // https://codex.wordpress.org/Automatic_Feed_Links
       add_theme_support( 'automatic-feed-links' );
-  
+
       // https://codex.wordpress.org/Title_Tag
       add_theme_support( 'title-tag' );
-  
+
       // https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
       add_theme_support( 'post-thumbnails' );
 
@@ -166,7 +167,7 @@ class UcdThemeSite extends Timber\Site {
           'caption',
         )
       );
-  
+
       // https://codex.wordpress.org/WordPress_Menu_User_Guide
       add_theme_support( 'menus' );
 
@@ -201,15 +202,15 @@ class UcdThemeSite extends Timber\Site {
       }
       return false;
     }
-    
-  
+
+
     /** This is where you can add your own functions to twig.
      *
      * @param string $twig get extension.
      */
     public function add_to_twig( $twig ) {
       $twig->addExtension( new Twig\Extension\StringLoaderExtension() );
-      
+
       // Gets pagenum_link object from Timber\Pagination pages object
       $twig->addFilter( new Twig\TwigFilter( 'pagenum_link', function($pages){
         $link = '';
@@ -231,7 +232,7 @@ class UcdThemeSite extends Timber\Site {
       } ) );
 
       $twig->addFunction( new Twig\TwigFunction( 'isBasicPostsQuery', array( $this, 'isBasicPostsQuery' ) ) );
-  
+
       return $twig;
     }
 

@@ -9,7 +9,7 @@ export default class BlockSettings {
 
   static getImage(imageKey) {
     let image = this.settings[`img--${imageKey}`];
-    if ( !image ) return; 
+    if ( !image ) return;
     if ( this.settings.imgBase ) image = `${this.settings.imgBase}${image}`;
     return image;
   }
@@ -45,6 +45,6 @@ export default class BlockSettings {
     }
 
     return Object.values(categoryBrands).filter(c => colors.includes(c.id));
-    
+
   }
 }

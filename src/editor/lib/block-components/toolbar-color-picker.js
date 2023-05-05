@@ -56,7 +56,7 @@ function ToolbarColorPicker({
 
   return html`
     <${Fragment}>
-      <${ToolbarButton} 
+      <${ToolbarButton}
         showTooltip
         onClick=${ onToggle }
         aria-haspopup="true"
@@ -66,9 +66,9 @@ function ToolbarColorPicker({
         icon=${ buttonIcon() }
       />
       ${ isOpen && html`
-        <${Popover} 
-          className="block-editor-duotone-control__popover" 
-          headerTitle=${popoverTitle} 
+        <${Popover}
+          className="block-editor-duotone-control__popover"
+          headerTitle=${popoverTitle}
           onFocusOutside=${ onToggle }>
           <${MenuGroup} label="${popoverTitle}">
           <${ColorPalette}
