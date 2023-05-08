@@ -13,10 +13,10 @@ class UCDThemeBlockTransformations {
       if ( is_array($attrs['post']) && array_key_exists('id', $attrs['post'])  ){
         $post_id = $attrs['post']['id'];
       }
-    } 
+    }
     elseif ( array_key_exists('postId', $attrs) ) {
       $post_id = $attrs['postId'];
-    } 
+    }
     elseif ( array_key_exists('blockId', $attrs) ){
       $post_id = $attrs['blockId'];
     }
@@ -173,7 +173,7 @@ class UCDThemeBlockTransformations {
   private static function _getNavPermalinks($links){
     foreach($links as &$link) {
       if ( array_key_exists('link', $link) ){
-        
+
         if ( array_key_exists('opensInNewTab', $link['link']) && $link['link']['opensInNewTab'] ){
           $link['is_target_blank'] = true;
         }
@@ -226,7 +226,7 @@ class UCDThemeBlockTransformations {
 
   public static function makeJobJsonLd($attrs=[]){
     if ( !array_key_exists('title', $attrs) || !$attrs['title'] ) return $attrs;
-    
+
     $attrs['json'] = [
       "@context" => "https://schema.org/",
       "@type" => "JobPosting",
@@ -326,7 +326,7 @@ class UCDThemeBlockTransformations {
 
   /**
    * Strips is-style prefix from block classlist
-   * Necessary until this issue is implemented: 
+   * Necessary until this issue is implemented:
    *  https://github.com/WordPress/gutenberg/issues/11763
    */
   public static function removeStylePrefix($attrs=array()){
@@ -402,7 +402,7 @@ class UCDThemeBlockTransformations {
         }
       }
     }
-    
+
     if ( array_key_exists('phones', $attrs) && is_array($attrs['phones']) && count($attrs['phones'])) {
       $attrs['icons'][] = $icons['phone'];
       foreach ($attrs['phones'] as $phone) {
@@ -435,7 +435,7 @@ class UCDThemeBlockTransformations {
       ];
     }
 
-    if ( is_array($attrs['websites']) ) {
+    if ( array_key_exists('websites', $attrs) && is_array($attrs['websites']) ) {
       foreach ($attrs['websites'] as $website) {
         if ( array_key_exists('value', $website) && $website['value'] ) {
 
