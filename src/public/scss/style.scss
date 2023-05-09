@@ -9,3 +9,8 @@
 @use './watercolors.scss' as waterColors;
 
 @use 'slick-carousel/slick/slick.scss' as slick;
+
+.ucd-block-heading-with-icon {
+  padding-left: var(--o-box-spacer);
+  --o-box-spacer: var(--o-box-spacer-default, 0.75rem);
+}
