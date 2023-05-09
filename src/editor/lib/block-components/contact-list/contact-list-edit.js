@@ -1,18 +1,18 @@
 import { html } from "../../utils";
 import websiteTypes from "./website-types";
 import { TextControl, Modal, SelectControl, Button, __experimentalText as Text } from '@wordpress/components';
-import { 
+import {
   useState,
-  useEffect, 
+  useEffect,
   useRef,
   createRef,
-  Fragment, 
-  forwardRef, 
+  Fragment,
+  forwardRef,
   useImperativeHandle } from '@wordpress/element';
 import { IconPicker } from "../../block-components";
 
 const ContactListEdit = forwardRef((props, ref) => {
-  let { 
+  let {
     modalTitle,
     onClose,
     emails,
@@ -25,7 +25,7 @@ const ContactListEdit = forwardRef((props, ref) => {
     allowAppointment,
     allowAdditionalText
   } = props;
-  
+
   if ( !modalTitle ) modalTitle = 'Contact Information';
   if ( !emails ) emails = [];
   if ( !phones ) phones = [];
@@ -83,7 +83,7 @@ const ContactListEdit = forwardRef((props, ref) => {
   });
 
   const onIconChangeRequest = () => {
-    
+
     if ( iconPickerRef.current ){
       iconPickerRef.current.openModal();
     }
@@ -92,9 +92,9 @@ const ContactListEdit = forwardRef((props, ref) => {
   const addIconPicker = (v, website, i) => {
 
     if ( mainEleRef.current ) {
-      mainEleRef.current.dispatchEvent(new CustomEvent('icon-change'));    
+      mainEleRef.current.dispatchEvent(new CustomEvent('icon-change'));
     }
-    
+
 
   };
 
@@ -122,7 +122,7 @@ const ContactListEdit = forwardRef((props, ref) => {
   };
 
   // apointment setters
-  const [_appointment, setAppointment ] = useState(appointment); 
+  const [_appointment, setAppointment ] = useState(appointment);
 
   // email setters
   const [_emails, setEmails] = useState(emails);
@@ -200,21 +200,21 @@ const ContactListEdit = forwardRef((props, ref) => {
             ${_phones.map((phone, i) => html`
               <div style=${{display: 'table-row'}} key=${i}>
                 <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-                  <${TextControl} 
+                  <${TextControl}
                     type="tel"
                     value=${phone.value}
                     onChange=${v => setPhone(v, i, 'value')}
                   />
                 </div>
                 <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-                  <${TextControl} 
+                  <${TextControl}
                     value=${phone.label}
                     onChange=${v => setPhone(v, i, 'label')}
                   />
                 </div>
                 ${allowAdditionalText && html`
                   <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-                    <${TextControl} 
+                    <${TextControl}
                       value=${phone.additionalText}
                       onChange=${v => setPhone(v, i, 'additionalText')}
                     />
@@ -222,7 +222,7 @@ const ContactListEdit = forwardRef((props, ref) => {
                 `}
                 <div style=${{display: 'table-cell'}}>
                   <${Button} isDestructive=${true} onClick=${() => removePhone(i)} variant='link'>delete</${Button}>
-                </div>                
+                </div>
               </div>
             `)}
           </div>
@@ -257,21 +257,21 @@ const ContactListEdit = forwardRef((props, ref) => {
             ${_emails.map((email, i) => html`
               <div style=${{display: 'table-row'}} key=${i}>
                 <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-                  <${TextControl} 
+                  <${TextControl}
                     type="email"
                     value=${email.value}
                     onChange=${v => setEmail(v, i, 'value')}
                   />
                 </div>
                 <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-                  <${TextControl} 
+                  <${TextControl}
                     value=${email.label}
                     onChange=${v => setEmail(v, i, 'label')}
                   />
                 </div>
                 ${allowAdditionalText && html`
                   <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-                    <${TextControl} 
+                    <${TextControl}
                       value=${email.additionalText}
                       onChange=${v => setEmail(v, i, 'additionalText')}
                     />
@@ -279,7 +279,7 @@ const ContactListEdit = forwardRef((props, ref) => {
                 `}
                 <div style=${{display: 'table-cell'}}>
                   <${Button} isDestructive=${true} onClick=${() => removeEmail(i)} variant='link'>delete</${Button}>
-                </div>                
+                </div>
               </div>
             `)}
           </div>
@@ -295,7 +295,18 @@ const ContactListEdit = forwardRef((props, ref) => {
     </div>
     `;
 
-const websiteSection = () => html`
+const websiteSection = () => {
+  const hasIcon = (website) => {
+    return website.icon && website.icon.iconSet && website.icon.icon;
+  };
+
+  const iconString = (website) => {
+    if (hasIcon(website)) {
+      return `${website.icon.iconSet}:${website.icon.icon}`;
+    }
+    return '';
+  };
+  return html`
 <div>
 ${modalSectionHeader("Websites", addNewWebsite)}
   ${_websites.length > 0 ? html`
@@ -313,27 +324,27 @@ ${modalSectionHeader("Websites", addNewWebsite)}
         ${_websites.map((website, i) => html`
           <div style=${{display: 'table-row'}} key=${i}>
             <div style=${{display: 'table-cell', paddingRight: '15px', verticalAlign: 'middle'}}>
-              <${SelectControl} 
+              <${SelectControl}
                 options=${websiteTypes}
                 value=${website.type}
                 onChange=${v => setWebsite(v, i, 'type')}
               />
             </div>
             <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-              <${TextControl} 
+              <${TextControl}
                 value=${website.value}
                 onChange=${v => setWebsite(v, i, 'value')}
               />
             </div>
             <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-              <${TextControl} 
+              <${TextControl}
                 value=${website.label}
                 onChange=${v => setWebsite(v, i, 'label')}
               />
             </div>
             ${allowAdditionalText && html`
               <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-                <${TextControl} 
+                <${TextControl}
                   value=${website.additionalText}
                   onChange=${v => setWebsite(v, i, 'additionalText')}
                 />
@@ -341,18 +352,24 @@ ${modalSectionHeader("Websites", addNewWebsite)}
             `}
             ${website.type == 'other' ? html`
               <div style=${{display: 'table-cell', paddingRight: '15px'}} ...${ mainEleProps() } >
-                <${Button} variant="primary" onClick=${v => addIconPicker(v, website, i)}>Icon</${Button}>
-                <${IconPicker} 
+                ${hasIcon(website) ? html`
+                  <div onClick=${v => addIconPicker(v, website, i)}>
+                    <ucdlib-icon icon=${iconString(website)} style=${{cursor: 'pointer'}}></ucdlib-icon>
+                  </div>
+                ` : html`
+                  <${Button} variant="primary" onClick=${v => addIconPicker(v, website, i)}>Icon</${Button}>
+                `}
+                <${IconPicker}
                   ref=${iconPickerRef}
                   onChange=${v => setWebsite(v, i, 'icon')}
                   selectedIcon=${website.icon}
                 ></${IconPicker}>
             </div>
-            `: html``} 
+            `: html``}
             <div style=${{display: 'table-cell'}}>
               <${Button} isDestructive=${true} onClick=${() => removeWebsite(i)} variant='link'>delete</${Button}>
-            </div>   
-          
+            </div>
+
           </div>
         `)}
       </div>
@@ -365,12 +382,12 @@ ${modalSectionHeader("Websites", addNewWebsite)}
   </div>
   `}
 </div>
-`;
+`};
 
 const appointmentSection = () => html`
   <div>
     <h2>Appointments</h2>
-    <${TextControl} 
+    <${TextControl}
       value=${_appointment}
       label="Appointment URL"
       onChange=${a => setAppointment(a)}
