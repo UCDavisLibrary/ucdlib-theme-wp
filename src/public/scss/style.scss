@@ -6,11 +6,8 @@
 @use '@ucd-lib/theme-sass/css-properties.scss' as cssProps;
 
 @use './block-shims.scss' as blockShims;
+@use './custom-blocks.scss' as customBlocks;
 @use './watercolors.scss' as waterColors;
 
 @use 'slick-carousel/slick/slick.scss' as slick;
 
-.ucd-block-heading-with-icon {
-  padding-left: var(--o-box-spacer);
-  --o-box-spacer: var(--o-box-spacer-default, 0.75rem);
-}

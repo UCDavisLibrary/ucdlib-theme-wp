@@ -1,0 +1,14 @@
+@media (min-width: 768px) {
+  .brand-textbox.u-align--right, .brand-textbox.u-align--left, ucd-theme-brand-textbox.u-align--right, ucd-theme-brand-textbox.u-align--left {
+    max-width: 33%;
+    min-width: auto !important;
+  }
+}
+.brand-textbox.u-align--right, .brand-textbox.u-align--left, ucd-theme-brand-textbox.u-align--right, ucd-theme-brand-textbox.u-align--left {
+  min-width: 100%;
+}
+
+.ucd-block-heading-with-icon {
+  padding-left: var(--o-box-spacer);
+  --o-box-spacer: var(--o-box-spacer-default, 0.75rem);
+}
