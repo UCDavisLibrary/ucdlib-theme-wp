@@ -7,7 +7,7 @@
 
 {% block content_container %}
   <div class="l-container {{ theme.theme_mod('layout_post_sidebar_flipped') ? 'l-basic--flipped' : 'l-basic' }}">
-    
+
     <div class="l-content">
       <div class="panel o-box">
 
@@ -38,15 +38,10 @@
           <li>{{ post.date }}</li>
         </ul>
 
-        <div class="social-share">
-          <!-- Go to www.addthis.com/dashboard to customize this block --> 
-          <div class="addthis_inline_share_toolbox"></div> 
-        </div>
-
-        <div class="u-clearfix">
+        <div class="u-clearfix u-space-mt">
           {{post.content}}
         </div>
-        
+
         {% if post.categories %}
           <h2 class="heading--auxiliary">Category</h2>
           {{ tag_list({"terms": post.categories}) }}
@@ -58,7 +53,7 @@
         {% endif %}
 
       </div>
-      
+
     </div>
 
     <div class="l-sidebar-second">
@@ -68,16 +63,10 @@
         {% else %}
           {% include getUcdSidebarDefault('single-post') %}
         {% endif %}
-        
+
       {% include getUcdHook('post') with {'hook': 'sidebarBottom'} %}
     </div>
 
   </div>
-  
-{% endblock %}
 
-{% block footer %}
-  {{ parent() }}
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-62e12681cbb25d2b"></script> 
 {% endblock %}
-
