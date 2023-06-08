@@ -1,17 +1,16 @@
+{% set brandColor = attributes.brandColor ?  attributes.brandColor : 'admin-blue' %}
 {% if attributes.collapsible %}
-<ucd-theme-brand-textbox 
-    brand-color={{attributes.brandColor ? attributes.brandColor : ''}}
+<ucd-theme-brand-textbox
+    brand-color={{brandColor}}
     {{attributes.collapsible ? 'collapsible'}}
     class="{{attributes.float ? 'u-align--'~attributes.float}}">
-    {{attributes.float ? 'style="max-width:33%;" '}}
-    <div class="category-brand__background colored-section {{attributes.brandColor ? 'category-brand--'~attributes.brandColor}}">
+    <div class="category-brand__background colored-section {{brandColor ? 'category-brand--'~brandColor}}">
     {{content}}
     </div>
 </ucd-theme-brand-textbox>
 {% else %}
-  <section 
-    class="colored-section brand-textbox category-brand__background {{attributes.brandColor ? 'category-brand--'~attributes.brandColor}} {{attributes.float ? 'u-align--'~attributes.float}}"
-    {{attributes.float ? 'style="max-width:33%;" '}}>
+  <section
+    class="colored-section brand-textbox category-brand__background {{brandColor ? 'category-brand--'~brandColor}} {{attributes.float ? 'u-align--'~attributes.float}}">
   {{content}}
   </section>
 {% endif %}
