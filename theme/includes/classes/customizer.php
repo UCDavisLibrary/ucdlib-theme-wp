@@ -148,7 +148,7 @@ class UcdThemeCustomizer {
     $wp_customize->add_control('layout_page_sidebar_hide', array(
       'type' => "checkbox",
       'section' => 'layout_page',
-      'label' => 'Globally disable the sitewide sidebar.'
+      'label' => 'Globally disable the sitewide sidebar. Authors will not be able to override this.',
     ));
     $wp_customize->add_setting('layout_page_sidebar_flipped');
     $wp_customize->add_control('layout_page_sidebar_flipped', array(
@@ -161,7 +161,7 @@ class UcdThemeCustomizer {
     $wp_customize->add_control('layout_page_sidebar_default', array(
       'type' => "checkbox",
       'section' => 'layout_page',
-      'label' => 'Hide by default',
+      'label' => 'Hide sitewide sidebar by default',
       'description' => 'Can still be displayed by author in page settings.'
     ));
     $wp_customize->add_setting('layout_page_template');
@@ -201,7 +201,7 @@ class UcdThemeCustomizer {
     $wp_customize->add_control('layout_posts_title', array(
       'type' => "text",
       'section' => 'layout_posts',
-      'label' => 'Custom Title for Post Type',
+      'label' => "Custom Title for 'Post' Post Type",
       'description' => "e.g. 'news', 'articles', 'blog posts'. Defaults to 'posts'"
     ));
     $wp_customize->add_setting('layout_posts_list_title', array('default' => "Latest News"));
@@ -301,9 +301,15 @@ class UcdThemeCustomizer {
       "secondary" => "Secondary"
     );
 
+    $wp_customize->add_panel( 'theme-colors', array(
+      'title' => 'Colors',
+      'description' => "Edit the colors that this theme uses."
+    ));
+
     $wp_customize->add_section( 'colors_blocks', array(
       'title' => 'Block Palettes',
-      'panel' => 'colors'
+      'panel' => 'theme-colors',
+      'description' => 'Limit author color choices to a specific palette for each custom block type listed below.'
     ));
 
     $blocks_with_colors = array(
@@ -328,7 +334,7 @@ class UcdThemeCustomizer {
         new UcdThemeCustomizerMultiSelect($wp_customize, $name, array(
           'type' => "select",
           'choices' => $colors,
-          'section' => 'colors',
+          'section' => 'colors_blocks',
           'label' => $block['label'],
           'description' => array_key_exists('description', $block) ? $block['description'] : '')
       ));

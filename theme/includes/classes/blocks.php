@@ -2,12 +2,12 @@
 require_once( __DIR__ . '/block-transformations.php' );
 require_once( __DIR__ . '/block-renderer.php');
 
-/** 
+/**
  * Handles server-side rendering of UCD blocks through WP actions and filters on class instantiation.
- * 
+ *
  * @param string $editor_script_slug - The identifier for your editor JS script registered with WP
  * @param array $settings - Override any of the default settings
- * 
+ *
  */
 class UCDThemeBlocks extends UCDThemeBlockRenderer {
   public $editor_script_slug;
@@ -47,7 +47,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "hasBrandColors" => true
     ),
     "ucd-theme/button-link" => array(
-      "twig" => "@ucd/blocks/button-link.twig", 
+      "twig" => "@ucd/blocks/button-link.twig",
       "transform" => array("removeStylePrefix", 'getPermalink')
     ),
     "ucd-theme/career" => array(
@@ -58,11 +58,11 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "twig" => "@ucd/blocks/careers.twig"
     ),
     "ucd-theme/category-filter" => array(
-      "twig" => "@ucd/blocks/category-filter.twig", 
+      "twig" => "@ucd/blocks/category-filter.twig",
       "transform" => array("getCategories")
     ),
     "ucd-theme/contact-list" => array(
-      "twig" => "@ucd/blocks/contact-list.twig", 
+      "twig" => "@ucd/blocks/contact-list.twig",
       "transform" => array("formatContactList")
     ),
     "ucd-theme/faq" => array(
@@ -93,7 +93,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     ),
     "ucd-theme/google-maps" => array( "twig" => "@ucd/blocks/google-maps.twig" ),
     "ucd-theme/heading" => array(
-      "twig" => "@ucd/blocks/heading.twig", 
+      "twig" => "@ucd/blocks/heading.twig",
       "transform" => array("removeStylePrefix", 'mergeClassWithAttribute')
     ),
     "ucd-theme/heading-with-icon" => array(
@@ -106,7 +106,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "hasBrandColors" => true
     ),
     "ucd-theme/image-landscape" => array(
-      "twig" => "@ucd/blocks/image-landscape.twig", 
+      "twig" => "@ucd/blocks/image-landscape.twig",
       "transform" => array("getImage", "getPermalink", 'addSpacing')
     ),
     "ucd-theme/marketing-highlight" => array(
@@ -158,7 +158,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     ),
     "ucd-theme/priority-links" => array("twig" => "@ucd/blocks/priority-links.twig"),
     "ucd-theme/lander-nav" => array(
-      "twig" => "@ucd/blocks/lander-nav.twig", 
+      "twig" => "@ucd/blocks/lander-nav.twig",
       "transform" => array("getCurrentPost", "getNavOrPageChildren", "addSpacing")
     ),
     "ucd-theme/layout-basic" => array("twig" => "@ucd/blocks/layout-basic.twig"),
@@ -245,18 +245,16 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
   );
 
   /**
-   * Core blocks to unregister. 
+   * Core blocks to unregister.
    * Most because they are redundant of a ucd block.
    */
   public static $excluded_core_blocks = array(
     "core/buttons",
     "core/button",
     "core/calendar",
-    "core/categories",
     "core/columns",
     "core/column",
     "core/cover",
-    //"core/gallery",
     "core/latest-comments",
     "core/latest-posts",
     "core/loginout",
@@ -323,7 +321,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
         'icon'  => null,
       )
     );
-      
+
     $textIndex = array_search('text', array_column($block_categories, 'slug'));
     if ( $textIndex !== false) {
       array_splice( $block_categories, $textIndex+1, 0, $customCategories );
@@ -395,7 +393,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
    * Adds settings object to window, so gutenberg blocks can access.
    */
   public function enqueue_block_editor_assets(){
-    $editorBundleSlug = $this->editor_script_slug; 
+    $editorBundleSlug = $this->editor_script_slug;
     $editorBundleSlug = apply_filters( 'ucd-theme/assets/editor-settings-slug', $editorBundleSlug );
     wp_add_inline_script($editorBundleSlug, "window.UCDBlockSettings=" . json_encode($this->settings) , 'before');
   }
@@ -438,7 +436,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
    * Retrieves url of default image for a given aspect ratio
    */
   public function getImageByAspectRatio($aspectRatio){
-    if ( 
+    if (
       !array_key_exists("imgByAspectRatio", $this->settings) ||
       !array_key_exists($aspectRatio, $this->settings["imgByAspectRatio"])
     ) return "";
@@ -451,11 +449,11 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       $content = '<div class="responsive-table" role="region" aria-label="Scrollable Table" tabindex="0">';
       $content .= $block_content;
       $content .= '</div>';
-      return $content; 
+      return $content;
     }
     return $block_content;
   }
-    
+
 }
 
 ?>
