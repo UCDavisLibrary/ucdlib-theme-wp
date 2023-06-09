@@ -1,5 +1,12 @@
 {% from getUcdMacro('menus') import subnav %}
 
 {% if post.primay_nav_item %}
-    {{ subnav({items: post.primay_nav_item.children, title: post.primay_nav_item.title, titleLink: post.primay_nav_item.link}) }}
+    {{ subnav({
+      items: post.primay_nav_item.children,
+      title: post.primay_nav_item.title,
+      titleLink: post.primay_nav_item.link,
+      panel: true,
+      oBox: true
+      })
+    }}
 {% endif %}

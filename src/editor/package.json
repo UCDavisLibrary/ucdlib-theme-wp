@@ -14,10 +14,29 @@
   "dependencies": {
     "@ucd-lib/theme-elements": "^1.2.1",
     "@ucd-lib/theme-sass": "^5.0.14",
-    "@wordpress/icons": "^9.8.0",
     "classnames": "^2.3.2",
     "htm": "^3.1.0",
     "lodash": "^4.17.21",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "@wordpress/api-fetch": "^6.0.1",
+    "@wordpress/block-editor": "^7.0.2",
+    "@wordpress/block-library": "^7.0.2",
+    "@wordpress/blocks": "^11.5.1",
+    "@wordpress/components": "^15.0.0",
+    "@wordpress/compose": "^5.0.5",
+    "@wordpress/data": "^6.3.0",
+    "@wordpress/dom-ready": "^3.2.2",
+    "@wordpress/edit-post": "^6.0.2",
+    "@wordpress/element": "^4.15.0",
+    "@wordpress/hooks": "^3.2.1",
+    "@wordpress/html-entities": "^3.2.1",
+    "@wordpress/icons": "^5.0.2",
+    "@wordpress/notices": "^3.2.2",
+    "@wordpress/plugins": "^4.1.3",
+    "@wordpress/rich-text": "^5.0.2",
+    "@wordpress/url": "^3.4.1"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^23.7.2"
   }
 }
