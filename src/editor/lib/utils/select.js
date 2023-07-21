@@ -6,13 +6,13 @@ import { decodeEntities } from "@wordpress/html-entities";
 import BlockSettings from "./settings";
 
 export default class SelectUtils {
-  
+
   static card(attributes) {
     return useSelect((select) => {
       if (!attributes) return {};
       const customImage = attributes.imageId ? select('core').getMedia(attributes.imageId, {context: 'view'}) : undefined;
       const post = attributes.post.id ? select('core').getEntityRecord('postType', attributes.post.type, attributes.post.id) : undefined;
-      
+
       let postTitle = undefined;
       if ( post && post.title && post.title.rendered ) {
         postTitle = decodeEntities(post.title.rendered);
@@ -20,13 +20,13 @@ export default class SelectUtils {
 
       let postImage = undefined;
       if ( post && post.featured_media ) postImage = select('core').getMedia(post.featured_media, {context: 'view'});
-      
+
       let postExcerpt = undefined;
       if ( post && post.excerpt && post.excerpt.rendered ) {
         postExcerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
         postExcerpt = decodeEntities(postExcerpt).replace(/(?:\r\n|\r|\n)/g, '');
       }
-      return { customImage, post, postTitle, postExcerpt, postImage };      
+      return { customImage, post, postTitle, postExcerpt, postImage };
     }, [attributes.imageId, attributes.post.id]);
   }
 
@@ -54,7 +54,7 @@ export default class SelectUtils {
         if ( image ) url = image.source_url;
       }
       return url;
-      
+
     }, [postId, aspectRatio] );
   }
 
@@ -91,13 +91,14 @@ export default class SelectUtils {
 
   static editedPostAttribute(attr) {
     return useSelect( ( select ) => {
-      return select( 'core/editor' ).getEditedPostAttribute(attr);
+      const s = select?.( 'core/editor' )?.getEditedPostAttribute(attr);
+      return s;
     }, [attr] );
   }
 
   static meta() {
     return useSelect( (select) => {
-      const meta = select('core/editor').getEditedPostAttribute('meta');
+      const meta = select?.('core/editor')?.getEditedPostAttribute('meta');
       return meta ? meta : {};
     }, [])
   }
@@ -106,7 +107,7 @@ export default class SelectUtils {
     return useSelect( (select) => {
       const Term = termId ? select('core').getEntityRecord('taxonomy', 'category', termId) : undefined;
       return Term;
-    } , [termId]);  
+    } , [termId]);
   }
 
   static posts(query = {}, postType='post', extra_fields=[]) {
@@ -152,14 +153,14 @@ export default class SelectUtils {
 				context: 'view',
 			} );
 			return filteredTaxonomies ? filteredTaxonomies : [];
-    } , []);  
+    } , []);
   }
 
   static categoriesById(termIds) {
     return useSelect( (select) => {
       const Terms = termIds && termIds.length ? select('core').getEntityRecords('taxonomy', 'category', {per_page: -1, include: termIds, context: 'view'}) : [];
       return Terms;
-    } , [termIds]);  
+    } , [termIds]);
   }
 
   static categories(includeUncategorized=false) {
@@ -168,7 +169,7 @@ export default class SelectUtils {
       if ( !includeUncategorized ) query['exclude'] = 1;
       const Terms = select('core').getEntityRecords('taxonomy', 'category', query);
       return Terms;
-    } , [includeUncategorized]);  
+    } , [includeUncategorized]);
   }
 
   static terms(taxonomy, query, watch=[]){
@@ -180,7 +181,7 @@ export default class SelectUtils {
       if ( query.context != 'view' ) query.context = 'view';
       const Terms = select('core').getEntityRecords('taxonomy', taxonomy, query);
       return Terms ? Terms : [];
-    } , [taxonomy, JSON.stringify(query), ...watch]); 
+    } , [taxonomy, JSON.stringify(query), ...watch]);
   }
 
   static isPost(){
