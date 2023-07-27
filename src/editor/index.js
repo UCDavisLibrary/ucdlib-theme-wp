@@ -38,13 +38,3 @@ UcdThemePlugins.forEach(plugin => {
 
 modifyCoreBlocks();
 unRegisterCore();
-
-// temp patch for #233
-// TODO: remove with next release of Timber
-setTimeout(() => {
-  const previewButton = document.querySelector('.block-editor-post-preview__button-toggle');
-  if ( previewButton ) {
-    console.log('Temporariliy hiding preview button due to fatal bug.');
-    previewButton.style.display = 'none';
-  }
-}, 4000);
