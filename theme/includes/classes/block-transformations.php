@@ -384,7 +384,7 @@ class UCDThemeBlockTransformations {
       'google-scholar' => $defaultIcon,
       'linkedin' => 'ucd-public:fa-linkedin',
       'orcid' => 'ucd-public:fa-orcid',
-      'twitter' => 'ucd-public:fa-twitter',
+      'twitter' => 'ucd-public:x-twitter',
       'other' => $defaultIcon
     ];
     $attrs['icons'] = [];
