@@ -1,5 +1,6 @@
 import missingGuide from './missing-guide.js'
 import contra from './contra.js'
+import './anchor-adjustment.js';
 
 /**
  * Register your scripts here.  Should be a regex pattern to a script
@@ -29,7 +30,7 @@ class PageScriptExecutor {
 
       // check if script should run on page
       if( window.location.pathname.match(script.regex) ) {
-        
+
         // check if we are dynamic loading or just executing
         if( typeof script.exec === 'string' ) {
           let exec = await this.loadScript(script.exec);
@@ -49,7 +50,7 @@ class PageScriptExecutor {
     // if( scriptName === 'lodash' ) {
     //  this.loaded[scriptName] = import(/* webpackChunkName: "lodash" */ 'lodash');
     // }
-    
+
     return this.loaded[scriptName]
   }
 
