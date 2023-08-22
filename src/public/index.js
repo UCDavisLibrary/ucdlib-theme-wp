@@ -28,7 +28,7 @@ import "./page-scripts/index.js"
 // do deferred loading of scripts if they add a lot of overhead loading on every page
 // based on document query
 class DynamicScriptLoader {
-  
+
   constructor() {
     this.loaded = {};
     this.registration = [
@@ -43,8 +43,8 @@ class DynamicScriptLoader {
       // }
     ];
   }
-  
-  
+
+
   async load() {
     for( let bundle of this.registration ) {
       if( bundle.cssQuery && document.querySelector(bundle.cssQuery) ) {
@@ -52,24 +52,24 @@ class DynamicScriptLoader {
       }
     }
   }
-  
+
   loadWidgetBundle(bundleName) {
     if( typeof bundleName !== 'string' ) return;
     if( this.loaded[bundleName] ) return this.loaded[bundleName];
 
     if ( bundleName == 'slideshow' ){
       this.loaded[bundleName] = import(/* webpackChunkName: "slideshow" */ './lib/slideshow');
-    } 
+    }
     // JM - emergency patch
     // else if ( bundleName == 'author-profile' ) {
     //   this.loaded[bundleName] = import(/* webpackChunkName: "author-profile" */ );
     // }
-    
+
     return this.loaded[bundleName]
   }
-  
+
 }
-  
+
 let loaderInstance = new DynamicScriptLoader();
 if( document.readyState === 'complete' ) {
   loaderInstance.load();
