@@ -1,4 +1,12 @@
 {% set classes = ["o-box"] %}
+{% set style = {} %}
+{% if attributes.hasBorder %}
+  {% set style = {
+    "border-style": attributes.borderStyle ? attributes.borderStyle : 'solid',
+    "border-color": attributes.borderColorHex ? attributes.borderColorHex : '#ffbf00',
+    "border-width": attributes.borderWidth ? attributes.borderWidth : '1px'
+  }%}
+{% endif %}
 {% if attributes.padding %}
     {% set classes = classes|merge(["o-box--"~attributes.padding]) %}
 {% endif %}
@@ -8,4 +16,9 @@
     {% set classes = classes|merge(["u-space-mb"]) %}
 {% endif %}
 
-<div {{classes ? "class='"~classes|join(' ')~"'"}}>{{content}}</div>
+<div
+  {{- classes ? " class='"~classes|join(' ')~"' " : " " -}}
+  {%- if style is not empty -%}
+    style="{% for k, v in style %}{{ k }}:{{ v }};{% endfor %}"
+  {%- endif -%}
+  >{{content}}</div>

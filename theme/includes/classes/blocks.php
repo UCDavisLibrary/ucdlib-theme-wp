@@ -171,7 +171,10 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "twig" => "@ucd/blocks/manual-subnav.twig",
       "transform" => array('getNavPermalinks', 'addSpacing')
     ),
-    "ucd-theme/object-box" => array("twig" => "@ucd/blocks/object-box.twig"),
+    "ucd-theme/object-box" => array(
+      "twig" => "@ucd/blocks/object-box.twig",
+      "hasBrandColors" => true
+    ),
     "ucd-theme/panel-with-icon" => array(
       "twig" => "@ucd/blocks/panel-with-icon.twig",
       "hasBrandColors" => true,

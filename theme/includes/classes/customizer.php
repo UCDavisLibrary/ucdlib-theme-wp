@@ -325,6 +325,7 @@ class UcdThemeCustomizer {
       array("slug" => "brand-textbox", "label" => "Brand Textbox Palette"),
       array("slug" => "heading-with-icon", "label" => "Heading With Icon Palette"),
       array("slug" => "separator", "label" => "Separator Palette"),
+      array("slug" => "object-box", "label" => "Object Box Border Palette"),
     );
     $blocks_with_colors = apply_filters( 'ucd-theme/customizer/block-colors', $blocks_with_colors );
     foreach ($blocks_with_colors as $block) {
