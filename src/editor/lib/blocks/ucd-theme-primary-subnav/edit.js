@@ -7,12 +7,15 @@ import { decodeEntities } from "@wordpress/html-entities";
 export default ( ) => {
   const blockProps = useBlockProps();
 
+  let parent = 0;
+  let customParent = 0;
+
   let postId = SelectUtils.editedPostAttribute('id');
   postId = postId ? postId : 0;
-  let parent = SelectUtils.editedPostAttribute('parent');
-  parent = parent ? parent : 0;
+  let p = SelectUtils.editedPostAttribute('parent');
+  if ( p ) parent = p;
   const meta = SelectUtils.meta();
-  const customParent = meta.ucd_nav_parent ? meta.ucd_nav_parent : 0;
+  if ( meta.ucd_nav_parent ) customParent = meta.ucd_nav_parent;
 
   // get subnav items
   const [ subNavItems, setSubNavItems ] = useState( [] );
@@ -20,23 +23,23 @@ export default ( ) => {
     if ( !postId ) return;
     const pathPrefix = '/ucd/subnav/';
     let path = pathPrefix + postId;
-    apiFetch( {path} ).then( 
+    apiFetch( {path} ).then(
       ( r ) => {
         setSubNavItems(r);
-      }, 
+      },
       (error) => {
         if ( !parent ) {
           setSubNavItems([]);
           return;
         }
         let path = pathPrefix + parent;
-        apiFetch( {path} ).then( 
+        apiFetch( {path} ).then(
           ( r ) => {
             setSubNavItems(r);
-          }, 
+          },
           (error) => {
             setSubNavItems([]);
-    
+
           })
 
       })

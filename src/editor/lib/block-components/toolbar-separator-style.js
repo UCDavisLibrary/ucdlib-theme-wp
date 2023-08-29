@@ -16,7 +16,7 @@ function ToolbarSeparatorStyle({
   const controls = [
     {slug: "solid", label: "Normal"},
     {slug: "dotted", label: "Dotted"},
-    
+
   ].map(v => {
     let out = {
       slug: v.slug,
@@ -28,12 +28,12 @@ function ToolbarSeparatorStyle({
     if ( v.slug === value ){
       out.icon = UCDIcons.render("selected", {style:iconStyle});
       out.isDisabled = true;
-    } 
+    }
 
     return out;
   })
   return html`
-    <${ToolbarDropdownMenu} 
+    <${ToolbarDropdownMenu}
       icon=${icon && icon === 'dotted' ? html`${lineDotted}` : html`${lineSolid}` }
       label=${label ? label : 'Set Style'}
       controls=${controls}
@@ -42,11 +42,3 @@ function ToolbarSeparatorStyle({
 }
 
 export default ToolbarSeparatorStyle;
-
-/*
-<${ToolbarDropdownMenu} 
-      icon=${UCDIcons.renderBySlug(icon ? icon : 'format-size')}
-      label=${label ? label : 'Set Style'}
-      controls=${controls}
-    />
-*/

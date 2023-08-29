@@ -18,7 +18,13 @@ Next, you have to decide whether you want to build the JS and CSS assets yoursel
 
 ### Prebuilt Version
 
-To use the prebuilt version, TODO explain how to download zip file, point to example.
+To use the prebuilt version, you must download the files from the releases page, unzip, and place them in the appropriate directory of your wordpress installation. e.g.
+
+- https://github.com/UCDavisLibrary/ucdlib-theme-wp/releases/download/v3.4.0/composer-v3.4.0.tar.gz
+- https://github.com/UCDavisLibrary/ucdlib-theme-wp/releases/download/v3.4.0/ucdlib-theme-wp-v3.4.0.tar.gz
+
+The first file is the php dependencies, which should be placed in the wordpress root
+The second file is the theme, and should be placed in the wordpress theme directory
 
 ### Custom Build
 

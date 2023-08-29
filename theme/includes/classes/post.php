@@ -3,16 +3,15 @@ require_once( __DIR__ . '/menu.php' );
 
 /**
  * @class UcdThemePost
- * @classdesc Base class for all post types on this site. 
+ * @classdesc Base class for all post types on this site.
  * When calling Timber::get_post(), this class, or an extension, will be returned
  * https://timber.github.io/docs/v2/guides/extending-timber/#extending-timber-classes
  */
 class UcdThemePost extends Timber\Post {
-
-  function __construct() {
-    parent::__construct();
+  public function setup(){
     $this->iconsUsed = [];
-    add_filter( 'ucd-theme/loaded-icons', array($this, 'loadIcons'), 10, 1);
+    add_filter( 'ucd-theme/loaded-icons', [$this, 'loadIcons'], 10, 1);
+    return parent::setup();
   }
 
   public function loadIcons($icons){
@@ -165,7 +164,7 @@ class UcdThemePost extends Timber\Post {
         return $this->breadcrumbs;
       }
     }
-      
+
     // breadcrumbs are constructed from primary nav. bail if it doesn't exist
     if ( !$primary_nav ) {
       $this->breadcrumbs = $breadcrumbs;
@@ -173,7 +172,7 @@ class UcdThemePost extends Timber\Post {
     }
     $customParent = get_post_meta($this->ID, 'ucd_nav_parent', true);
     $in_nav = UcdThemeMenu::getDirectHierarchyinMenu( $primary_nav, $this->id );
-    
+
     // user manually selected the breadcrumb parent
     if ( $customParent ) {
       $parent = UcdThemeMenu::getDirectHierarchybyId( $primary_nav, $customParent );
@@ -182,7 +181,7 @@ class UcdThemePost extends Timber\Post {
         $this->breadcrumbs = $breadcrumbs;
         return $this->breadcrumbs;
       }
-    } 
+    }
 
     // check if ancestor has manually selected breadcrumb
     if ( count($ancestors) ) {
@@ -217,7 +216,7 @@ class UcdThemePost extends Timber\Post {
       $this->breadcrumbs = $breadcrumbs;
       return $this->breadcrumbs;
     }
-    
+
     // check if an ancestor is in primary nav
     if ( count($ancestors) ){
       $ancestors_not_in_nav = [];
