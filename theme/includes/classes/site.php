@@ -110,8 +110,20 @@ class UcdThemeSite extends Timber\Site {
     add_filter( 'timber/user/class', array( $this, 'extend_user' ), 10, 2 );
     add_filter( 'timber/post/classmap', array($this, 'extend_post'), 4 );
     add_filter( 'post_type_labels_post', array($this, 'change_post_labels') );
+    add_filter( 'wp_robots', [$this, 'robots_noindex'], 101 );
 
     parent::__construct();
+    }
+
+    /**
+     * @description Adds noindex to 404 and search pages
+     */
+    public function robots_noindex($robots){
+      if ( is_404() || is_search() ) {
+        $robots['noindex'] = true;
+        $robots['nofollow'] = true;
+      }
+      return $robots;
     }
 
     public function extend_user($class, \WP_User $user){
