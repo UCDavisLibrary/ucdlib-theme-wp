@@ -119,9 +119,10 @@ class UcdThemeSite extends Timber\Site {
      * @description Adds noindex to 404 and search pages
      */
     public function robots_noindex($robots){
-      if ( is_404() || is_search() || is_archive() || is_singular('attachment') ) {
+      if ( is_404() || is_search() || is_archive() || is_singular('attachment') || is_home() ) {
         $robots['noindex'] = true;
         $robots['nofollow'] = true;
+        $robots['follow'] = false;
       }
       return $robots;
     }
