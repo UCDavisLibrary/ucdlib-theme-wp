@@ -63,7 +63,7 @@ ul, ol {
       opacity: 1;
       margin-left: .5em;
     }
-    
+
   }
 }
 .btn--seq-container {
@@ -187,7 +187,7 @@ a.icon--circle-arrow-right::before {
     --category-brand-contrast-color: #fff;
     --category-brand-featured: unset;
   }
-} 
+}
 
 // background image utility
 .u-background-image {
@@ -338,6 +338,8 @@ $headerLevels: 1,2,3,4,5;
     }
   }
 }
+
+// new heading classes
 .heading--underline::after {
   overflow-x: auto;
   overflow-y: hidden;
@@ -360,9 +362,8 @@ li.job-posting {
 .subtext {
   font-size: 0.8em;
 }
-// new heading classes
 
-
+// hr styles
 hr {
   border-top: 1px solid;
 }

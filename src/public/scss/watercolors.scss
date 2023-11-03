@@ -1,3 +1,5 @@
+@use "sass:list";
+@use "sass:color";
 @use "@ucd-lib/theme-sass/0_tools" as *;
 
 .colored-section-- {
@@ -20,8 +22,33 @@
 }
 
 .colored-section {
+  .panel {
+      background-color: transparent;
+  }
+  .priority-links {
+    background-color: transparent;
+  }
+}
 
-    .panel {
-        background-color: transparent;
-    }
+// Ensure that, if the priority links are placed inside a colored brand-box,
+// the text below the icon uses the contrast color of the brand box
+// and not the priority link.
+@for $i from 1 through list.length($category-brands) {
+  // Get the first item
+  $item: list.nth($category-brands, $i);
+  // Now fetch the name and color from this first item
+  $brand-name: list.nth($item, 1);
+  $brand-legacy: list.nth($item, 2);
+  $brand-color: list.nth($item, 3);
+  $brand-contrast: list.nth($item, 4);
+
+  .colored-section.category-brand--#{$brand-name} {
+    --category-brand-contrast-colored-section: #{$brand-contrast};
+  }
+}
+.vertical-link__title {
+  color: var(--category-brand-contrast-colored-section, inherit);
+}
+ucd-theme-brand-textbox .priority-links {
+  background-color: transparent;
 }
