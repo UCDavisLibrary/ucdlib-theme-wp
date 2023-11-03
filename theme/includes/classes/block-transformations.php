@@ -46,6 +46,7 @@ class UCDThemeBlockTransformations {
     if ( array_key_exists('search', $attrs) ) $args['s'] = $attrs['search'];
     if ( array_key_exists('orderBy', $attrs) ) $args['orderby'] = $attrs['orderBy'];
     if ( array_key_exists('order', $attrs) ) $args['order'] = $attrs['order'];
+    if ( array_key_exists('offset', $attrs) ) $args['offset'] = $attrs['offset'];
     if ( array_key_exists('postCt', $attrs) ) {
       $args['posts_per_page'] = $attrs['postCt'];
     } else {

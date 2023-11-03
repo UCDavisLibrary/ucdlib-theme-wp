@@ -12,11 +12,12 @@ export default ( props ) => {
   // using block attributes, construct and do api query for posts
   const queryParams = (() => {
     const q = {
-      per_page: attributes.postCt
+      per_page: attributes.postCt,
     };
+    if ( attributes.offset ) q.offset = attributes.offset;
     if ( attributes.author ) q.author = attributes.author;
     if ( attributes.search ) q.search = attributes.search;
-    
+
     for (const tax in attributes.terms) {
       const v = attributes.terms[tax].join(",");
       if ( !v ) continue;
@@ -56,7 +57,7 @@ export default ( props ) => {
   // set up term picker
   const onTermChange = ( v ) => {
     const terms = {
-      ...attributes.terms, 
+      ...attributes.terms,
       [ v.taxonomy ]: v.terms
     };
     setAttributes({terms})
@@ -90,7 +91,7 @@ export default ( props ) => {
     if ( post ){
       p.href = post.link;
       p.title = decodeEntities(post.title.rendered);
-      
+
       let postExcerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
       postExcerpt = decodeEntities(postExcerpt).replace(/(?:\r\n|\r|\n)/g, '');
       p.excerpt = postExcerpt;
@@ -151,18 +152,18 @@ export default ( props ) => {
       </${BlockControls}>
       <${InspectorControls}>
       <${PanelBody} title="Query Filters">
-        <${AuthorPicker} 
+        <${AuthorPicker}
           value=${attributes.author}
           onChange=${(author) => setAttributes({author})}
         />
         ${taxonomies.map(t => html`
-          <${TermPicker} 
-            key=${t} 
+          <${TermPicker}
+            key=${t}
             onChange=${onTermChange}
             value=${attributes.terms[t]}
             taxonomy=${t}/>
         `)}
-        <${DebouncedText} 
+        <${DebouncedText}
           label="Keyword"
           value=${attributes.search}
           onChange=${(search) => setAttributes({search})}
@@ -170,14 +171,21 @@ export default ( props ) => {
         </${PanelBody}>
 
         <${PanelBody} title="Display">
-          <${RangeControl} 
+          <${RangeControl}
             label="Number of posts"
             value=${attributes.postCt}
             onChange=${(postCt) => setAttributes({postCt})}
             min=${1}
             max=${20}
           />
-          <${SelectControl} 
+          <${RangeControl}
+            label="Post offset"
+            value=${attributes.offset}
+            onChange=${(offset) => setAttributes({offset})}
+            min=${0}
+            help="Number of posts to skip before displaying results"
+          />
+          <${SelectControl}
             label='Template'
             value=${attributes.template}
             options=${templateOptions}
