@@ -13,7 +13,7 @@
   "private": true,
   "dependencies": {
     "@ucd-lib/brand-theme-editor": "file:../editor",
-    "@ucd-lib/theme-elements": "^1.2.1",
+    "@ucd-lib/theme-elements": "^1.2.9",
     "@ucd-lib/theme-sass": "^5.0.16",
     "jquery": "^3.6.1",
     "normalize-scss": "^7.0.1",

@@ -45,6 +45,14 @@ class UcdThemeCustomizer {
       'label' => 'Sitefarm Branding Bar',
       'description' => 'Enable default Sitefarm Branding Bar'
     ));
+    $wp_customize->add_setting('sf_branding_bar_logo_width');
+    $wp_customize->add_control('sf_branding_bar_logo_width', array(
+      'type' => "text",
+      'priority' => 10,
+      'section' => 'title_tagline',
+      'label' => "Custom Header Logo Width",
+      'description' => "If using custom branding bar with a custom logo, enter the width of the logo in the header. e.g. '200px'"
+    ));
 
 
     // Quicklinks
