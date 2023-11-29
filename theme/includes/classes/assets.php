@@ -39,6 +39,7 @@ class UCDThemeAssets {
       add_editor_style( "../assets/css/ucd-styles.css" );
     }
     add_action('wp_head', array($this, 'add_styles_to_head'));
+    add_action('admin_head', array($this, 'change_admin_logo_bg'));
 
   }
 
@@ -53,6 +54,20 @@ class UCDThemeAssets {
     }
     ucd-theme-subnav * {
       display: none;
+    }
+    </style>";
+  }
+
+  public function change_admin_logo_bg(){
+    echo "<style>
+    @media (min-width: 782px) {
+      .edit-post-fullscreen-mode-close.components-button {
+        background-color: #f2f2f2;
+      }
+
+      .edit-post-fullscreen-mode-close.components-button::before {
+        display: none;
+      }
     }
     </style>";
   }

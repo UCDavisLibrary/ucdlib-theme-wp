@@ -2,6 +2,7 @@
 
 {% set default_bar = theme.theme_mod('sf_branding_bar') %}
 {% set logo_id = theme.theme_mod('custom_logo') %}
+{% set custom_logo_width = theme.theme_mod('sf_branding_bar_logo_width', '150px')%}
 <ucd-theme-header
   site-name="{{default_bar and site.name ? site.name : ''}}"
   site-url={{site.url}}
@@ -13,8 +14,11 @@
     <ucdlib-branding-bar
       site-name="{{site.name}}"
       site-url={{site.url}}
+      figure="{{logo_id ? 'custom' : 'book'}}"
+      figure-src="{{logo_id ? get_post(logo_id).src : ''}}"
+      figure-custom-width="{{custom_logo_width}}"
       slogan="{{site.description}}">
-      
+
       {% if menu.brandingBar %}
         {{ menu_twigs.flat_list({menu: menu.brandingBar}) }}
       {% endif %}
@@ -46,11 +50,11 @@
       {% if theme.theme_mod('quickLinks_highlight') %}
         {% set quickLinksMods = quickLinksMods|merge(['highlight'])%}
       {% endif %}
-    <ucd-theme-quick-links 
+    <ucd-theme-quick-links
       {{ quickLinksMods ? 'style-modifiers="' ~ quickLinksMods|join(' ')  ~ '"' }}
       title="{{menu.quickLinks.name}}">
       {{ menu_twigs.flat_list({menu: menu.quickLinks}) }}
     </ucd-theme-quick-links>
   {% endif %}
-  
+
 </ucd-theme-header>

@@ -12,12 +12,8 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "@ucd-lib/theme-elements": "^1.2.1",
+    "@ucd-lib/theme-elements": "^1.2.9",
     "@ucd-lib/theme-sass": "^5.0.14",
-    "classnames": "^2.3.2",
-    "htm": "^3.1.0",
-    "lodash": "^4.17.21",
-    "slick-carousel": "^1.8.1",
     "@wordpress/api-fetch": "^6.0.1",
     "@wordpress/block-editor": "^7.0.2",
     "@wordpress/block-library": "^7.0.2",
@@ -34,7 +30,11 @@
     "@wordpress/notices": "^3.2.2",
     "@wordpress/plugins": "^4.1.3",
     "@wordpress/rich-text": "^5.0.2",
-    "@wordpress/url": "^3.4.1"
+    "@wordpress/url": "^3.4.1",
+    "classnames": "^2.3.2",
+    "htm": "^3.1.0",
+    "lodash": "^4.17.21",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@wordpress/scripts": "^23.7.2"

@@ -3,6 +3,7 @@ require_once( __DIR__ . '/api.php' );
 require_once( __DIR__ . '/views.php' );
 require_once( __DIR__ . '/meta-data.php' );
 require_once( __DIR__ . '/customizer.php' );
+require_once( __DIR__ . '/hide-user.php' );
 require_once( __DIR__ . '/html-import.php' );
 require_once( __DIR__ . '/menu.php' );
 require_once( __DIR__ . '/blocks.php' );
@@ -70,6 +71,9 @@ class UcdThemeSite extends Timber\Site {
 
     // User-editable theme options
     $this->customizer = new UcdThemeCustomizer();
+
+    // Hide user profile page if customizer setting is selected
+    $this->hideUser = new UcdThemeHideUser();
 
     // Queue up scripts and styles
     $this->assets = new UcdThemeAssets($this->scripts, $this->version);
