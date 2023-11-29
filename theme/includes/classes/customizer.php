@@ -276,6 +276,18 @@ class UcdThemeCustomizer {
       'section' => 'layout_author',
       'label' => 'Hide the profile picture'
     ));
+    $wp_customize->add_setting('author_sitemap_hide');
+    $wp_customize->add_control('author_sitemap_hide', array(
+      'type' => "checkbox",
+      'section' => 'layout_author',
+      'label' => 'Remove all author pages from sitemap',
+    ));
+    $wp_customize->add_setting('author_page_hide');
+    $wp_customize->add_control('author_page_hide', array(
+      'type' => "checkbox",
+      'section' => 'layout_author',
+      'label' => 'Redirect all author pages to 404',
+    ));
   }
 
   public function colors($wp_customize){
