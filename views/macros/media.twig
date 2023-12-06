@@ -1,6 +1,6 @@
 {# This file contains functions to display media #}
 
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=atoms-landscape-16x9
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=atoms-landscape-4x3
 kwargs:
@@ -9,7 +9,7 @@ kwargs:
   aspectRatio {String} - A recognized aspect ratio in format wxh
 #}
 {% macro image_landscape(kwargs={}) %}
-  
+
   {% if kwargs.image %}
     {% set src = kwargs.image.src %}
     {% set alt = kwargs.image.alt %}
@@ -20,9 +20,12 @@ kwargs:
     {% set alt = i.alt %}
     {% set caption = i.post_excerpt %}
   {% else %}
-    {% set src = DefaultImageByAspectRatio(kwargs.aspectRatio) %}
     {% set alt = "" %}
     {% set caption = "" %}
+  {% endif %}
+
+  {% if not src %}
+    {% set src = DefaultImageByAspectRatio(kwargs.aspectRatio) %}
   {% endif %}
 
   {% if alt %}
@@ -59,7 +62,7 @@ kwargs:
 
   <div class="{{classes}}">
     <figure style="display:block;">
-      <div 
+      <div
         class="aspect--{{aspectRatio}} u-background-image"
         style="background-image:url({{src}}}"
         {{target}}
@@ -70,11 +73,11 @@ kwargs:
       {% if kwargs.caption.show and caption %}
         <figcaption style="display:block;">{{caption}}</figcaption>
       {% endif %}
-      
+
     </figure>
   </div>
 
-  {# 
+  {#
   <div class="aspect--{{kwargs.aspectRatio}}">
     <img src="{{src}}" alt="{{alt}}" width="{{width}}" height="{{height}}" loading="lazy" />
   </div>
@@ -82,7 +85,7 @@ kwargs:
 
 {% endmacro %}
 
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=atoms-title-banner
 #}
 {% macro image_title_banner(image) %}

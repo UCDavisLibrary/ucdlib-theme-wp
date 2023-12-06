@@ -1,4 +1,4 @@
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-media-link
 kwargs:
   post {Timber\Post} - A post on this site.
@@ -30,7 +30,9 @@ kwargs:
   {% elseif kwargs.post.teaser_image %}
     {% set src = kwargs.post.teaser_image.src('thumbnail') %}
     {% set alt = kwargs.post.teaser_image.alt %}
-  {% else %}
+  {% endif %}
+
+  {% if not src %}
     {% set src = DefaultImage('media-link') %}
   {% endif %}
 
@@ -52,7 +54,7 @@ kwargs:
 
 {% endmacro %}
 
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-teaser
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-teaser-article
 kwargs:
@@ -89,14 +91,16 @@ kwargs:
   {% elseif kwargs.post.teaser_image %}
     {% set src = kwargs.post.teaser_image.src('thumbnail') %}
     {% set alt = kwargs.post.teaser_image.alt %}
-  {% else %}
+  {% endif %}
+
+  {% if not src %}
     {% set src = DefaultImage('teaser') %}
   {% endif %}
 
   {% if alt %}
     {% set alt = alt|striptags %}
   {% endif %}
-   
+
 
   {% set classes = 'vm-teaser' %}
   {% if kwargs.featured %}

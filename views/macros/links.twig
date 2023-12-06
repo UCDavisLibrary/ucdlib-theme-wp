@@ -6,7 +6,7 @@ kwargs:
   content (string) - link text - required.
   href (string) - link url
   newTab (boolean) - link will open in new tab
-  modifiers (string) - space delimited list of style modifiers without the btn-- prefix. 
+  modifiers (string) - space delimited list of style modifiers without the btn-- prefix.
     Takes precedence over the following individually listed modifiers:
   size (string) - size modifier
   shape (string) - shape modifier
@@ -51,7 +51,7 @@ kwargs:
       <a {{href}} {{target}} class="{{classes}}">{{kwargs.content}}</a>
     </p>
   {% endif %}
-  
+
 {% endmacro %}
 
 {#
@@ -83,14 +83,16 @@ kwargs:
   {% elseif kwargs.post.card_image %}
     {% set src = kwargs.post.card_image.src %}
     {% set alt = kwargs.post.card_image.alt %}
-  {% else %}
+  {% endif %}
+
+  {% if not src %}
     {% set src = DefaultImage('marketing-highlight-horizontal') %}
   {% endif %}
 
   {% if alt %}
     {% set alt = alt|striptags %}
   {% endif %}
-   
+
 
   {% set classes = 'marketing-highlight-horizontal' %}
   {% if kwargs.brandColor %}
@@ -116,7 +118,7 @@ kwargs:
   </a>
 {% endmacro %}
 
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-tags
 kwargs:
   term: {Timber\Term} - A term on this site
@@ -144,7 +146,7 @@ kwargs:
 
 {% endmacro %}
 
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-tags
 kwargs:
   terms: {Array of Timber\Term} - Terms on this site
@@ -164,7 +166,7 @@ kwargs:
   queriedTerm: {Timber\Term} - The current queried term
 #}
 {% macro category_filter( kwargs={} ) %}
-  
+
   {% if kwargs.terms is iterable %}
     <ul class="category-filter">
       {% for term in kwargs.terms %}
@@ -183,7 +185,7 @@ kwargs:
   {% endif %}
 {% endmacro %}
 
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-pagination
 kwargs:
   pagination { Timber\Pagination } - Pagination object
@@ -208,7 +210,7 @@ kwargs:
   {% endif %}
 {% endmacro %}
 
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=organisms-article-list
 kwargs:
   href {String}: link
@@ -227,7 +229,7 @@ kwargs:
   {% endif %}
 {% endmacro %}
 
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-vertical-link-icon-circle
 kwargs:
   href {String}: link
@@ -257,7 +259,7 @@ kwargs:
   </a>
 {% endmacro %}
 
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-focal-link-icon
 kwargs:
   href {String}: link
@@ -307,7 +309,7 @@ crumbs (array): result of UcdThemePost->breadcrumbs()
 {% endif %}
 {% endmacro %}
 
-{# 
+{#
 Renders a link with a little icon inlined before it
 kwargs:
   href {String}: link
