@@ -33,7 +33,7 @@ class UCDThemeBlockRenderer {
     }
     foreach ($registry as $name => $block) {
       $settings = array(
-        'api_version' => 2, 
+        'api_version' => 2,
         'render_callback' => array($this, 'render_callback')
       );
       if ( array_key_exists('uses_context', $block) ) {
@@ -43,7 +43,7 @@ class UCDThemeBlockRenderer {
         $settings['provides_context'] = $block['provides_context'];
       };
       register_block_type(
-        $name, 
+        $name,
         $settings
       );
     }
@@ -51,7 +51,7 @@ class UCDThemeBlockRenderer {
 
   /**
    * Renders designated Twig and applies attribute transformations for a registered block
-   * 
+   *
    * NOTE:
    * We need access to the block name to determine what twig to render.
    * Third 'block' arg is not part of documentation:
@@ -60,10 +60,10 @@ class UCDThemeBlockRenderer {
    *  https://github.com/WordPress/gutenberg/issues/4671
    *  https://github.com/WordPress/gutenberg/issues/21797
    *  https://github.com/WordPress/gutenberg/pull/21925
-   *  
+   *
    */
   public function render_callback($block_attributes, $content, $block) {
-    
+
     // Retrieve metadata from registry
     $blockName = $block->name;
     if ( !$blockName ) return;
@@ -89,13 +89,14 @@ class UCDThemeBlockRenderer {
         $block_attributes = call_user_func(static::$transformationClass . "::" . $transformation, $block_attributes);
       }
     }
+    if ( !$block_attributes ) $block_attributes = [];
 
     // check for icons (so we can only load the svgs we actually use)
     if ( !isset($this->iconsUsed) || !is_array($this->iconsUsed) ){
       $this->iconsUsed = [];
     }
-    if ( 
-      array_key_exists('icon', $block_attributes) && 
+    if (
+      array_key_exists('icon', $block_attributes) &&
       !in_array($block_attributes['icon'], $this->iconsUsed)) {
         $this->iconsUsed[] = $block_attributes['icon'];
       }
