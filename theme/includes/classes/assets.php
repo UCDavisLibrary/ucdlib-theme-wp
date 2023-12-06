@@ -3,6 +3,10 @@
 class UCDThemeAssets {
   public $scripts;
   public $version;
+  public $directories;
+  public $isDevEnv;
+  public $uris;
+  public $iconsets;
 
   public function __construct($scripts, $version) {
     $this->scripts = $scripts;

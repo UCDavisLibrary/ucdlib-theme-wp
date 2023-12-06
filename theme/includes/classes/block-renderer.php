@@ -4,6 +4,11 @@
 // meant to be inheritied by blocks.php classes in theme and plugins
 class UCDThemeBlockRenderer {
 
+  public static $registry;
+  public static $transformationClass;
+
+  public $iconsUsed;
+
   public function __construct(){
     $this->iconsUsed = [];
     add_action( 'init', array( $this, 'register_blocks'));

@@ -5,6 +5,8 @@
  */
 class UcdThemeMenu {
 
+  public $menuLocations;
+
   public function __construct() {
 
     // slug => label
@@ -26,12 +28,12 @@ class UcdThemeMenu {
     $locations = get_nav_menu_locations();
     $context['menu'] = array();
     foreach ($this->menuLocations as $slug => $label) {
-      
+
       // add to context if location has menu data
       if ( array_key_exists($slug, $locations) && $locations[$slug] ) {
         $context['menu'][$slug] = Timber::get_menu($slug);
       }
-      
+
     }
     return $context;
   }
@@ -67,7 +69,7 @@ class UcdThemeMenu {
     }
     return $out;
   }
-  
+
   /**
    * @method getDirectHierarchyinMenu
    * @description Gets all ancestor menu items of a post in a menu (also menu item of the post itself)
@@ -78,7 +80,7 @@ class UcdThemeMenu {
     if ( !$menu->items ) return $out;
 
     foreach ($menu->items as $parent) {
-      
+
       // we are finding the currently displayed page in the menu
       if ( !$post_id ) {
         if ( $parent->current ) {
