@@ -38,14 +38,16 @@ kwargs:
   {% elseif kwargs.post.card_image %}
     {% set src = kwargs.post.card_image.src %}
     {% set alt = kwargs.post.card_image.alt %}
-  {% else %}
+  {% endif %}
+
+  {% if not src %}
     {% set src = DefaultImage('marketing-highlight') %}
   {% endif %}
 
   {% if alt %}
     {% set alt = alt|striptags %}
   {% endif %}
-   
+
 
   {% set classes = 'marketing-highlight' %}
   {% if kwargs.featured %}
@@ -104,14 +106,16 @@ kwargs:
   {% elseif kwargs.post.thumbnail %}
     {% set src = kwargs.post.thumbnail.src %}
     {% set alt = kwargs.post.thumbnail.alt %}
-  {% else %}
+  {% endif %}
+
+  {% if not src %}
     {% set src = DefaultImageByAspectRatio('16x9') %}
   {% endif %}
 
   {% if alt %}
     {% set alt = alt|striptags %}
   {% endif %}
-   
+
 
   {% set classes = 'vm-featured-article' %}
   {% if kwargs.panel %}
@@ -236,7 +240,9 @@ kwargs:
   {% elseif kwargs.post.card_image %}
     {% set src = kwargs.post.card_image.src %}
     {% set alt = kwargs.post.card_image.alt %}
-  {% else %}
+  {% endif %}
+
+  {% if not src %}
     {% set src = DefaultImage('poster') %}
   {% endif %}
 
@@ -269,7 +275,7 @@ kwargs:
 {% endmacro %}
 
 
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-listing
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=organisms-article-list
 kwargs:
@@ -298,7 +304,9 @@ kwargs:
   {% elseif kwargs.post.thumbnail %}
     {% set src = kwargs.post.thumbnail.src %}
     {% set alt = kwargs.post.thumbnail.alt %}
-  {% else %}
+  {% endif %}
+
+  {% if not src %}
     {% set src = DefaultImageByAspectRatio("1x1") %}
   {% endif %}
 
@@ -326,9 +334,9 @@ kwargs:
 
 {% endmacro %}
 
-{# 
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-search-result
-kwargs: 
+kwargs:
   post {Timber\Post} - A post on this site.
   title {String} - The card title. Will override 'post' title
   href {String} - Url for card link. Will override 'post' permalink

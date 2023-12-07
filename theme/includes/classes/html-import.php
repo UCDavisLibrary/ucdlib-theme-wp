@@ -19,10 +19,12 @@
  *</html>
  */
 class UCDThemeHtmlImport {
+
+  public $templateFile='html-import.php';
+  public $matchingPath='html-import';
+  public $queryVar='template';
+
   public function __construct() {
-    $this->templateFile = 'html-import.php';
-    $this->matchingPath = "html-import";
-    $this->queryVar = 'template';
 
     add_filter( 'template_include', [$this, 'loadTemplate'], 99 );
     add_filter( 'query_vars', [$this, 'registerQueryVar'] );

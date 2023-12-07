@@ -1,10 +1,14 @@
 <?php
 
 /**
- * Sets up extra metadata fields. 
+ * Sets up extra metadata fields.
  * Will normally be saved in either the 'wp_termmeta', 'wp_postmeta', or 'wp_usermeta' tables
  */
 class UCDThemeMetaData {
+
+  public $userContactFields;
+  public $userMetaFields;
+
 
   function __construct(){
     // Assign a UCD theme color to a category
@@ -166,7 +170,7 @@ class UCDThemeMetaData {
     }
 
     foreach ($this->userMetaFields as $k => $v) {
-      
+
       // upload profile picture
       if ( $v['slug'] == 'profile-picture' ){
         if( array_key_exists($v['slug'], $_FILES) && $_FILES[$v['slug']]['error'] === UPLOAD_ERR_OK ) {
@@ -198,7 +202,7 @@ class UCDThemeMetaData {
 
             update_user_meta( $user_id, $v['slug'], $attach_id );
           }
-          
+
         }
         else if ( isset($_POST['clear_profile_picture']) ){
           delete_user_meta( $user_id, $v['slug'] );

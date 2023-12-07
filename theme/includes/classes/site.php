@@ -25,6 +25,23 @@ require_once( __DIR__ . '/thumbnails.php' );
  */
 class UcdThemeSite extends Timber\Site {
 
+  public $version;
+  public $directories;
+  public $scripts;
+  public $buildParams;
+  public $blockSettings;
+
+  public $api;
+  public $views;
+  public $metaData;
+  public $customizer;
+  public $hideUser;
+  public $assets;
+  public $patterns;
+  public $customBlocks;
+  public $htmlImport;
+
+
 	public function __construct() {
 
     // Declare class properties
@@ -151,6 +168,7 @@ class UcdThemeSite extends Timber\Site {
 
     function change_post_labels( $args ) {
       foreach( $args as $key => $label ){
+        if ( !$label ) continue;
           $args->{$key} = str_replace( [ __( 'Posts' ), __( 'Post' ) ], __( 'News' ), $label );
       }
 

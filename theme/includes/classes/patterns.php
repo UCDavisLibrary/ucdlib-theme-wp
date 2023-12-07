@@ -2,9 +2,11 @@
 
 // Sets up block patterns for this theme
 class UCDLibThemePatterns {
+
+  public $slug = 'ucdlib-theme-wp';
+  public $groupIds = [];
+
   public function __construct(){
-    $this->slug = 'ucdlib-theme-wp';
-    $this->groupIds = [];
 
     add_action( 'init', [$this, 'register']);
     add_filter( 'render_block' , [$this, 'dedupeIds'], 10, 3);
@@ -48,7 +50,7 @@ class UCDLibThemePatterns {
         'keywords' => ['core', 'text', 'style'],
       ]
     );
-    
+
     register_block_pattern(
       "$this->slug/lang-prize-winner",
       [
@@ -59,7 +61,7 @@ class UCDLibThemePatterns {
         'keywords' => ['lang', 'prize', 'winner', 'list'],
       ]
     );
-    
+
      register_block_pattern(
       "$this->slug/lang-prize",
       [
@@ -210,8 +212,8 @@ class UCDLibThemePatterns {
     <!-- wp:ucd-theme/heading {\"content\":\"4th Level Headings\",\"level\":5,\"classSuffix\":\"h6\"} /--></div>
     <!-- /wp:group -->
     ";
-  } 
-  
+  }
+
   // patterns are wrapped in a group with an id attribute
   // ensure these ids are unique if more than one is used on a page
   public function dedupeIds($block_content, $block, $instance){
@@ -232,7 +234,7 @@ class UCDLibThemePatterns {
           if ( !in_array($groupId, $this->groupIds) ) {
             $this->groupIds[] = $groupId;
             break;
-          } 
+          }
           $groupId = explode('--', $groupId);
           if ( count($groupId) > 1  && is_numeric(end($groupId)) ) {
             $groupId[count($groupId) - 1] = end($groupId) + 1;

@@ -13,6 +13,10 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
   public $editor_script_slug;
   public $settings;
 
+  public $iconsUsed;
+
+  public static $transformationClass = 'UCDThemeBlockTransformations';
+
   function __construct($editor_script_slug, $settings=array()) {
     parent::__construct();
     $this->editor_script_slug = $editor_script_slug;
@@ -30,8 +34,6 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     add_action( 'init', array($this, 'setPageBlockTemplate'), 100);
     add_filter('excerpt_allowed_wrapper_blocks', array($this, 'excerpt_allowed_wrapper_blocks'));
   }
-
-  public static $transformationClass = 'UCDThemeBlockTransformations';
 
   /**
    * Meta for each block goes here.

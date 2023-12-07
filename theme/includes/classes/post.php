@@ -8,6 +8,9 @@ require_once( __DIR__ . '/menu.php' );
  * https://timber.github.io/docs/v2/guides/extending-timber/#extending-timber-classes
  */
 class UcdThemePost extends Timber\Post {
+
+  public $iconsUsed;
+
   public function setup(){
     $this->iconsUsed = [];
     add_filter( 'ucd-theme/loaded-icons', [$this, 'loadIcons'], 10, 1);
@@ -393,6 +396,9 @@ class UcdThemePost extends Timber\Post {
 }
 
 class UcdThemePostExcerpt {
+  public $post;
+  public $length;
+
   public function __construct( $post, array $options = array() ) {
     $this->post = $post;
     $this->length = 50;

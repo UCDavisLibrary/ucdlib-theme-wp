@@ -4,6 +4,10 @@
  * Sets up custom endpoints for the wordpress api
  */
 class UCDThemeAPI {
+
+  public $slug;
+  public $menuSlug;
+
   public function __construct($slug) {
     $this->slug = $slug;
     $this->menuSlug = 'menu';
@@ -60,7 +64,7 @@ class UCDThemeAPI {
   }
 
   public function epcb_all_menus( $request ){
-    $menus = get_terms( 'nav_menu', array( 'hide_empty' => true ) ); 
+    $menus = get_terms( 'nav_menu', array( 'hide_empty' => true ) );
     return rest_ensure_response($menus);
   }
 
