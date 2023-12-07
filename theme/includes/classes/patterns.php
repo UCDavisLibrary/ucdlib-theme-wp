@@ -9,7 +9,7 @@ class UCDLibThemePatterns {
   public function __construct(){
 
     add_action( 'init', [$this, 'register']);
-    add_filter( 'render_block' , [$this, 'dedupeIds'], 10, 3);
+    // add_filter( 'render_block' , [$this, 'dedupeIds'], 10, 3);
   }
 
   public function register(){
