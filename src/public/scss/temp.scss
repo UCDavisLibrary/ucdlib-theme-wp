@@ -254,6 +254,12 @@ a.icon-ucdlib, span.icon-ucdlib {
   width: .9rem;
   height: .9rem;
 }
+.colored-section a.icon-ucdlib ucdlib-icon,
+.colored-section span.icon-ucdlib ucdlib-icon,
+.colored-section span.icon-ucdlib
+ {
+  color: var(--category-brand-contrast-color, #fff);
+}
 
 // white space utility
 .u-white-space--normal {
