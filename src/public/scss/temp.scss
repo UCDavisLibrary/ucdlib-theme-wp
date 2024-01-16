@@ -254,6 +254,24 @@ a.icon-ucdlib, span.icon-ucdlib {
   width: .9rem;
   height: .9rem;
 }
+.colored-section.colored-section--light-yellow a.icon-ucdlib ucdlib-icon,
+.colored-section.colored-section--light-yellow span.icon-ucdlib ucdlib-icon,
+.colored-section.colored-section--light-yellow span.icon-ucdlib
+ {
+  color: var(--category-brand, #73abdd);
+}
+.colored-section.colored-section--light-blue a.icon-ucdlib ucdlib-icon,
+.colored-section.colored-section--light-blue span.icon-ucdlib ucdlib-icon,
+.colored-section.colored-section--light-blue span.icon-ucdlib
+ {
+  color: var(--category-brand, #73abdd);
+}
+.colored-section.colored-section--white a.icon-ucdlib ucdlib-icon,
+.colored-section.colored-section--white span.icon-ucdlib ucdlib-icon,
+.colored-section.colored-section--white span.icon-ucdlib
+ {
+  color: var(--category-brand, #73abdd);
+}
 .colored-section a.icon-ucdlib ucdlib-icon,
 .colored-section span.icon-ucdlib ucdlib-icon,
 .colored-section span.icon-ucdlib
