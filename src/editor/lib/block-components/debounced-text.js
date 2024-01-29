@@ -1,4 +1,4 @@
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 import { html } from "../utils";
 import { useEffect, useState, useCallback } from '@wordpress/element';
