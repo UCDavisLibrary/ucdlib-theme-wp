@@ -15,7 +15,7 @@ export default ( props ) => {
     "u-space-py": !selectedSpacing,
     'u-space-pt--small': selectedSpacing == 'extra-small',
     [`u-space-px--${selectedSpacing}`]: selectedSpacing,
-    [`u-space-py--${selectedSpacing}`]: selectedSpacing,
+    [`u-space-py--${selectedSpacing}`]: selectedSpacing
   });
 
   const blockProps = useBlockProps( {
@@ -33,6 +33,8 @@ export default ( props ) => {
     {slug: "", label: "1x"},
     {slug: "medium", label: "1.5x"},
     {slug: "large", label: "2x"},
+    {slug: "huge", label: "4x"},
+    {slug: "vast", label: "8x"}
   ].map(v => {
     let out = {
       slug: v.slug,
@@ -44,7 +46,7 @@ export default ( props ) => {
     if ( v.slug === selectedSpacing ){
       out.icon = UCDIcons.render("selected", {style:iconStyle});
       out.isDisabled = true;
-    } 
+    }
 
     return out;
   });
@@ -54,7 +56,7 @@ export default ( props ) => {
   return html`
     <div ...${ blockProps }>
       <${BlockControls} group="block">
-        <${ToolbarDropdownMenu} 
+        <${ToolbarDropdownMenu}
           label="Set Space Amount"
           controls=${spaceControls}
           icon=${html`<span>${selectedIcon}</span>`}
