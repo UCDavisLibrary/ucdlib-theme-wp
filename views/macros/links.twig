@@ -239,9 +239,14 @@ kwargs:
   newTab {Boolean} - If link opens in new tab
 #}
 {% macro priority_link( kwargs={} ) %}
-  {% set classes = ['vertical-link', 'vertical-link--circle'] %}
+  {% set classes = ['vertical-link'] %}
   {% if kwargs.brandColor %}
     {% set classes = classes|merge(['category-brand--' ~ kwargs.brandColor]) %}
+  {% endif %}
+  {% if kwargs.tiltCircle %}
+    {% set classes = classes|merge(['vertical-link--tilt-circle']) %}
+  {% else %}
+    {% set classes = classes|merge(['vertical-link--circle']) %}
   {% endif %}
   {% set classes = classes|join(' ') %}
 

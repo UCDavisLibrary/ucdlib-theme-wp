@@ -14,6 +14,7 @@ export function styles() {
     }
     ucdlib-icon {
       height: 50%;
+      width: 50%;
     }
     .show-placeholder:before {
       content: attr(placeholder);
@@ -32,7 +33,7 @@ export function styles() {
   ];
 }
 
-export function render() { 
+export function render() {
 return html`
   <a class=${classMap(this._getBaseClasses())}>
     <div class="vertical-link__figure" @click="${this.dispatchIconChangeRequest}">
@@ -44,10 +45,10 @@ return html`
     </div>
     ${!this.hideText ? html`
       <div class="vertical-link__title">
-        <slot 
+        <slot
           id="text-slot"
           class=${this.text ? '' : 'show-placeholder'}
-          name="text" 
+          name="text"
           placeholder="Write text..."
           @input=${this._onTextInput}>${this.text}</slot>
       </div>

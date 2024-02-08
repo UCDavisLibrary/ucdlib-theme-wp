@@ -45,6 +45,10 @@ const settings = {
     hideText: {
       type: "boolean",
       default: false
+    },
+    tiltCircle: {
+      type: "boolean",
+      default: false
     }
   },
 	edit: Edit

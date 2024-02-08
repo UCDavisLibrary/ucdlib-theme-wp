@@ -197,8 +197,11 @@ a.icon--circle-arrow-right::before {
 }
 
 // for priority links
-.vertical-link--circle ucdlib-icon.vertical-link__image {
+.vertical-link--circle ucdlib-icon.vertical-link__image,
+.vertical-link--tilt-circle ucdlib-icon.vertical-link__image
+ {
   height: 50%;
+  width: 50%;
 }
 
 // for focal link
