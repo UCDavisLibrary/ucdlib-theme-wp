@@ -22,6 +22,7 @@ import landerNav from "./ucd-theme-lander-nav";
 import layoutColumn from "./ucd-theme-layout-column";
 import layoutColumns from "./ucd-theme-layout-columns";
 import layoutContainer from "./ucd-theme-layout-container";
+import layoutGutters from "./ucd-theme-layout-gutters";
 import layoutBasic from "./ucd-theme-layout-basic";
 import layoutShrink from "./ucd-theme-layout-shrink";
 import layoutQuad from "./ucd-theme-layout-quad";
@@ -78,6 +79,7 @@ export default [
   layoutColumn,
   layoutColumns,
   layoutContainer,
+  layoutGutters,
   layoutBasic,
   layoutShrink,
   layoutQuad,
