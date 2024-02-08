@@ -22,6 +22,9 @@ export function styles() {
       pointer-events: none;
       opacity: .6;
     }
+    .marketing-highlight-horizontal--overlay .marketing-highlight-horizontal__title {
+      min-width: 275px;
+    }
   `;
 
   return [
@@ -31,19 +34,19 @@ export function styles() {
     elementStyles];
 }
 
-export function render() { 
+export function render() {
 return html`
-  <a class="marketing-highlight-horizontal ${this.brandColor ? "category-brand--"+this.brandColor: ''}">
+  <a class=${this.mainClasses()}>
     <div class="marketing-highlight-horizontal__image">
       <div class="u-background-image aspect--16x9" style=${`background-image:url(${this.imgSrc})`}></div>
     </div>
     ${!this.hideTitle ? html`
       <div class="marketing-highlight-horizontal__body">
         <h5 class="marketing-highlight-horizontal__title">
-          <slot 
+          <slot
             id="title-slot"
             class=${this.title ? '' : 'show-placeholder'}
-            name="title" 
+            name="title"
             placeholder="Write a title..."
             @input=${this._onTitleInput}>${this.title}</slot>
         </h5>

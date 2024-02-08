@@ -65,6 +65,7 @@ kwargs:
   href {String} - Url for card link. Will override 'post' permalink
   newTab {Boolean} - Opens card link in new tab
   brandColor {String} - UCD alt color slug
+  overlay {Boolean} - Overlays title over image
 #}
 {% macro marketing_highlight_horizontal( kwargs ) %}
 
@@ -101,8 +102,11 @@ kwargs:
   {% if kwargs.panel %}
     {% set classes = classes ~ " panel" %}
   {% endif %}
-  {% if kwargs.oBox %}
+  {% if kwargs.oBox and not kwargs.overlay %}
     {% set classes = classes ~ " o-box" %}
+  {% endif %}
+  {% if kwargs.overlay %}
+    {% set classes = classes ~ " marketing-highlight-horizontal--overlay" %}
   {% endif %}
 
 
