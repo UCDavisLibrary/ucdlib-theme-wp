@@ -35,11 +35,12 @@ export default () => {
   return html`
     <${Fragment}>
       <${PluginDocumentSettingPanel}
+        name="ucd-preview-images"
         className="ucd-preview-images"
         icon=${html`<ucdlib-icon style=${{marginLeft: '8px', width: '15px', minWidth: '15px'}} icon="ucd-public:fa-images"></ucdlib-icon>`}
         title="Preview Images">
         <${BaseControl} help=${panelHelp} />
-        <${ImagePicker} 
+        <${ImagePicker}
           imageId=${meta.ucd_thumbnail_1x1}
           image=${teaserImage}
           onSelect=${(image) => onSelectImage(image, '1x1')}
@@ -49,7 +50,7 @@ export default () => {
           helpText=${decodeEntities('Teasers use a small (&lt;200px) 1x1 image.')}
           panelAttributes=${{title: 'Teaser Image'}}
         />
-        <${ImagePicker} 
+        <${ImagePicker}
           imageId=${meta.ucd_thumbnail_4x3}
           image=${cardImage}
           onSelect=${(image) => onSelectImage(image, '4x3')}
