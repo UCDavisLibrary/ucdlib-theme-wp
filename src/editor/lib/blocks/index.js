@@ -50,6 +50,7 @@ import socialMedia from "./ucd-theme-social-media";
 import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
 import teasers from "./ucd-theme-teasers";
+import tileLink from "./ucd-theme-tile-link";
 import trumba from "./ucd-theme-trumba";
 import trumbaUpcoming from "./ucd-theme-trumba-upcoming";
 import trumbaFilter from "./ucd-theme-trumba-filter";
@@ -107,6 +108,7 @@ export default [
   spacer,
   teaser,
   teasers,
+  tileLink,
   trumba,
   trumbaUpcoming,
   trumbaFilter

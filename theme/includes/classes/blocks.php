@@ -227,6 +227,12 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
         'teasers/hideExcerpt' => 'hideExcerpt',
         'teasers/hideCategories' => 'hideCategories')
     ),
+    "ucd-theme/tile-link" => [
+      "twig" => "@ucd/blocks/tile-link.twig",
+      "img" => "382x382.png",
+      "transform" => ["getPost", "addSpacing"],
+      "hasBrandColors" => true
+    ],
     "ucd-theme/trumba" => [
       'twig' => '@ucd/blocks/trumba.twig'
     ],

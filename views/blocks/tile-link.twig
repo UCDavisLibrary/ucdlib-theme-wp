@@ -1,0 +1,5 @@
+{% from getUcdMacro('cards') import tile_link %}
+{% if not attributes.brandColor %}
+  {% set attributes = attributes|merge({brandColor: 'primary'})%}
+{% endif %}
+{{ tile_link(attributes) }}

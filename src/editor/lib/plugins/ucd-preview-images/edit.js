@@ -18,6 +18,7 @@ export default () => {
 
   const teaserImage = SelectUtils.image(meta.ucd_thumbnail_1x1);
   const cardImage = SelectUtils.image(meta.ucd_thumbnail_4x3);
+  const cardImageSquare = SelectUtils.image(meta.ucd_thumbnail_1x1_large);
 
 
   const onSelectImage = (image, aspectRatio) => {
@@ -30,6 +31,7 @@ export default () => {
   const panelHelp = `
   Upload custom images and aspect ratios for display by preview blocks used by other pages.
   If custom preview images are not used, the featured image will be automatically cropped to fit.
+  For best results, try to upload images for all the image sizes listed below:
   `;
 
   return html`
@@ -59,6 +61,16 @@ export default () => {
           cloneText="Clone Featured Image"
           helpText=${decodeEntities('Cards use a medium (&lt;1000px) 4x3 image.')}
           panelAttributes=${{title: 'Card Image'}}
+        />
+        <${ImagePicker}
+          imageId=${meta.ucd_thumbnail_1x1_large}
+          image=${cardImageSquare}
+          onSelect=${(image) => onSelectImage(image, '1x1_large')}
+          onRemove=${() => onRemoveImage('1x1_large')}
+          defaultImageId=${featuredImage}
+          cloneText="Clone Featured Image"
+          helpText=${decodeEntities('Some cards use a medium (&lt;1000px) 1x1 image.')}
+          panelAttributes=${{title: 'Card Square Image'}}
         />
       </${PluginDocumentSettingPanel}>
     </${Fragment}>
