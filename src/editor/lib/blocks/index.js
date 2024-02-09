@@ -33,6 +33,7 @@ import mediaLink from "./ucd-theme-media-link";
 import mediaLinks from "./ucd-theme-media-links";
 import objectBox from "./ucd-theme-object-box";
 import panelWithIcon from "./ucd-theme-panel-with-icon";
+import photoCard from "./ucd-theme-photo-card";
 import poster from "./ucd-theme-poster";
 import posterList from "./ucd-theme-poster-list";
 import prefixedIconLink from "./ucd-theme-prefixed-icon-link";
@@ -91,6 +92,7 @@ export default [
   mediaLinks,
   objectBox,
   panelWithIcon,
+  photoCard,
   poster,
   posterList,
   prefixedIconLink,

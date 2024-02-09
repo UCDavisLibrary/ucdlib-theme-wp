@@ -416,4 +416,12 @@ hr.y2 {
   float: right;
 }
 
+// photo card
+.photo-card__image .u-background-image {
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  transition: all .3s ease-in-out;
+}
+
 

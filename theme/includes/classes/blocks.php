@@ -183,6 +183,12 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "hasBrandColors" => true,
       "transform" => array("getPermalink")
     ),
+    "ucd-theme/photo-card" => [
+      "twig" => "@ucd/blocks/photo-card.twig",
+      "img" => "382x382.png",
+      "transform" => ["getPost", "addSpacing"],
+      "hasBrandColors" => true
+    ],
     "ucd-theme/query" => array(
       "twig" => "@ucd/blocks/query.twig",
       "transform" => array("getPosts", 'addSpacing')
