@@ -1,3 +1,4 @@
+import alignablePromo from "./ucd-theme-alignable-promo";
 import backgroundColor from "./ucd-theme-background-color";
 import backgroundImage from "./ucd-theme-background-image";
 import brandTextbox from "./ucd-theme-brand-textbox";
@@ -58,6 +59,7 @@ import trumbaUpcoming from "./ucd-theme-trumba-upcoming";
 import trumbaFilter from "./ucd-theme-trumba-filter";
 
 export default [
+  alignablePromo,
   backgroundColor,
   backgroundImage,
   brandTextbox,

@@ -39,6 +39,12 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
    * Meta for each block goes here.
    */
   public static $registry = array(
+    "ucd-theme/alignable-promo" => [
+      "twig" => "@ucd/blocks/alignable-promo.twig",
+      "img" => "640x480.png",
+      "transform" => array("getPost", "addSpacing"),
+      "hasBrandColors" => true
+    ],
     "ucd-theme/background-color" => array("twig" => "@ucd/blocks/background-color.twig"),
     "ucd-theme/background-image" => array(
       "twig" => "@ucd/blocks/background-image.twig",
