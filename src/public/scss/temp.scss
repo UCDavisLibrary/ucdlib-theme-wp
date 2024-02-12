@@ -424,4 +424,18 @@ hr.y2 {
   transition: all .3s ease-in-out;
 }
 
+// factoid
+.factoid__icon {
+
+  display: flex;
+  justify-content: center;
+
+  ucdlib-icon {
+    width: 2em;
+    height: 2em;
+    min-width: 2em;
+    min-height: 2em;
+  }
+}
+
 

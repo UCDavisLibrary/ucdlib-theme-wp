@@ -67,6 +67,11 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "twig" => "@ucd/blocks/contact-list.twig",
       "transform" => array("formatContactList")
     ),
+    "ucd-theme/factoid" => array(
+      "twig" => "@ucd/blocks/factoid.twig",
+      "hasBrandColors" => true,
+      "transform" => array("getPermalink", "setDefaultFactoidIcon")
+    ),
     "ucd-theme/faq" => array(
       "twig" => "@ucd/blocks/faq.twig",
       "transform" => array("addSpacing")

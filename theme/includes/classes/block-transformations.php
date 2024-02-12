@@ -70,6 +70,13 @@ class UCDThemeBlockTransformations {
     return $attrs;
   }
 
+  public static function setDefaultFactoidIcon($attrs){
+    if ( !array_key_exists('icon', $attrs) ) {
+      $attrs['icon'] = 'ucd-public:fa-percent';
+    }
+    return $attrs;
+  }
+
   /**
    * If page is in primary nav, returns its children
    * If page is part of hierarchy, return its children

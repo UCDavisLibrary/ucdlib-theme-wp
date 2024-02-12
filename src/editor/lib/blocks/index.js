@@ -6,6 +6,7 @@ import career from "./ucd-theme-career";
 import careers from "./ucd-theme-careers";
 import categoryFilter from "./ucd-theme-category-filter";
 import contactList from "./ucd-theme-contact-list";
+import factoid from "./ucd-theme-factoid";
 import faq from "./ucd-theme-faq";
 import faqItem from "./ucd-theme-faq-item";
 import featuredArticle from "./ucd-theme-featured-article";
@@ -65,6 +66,7 @@ export default [
   careers,
   categoryFilter,
   contactList,
+  factoid,
   faq,
   faqItem,
   featuredArticle,

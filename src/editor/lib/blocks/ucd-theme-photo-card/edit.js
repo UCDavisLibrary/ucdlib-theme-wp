@@ -130,7 +130,7 @@ export default ( props ) => {
       <${ToolbarColorPicker}
         onChange=${onColorChange}
         value=${attributes.brandColor}
-        ucdBlock="tile-link"
+        ucdBlock="photo-card"
       />
       <${ToolbarSectionDisplay}
         sections=${cardSections}

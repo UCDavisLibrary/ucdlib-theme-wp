@@ -269,6 +269,47 @@ kwargs:
 {% endmacro %}
 
 {#
+http://webstyleguide.ucdavis.edu/?p=molecules-factoid-brackets
+kwargs:
+  href {String}: link
+  icon {String}: icon parameter of a ucdlib-icon element
+  bigText {String}: Text to display below icon
+  smallText {String}: Text to display below bigText
+  brandColor {String} - UCD alt color slug
+  newTab {Boolean} - If link opens in new tab
+  brackets {Boolean} - If true, the icon will be displayed in brackets
+#}
+{% macro factoid( kwargs={} ) %}
+  {% set classes = ['factoid'] %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes|merge(['category-brand--' ~ kwargs.brandColor]) %}
+  {% endif %}
+  {% if kwargs.brackets %}
+    {% set classes = classes|merge(['factoid--brackets']) %}
+  {% endif %}
+  {% set classes = classes|join(' ') %}
+
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+  {% set icon = kwargs.icon ? kwargs.icon : 'ucd-public:fa-percent' %}
+
+  <div class="{{classes}}">
+    <a class="factoid__link" href="{{kwargs.href}}" {{target}}>
+      <div class="factoid__bracket-one"></div>
+      <div class="factoid__bracket-wrapper">
+        <div class="factoid__figure factoid__icon">
+          <ucdlib-icon icon="{{icon}}"></ucdlib-icon>
+        </div>
+        <div class="factoid__body">
+          <h2 class="factoid__big-text">{{kwargs.bigText}}</h2>
+          <h3 class="factoid__small-text">{{kwargs.smallText}}</h3>
+        </div>
+      </div>
+      <div class="factoid__bracket-two"></div>
+    </a>
+  </div>
+{% endmacro %}
+
+{#
 http://dev.webstyleguide.ucdavis.edu/redesign/?p=molecules-focal-link-icon
 kwargs:
   href {String}: link
