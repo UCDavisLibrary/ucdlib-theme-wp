@@ -346,6 +346,10 @@ class UcdThemeCustomizer {
       array("slug" => "heading-with-icon", "label" => "Heading With Icon Palette"),
       array("slug" => "separator", "label" => "Separator Palette"),
       array("slug" => "object-box", "label" => "Object Box Border Palette"),
+      array("slug" => "tile-link", "label" => "Tile Link Palette"),
+      ['slug' => 'factoid', 'label' => 'Factoid Palette'],
+      ['slug' => 'photo-card', 'label' => 'Photo Card Palette'],
+      ['slug' => 'alignable-promo', 'label' => 'Alignable Promo Palette']
     );
     $blocks_with_colors = apply_filters( 'ucd-theme/customizer/block-colors', $blocks_with_colors );
     foreach ($blocks_with_colors as $block) {

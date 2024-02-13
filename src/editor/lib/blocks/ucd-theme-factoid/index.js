@@ -1,12 +1,12 @@
 import { UCDIcons } from "../../utils";
 import Edit from './edit';
 
-const name = 'ucd-theme/priority-link';
+const name = 'ucd-theme/factoid';
 const settings = {
   api_version: 2,
-	title: "Priority Link",
-	description: "Add a link with an icon in a colored circle",
-	icon: UCDIcons.renderBlockIcon('priority-link'),
+	title: "Factoid",
+	description: "Highlight a fact or statistic with an icon and color.",
+	icon: UCDIcons.renderPublic('fa-percent'),
 	category: 'ucd-links',
 	keywords: [ 'link', 'icon', 'color' ],
   supports: {
@@ -14,7 +14,11 @@ const settings = {
     "customClassName": false
   },
   attributes: {
-    text: {
+    bigText: {
+      type: 'string',
+      default: ''
+    },
+    smallText: {
       type: 'string',
       default: ''
     },
@@ -36,17 +40,13 @@ const settings = {
     },
     icon: {
       type: 'string',
-      default: ''
+      default: 'ucd-public:fa-percent'
     },
     brandColor: {
       type: "string",
       default: ""
     },
-    hideText: {
-      type: "boolean",
-      default: false
-    },
-    tiltCircle: {
+    brackets: {
       type: "boolean",
       default: false
     }

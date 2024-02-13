@@ -11,7 +11,8 @@ export default class UcdThemeMarketingHighlightHorizontal extends Mixin(LitEleme
       imgSrc: {type: String, attribute: "img-src"},
       title: {type: String},
       hideTitle: {type: Boolean, attribute: "hide-title"},
-      brandColor: {type: String, attribute: "brand-color"}
+      brandColor: {type: String, attribute: "brand-color"},
+      overlay: {type: Boolean},
     }
   }
 
@@ -27,10 +28,19 @@ export default class UcdThemeMarketingHighlightHorizontal extends Mixin(LitEleme
     this.hideTitle = false;
     this.brandColor = "";
     this.imgSrc = "";
+    this.overlay = false;
   }
 
   updated(props){
     this.updateSlotContent(props, 'title', 'title-slot');
+  }
+
+  mainClasses(){
+    const classes = ['marketing-highlight-horizontal'];
+    if (this.brandColor) classes.push(`category-brand--${this.brandColor}`);
+    if (this.overlay) classes.push('marketing-highlight-horizontal--overlay');
+
+    return classes.join(' ');
   }
 
   _onTitleInput(e){

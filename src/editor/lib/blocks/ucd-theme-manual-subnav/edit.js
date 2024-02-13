@@ -1,9 +1,9 @@
 import { html } from "../../utils";
 import { useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
-import { 
+import {
   Button,
   TextControl,
-  ToolbarButton, 
+  ToolbarButton,
   Dropdown,
   Modal,
   DropdownMenu,
@@ -49,9 +49,9 @@ export default ( props ) => {
   }
 
   /**
-   * 
+   *
    * @param {Array} location - location of an item in links attribute
-   * @returns 1. a copy of the links attribute, 
+   * @returns 1. a copy of the links attribute,
    *  2. a string to access the menu level of the specified location
    */
   const getLocationMenu = (location) => {
@@ -60,7 +60,7 @@ export default ( props ) => {
     location.forEach((i, index) => {
       if ( index != (location.length - 1 ) ) {
         accessor += `[${i}].subItems`;
-      } 
+      }
     })
     return {links, accessor};
   }
@@ -84,17 +84,17 @@ export default ( props ) => {
     focusedDataLocation.forEach((i, index) => {
       if ( index != (focusedDataLocation.length - 1 ) ) {
         accessor += `[${i}].subItems`;
-      } 
+      }
     })
     if ( (eval(accessor)).length == last + 1 ) return true;
     return false;
   })()
 
   const modalCanSave = (() => {
-    if ( 
-      !modalData || 
-      !modalData.label || 
-      !modalData.link || 
+    if (
+      !modalData ||
+      !modalData.label ||
+      !modalData.link ||
       !modalData.link.url ) {
         return false
       }
@@ -106,7 +106,7 @@ export default ( props ) => {
   }
 
   useEffect(() => {
-    if ( mainEleRef.current ) {
+    if ( mainEleRef.current && mainEleRef.current.renderRoot ) {
       mainEleRef.current.renderRoot.querySelectorAll('li').forEach((e) => {
         e.style.border = '';
       })
@@ -314,15 +314,15 @@ export default ( props ) => {
         </${ToggleControl}>
         ${ attributes.showTitle && html`
           <div>
-            <${TextControl} 
+            <${TextControl}
               label="Text"
               value=${attributes.titleLabel}
               onChange=${onTitleLabelChange}
             />
             <div>Url</div>
-            <${LinkControl} 
+            <${LinkControl}
               onRemove=${onTitleUrlRemove}
-              value=${attributes.titleLink} 
+              value=${attributes.titleLink}
               onChange=${onTitleUrlChange}/>
           </div>
         `}
@@ -359,7 +359,7 @@ export default ( props ) => {
     <${BlockControls} group="block">
       <${Dropdown} position="bottom right" renderToggle=${titleButton} renderContent=${titleContent}/>
       ${hasFocusedData && html`
-        <${DropdownMenu} 
+        <${DropdownMenu}
           icon=${chevronDown}
           label="Edit Selected Nav Item"
           controls=${itemControls}
@@ -375,19 +375,19 @@ export default ( props ) => {
     ${modalIsOpen && html`
       <${Modal} title=${modalMode + " Nav Item"} onRequestClose=${closeModal}>
         <div>
-          <${TextControl} 
+          <${TextControl}
             label="Text"
             value=${modalData.label}
             onChange=${onModalLabelChange}
           />
           <div>Url</div>
-          <${LinkControl} 
+          <${LinkControl}
             onRemove=${onModalUrlRemove}
-            value=${modalData.link} 
+            value=${modalData.link}
             onChange=${onModalUrlChange}/>
-          <${Button} 
+          <${Button}
             onClick=${onModalSave}
-            variant='primary' 
+            variant='primary'
             disabled=${!modalCanSave}>${modalMode == 'Add' ? 'Add Nav Item' : 'Save Changes'}</${Button}>
         </div>
       </${Modal}>

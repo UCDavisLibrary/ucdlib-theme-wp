@@ -1,8 +1,9 @@
-import { html, BlockSettings, SelectUtils } from "../../utils";
+import { html, BlockSettings, SelectUtils, UCDIcons } from "../../utils";
 import { ImagePicker, ToolbarPostReset, ToolbarColorPicker, ToolbarSectionDisplay, ToolbarLinkPicker } from "../../block-components";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import "./ucd-theme-marketing-highlight-horizontal";
 import { useRef, useEffect } from "@wordpress/element";
+import { ToolbarButton } from "@wordpress/components";
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -76,7 +77,7 @@ export default ( props ) => {
   }
   const postParts = (() => {
     return [
-      {slug: "thumbnail", isDisabled: !attributes.imageId || !postImage}, 
+      {slug: "thumbnail", isDisabled: !attributes.imageId || !postImage},
       {slug: 'title', isDisabled: !attributes.title}, ]
   })();
 
@@ -106,6 +107,7 @@ export default ( props ) => {
 
     if ( attributes.brandColor ) p['brand-color'] = attributes.brandColor;
     if ( attributes.hideTitle ) p['hide-title'] = "true";
+    if ( attributes.overlay ) p.overlay = "true";
     if ( attributes.href || post ) p.href = attributes.href ? attributes.href : post.link;
 
     if ( attributes.title ){
@@ -131,7 +133,7 @@ export default ( props ) => {
     <div ...${ blockProps }>
       <${BlockControls} group="block">
         <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
-        <${ToolbarColorPicker} 
+        <${ToolbarColorPicker}
           onChange=${onColorChange}
           value=${attributes.brandColor}
           ucdBlock="marketing-highlight-horizontal"
@@ -146,9 +148,15 @@ export default ( props ) => {
             onChange=${onPostReset}
            />
         `}
+        <${ToolbarButton}
+          icon=${UCDIcons.renderPublic("fa-layer-group")}
+          onClick=${ () => {setAttributes({'overlay': !attributes.overlay})}}
+          isPressed=${attributes.overlay}
+          label="Toggle 'Overlay' Modifier"
+        />
       </${BlockControls}>
       <${InspectorControls}>
-        <${ImagePicker} 
+        <${ImagePicker}
           imageId=${attributes.imageId}
           image=${customImage}
           onSelect=${onSelectImage}

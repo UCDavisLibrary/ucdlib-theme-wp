@@ -88,6 +88,265 @@ kwargs:
   </a>
 {% endmacro %}
 
+{#
+http://webstyleguide.ucdavis.edu/?p=molecules-alignable-promo
+kwargs:
+  post {Timber\Post} - A post on this site.
+  imageId {Number} - Id of an image. Will override 'post' featured image
+  image {Timber\Image} - A preview image. Will override 'post' featured image and imageId
+  title {String} - The card title. Will override 'post' title
+  hideTitle {Boolean} - Hides the card title.
+  subTitle {String} - The card subtitle.
+  hideSubTitle {Boolean} - Hides the card subtitle.
+  href {String} - Url for card link. Will override 'post' permalink
+  newTab {Boolean} - Opens card link in new tab
+  alignment {String} - Alignment of the card image - 'left', 'right', 'center'
+  excerpt {String} - Body/preview text of card. Will override 'post' excerpt
+  hideExcerpt {Boolean} - Hides the excerpt text
+  primaryButtonText {String} - Innertext of primary card button
+  secondaryButtonText {String} - Innertext of secondary card button
+  hidePrimaryButton {Boolean} - Hides primary card button
+  hideSecondaryButton {Boolean} - Hides secondary card button
+  brandColor {String} - UCD alt color slug
+  secondaryButtonPost {Timber\Post} - A post on this site.
+  secondaryButtonHref {String} - Url for secondary card link. Will override 'secondaryButtonPost' permalink
+  secondaryButtonNewTab {Boolean} - Opens secondary card link in new tab
+
+#}
+{% macro alignable_promo( kwargs ) %}
+
+  {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
+  {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
+
+  {% set primaryButtonText = kwargs.primaryButtonText ? kwargs.primaryButtonText : "More Info" %}
+  {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+  {% set hidePrimaryButton = kwargs.hidePrimaryButton or not href %}
+
+  {% set secondaryButtonHref = kwargs.secondaryButtonHref ? kwargs.secondaryButtonHref : kwargs.secondaryButtonPost.link %}
+  {% set secondaryButtonTarget = kwargs.secondaryButtonNewTab ? "target='_blank'" : "" %}
+  {% set hideSecondaryButton = kwargs.hideSecondaryButton or not secondaryButtonHref or not kwargs.secondaryButtonText %}
+
+  {% if kwargs.image %}
+    {% set src = kwargs.image.src %}
+    {% set alt = kwargs.image.alt %}
+  {% elseif kwargs.imageId %}
+    {% set i = get_post(kwargs.imageId) %}
+    {% set src = i.src %}
+    {% set alt = i.alt %}
+  {% elseif kwargs.post.card_image %}
+    {% set src = kwargs.post.card_image.src %}
+    {% set alt = kwargs.post.card_image.alt %}
+  {% endif %}
+
+  {% if not src %}
+    {% set src = DefaultImage('alignable-promo') %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
+  {% endif %}
+
+
+  {% set classes = 'alignable-promo' %}
+  {% if kwargs.alignment in ['left', 'right'] %}
+    {% set classes = classes ~ " alignable-promo--" ~ kwargs.alignment %}
+  {% endif %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
+  {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " u-space-mb" %}
+  {% endif %}
+  {#
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
+  #}
+
+  <div class="{{classes}}">
+    <div class="alignable-promo__wrapper">
+      <div class="alignable-promo__figure">
+        <div class="aspect--4x3 u-background-image" role='img' aria-label='{{alt}}' style="background-image:url({{src}});"></div>
+      </div>
+      <div class="alignable-promo__body">
+        <h2 class="alignable-promo__title">
+          {% if not kwargs.hideTitle %}
+            <span class="alignable-promo__line1">{{title}}</span>
+          {% endif %}
+          {% if kwargs.subTitle and not kwargs.hideSubTitle %}
+            <span class="alignable-promo__line2">{{kwargs.subTitle}}</span>
+          {% endif %}
+        </h2>
+
+        {% if not kwargs.hideExcerpt %}
+        <div class="alignable-promo__text">
+          <p>{{excerpt}}</p>
+        </div>
+        {% endif %}
+
+        <div class="alignable-promo__buttons">
+          {% if not hidePrimaryButton %}
+            <a href="{{href}}" class="btn btn--primary" {{target}}>{{primaryButtonText}}</a>
+          {% endif %}
+          {% if not hideSecondaryButton %}
+            <a href="{{secondaryButtonHref}}" class="btn btn--invert" {{secondaryButtonTarget}}>{{kwargs.secondaryButtonText}}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
+{#
+http://webstyleguide.ucdavis.edu/?p=molecules-tile-link
+kwargs:
+  post {Timber\Post} - A post on this site.
+  imageId {Number} - Id of an image. Will override 'post' featured image
+  image {Timber\Image} - A preview image. Will override 'post' featured image and imageId
+  title {String} - The card title. Will override 'post' title
+  hideTitle {Boolean} - Hides the card title.
+  href {String} - Url for card link. Will override 'post' permalink
+  newTab {Boolean} - Opens card link in new tab
+  excerpt {String} - Body/preview text of card. Will override 'post' excerpt
+  hideExcerpt {Boolean} - Hides the excerpt text
+  brandColor {String} - UCD alt color slug
+#}
+{% macro tile_link( kwargs ) %}
+
+  {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
+  {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
+  {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  {% if kwargs.image %}
+    {% set src = kwargs.image.src %}
+    {% set alt = kwargs.image.alt %}
+  {% elseif kwargs.imageId %}
+    {% set i = get_post(kwargs.imageId) %}
+    {% set src = i.src %}
+    {% set alt = i.alt %}
+  {% elseif kwargs.post.card_image_square %}
+    {% set src = kwargs.post.card_image_square.src %}
+    {% set alt = kwargs.post.card_image_square.alt %}
+  {% endif %}
+
+  {% if not src %}
+    {% set src = DefaultImage('tile-link') %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
+  {% endif %}
+
+
+  {% set classes = 'tile-link' %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
+  {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " u-space-mb" %}
+  {% endif %}
+  {#
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
+  #}
+
+  <a href="{{href}}" class="{{classes}}" {{target}}>
+    {% if title and not kwargs.hideTitle %}
+      <div class="tile-link__title">
+        <h3 class="tile-link__title-heading">{{title}}</h3>
+      </div>
+    {% endif %}
+    {% if excerpt and not kwargs.hideExcerpt %}
+      <div class="tile-link__description">
+        <p>{{excerpt}}</p>
+      </div>
+    {% endif %}
+    <div class="tile-link__indicator">
+      <svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"></path>
+      </svg>
+    </div>
+    <div class="o-filtered-image">
+      <div class="aspect--1x1 u-background-image" role='img' aria-label='{{alt}}' style="background-image:url({{src}});"></div>
+    </div>
+    <div class="tile-link__overlay"></div>
+  </a>
+{% endmacro %}
+
+{#
+http://webstyleguide.ucdavis.edu/?p=molecules-photo-card
+kwargs:
+  post {Timber\Post} - A post on this site.
+  imageId {Number} - Id of an image. Will override 'post' featured image
+  image {Timber\Image} - A preview image. Will override 'post' featured image and imageId
+  title {String} - The card title. Will override 'post' title
+  hideTitle {Boolean} - Hides the card title.
+  href {String} - Url for card link. Will override 'post' permalink
+  newTab {Boolean} - Opens card link in new tab
+  brandColor {String} - UCD alt color slug
+#}
+{% macro photo_card( kwargs ) %}
+
+  {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
+  {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+
+  {% if kwargs.image %}
+    {% set src = kwargs.image.src %}
+    {% set alt = kwargs.image.alt %}
+  {% elseif kwargs.imageId %}
+    {% set i = get_post(kwargs.imageId) %}
+    {% set src = i.src %}
+    {% set alt = i.alt %}
+  {% elseif kwargs.post.card_image_square %}
+    {% set src = kwargs.post.card_image_square.src %}
+    {% set alt = kwargs.post.card_image_square.alt %}
+  {% endif %}
+
+  {% if not src %}
+    {% set src = DefaultImage('photo-card') %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
+  {% endif %}
+
+
+  {% set classes = 'photo-card' %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
+  {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " u-space-mb" %}
+  {% endif %}
+  {#
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
+  #}
+
+  <a href="{{href}}" class="{{classes}}" {{target}}>
+    <div class="photo-card__image">
+      <div class="photo-card__indicator">
+        <svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"></path>
+        </svg>
+      </div>
+      <div class="aspect--1x1 u-background-image" role='img' aria-label='{{alt}}' style="background-image:url({{src}});"></div>
+    </div>
+    {% if title and not kwargs.hideTitle %}
+      <h3 class="photo-card__title">{{title}}</h3>
+    {% endif %}
+  </a>
+{% endmacro %}
+
+
 {% macro featured_article( kwargs ) %}
 
   {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}

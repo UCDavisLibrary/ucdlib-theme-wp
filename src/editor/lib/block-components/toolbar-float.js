@@ -1,6 +1,6 @@
 import { html } from "../utils";
 import { ToolbarDropdownMenu } from '@wordpress/components';
-import { alignLeft, alignRight, alignNone } from '@wordpress/icons';
+import { alignLeft, alignRight, alignJustify } from '@wordpress/icons';
 
 function ToolbarFloat({
   value,
@@ -13,7 +13,7 @@ function ToolbarFloat({
     } else {
       onChange({slug: ''})
     }
-   
+
   }
 
   const controls = [
@@ -21,7 +21,7 @@ function ToolbarFloat({
     {slug: "right", label: "Float Right", icon: alignRight}
     //{slug: "left", label: "Float Left"},
     //{slug: "right", label: "Float Right"}
-    
+
   ].map(v => {
     let out = {
       slug: v.slug,
@@ -36,7 +36,7 @@ function ToolbarFloat({
   const TBIcon = () => {
     if ( value === 'left') return html`${alignLeft}`;
     if ( value === 'right') return html`${alignRight}`;
-    return html`${alignNone}`;
+    return html`${alignJustify}`;
   }
   return html`
   <${ToolbarDropdownMenu}

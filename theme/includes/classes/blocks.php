@@ -39,6 +39,12 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
    * Meta for each block goes here.
    */
   public static $registry = array(
+    "ucd-theme/alignable-promo" => [
+      "twig" => "@ucd/blocks/alignable-promo.twig",
+      "img" => "640x480.png",
+      "transform" => array("getPost"),
+      "hasBrandColors" => true
+    ],
     "ucd-theme/background-color" => array("twig" => "@ucd/blocks/background-color.twig"),
     "ucd-theme/background-image" => array(
       "twig" => "@ucd/blocks/background-image.twig",
@@ -66,6 +72,11 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "ucd-theme/contact-list" => array(
       "twig" => "@ucd/blocks/contact-list.twig",
       "transform" => array("formatContactList")
+    ),
+    "ucd-theme/factoid" => array(
+      "twig" => "@ucd/blocks/factoid.twig",
+      "hasBrandColors" => true,
+      "transform" => array("getPermalink", "setDefaultFactoidIcon")
     ),
     "ucd-theme/faq" => array(
       "twig" => "@ucd/blocks/faq.twig",
@@ -167,6 +178,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "ucd-theme/column" => array("twig" => "@ucd/blocks/layout-column.twig"),
     "ucd-theme/layout-columns" => array("twig" => "@ucd/blocks/layout-columns.twig"),
     "ucd-theme/layout-container" => array("twig" => "@ucd/blocks/layout-container.twig"),
+    "ucd-theme/layout-gutters" => ['twig' => "@ucd/blocks/layout-gutters.twig"],
     "ucd-theme/layout-shrink" => array("twig" => "@ucd/blocks/layout-shrink.twig"),
     "ucd-theme/layout-quad" => array("twig" => "@ucd/blocks/layout-quad.twig"),
     "ucd-theme/manual-subnav" => array(
@@ -182,6 +194,12 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "hasBrandColors" => true,
       "transform" => array("getPermalink")
     ),
+    "ucd-theme/photo-card" => [
+      "twig" => "@ucd/blocks/photo-card.twig",
+      "img" => "382x382.png",
+      "transform" => ["getPost", "addSpacing"],
+      "hasBrandColors" => true
+    ],
     "ucd-theme/query" => array(
       "twig" => "@ucd/blocks/query.twig",
       "transform" => array("getPosts", 'addSpacing')
@@ -226,6 +244,12 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
         'teasers/hideExcerpt' => 'hideExcerpt',
         'teasers/hideCategories' => 'hideCategories')
     ),
+    "ucd-theme/tile-link" => [
+      "twig" => "@ucd/blocks/tile-link.twig",
+      "img" => "382x382.png",
+      "transform" => ["getPost", "addSpacing"],
+      "hasBrandColors" => true
+    ],
     "ucd-theme/trumba" => [
       'twig' => '@ucd/blocks/trumba.twig'
     ],

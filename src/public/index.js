@@ -25,6 +25,10 @@ import "./elements/index.js";
 // page scripts
 import "./page-scripts/index.js"
 
+// page width observer
+import {PageWidthController} from '@ucd-lib/theme-elements/utils/controllers';
+(new PageWidthController).init();
+
 // do deferred loading of scripts if they add a lot of overhead loading on every page
 // based on document query
 class DynamicScriptLoader {

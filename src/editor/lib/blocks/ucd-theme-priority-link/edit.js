@@ -1,8 +1,9 @@
-import { html } from "../../utils";
+import { html, UCDIcons } from "../../utils";
 import "./ucd-wp-priority-link";
 import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker } from "../../block-components";
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { useRef, useEffect, createRef } from "@wordpress/element";
+import { ToolbarButton } from "@wordpress/components";
 
 
 export default ( props ) => {
@@ -46,6 +47,7 @@ export default ( props ) => {
     if ( attributes.brandColor ) p.color = attributes.brandColor;
     if ( attributes.icon ) p.icon = attributes.icon;
     if ( attributes.text ) p.text = attributes.text;
+    if ( attributes.tiltCircle ) p['tilt-circle'] = true;
 
     return p;
   }
@@ -67,7 +69,7 @@ export default ( props ) => {
       attrs.postId = value.id;
     }
     else if ( value.kind == 'taxonomy' ) {
-      attrs.taxId = value.id 
+      attrs.taxId = value.id
     }
     setAttributes(attrs);
   }
@@ -75,7 +77,7 @@ export default ( props ) => {
     let value = {opensInNewTab: attributes.newTab, url: ""};
     if ( attributes.href ) {
       value.url = attributes.href;
-    } 
+    }
     return value;
   })();
 
@@ -88,13 +90,19 @@ export default ( props ) => {
   <div ...${ blockProps }>
     <${BlockControls} group="block">
       <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
-      <${ToolbarColorPicker} 
-          onChange=${onColorChange}
-          value=${attributes.brandColor}
-          ucdBlock="priority-link"
+      <${ToolbarColorPicker}
+        onChange=${onColorChange}
+        value=${attributes.brandColor}
+        ucdBlock="priority-link"
+      />
+      <${ToolbarButton}
+        icon=${UCDIcons.renderPublic("fa-rotate-right")}
+        onClick=${ () => {setAttributes({'tiltCircle': !attributes.tiltCircle})}}
+        isPressed=${attributes.tiltCircle}
+        label="Toggle 'Tilt Circle' Modifier"
       />
     </${BlockControls}>
-    <${IconPicker} 
+    <${IconPicker}
       ref=${iconPickerRef}
       onChange=${onIconSelect}
       selectedIcon=${attributes.icon}

@@ -11,7 +11,8 @@ export default class UcdWpPriorityLink extends Mixin(LitElement)
       color: {type: String},
       icon: {type: String},
       text: {type: String},
-      hideText: {type: Boolean, attribute: 'hide-text'}
+      hideText: {type: Boolean, attribute: 'hide-text'},
+      tiltCircle: {type: Boolean, attribute: 'tilt-circle'}
     }
   }
 
@@ -34,10 +35,14 @@ export default class UcdWpPriorityLink extends Mixin(LitElement)
 
   _getBaseClasses(){
     let classes = {
-      "vertical-link": true,
-      "vertical-link--circle": true
+      "vertical-link": true
     };
     classes[`category-brand--${this.color}`] = this.color ? true : false;
+    if ( this.tiltCircle ) {
+      classes['vertical-link--tilt-circle'] = true;
+    } else {
+      classes['vertical-link--circle'] = true;
+    }
 
     return classes;
   }

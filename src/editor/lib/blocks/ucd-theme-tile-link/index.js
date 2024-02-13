@@ -1,14 +1,14 @@
 import { UCDIcons } from "../../utils";
 import Edit from './edit';
 
-const name = 'ucd-theme/marketing-highlight-horizontal';
+const name = 'ucd-theme/tile-link';
 const settings = {
   api_version: 2,
-	title: "Marketing Highlight Horizontal",
-	description: "Link to another webpage with a landscape image and stylized short caption.",
-	icon: UCDIcons.renderBlockIcon('marketing-highlight-hor'),
+	title: "Tile Link",
+	description: "Preview content on another webpage with an image and hover description.",
+	icon: UCDIcons.renderPublic('fa-circle-right'),
 	category: 'ucd-cards',
-	keywords: [ 'marketing', 'highlight', 'post', 'page', 'landscape', 'image' ],
+	keywords: ['post', 'page', "link" ],
   supports: {
     "html": false,
     "customClassName": false
@@ -26,15 +26,19 @@ const settings = {
       type: "string",
       default: ""
     },
-    brandColor: {
-      type: "string",
-      default: "secondary"
-    },
     newTab: {
       type: "boolean",
       default: false
     },
+    brandColor: {
+      type: "string",
+      default: "primary"
+    },
     title: {
+      type: "string",
+      default: ""
+    },
+    excerpt: {
       type: "string",
       default: ""
     },
@@ -42,7 +46,7 @@ const settings = {
       type: "boolean",
       default: false
     },
-    overlay: {
+    hideExcerpt: {
       type: "boolean",
       default: false
     }

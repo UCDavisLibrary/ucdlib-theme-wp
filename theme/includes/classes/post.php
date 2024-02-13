@@ -96,6 +96,26 @@ class UcdThemePost extends Timber\Post {
   }
 
   /**
+   * gets thumbnail image for card-type blocks that require a square image
+   */
+  protected $card_image_square;
+  public function card_image_square(){
+    if ( ! empty($this->card_image_square) ){
+      return $this->card_image_square;
+    }
+    $image_id = get_post_meta($this->ID, 'ucd_thumbnail_1x1_large', true);
+    if ( $image_id ) {
+      $image_post = Timber::get_post($image_id);
+      if ( $image_post ) {
+        $this->card_image_square = $image_post;
+        return $this->card_image_square;
+      }
+    }
+    $this->card_image_square = $this->card_image();
+    return $this->card_image_square;
+  }
+
+  /**
    * gets thumbnail image for card-type blocks
    */
   protected $card_image;

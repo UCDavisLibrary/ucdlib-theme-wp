@@ -1,10 +1,10 @@
 import { html } from "../utils";
-import { 
-  PanelBody, 
-  PanelRow, 
-  Button, 
-  ResponsiveWrapper, 
-  ToggleControl, 
+import {
+  PanelBody,
+  PanelRow,
+  Button,
+  ResponsiveWrapper,
+  ToggleControl,
   TextareaControl } from "@wordpress/components";
 import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 import { useState, Fragment } from '@wordpress/element';
@@ -80,7 +80,7 @@ function ImagePicker({
       src: defaultImage.source_url,
       modifiers: [{type: 'rotate', args: {angle: 0}}]
     };
-    apiFetch({			
+    apiFetch({
       path: `/wp/v2/media/${ defaultImage.id }/edit`,
       method: 'POST',
       data: attrs,})
@@ -103,8 +103,8 @@ function ImagePicker({
 
   const uploadButton = ({open}) => {
     if ( onOpen ) onOpen();
-    const showText = 
-      image != undefined && 
+    const showText =
+      image != undefined &&
       renderImageName &&
       image.title &&
       image.title.rendered;
@@ -169,9 +169,9 @@ function ImagePicker({
 
       ${imageId != 0 && html`
         <${MediaUploadCheck}>
-          <${Button} 
+          <${Button}
             onClick=${onRemove}
-            isLink 
+            isLink
             isDestructive
             style=${horizontal ? {marginTop: 0} : {}}
           >Remove Image
@@ -181,15 +181,16 @@ function ImagePicker({
 
       ${defaultImage && html`
         <${MediaUploadCheck}>
-          <${Button} 
+          <${Button}
             isSecondary
             onClick=${onClone}
             disabled=${cloneInProgress}
+            style=${{marginTop: '1rem'}}
           >${cloneText}
           </${Button}>
         </${MediaUploadCheck}>
       `}
-    </div> 
+    </div>
   `;
 
   const renderHelpText = () => html`
@@ -203,13 +204,13 @@ function ImagePicker({
       ${showCaptionOptions && html`
         <div style=${{marginTop:'15px'}}>
           <${PanelRow}>
-            <${ToggleControl} 
+            <${ToggleControl}
               label="Show Caption"
               checked=${captionOptions.show}
               onChange=${() => _onCaptionChange({show: !captionOptions.show })}
             />
           </${PanelRow}>
-          <${TextareaControl} 
+          <${TextareaControl}
             label="Custom Caption"
             help="Will be displayed instead of caption for image from media library"
             value=${ captionOptions.customText }

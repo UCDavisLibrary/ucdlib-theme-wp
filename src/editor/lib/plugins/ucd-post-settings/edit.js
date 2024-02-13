@@ -4,7 +4,7 @@ import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { useDispatch } from "@wordpress/data";
 
 /**
- * This plugin controls metadata values for pages/posts 
+ * This plugin controls metadata values for pages/posts
  * by adding an interface to the 'Page' editor sideebar.
  * To add a new metadata field, you have to register it first in /includes/classes/meta-data.php
  */
@@ -39,66 +39,67 @@ export default () => {
 
   return html`
     <${PluginDocumentSettingPanel}
+      name="ucd-post-settings"
       className="ucd-post-settings"
       icon=${html`<ucdlib-icon style=${{marginLeft: '8px', width: '15px', minWidth: '15px'}} icon="ucd-public:fa-paintbrush"></ucdlib-icon>`}
       title="UCD Theme Settings">
       ${isPage && html`
-        <${ToggleControl} 
+        <${ToggleControl}
           label="Hide Page Title"
           checked=${meta.ucd_hide_title}
           onChange="${ucd_hide_title => {editPost({meta: {ucd_hide_title}})}}" />
       `}
       ${isPage && html`
-        <${ToggleControl} 
+        <${ToggleControl}
           label="Hide Sitewide Sidebar"
           checked=${meta.ucd_hide_sidebar}
           onChange="${ucd_hide_sidebar => {editPost({meta: {ucd_hide_sidebar}})}}" />
       `}
       ${(isPage && meta.ucd_hide_sidebar) && html`
-        <${ToggleControl} 
+        <${ToggleControl}
           label="Make Page Full Width"
           checked=${meta.ucd_full_width}
           onChange="${ucd_full_width => {editPost({meta: {ucd_full_width}})}}" />
       `}
       ${isPage && html`
-        <${ToggleControl} 
+        <${ToggleControl}
           label="Hide Hero Image"
           checked=${meta.ucd_hide_hero}
           onChange="${ucd_hide_hero => {editPost({meta: {ucd_hide_hero}})}}" />
       `}
       ${isPost && html`
-        <${ToggleControl} 
+        <${ToggleControl}
           label="Featured Post"
           checked=${meta.ucd_featured}
           help="Post teaser will have brand color background on news lists."
           onChange="${ucd_featured => {editPost({meta: {ucd_featured}})}}" />
       `}
-      <${ToggleControl} 
+      <${ToggleControl}
         label="Hide Author"
         checked=${meta.ucd_hide_author}
         help="Byline for this post will be hidden site wide."
         onChange="${ucd_hide_author => {editPost({meta: {ucd_hide_author}})}}"
       />
-      <${ToggleControl} 
+      <${ToggleControl}
         label="Flush Top Margin on Footer"
         checked=${meta.ucd_footer_mt_flush}
         help="Removes top margin from site footer."
         onChange="${ucd_footer_mt_flush => {editPost({meta: {ucd_footer_mt_flush}})}}"
       />
       ${isPost && html`
-        <${TextControl} 
+        <${TextControl}
           label="Subtitle Text"
           value=${meta.ucd_subtitle}
           onChange="${ucd_subtitle => {editPost({meta: {ucd_subtitle}})}}"
           help="Will be displayed under the post title."
         />
       `}
-      <${BaseControl} 
-        id="brand-color" 
+      <${BaseControl}
+        id="brand-color"
         label="Brand Color"
         help="Give this post a custom decorative color."
         >
-        <${ColorPalette} 
+        <${ColorPalette}
           id="brand-color"
           colors=${colors}
           value=${ getSelectedColor() }
@@ -107,7 +108,7 @@ export default () => {
           onChange=${onColorChange}
         />
       </${BaseControl}>
-      
+
     </${PluginDocumentSettingPanel}>
   `;
 }

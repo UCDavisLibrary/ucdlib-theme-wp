@@ -10,11 +10,13 @@ function ToolbarLinkPicker({
   onChange,
   value,
   label,
+  icon,
   allowPhone,
   allowEmail
   }){
 
   if ( !label ) label = "Link to a Webpage";
+  if ( !icon ) icon = UCDIcons.render('link');
   const hasValue = value && value.url;
   const hasMailTo = value.url.startsWith('mailto:');
   const hasTel = value.url.startsWith('tel:')
@@ -77,7 +79,7 @@ function ToolbarLinkPicker({
 
   const TbButton = ({ isOpen, onToggle }) => {
     return html`
-      <${ToolbarButton} isPressed=${hasValue} onClick=${ onToggle } aria-expanded=${ isOpen } icon=${UCDIcons.render('link')} label=${label}/>
+      <${ToolbarButton} isPressed=${hasValue} onClick=${ onToggle } aria-expanded=${ isOpen } icon=${icon} label=${label}/>
     `;
   }
   const Content = () => {
@@ -98,7 +100,7 @@ function ToolbarLinkPicker({
       </div>
     `
   };
-  
+
   return html`
     <${Dropdown} position="bottom right" renderToggle=${TbButton} renderContent=${Content}/>
   `;
