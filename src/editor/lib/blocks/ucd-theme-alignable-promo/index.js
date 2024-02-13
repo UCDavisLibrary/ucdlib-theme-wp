@@ -30,6 +30,18 @@ const settings = {
       type: "boolean",
       default: false
     },
+    secondaryButtonPost: {
+      type: "object",
+      default: {}
+    },
+    secondaryButtonHref: {
+      type: "string",
+      default: ""
+    },
+    secondaryButtonNewTab: {
+      type: "boolean",
+      default: false
+    },
     brandColor: {
       type: "string",
       default: ""
@@ -55,10 +67,6 @@ const settings = {
       default: "More Info"
     },
     secondaryButtonText: {
-      type: "string",
-      default: ""
-    },
-    secondaryButtonLink: {
       type: "string",
       default: ""
     },

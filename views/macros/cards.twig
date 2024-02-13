@@ -89,6 +89,117 @@ kwargs:
 {% endmacro %}
 
 {#
+http://webstyleguide.ucdavis.edu/?p=molecules-alignable-promo
+kwargs:
+  post {Timber\Post} - A post on this site.
+  imageId {Number} - Id of an image. Will override 'post' featured image
+  image {Timber\Image} - A preview image. Will override 'post' featured image and imageId
+  title {String} - The card title. Will override 'post' title
+  hideTitle {Boolean} - Hides the card title.
+  subTitle {String} - The card subtitle.
+  hideSubTitle {Boolean} - Hides the card subtitle.
+  href {String} - Url for card link. Will override 'post' permalink
+  newTab {Boolean} - Opens card link in new tab
+  alignment {String} - Alignment of the card image - 'left', 'right', 'center'
+  excerpt {String} - Body/preview text of card. Will override 'post' excerpt
+  hideExcerpt {Boolean} - Hides the excerpt text
+  primaryButtonText {String} - Innertext of primary card button
+  secondaryButtonText {String} - Innertext of secondary card button
+  hidePrimaryButton {Boolean} - Hides primary card button
+  hideSecondaryButton {Boolean} - Hides secondary card button
+  brandColor {String} - UCD alt color slug
+  secondaryButtonPost {Timber\Post} - A post on this site.
+  secondaryButtonHref {String} - Url for secondary card link. Will override 'secondaryButtonPost' permalink
+  secondaryButtonNewTab {Boolean} - Opens secondary card link in new tab
+
+#}
+{% macro alignable_promo( kwargs ) %}
+
+  {% set title = kwargs.title ? kwargs.title : kwargs.post.title %}
+  {% set title = title|striptags %}
+  {% set excerpt = kwargs.excerpt ? kwargs.excerpt : kwargs.post.excerpt({ read_more: '' }) %}
+
+  {% set primaryButtonText = kwargs.primaryButtonText ? kwargs.primaryButtonText : "More Info" %}
+  {% set href = kwargs.href ? kwargs.href : kwargs.post.link %}
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+  {% set hidePrimaryButton = kwargs.hidePrimaryButton or not href %}
+
+  {% set secondaryButtonHref = kwargs.secondaryButtonHref ? kwargs.secondaryButtonHref : kwargs.secondaryButtonPost.link %}
+  {% set secondaryButtonTarget = kwargs.secondaryButtonNewTab ? "target='_blank'" : "" %}
+  {% set hideSecondaryButton = kwargs.hideSecondaryButton or not secondaryButtonHref or not kwargs.secondaryButtonText %}
+
+  {% if kwargs.image %}
+    {% set src = kwargs.image.src %}
+    {% set alt = kwargs.image.alt %}
+  {% elseif kwargs.imageId %}
+    {% set i = get_post(kwargs.imageId) %}
+    {% set src = i.src %}
+    {% set alt = i.alt %}
+  {% elseif kwargs.post.card_image %}
+    {% set src = kwargs.post.card_image.src %}
+    {% set alt = kwargs.post.card_image.alt %}
+  {% endif %}
+
+  {% if not src %}
+    {% set src = DefaultImage('alignable-promo') %}
+  {% endif %}
+
+  {% if alt %}
+    {% set alt = alt|striptags %}
+  {% endif %}
+
+
+  {% set classes = 'alignable-promo' %}
+  {% if kwargs.alignment in ['left', 'right'] %}
+    {% set classes = classes ~ " alignable-promo--" ~ kwargs.alignment %}
+  {% endif %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes ~ " category-brand--" ~ kwargs.brandColor %}
+  {% endif %}
+  {% if kwargs.panel %}
+    {% set classes = classes ~ " u-space-mb" %}
+  {% endif %}
+  {#
+  {% if kwargs.oBox %}
+    {% set classes = classes ~ " o-box" %}
+  {% endif %}
+  #}
+
+  <div class="{{classes}}">
+    <div class="alignable-promo__wrapper">
+      <div class="alignable-promo__figure">
+        <div class="aspect--4x3 u-background-image" role='img' aria-label='{{alt}}' style="background-image:url({{src}});"></div>
+      </div>
+      <div class="alignable-promo__body">
+        <h2 class="alignable-promo__title">
+          {% if not kwargs.hideTitle %}
+            <span class="alignable-promo__line1">{{title}}</span>
+          {% endif %}
+          {% if kwargs.subTitle and not kwargs.hideSubTitle %}
+            <span class="alignable-promo__line2">{{kwargs.subTitle}}</span>
+          {% endif %}
+        </h2>
+
+        {% if not kwargs.hideExcerpt %}
+        <div class="alignable-promo__text">
+          <p>{{excerpt}}</p>
+        </div>
+        {% endif %}
+
+        <div class="alignable-promo__buttons">
+          {% if not hidePrimaryButton %}
+            <a href="{{href}}" class="btn btn--primary" {{target}}>{{primaryButtonText}}</a>
+          {% endif %}
+          {% if not hideSecondaryButton %}
+            <a href="{{secondaryButtonHref}}" class="btn btn--invert" {{secondaryButtonTarget}}>{{kwargs.secondaryButtonText}}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
+{#
 http://webstyleguide.ucdavis.edu/?p=molecules-tile-link
 kwargs:
   post {Timber\Post} - A post on this site.

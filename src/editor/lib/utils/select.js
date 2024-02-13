@@ -7,6 +7,13 @@ import BlockSettings from "./settings";
 
 export default class SelectUtils {
 
+  static post(postId, postType='post') {
+    return useSelect( (select) => {
+      if ( !postId || !postType ) return undefined;
+      return select('core').getEntityRecord('postType', postType, postId);
+    } , [postId, postType]);
+  }
+
   static card(attributes) {
     return useSelect((select) => {
       if (!attributes) return {};

@@ -1,7 +1,6 @@
 import { html, BlockSettings, SelectUtils, UCDIcons } from "../../utils";
 import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarSectionDisplay, ToolbarLinkPicker } from "../../block-components";
-import { useBlockProps, BlockControls, InspectorControls, AlignmentControl } from '@wordpress/block-editor';
-import { ToolbarButton } from "@wordpress/components";
+import { useBlockProps, BlockControls, InspectorControls, AlignmentControl, RichText } from '@wordpress/block-editor';
 import classnames from 'classnames';
 
 export default ( props ) => {
@@ -12,6 +11,7 @@ export default ( props ) => {
   const {customImage, post, postTitle, postExcerpt, postImage} = SelectUtils.card(attributes);
   let customPostImage = post && post.meta ? post.meta.ucd_thumbnail_4x3 : 0;
   customPostImage = SelectUtils.image(customPostImage);
+  const secondaryButtonPostData = SelectUtils.post(attributes?.secondaryButtonPost?.id, attributes?.secondaryButtonPost?.type);
 
   // set up image picker
   const onSelectImage = (image) => {
@@ -74,6 +74,26 @@ export default ( props ) => {
     }
     return value;
   })();
+
+    // set up secondart button link picker
+    const onSecondaryButtonHrefChange = (value) => {
+      setAttributes({
+        secondaryButtonHref: value.kind === 'post-type' ? "" : value.url,
+        secondaryButtonNewTab: value.opensInNewTab ? true : false,
+        secondaryButtonPost: value.kind === 'post-type' ? {id: value.id, type: value.type} : {}
+      });
+    }
+    const secondaryButtonHrefContent = (() => {
+      let value = {opensInNewTab: attributes.secondaryButtonNewTab, url: ""};
+      if ( attributes.secondaryButtonHref ) {
+        value.url = attributes.secondaryButtonHref;
+      } else if ( secondaryButtonPostData && secondaryButtonPostData.link ) {
+        value.url = secondaryButtonPostData.link;
+        value.kind = 'post-type';
+        value.type = secondaryButtonPostData.type;
+      }
+      return value;
+    })();
 
   // set up color picker
   const onColorChange = (value) => {
@@ -150,6 +170,13 @@ export default ( props ) => {
             onChange=${onPostReset}
            />
         `}
+        ${!attributes.hideSecondaryButton && html`
+          <${ToolbarLinkPicker}
+            onChange=${onSecondaryButtonHrefChange}
+            value=${secondaryButtonHrefContent}
+            icon=${html`<span>Secondary Button Link</span>`}
+           />
+        `}
       </${BlockControls}>
       <${InspectorControls}>
         <${ImagePicker}
@@ -172,23 +199,61 @@ export default ( props ) => {
           <div className="alignable-promo__body">
             <h2 className="alignable-promo__title">
               ${!attributes.hideTitle && html`
-                <span className="alignable-promo__line1">Alignable</span>
+                <span className="alignable-promo__line1">
+                  <${RichText}
+                    tagName="span"
+                    value=${title}
+                    withoutInteractiveFormatting
+                    placeholder="Title"
+                    onChange=${ ( title ) => setAttributes({title}) }
+                  />
+                </span>
               `}
               ${!attributes.hideSubTitle && html`
-                <span className="alignable-promo__line2">Promo</span>
+                <span className="alignable-promo__line2">
+                  <${RichText}
+                    tagName="span"
+                    value=${attributes.subTitle}
+                    withoutInteractiveFormatting
+                    placeholder="Sub Title"
+                    onChange=${ ( subTitle ) => setAttributes({subTitle}) }
+                  />
+                </span>
               `}
             </h2>
             ${!attributes.hideExcerpt && html`
               <div className="alignable-promo__text">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                <${RichText}
+                  tagName="p"
+                  value=${excerpt}
+                  withoutInteractiveFormatting
+                  placeholder="Excerpt"
+                  onChange=${ ( excerpt ) => setAttributes({excerpt}) }
+                />
               </div>
             `}
             <div className="alignable-promo__buttons">
               ${!attributes.hidePrimaryButton && html`
-                <a href="" className="btn btn--primary">Left Button</a>
+                <a className="btn btn--primary">
+                  <${RichText}
+                    tagName="span"
+                    value=${attributes.primaryButtonText}
+                    withoutInteractiveFormatting
+                    placeholder="Primary Button"
+                    onChange=${ ( primaryButtonText ) => setAttributes({primaryButtonText}) }
+                  />
+                </a>
               `}
               ${!attributes.hideSecondaryButton && html`
-                <a href="" className="btn btn--invert">Right Button</a>
+                <a className="btn btn--invert">
+                  <${RichText}
+                    tagName="span"
+                    value=${attributes.secondaryButtonText}
+                    withoutInteractiveFormatting
+                    placeholder="Secondary Button"
+                    onChange=${ ( secondaryButtonText ) => setAttributes({secondaryButtonText}) }
+                  />
+                </a>
               `}
             </div>
           </div>

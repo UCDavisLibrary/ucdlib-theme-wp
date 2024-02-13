@@ -42,7 +42,7 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "ucd-theme/alignable-promo" => [
       "twig" => "@ucd/blocks/alignable-promo.twig",
       "img" => "640x480.png",
-      "transform" => array("getPost", "addSpacing"),
+      "transform" => array("getPost"),
       "hasBrandColors" => true
     ],
     "ucd-theme/background-color" => array("twig" => "@ucd/blocks/background-color.twig"),

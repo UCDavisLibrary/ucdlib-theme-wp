@@ -25,6 +25,10 @@ class UCDThemeBlockTransformations {
       $new['post'] = Timber::get_post( $post_id );
       $attrs = array_merge($attrs, $new);
     }
+
+    if ( !empty($attrs['secondaryButtonPost']) && array_key_exists('id', $attrs['secondaryButtonPost']) ){
+      $attrs['secondaryButtonPost'] = Timber::get_post( $attrs['secondaryButtonPost']['id'] );
+    }
     return $attrs;
   }
 
