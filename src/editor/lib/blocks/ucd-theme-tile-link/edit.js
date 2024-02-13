@@ -11,6 +11,7 @@ import {
 import {
   useBlockProps,
   BlockControls,
+  RichText,
   InspectorControls } from '@wordpress/block-editor';
 
 import {
@@ -114,14 +115,14 @@ export default ( props ) => {
     [`category-brand--${attributes.brandColor}`]: attributes.brandColor
   })
 
-  let title = 'Use the block sidebar to add a custom title';
+  let title = '';
   if ( attributes.title ){
     title = attributes.title;
   } else if ( postTitle ){
     title = postTitle;
   }
 
-  let excerpt = 'Use the block sidebar to add a custom excerpt';
+  let excerpt = '';
   if ( attributes.excerpt ){
     excerpt = attributes.excerpt;
   } else if ( postExcerpt ){
@@ -149,24 +150,6 @@ export default ( props ) => {
       `}
     </${BlockControls}>
     <${InspectorControls}>
-      <${PanelBody} title="Card Content" initialOpen=${true}>
-        <${PanelRow}>
-          <${TextControl}
-            label="Title"
-            help="Primary text on card. Recommended 37 characters or less."
-            value=${ attributes.title }
-            onChange=${ ( title ) => setAttributes({title}) }
-          />
-        </${PanelRow}>
-        <${PanelRow}>
-          <${TextareaControl}
-            label="Excerpt"
-            help="Will be displayed when card is hovered over"
-            value=${ attributes.excerpt }
-            onChange=${ ( excerpt ) => setAttributes({excerpt}) }
-          />
-        </${PanelRow}>
-      </${PanelBody}>
       <${ImagePicker}
         imageId=${attributes.imageId}
         image=${customImage}
@@ -182,12 +165,30 @@ export default ( props ) => {
     <a className="${classes}">
       ${(!attributes.hideTitle) && html`
         <div className="tile-link__title">
-          <h3 className="tile-link__title-heading">${title}</h3>
+          <h3 className="tile-link__title-heading">
+            <${RichText}
+              tagName="span"
+              value=${title}
+              withoutInteractiveFormatting
+              allowedFormats=${[]}
+              onChange=${ ( title ) => setAttributes({title}) }
+              placeholder="Add a title"
+            />
+          </h3>
         </div>
       `}
       ${(!attributes.hideExcerpt) && html`
         <div className="tile-link__description">
-          <p>${excerpt}</p>
+          <p>
+            <${RichText}
+              tagName="span"
+              value=${excerpt}
+              withoutInteractiveFormatting
+              allowedFormats=${[]}
+              onChange=${ ( excerpt ) => setAttributes({excerpt}) }
+              placeholder="Add a description"
+            />
+          </p>
         </div>
       `}
       <div className="tile-link__indicator">

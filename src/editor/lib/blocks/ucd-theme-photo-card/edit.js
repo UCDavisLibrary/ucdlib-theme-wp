@@ -11,6 +11,7 @@ import {
 import {
   useBlockProps,
   BlockControls,
+  RichText,
   InspectorControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 
@@ -113,18 +114,6 @@ export default ( props ) => {
 
   return html`
   <div ...${ blockProps }>
-    <style>
-      .photo-card textarea {
-        text-align: center;
-        border: none;
-        box-shadow: none;
-        color: var(--forced-contrast, var(--category-brand--on-white, #022851));
-        margin-bottom: 2rem;
-      }
-      .photo-card textarea:focus {
-        background-color: transparent;
-      }
-    </style>
     <${BlockControls} group="block">
       <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
       <${ToolbarColorPicker}
@@ -167,12 +156,14 @@ export default ( props ) => {
       </div>
       ${(!attributes.hideTitle) && html`
         <h3 className="photo-card__title">
-          <textarea
-            type="text"
+          <${RichText}
+            tagName="span"
             value=${title}
+            withoutInteractiveFormatting
+            allowedFormats=${[]}
+            onChange=${ ( title ) => setAttributes({title}) }
             placeholder="Write a title..."
-            onChange=${ (e) => setAttributes({title: e.target.value}) }>
-          </textarea>
+          />
         </h3>
       `}
     </a>

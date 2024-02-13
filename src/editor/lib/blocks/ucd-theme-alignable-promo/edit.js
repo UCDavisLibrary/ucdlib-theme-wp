@@ -204,6 +204,7 @@ export default ( props ) => {
                     tagName="span"
                     value=${title}
                     withoutInteractiveFormatting
+                    allowedFormats=${[]}
                     placeholder="Title"
                     onChange=${ ( title ) => setAttributes({title}) }
                   />
@@ -215,6 +216,7 @@ export default ( props ) => {
                     tagName="span"
                     value=${attributes.subTitle}
                     withoutInteractiveFormatting
+                    allowedFormats=${[]}
                     placeholder="Sub Title"
                     onChange=${ ( subTitle ) => setAttributes({subTitle}) }
                   />
@@ -227,6 +229,7 @@ export default ( props ) => {
                   tagName="p"
                   value=${excerpt}
                   withoutInteractiveFormatting
+                  allowedFormats=${[]}
                   placeholder="Excerpt"
                   onChange=${ ( excerpt ) => setAttributes({excerpt}) }
                 />
@@ -239,6 +242,7 @@ export default ( props ) => {
                     tagName="span"
                     value=${attributes.primaryButtonText}
                     withoutInteractiveFormatting
+                    allowedFormats=${[]}
                     placeholder="Primary Button"
                     onChange=${ ( primaryButtonText ) => setAttributes({primaryButtonText}) }
                   />
@@ -250,6 +254,7 @@ export default ( props ) => {
                     tagName="span"
                     value=${attributes.secondaryButtonText}
                     withoutInteractiveFormatting
+                    allowedFormats=${[]}
                     placeholder="Secondary Button"
                     onChange=${ ( secondaryButtonText ) => setAttributes({secondaryButtonText}) }
                   />

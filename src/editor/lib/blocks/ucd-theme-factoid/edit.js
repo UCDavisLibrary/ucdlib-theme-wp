@@ -1,7 +1,7 @@
 import { html, UCDIcons } from "../../utils";
 import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker } from "../../block-components";
-import { useBlockProps, BlockControls } from '@wordpress/block-editor';
-import { useRef, useEffect, createRef } from "@wordpress/element";
+import { useBlockProps, BlockControls, RichText } from '@wordpress/block-editor';
+import { createRef } from "@wordpress/element";
 import { ToolbarButton } from "@wordpress/components";
 
 import classnames from 'classnames';
@@ -81,33 +81,6 @@ export default ( props ) => {
       selectedIcon=${attributes.icon}
       ></${IconPicker}>
 
-    <style>
-      .factoid input {
-        border: none;
-        box-shadow: none;
-        text-align: center;
-        color: var(--forced-contrast-heading-primary, #13639e);
-      }
-      .factoid input:focus {
-        background-color: transparent;
-      }
-      .factoid input::placeholder {
-        color: var(--forced-contrast-heading-primary, #13639e);
-      }
-      .factoid textarea {
-        border: none;
-        box-shadow: none;
-        text-align: center;
-        color: var(--forced-contrast, #022851);
-      }
-      .factoid textarea:focus {
-        background-color: transparent;
-      }
-      .factoid textarea::placeholder {
-        color: var(--forced-contrast, #022851);
-      }
-    </style>
-
     <div className="${classes}">
       <a className="factoid__link">
         <div className="factoid__bracket-one"></div>
@@ -117,18 +90,24 @@ export default ( props ) => {
           </div>
           <div className="factoid__body">
             <h2 className="factoid__big-text">
-              <input
-                type="text"
+              <${RichText}
+                tagName="span"
                 value=${attributes.bigText}
+                onChange=${(value) => setAttributes({bigText: value})}
+                withoutInteractiveFormatting
+                allowedFormats=${[]}
                 placeholder="Big Text..."
-                onChange=${(e) => setAttributes({bigText: e.target.value})} />
+              />
             </h2>
             <h3 className="factoid__small-text">
-              <textarea
+              <${RichText}
+                tagName="span"
                 value=${attributes.smallText}
+                onChange=${(value) => setAttributes({smallText: value})}
+                withoutInteractiveFormatting
+                allowedFormats=${[]}
                 placeholder="Small Text..."
-                onChange=${(e) => setAttributes({smallText: e.target.value})}>
-              </textarea>
+              />
             </h3>
           </div>
         </div>
