@@ -179,6 +179,9 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "ucd-theme/layout-columns" => array("twig" => "@ucd/blocks/layout-columns.twig"),
     "ucd-theme/layout-container" => array("twig" => "@ucd/blocks/layout-container.twig"),
     "ucd-theme/layout-gutters" => ['twig' => "@ucd/blocks/layout-gutters.twig"],
+    "ucd-theme/layout-section" => [
+      'twig' => "@ucd/blocks/layout-section.twig"
+    ],
     "ucd-theme/layout-shrink" => array("twig" => "@ucd/blocks/layout-shrink.twig"),
     "ucd-theme/layout-quad" => array("twig" => "@ucd/blocks/layout-quad.twig"),
     "ucd-theme/manual-subnav" => array(
