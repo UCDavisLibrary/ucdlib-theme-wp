@@ -62,6 +62,14 @@ const settings = {
     waterColorColor: {
       type: "string",
       default: "blue"
+    },
+    width: {
+      type: "string",
+      default: ""
+    },
+    floatWidth: {
+      type: "number",
+      default: 33
     }
   },
   edit: Edit,

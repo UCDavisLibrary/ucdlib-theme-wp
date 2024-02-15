@@ -31,7 +31,10 @@ export default ( props ) => {
     'l-gutter': attributes.useGutters && !attributes.gutterModifier,
     [`l-gutter--${attributes.gutterModifier}`]: attributes.useGutters && attributes.gutterModifier,
     'layout-section__bg-image': hasImage || attributes.hasWaterColor,
-    'layout-section__bg-image--darken': hasImage && attributes.imageFilm
+    'layout-section__bg-image--darken': hasImage && attributes.imageFilm,
+    'l-full-width': attributes.width === 'full-width',
+    'u-align--left': attributes.width === 'float-left',
+    'u-align--right': attributes.width === 'float-right'
   });
 
   const styles = {};
@@ -48,6 +51,9 @@ export default ( props ) => {
   }
   if ( hasImage && attributes.imageFilm && attributes.imageFilmPercent ) {
     styles['--layout-section-bg-darken'] = attributes.imageFilmPercent;
+  }
+  if ( attributes.floatWidth ) {
+    styles['--layout-section-float-max-width'] = `${attributes.floatWidth}%`;
   }
 
   const blockProps = useBlockProps( {
@@ -101,6 +107,13 @@ export default ( props ) => {
   const waterColorColors = [
     {label: 'Blue', value: 'blue'},
     {label: 'Gold', value: 'gold'}
+  ];
+
+  const widthOptions = [
+    {label: 'Default', value: ''},
+    {label: 'Full Screen', value: 'full-width'},
+    {label: 'Float Left on Desktop', value: 'float-left'},
+    {label: 'Float Right on Desktop', value: 'float-right'}
   ];
 
   return html`
@@ -178,13 +191,31 @@ export default ( props ) => {
             />
           `}
         </${PanelBody}>
-        <${PanelBody} title="Gutters">
+        <${PanelBody} title="Section Layout">
           <${SelectControl}
-            label="Section Gutters"
+            label="Gutters"
             value=${gutterValue}
             options=${gutterOptions}
             onChange=${onGutterChange}
           />
+          <${SelectControl}
+            label="Width"
+            value=${attributes.width}
+            options=${widthOptions}
+            onChange=${(v) => setAttributes({'width': v})}
+          />
+          ${(attributes.width === 'float-left' || attributes.width === 'float-right') && html`
+            <div style=${{marginTop: '1rem'}}>
+              <${RangeControl}
+                label="Max Width"
+                value=${attributes.floatWidth}
+                min=${5}
+                max=${100}
+                step=${1}
+                onChange=${floatWidth => setAttributes({floatWidth})}
+              />
+            </div>
+          `}
         </${PanelBody}>
       </${InspectorControls}>
       <div ...${ innerBlocksProps } >

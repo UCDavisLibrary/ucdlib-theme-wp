@@ -441,4 +441,12 @@ hr.y2 {
   }
 }
 
+@media (min-width: 768px) {
+  .layout-section {
+    &.u-align--left, &.u-align--right {
+      max-width: var(--layout-section-float-max-width, 33%);
+    }
+  }
+}
+
 
