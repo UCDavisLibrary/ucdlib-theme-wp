@@ -39,6 +39,18 @@ const settings = {
       type: "number",
       default: 25
     },
+    imageBrandFilm:{
+      type: "boolean",
+      default: false
+    },
+    imageBrandFilmColor: {
+      type: "string",
+      default: ""
+    },
+    imageBrandFilmOpacity: {
+      type: "number",
+      default: 25
+    },
     imageTextColor: {
       type: "string",
       default: ""
@@ -70,6 +82,10 @@ const settings = {
     floatWidth: {
       type: "number",
       default: 33
+    },
+    darkBackground: {
+      type: "boolean",
+      default: false
     }
   },
   edit: Edit,

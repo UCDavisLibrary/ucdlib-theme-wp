@@ -44,6 +44,9 @@
 {% if attributes.width == 'float-right' %}
   {% set classes = classes|merge(['u-align--right']) %}
 {% endif %}
+{% if attributes.darkBackground %}
+  {% set classes = classes|merge(['dark-background']) %}
+{% endif %}
 
 {% set styles = {} %}
 {% if color.color and not color.isBrandColor and not hasImage %}

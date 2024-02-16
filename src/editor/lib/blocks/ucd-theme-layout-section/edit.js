@@ -8,7 +8,7 @@ import { useBlockProps,
   BlockControls,
   useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { ToolbarButton, ToggleControl, PanelBody, SelectControl, RangeControl } from '@wordpress/components';
+import { ToolbarButton, ToggleControl, PanelBody, SelectControl, RangeControl, ColorPalette } from '@wordpress/components';
 import { Fragment } from "@wordpress/element";
 
 export default ( props ) => {
@@ -28,13 +28,15 @@ export default ( props ) => {
     'layout-section--light-on-dark': hasImage && attributes.imageTextColor === 'light',
     'layout-section--dark-on-light': (color.value && !color.isBrandColor && !color.isDark) && !hasImage,
     'layout-section--dark-on-light': hasImage && attributes.imageTextColor === 'dark',
+    'layout-section__bg-image--colored-film': hasImage && attributes.imageBrandFilm,
     'l-gutter': attributes.useGutters && !attributes.gutterModifier,
     [`l-gutter--${attributes.gutterModifier}`]: attributes.useGutters && attributes.gutterModifier,
     'layout-section__bg-image': hasImage || attributes.hasWaterColor,
     'layout-section__bg-image--darken': hasImage && attributes.imageFilm,
     'l-full-width': attributes.width === 'full-width',
     'u-align--left': attributes.width === 'float-left',
-    'u-align--right': attributes.width === 'float-right'
+    'u-align--right': attributes.width === 'float-right',
+    'dark-background': attributes.darkBackground
   });
 
   const styles = {};
@@ -54,6 +56,12 @@ export default ( props ) => {
   }
   if ( attributes.floatWidth ) {
     styles['--layout-section-float-max-width'] = `${attributes.floatWidth}%`;
+  }
+  if ( hasImage && attributes.imageBrandFilm && attributes.imageBrandFilmOpacity ) {
+    styles['--layout-section-colored-film-opacity'] = `.${attributes.imageBrandFilmOpacity}`;
+  }
+  if ( hasImage && attributes.imageBrandFilm && attributes.imageBrandFilmColor ) {
+    styles['--layout-section-colored-film'] = `var(--${attributes.imageBrandFilmColor})`;
   }
 
   const blockProps = useBlockProps( {
@@ -116,6 +124,14 @@ export default ( props ) => {
     {label: 'Float Right on Desktop', value: 'float-right'}
   ];
 
+  // set up image film color picker
+  const filmColors = BlockSettings.getBlockColors('layout-section').map(c => Object({name: c.title, slug: c.id, color: c.hex}));
+  const filmColorValue = (filmColors.find(c => c.slug === attributes.imageBrandFilmColor) || {}).color || '';
+  const onFilmColorChange = (value) => {
+    const imageBrandFilmColor = (filmColors.find(c => c.color === value) || {}).slug || '';
+    setAttributes( {imageBrandFilmColor } );
+  }
+
   return html`
     <${Fragment}>
       <${BlockControls} group="block">
@@ -131,6 +147,12 @@ export default ( props ) => {
           onClick=${ () => {setAttributes({'disableForceContrast': !attributes.disableForceContrast})}}
           isPressed=${attributes.disableForceContrast}
           label="Disables forced contrast"
+        />
+        <${ToolbarButton}
+          icon=${UCDIcons.renderPublic('fa-moon')}
+          onClick=${ () => {setAttributes({'darkBackground': !attributes.darkBackground})}}
+          isPressed=${attributes.darkBackground}
+          label="Apply dark-background class"
         />
       </${BlockControls}>
       <${InspectorControls}>
@@ -159,20 +181,44 @@ export default ( props ) => {
             <${ToggleControl}
               label="Darken Image"
               checked=${attributes.imageFilm}
-              onChange=${() => setAttributes({imageFilm: !attributes.imageFilm})}
+              onChange=${() => setAttributes({imageFilm: !attributes.imageFilm, imageBrandFilm: false})}
             />
             ${attributes.imageFilm && html`
-            <div style=${{marginTop: '1rem'}}>
-              <${RangeControl}
-                label="Darken Amount"
-                value=${attributes.imageFilmPercent || 25}
-                min=${5}
-                max=${100}
-                step=${5}
-                onChange=${imageFilmPercent => setAttributes({imageFilmPercent})}
-              />
-            </div>
-          `}
+              <div style=${{marginTop: '1rem'}}>
+                <${RangeControl}
+                  label="Darken Amount"
+                  value=${attributes.imageFilmPercent || 25}
+                  min=${5}
+                  max=${100}
+                  step=${5}
+                  onChange=${imageFilmPercent => setAttributes({imageFilmPercent})}
+                />
+              </div>
+            `}
+            <${ToggleControl}
+              label="Apply Brand Color Film"
+              checked=${attributes.imageBrandFilm}
+              onChange=${() => setAttributes({imageBrandFilm: !attributes.imageBrandFilm, imageFilm: false})}
+            />
+            ${attributes.imageBrandFilm && html`
+              <div style=${{marginTop: '1rem'}}>
+                <${ColorPalette}
+                    colors=${ filmColors }
+                    value=${ filmColorValue }
+                    disableCustomColors
+                    clearable
+                    onChange=${ onFilmColorChange }
+                    />
+                <${RangeControl}
+                  label="Film Opacity"
+                  value=${attributes.imageBrandFilmOpacity || 25}
+                  min=${5}
+                  max=${100}
+                  step=${5}
+                  onChange=${imageBrandFilmOpacity => setAttributes({imageBrandFilmOpacity})}
+                />
+              </div>
+            `}
           </div>
         `}
         </${PanelBody}>
