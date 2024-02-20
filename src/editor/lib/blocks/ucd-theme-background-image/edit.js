@@ -42,21 +42,21 @@ export default ( props ) => {
       <${BlockControls} group="block">
       ${(Image !== undefined) && html`
         <${Fragment}>
-          <${ToolbarColorPicker} 
+          <${ToolbarColorPicker}
             onChange=${onColorChange}
             value=${attributes.brandColor}
             ucdBlock="hero-banner"
           />
-          <${ToolbarButton} 
+          <${ToolbarButton}
             icon=${html`<span>P</span>`}
-            onClick=${ () => {setAttributes({'noPadding': !attributes.noPadding})}} 
+            onClick=${ () => {setAttributes({'noPadding': !attributes.noPadding})}}
             isPressed=${attributes.noPadding}
             label="Toggle padding"/>
         </${Fragment}>
         `}
       </${BlockControls}>
       <${InspectorControls}>
-        <${ImagePicker} 
+        <${ImagePicker}
           imageId=${attributes.imageId}
           image=${Image}
           onSelect=${onSelectImage}
@@ -66,6 +66,9 @@ export default ( props ) => {
           panelAttributes=${{title: 'Background Image'}}
         />
       </${InspectorControls}>
+      <div className='brand-textbox category-brand--double-decker category-brand__background'>
+        This block has been deprecated, and will be removed in a future release. Please use the "Section" block instead.
+      </div>
       ${(Image !== undefined ) && html`
         <div className=${classes}>
           <div className="hero-banner__image u-background-image" style=${imgStyles}></div>

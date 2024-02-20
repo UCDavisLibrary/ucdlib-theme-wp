@@ -5,12 +5,13 @@ export default {
   type: 'block',
   blocks: ['ucd-theme/layout-section'],
   transform: (attributes, InnerBlocks) => {
-    const newAttributes = {};
+    const newAttributes = {imageBrandFilm: true, imageBrandFilmOpacity: 60};
     for (const sameAttribute of ['imageId']) {
       newAttributes[sameAttribute] = attributes[sameAttribute];
     }
-    if ( attributes.color ){
-      newAttributes['backgroundColor'] = colors.find(color => color.slug === attributes.color) || {};
+    if ( attributes.brandColor ){
+      newAttributes['imageBrandFilmColor'] = attributes.brandColor;
+      newAttributes['imageTextColor'] = 'light';
     }
     return createBlock('ucd-theme/layout-section', newAttributes, InnerBlocks);
   }

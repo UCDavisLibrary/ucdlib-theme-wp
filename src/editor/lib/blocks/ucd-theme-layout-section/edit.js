@@ -36,7 +36,8 @@ export default ( props ) => {
     'l-full-width': attributes.width === 'full-width',
     'u-align--left': attributes.width === 'float-left',
     'u-align--right': attributes.width === 'float-right',
-    'dark-background': attributes.darkBackground
+    'dark-background': attributes.darkBackground,
+    [`category-brand--${attributes.imageBrandFilmColor}`]: hasImage && attributes.imageBrandFilm && attributes.imageBrandFilmColor
   });
 
   const styles = {};
@@ -60,9 +61,6 @@ export default ( props ) => {
   if ( hasImage && attributes.imageBrandFilm && attributes.imageBrandFilmOpacity ) {
     styles['--layout-section-colored-film-opacity'] = `.${attributes.imageBrandFilmOpacity}`;
   }
-  if ( hasImage && attributes.imageBrandFilm && attributes.imageBrandFilmColor ) {
-    styles['--layout-section-colored-film'] = `var(--${attributes.imageBrandFilmColor})`;
-  }
 
   const blockProps = useBlockProps( {
     className: classes,
@@ -77,6 +75,7 @@ export default ( props ) => {
   const onColorChange = (value) => {
     setAttributes( {backgroundColor: value ? value: {} } );
   }
+  const backgroundColorLabel = hasImage ? 'You Must Remove the Background Image To Use a Background Color' : 'Change Background Color';
 
   // set up image picker
   const onSelectImage = (image) => {
@@ -139,7 +138,8 @@ export default ( props ) => {
           onChange=${onColorChange}
           value=${color.slug}
           colors=${backgroundColors}
-          buttonLabel="Change Background Color"
+          buttonLabel=${backgroundColorLabel}
+          disabled=${hasImage}
           popoverTitle="Background Color Options"
         />
         <${ToolbarButton}
@@ -212,8 +212,8 @@ export default ( props ) => {
                 <${RangeControl}
                   label="Film Opacity"
                   value=${attributes.imageBrandFilmOpacity || 25}
-                  min=${5}
-                  max=${100}
+                  min=${10}
+                  max=${95}
                   step=${5}
                   onChange=${imageBrandFilmOpacity => setAttributes({imageBrandFilmOpacity})}
                 />

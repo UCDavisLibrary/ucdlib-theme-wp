@@ -14,6 +14,9 @@
 {% if color.isDark and not hasImage %}
   {% set classes = classes|merge(['layout-section--light-on-dark']) %}
 {% endif %}
+{% if hasImage and attributes.imageBrandFilm %}
+  {% set classes = classes|merge(['layout-section__bg-image--colored-film']) %}
+{% endif %}
 {% if hasImage and attributes.imageTextColor == 'light' %}
   {% set classes = classes|merge(['layout-section--light-on-dark']) %}
 {% endif %}
@@ -47,6 +50,9 @@
 {% if attributes.darkBackground %}
   {% set classes = classes|merge(['dark-background']) %}
 {% endif %}
+{% if hasImage and attributes.imageBrandFilm and attributes.imageBrandFilmColor %}
+  {% set classes = classes|merge(['category-brand--'~attributes.imageBrandFilmColor]) %}
+{% endif %}
 
 {% set styles = {} %}
 {% if color.color and not color.isBrandColor and not hasImage %}
@@ -64,6 +70,9 @@
 {% endif %}
 {% if attributes.floatWidth %}
   {% set styles = styles|merge({'--layout-section-float-max-width': attributes.floatWidth ~ '%'}) %}
+{% endif %}
+{% if attributes.imageBrandFilmOpacity %}
+  {% set styles = styles|merge({'--layout-section-colored-film-opacity': '.' ~ attributes.imageBrandFilmOpacity })%}
 {% endif %}
 
 {% set classString = "class='" %}

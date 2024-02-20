@@ -6,7 +6,7 @@ import { blueTints, goldTints } from "@ucd-lib/theme-sass/colors";
 import { useBlockProps,
   InspectorControls,
   BlockControls,
-  useInnerBlocksProps, 
+  useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { ToolbarButton, ToggleControl, PanelBody, SelectControl } from '@wordpress/components';
 import { Fragment } from "@wordpress/element";
@@ -40,18 +40,18 @@ export default ( props ) => {
   }
   const backgroundColors = [
     {
-      name: "Light Blue", 
-      slug: "light-blue", 
+      name: "Light Blue",
+      slug: "light-blue",
       color: blueTints['30'].hex
     },
     {
-      name: "Light Yellow", 
-      slug: "light-yellow", 
-      color: goldTints['30'].hex      
+      name: "Light Yellow",
+      slug: "light-yellow",
+      color: goldTints['30'].hex
     },
     {
-      name: "White", 
-      slug: "white", 
+      name: "White",
+      slug: "white",
       color: "#fff"
     }
   ];
@@ -63,20 +63,20 @@ export default ( props ) => {
   return html`
     <${Fragment}>
       <${BlockControls} group="block">
-        <${ToolbarColorPicker} 
+        <${ToolbarColorPicker}
           onChange=${onColorChange}
           value=${attributes.color}
           colors=${backgroundColors}
           buttonLabel="Change Background Color"
           popoverTitle="Background Color Options"
         />
-        <${ToolbarButton} 
-          icon=${html`<span>100%</span>`} 
-          onClick=${ () => {setAttributes({'fullWidth': !attributes.fullWidth, 'float': ''})}} 
+        <${ToolbarButton}
+          icon=${html`<span>100%</span>`}
+          onClick=${ () => {setAttributes({'fullWidth': !attributes.fullWidth, 'float': ''})}}
           isPressed=${attributes.fullWidth}
           label="Make width of screen"
         />
-        <${ToolbarFloat} 
+        <${ToolbarFloat}
           value=${attributes.float}
           onChange=${(v) => setAttributes({'float': v.slug, 'fullWidth': false})}
         />
@@ -89,7 +89,7 @@ export default ( props ) => {
             onChange=${() => setAttributes({hasWaterColor: !attributes.hasWaterColor})}
           />
           ${attributes.hasWaterColor && html`
-            <${SelectControl} 
+            <${SelectControl}
               label="Color"
               value=${attributes.waterColorColor}
               options=${waterColorColors}
@@ -98,6 +98,9 @@ export default ( props ) => {
           `}
         </${PanelBody}>
       </${InspectorControls}>
+      <div className='brand-textbox category-brand--double-decker category-brand__background'>
+        This block has been deprecated, and will be removed in a future release. Please use the "Section" block instead.
+      </div>
       <div ...${ innerBlocksProps } >
       </div>
     </${Fragment}>

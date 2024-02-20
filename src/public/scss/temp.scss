@@ -450,16 +450,21 @@ hr.y2 {
   }
 }
 
+.layout-section__bg-image--colored-film {
+  position: relative;
+  isolation: isolate;
+}
+
 .layout-section__bg-image--colored-film::before {
 	position: absolute;
-	z-index: 0;
+	z-index: -1;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
 	display: block;
 	content: "";
-	background-color: var(--layout-section-colored-film, #fff);
+	background-color: var(--category-brand, #fff);
 	opacity: var(--layout-section-colored-film-opacity, 0.25);
 }
 

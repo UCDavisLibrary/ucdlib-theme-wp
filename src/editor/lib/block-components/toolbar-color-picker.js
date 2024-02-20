@@ -9,7 +9,8 @@ function ToolbarColorPicker({
   colors,
   value,
   valueKey,
-  ucdBlock
+  ucdBlock,
+  disabled
 }){
 
   if ( !buttonLabel ) buttonLabel = "Apply Brand Color";
@@ -58,6 +59,7 @@ function ToolbarColorPicker({
     <${Fragment}>
       <${ToolbarButton}
         showTooltip
+        disabled=${ disabled }
         onClick=${ onToggle }
         aria-haspopup="true"
         aria-expanded=${ isOpen }
