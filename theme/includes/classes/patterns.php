@@ -50,28 +50,6 @@ class UCDLibThemePatterns {
         'keywords' => ['core', 'text', 'style'],
       ]
     );
-
-    register_block_pattern(
-      "$this->slug/lang-prize-winner",
-      [
-        'title' => 'Lang Prize: Winner List',
-        'content' => $this->markupLangPrizeWinner(),
-        'description' => 'Lang Prize: Winner List',
-        'categories' => [$this->slug],
-        'keywords' => ['lang', 'prize', 'winner', 'list'],
-      ]
-    );
-
-     register_block_pattern(
-      "$this->slug/lang-prize",
-      [
-        'title' => 'Lang Prize: Winner Profile',
-        'content' => $this->markupLangPrize(),
-        'description' => 'Lang Prize: Winner Profile',
-        'categories' => [$this->slug],
-        'keywords' => ['lang', 'prize'],
-      ]
-    );
   }
 
   public function markupContactUs(){
@@ -117,81 +95,6 @@ class UCDLibThemePatterns {
     <!-- wp:ucd-theme/prefixed-icon-link {\"icon\":\"ucd-public:fa-phone\"} /--></div>
     <!-- /wp:group -->
     <!-- wp:ucd-theme/spacer {\"x\":\"small\",\"y\":\"small\"} /--></div>
-    <!-- /wp:group -->
-    ";
-  }
-
-  public function markupLangPrize(){
-    return "
-    <!-- wp:group -->
-    <div id=\"lang-prize\" class=\"wp-block-group\">
-    <!-- wp:image -->
-    <figure class=\"wp-block-image\"><img alt=\"\"/></figure>
-    <!-- /wp:image -->
-    <!-- wp:ucd-theme/object-box -->
-    <!-- wp:ucd-theme/layout-columns {\"modifier\":\"33-67\"} -->
-    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-first\",\"forbidWidthEdit\":true} -->
-    <!-- wp:ucd-theme/heading {\"content\":\"1st Place\",\"className\":\"is-style-primary\"} /-->
-    <!-- wp:ucd-theme/heading {\"content\":\"Science, Engineering and Math, 2017\",\"level\":3,\"className\":\"is-style-highlight\"} /-->
-    <!-- wp:ucd-theme/spacer /-->
-    <!-- /wp:ucd-theme/column -->
-    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-second\",\"forbidWidthEdit\":true} -->
-    <!-- wp:quote {\"align\":\"left\",\"className\":\"is-style-default\"} -->
-    <blockquote class=\"wp-block-quote has-text-align-left is-style-default\"><p></p></blockquote>
-    <!-- /wp:quote -->
-    <!-- /wp:ucd-theme/column -->
-    <!-- /wp:ucd-theme/layout-columns -->
-    <!-- /wp:ucd-theme/object-box -->
-    <!-- wp:ucd-theme/separator {\"brandColor\":\"secondary\",\"style\":\"dotted\"} /-->
-    <!-- wp:ucd-theme/heading {\"content\":\"Project Title\"} /-->
-    <!-- wp:paragraph {\"align\":\"left\"} -->
-    <p class=\"has-text-align-left\">Project format</p>
-    <!-- /wp:paragraph -->
-    <!-- wp:ucd-theme/button-link {\"content\":\"Read \u003cwinner name\u003e's Paper (pdf)\",\"shape\":\"round\",\"className\":\"is-style-alt3\"} /-->
-    <!-- wp:ucd-theme/spacer {\"x\":\"small\",\"y\":\"small\"} /-->
-    <!-- wp:ucd-theme/heading {\"content\":\"Project Description\",\"level\":3,\"className\":\"is-style-highlight\"} /-->
-    <!-- wp:paragraph -->
-    <p>Project description</p>
-    <!-- /wp:paragraph -->
-    <!-- wp:ucd-theme/heading {\"content\":\"In Their Own Words\",\"level\":3,\"className\":\"is-style-highlight\"} /-->
-    <!-- wp:paragraph -->
-    <p>Read &lt;winner name>'s reflective essay from their Lang Prize application.</p>
-    <!-- /wp:paragraph --></div>
-    <!-- /wp:group -->
-    ";
-  }
-
-  public function markupLangPrizeWinner(){
-    return "
-    <!-- wp:group -->
-    <div id=\"lang-prize-winner\" class=\"wp-block-group\">
-    <!-- wp:ucd-theme/heading {\"content\":\"2022 Winners\"} /-->
-    <!-- wp:ucd-theme/layout-columns -->
-    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-first\",\"forbidWidthEdit\":true} -->
-    <!-- wp:ucd-theme/marketing-highlight {\"excerpt\":\"\u003cb\u003eArts, Humanities \u0026 Social Sciences \u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"1st Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
-    <!-- /wp:ucd-theme/column -->
-    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-second\",\"forbidWidthEdit\":true} -->
-    <!-- wp:ucd-theme/marketing-highlight {\"excerpt\":\"\u003cb\u003eScience, Engineering \u0026 Math\u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"1st Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
-    <!-- /wp:ucd-theme/column -->
-    <!-- /wp:ucd-theme/layout-columns -->
-    <!-- wp:ucd-theme/layout-columns -->
-    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-first\",\"forbidWidthEdit\":true} -->
-    <!-- wp:ucd-theme/marketing-highlight {\"brandColor\":\"rec-pool\",\"excerpt\":\"\u003cb\u003eArts, Humanities \u0026 Social Sciences \u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"2nd Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
-    <!-- /wp:ucd-theme/column -->
-    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-second\",\"forbidWidthEdit\":true} -->
-    <!-- wp:ucd-theme/marketing-highlight {\"brandColor\":\"rec-pool\",\"excerpt\":\"\u003cb\u003eScience, Engineering \u0026 Math\u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"2nd Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
-    <!-- /wp:ucd-theme/column -->
-    <!-- /wp:ucd-theme/layout-columns -->
-    <!-- wp:ucd-theme/layout-columns -->
-    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-first\",\"forbidWidthEdit\":true} -->
-    <!-- wp:ucd-theme/marketing-highlight {\"brandColor\":\"arboretum\",\"excerpt\":\"\u003cb\u003eArts, Humanities \u0026 Social Sciences \u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"3rd Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
-    <!-- /wp:ucd-theme/column -->
-    <!-- wp:ucd-theme/column {\"layoutClass\":\"l-second\",\"forbidWidthEdit\":true} -->
-    <!-- wp:ucd-theme/marketing-highlight {\"brandColor\":\"arboretum\",\"excerpt\":\"\u003cb\u003eScience, Engineering \u0026 Math\u003c/b\u003e\u003cbr\u003eProject Title\",\"badge\":\"3rd Place\",\"buttonText\":\"\u003cName\u003e's Project\"} /-->
-    <!-- /wp:ucd-theme/column -->
-    <!-- /wp:ucd-theme/layout-columns -->
-    <!-- wp:ucd-theme/separator {\"brandColor\":\"secondary\",\"style\":\"dotted\"} /-->
-    </div>
     <!-- /wp:group -->
     ";
   }

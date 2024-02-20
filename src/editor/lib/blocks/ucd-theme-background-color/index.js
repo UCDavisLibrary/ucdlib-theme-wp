@@ -1,6 +1,7 @@
 import { UCDIcons } from "../../utils";
 import Edit from './edit';
 import Save from "./save";
+import transformToSection from "./transform-to-section.js";
 
 const name = 'ucd-theme/background-color';
 const settings = {
@@ -41,7 +42,8 @@ const settings = {
     }
   },
   edit: Edit,
-  save: Save
+  save: Save,
+  transforms: {to: [transformToSection]}
 };
 
 export default { name, settings };

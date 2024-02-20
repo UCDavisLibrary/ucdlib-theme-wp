@@ -14,6 +14,7 @@ class UCDThemeAPI {
 
     add_action( 'rest_api_init', array($this, 'register_menu_endpoint') );
     add_action( 'rest_api_init', array($this, 'register_subnav_endpoint') );
+    add_action( 'rest_api_init', array($this, 'register_posts_with_block_endpoint') );
 
     add_filter("rest_post_tag_collection_params", function($params) {
       $params['per_page']['maximum'] = 1000;
@@ -53,6 +54,22 @@ class UCDThemeAPI {
     ) );
   }
 
+  public function register_posts_with_block_endpoint(){
+    register_rest_route($this->slug, "posts-with-block", array(
+      'methods' => 'GET',
+      'args' => array(
+        'block' => array(
+          'required' => true,
+          'validate_callback' => function($param, $request, $key){
+            return is_string($param);
+          }
+        )
+      ),
+      'callback' => array($this, 'epcb_posts_with_block'),
+      'permission_callback' => [$this, 'applicationPasswordIsAdmin']
+    ) );
+  }
+
   public function epcb_subnav( $request ){
     $post = Timber::get_post( $request['id'] );
     if ( !$post ) {
@@ -81,6 +98,27 @@ class UCDThemeAPI {
     }
 
     return rest_ensure_response($this->menuToArray( $menu ));
+  }
+
+  public function epcb_posts_with_block( $request ){
+    if ( !$request['block'] ){
+      return new WP_Error( 'rest_not_found', 'Block parameter required' );
+    }
+    // sanitize the block name
+    $request['block'] = sanitize_text_field( $request['block'] );
+
+    $posts = $this->getAllPostsWithBlock( $request['block'] );
+
+    $out = [];
+    foreach ($posts as $post) {
+      $out[] = [
+        'id' => intval($post->ID),
+        'title' => html_entity_decode($post->post_title),
+        'type' => $post->post_type,
+        'link' => html_entity_decode($post->guid),
+      ];
+    }
+    return rest_ensure_response($out);
   }
 
   private function getHeaderMenus(){
@@ -146,5 +184,35 @@ class UCDThemeAPI {
       $out['wpObject'] = null;
     }
     return $out;
+  }
+
+  // returns the id, guid, post_title, post_type of all posts with the given block
+  private function getAllPostsWithBlock( $block ) {
+    global $wpdb;
+    $post_content = "%<!-- wp:$block%";
+
+    $query = $wpdb->prepare(
+      "SELECT ID, post_title, post_type, guid
+      FROM $wpdb->posts
+      WHERE post_content LIKE %s
+      AND post_status = 'publish'
+      ORDER BY post_title",
+      $post_content
+    );
+
+    return $wpdb->get_results($query);
+  }
+
+  // checks if request has an application password in basic auth, and if associated user is an admin
+  public function applicationPasswordIsAdmin(){
+    if ( !isset($_SERVER['HTTP_AUTHORIZATION']) ) return false;
+    $auth = $_SERVER['HTTP_AUTHORIZATION'];
+    if ( strpos($auth, 'Basic') !== 0 ) return false;
+    $auth = base64_decode( substr($auth, 6) );
+    $auth = explode(':', $auth);
+    if ( count($auth) != 2 ) return false;
+    $user = wp_authenticate_application_password(null, $auth[0], $auth[1]);
+    if ( is_wp_error($user) ) return false;
+    return user_can($user, 'administrator');
   }
 }

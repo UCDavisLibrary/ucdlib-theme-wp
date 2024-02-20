@@ -203,6 +203,9 @@ a.icon--circle-arrow-right::before {
   height: 50%;
   width: 50%;
 }
+.priority-links {
+  background-color: var(--panel-bg, #fff);
+}
 
 // for focal link
 
@@ -460,6 +463,33 @@ hr.y2 {
     min-width: 2em;
     min-height: 2em;
   }
+}
+
+// section layout
+@media (min-width: 768px) {
+  .layout-section {
+    &.u-align--left, &.u-align--right {
+      max-width: var(--layout-section-float-max-width, 33%);
+    }
+  }
+}
+
+.layout-section__bg-image--colored-film {
+  position: relative;
+  isolation: isolate;
+}
+
+.layout-section__bg-image--colored-film::before {
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+	content: "";
+	background-color: var(--category-brand, #fff);
+	opacity: var(--layout-section-colored-film-opacity, 0.25);
 }
 
 

@@ -26,6 +26,7 @@ import layoutColumns from "./ucd-theme-layout-columns";
 import layoutContainer from "./ucd-theme-layout-container";
 import layoutGutters from "./ucd-theme-layout-gutters";
 import layoutBasic from "./ucd-theme-layout-basic";
+import layoutSection from "./ucd-theme-layout-section";
 import layoutShrink from "./ucd-theme-layout-shrink";
 import layoutQuad from "./ucd-theme-layout-quad";
 import manualSubnav from "./ucd-theme-manual-subnav";
@@ -87,6 +88,7 @@ export default [
   layoutContainer,
   layoutGutters,
   layoutBasic,
+  layoutSection,
   layoutShrink,
   layoutQuad,
   manualSubnav,

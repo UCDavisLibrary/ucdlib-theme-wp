@@ -1,0 +1,92 @@
+{% set hasImage = attributes.image.src ? true : false %}
+{% set color = attributes.backgroundColor ? attributes.backgroundColor : [] %}
+{% set watercolor = attributes.waterColorColor ? attributes.waterColorColor : "blue" %}
+{% set watercolorPattern = attributes.waterColorPattern ? attributes.waterColorPattern : "1" %}
+{% set useGutters = attributes.useGutters is null or attributes.useGutters ? true : false %}
+
+{% set classes = ['layout-section'] %}
+{% if not attributes.disableForceContrast %}
+  {% set classes = classes|merge(['layout-section--force-contrast']) %}
+{% endif %}
+{% if color.isBrandColor and not hasImage %}
+  {% set classes = classes|merge(['layout-section--'~color.slug]) %}
+{% endif %}
+{% if color.isDark and not hasImage %}
+  {% set classes = classes|merge(['layout-section--light-on-dark']) %}
+{% endif %}
+{% if hasImage and attributes.imageBrandFilm %}
+  {% set classes = classes|merge(['layout-section__bg-image--colored-film']) %}
+{% endif %}
+{% if hasImage and attributes.imageTextColor == 'light' %}
+  {% set classes = classes|merge(['layout-section--light-on-dark']) %}
+{% endif %}
+{% if (color.value and not color.isBrandColor and not color.isDark) and not hasImage %}
+  {% set classes = classes|merge(['layout-section--dark-on-light']) %}
+{% endif %}
+{% if hasImage and attributes.imageTextColor == 'dark' %}
+  {% set classes = classes|merge(['layout-section--dark-on-light']) %}
+{% endif %}
+{% if useGutters and not attributes.gutterModifier %}
+  {% set classes = classes|merge(['l-gutter']) %}
+{% endif %}
+{% if useGutters and attributes.gutterModifier %}
+  {% set classes = classes|merge(['l-gutter--'~attributes.gutterModifier]) %}
+{% endif %}
+{% if hasImage or attributes.hasWaterColor %}
+  {% set classes = classes|merge(['layout-section__bg-image']) %}
+{% endif %}
+{% if hasImage and attributes.imageFilm %}
+  {% set classes = classes|merge(['layout-section__bg-image--darken']) %}
+{% endif %}
+{% if attributes.width == 'full-width' %}
+  {% set classes = classes|merge(['l-full-width']) %}
+{% endif %}
+{% if attributes.width == 'float-left' %}
+  {% set classes = classes|merge(['u-align--left']) %}
+{% endif %}
+{% if attributes.width == 'float-right' %}
+  {% set classes = classes|merge(['u-align--right']) %}
+{% endif %}
+{% if attributes.darkBackground %}
+  {% set classes = classes|merge(['dark-background']) %}
+{% endif %}
+{% if hasImage and attributes.imageBrandFilm and attributes.imageBrandFilmColor %}
+  {% set classes = classes|merge(['category-brand--'~attributes.imageBrandFilmColor]) %}
+{% endif %}
+
+{% set styles = {} %}
+{% if color.color and not color.isBrandColor and not hasImage %}
+  {% set styles = styles|merge({'background-color': color.color}) %}
+{% endif %}
+{% if hasImage and attributes.hasWaterColor %}
+  {% set styles = styles|merge({'background-image': 'url(' ~ attributes.image.src ~ '), url(' ~ get_watercolor(watercolor, watercolorPattern) ~ ')'}) %}
+{% elseif hasImage %}
+  {% set styles = styles|merge({'background-image': 'url(' ~ attributes.image.src ~ ')'}) %}
+{% elseif attributes.hasWaterColor %}
+  {% set styles = styles|merge({'background-image': 'url(' ~ get_watercolor(watercolor, watercolorPattern) ~ ')'}) %}
+{% endif %}
+{% if hasImage and attributes.imageFilm and attributes.imageFilmPercent %}
+  {% set styles = styles|merge({'--layout-section-bg-darken': attributes.imageFilmPercent}) %}
+{% endif %}
+{% if attributes.floatWidth %}
+  {% set styles = styles|merge({'--layout-section-float-max-width': attributes.floatWidth ~ '%'}) %}
+{% endif %}
+{% if attributes.imageBrandFilmOpacity %}
+  {% set styles = styles|merge({'--layout-section-colored-film-opacity': '.' ~ attributes.imageBrandFilmOpacity })%}
+{% endif %}
+
+{% set classString = "class='" %}
+{% for class in classes %}
+  {% set classString = classString ~ class ~ ' ' %}
+{% endfor %}
+{% set classString = classString ~ "'" %}
+
+{% set styleString = "style='" %}
+{% for key, value in styles %}
+  {% set styleString = styleString ~ key ~ ':' ~ value ~ ';' %}
+{% endfor %}
+{% set styleString = styleString ~ "'" %}
+
+<div {{ classString }} {{ styleString }}>
+  {{ content }}
+</div>
