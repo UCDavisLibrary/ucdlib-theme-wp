@@ -1,57 +1,33 @@
 import { html } from "../../utils";
-import "./ucd-wp-panel-with-icon";
 import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker, ToolbarPaddingPicker, ToolbarSectionDisplay } from "../../block-components";
-import { useBlockProps, BlockControls, InnerBlocks } from '@wordpress/block-editor';
-import { useRef, useEffect, createRef } from "@wordpress/element";
+import { useBlockProps, BlockControls, InnerBlocks, RichText } from '@wordpress/block-editor';
+import { createRef } from "@wordpress/element";
 
+import classnames from 'classnames';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
-  const mainEleRef = useRef();
   const iconPickerRef = createRef();
 
-
-  // Wire up the main component
-  const onMainEleUpdated = (e) => {
-    const propName = e.detail.propName;
-    const propValue = e.detail.propValue;
-    const newAttrs = {};
-    newAttrs[propName] = propValue;
-    setAttributes(newAttrs);
-  }
-  const onIconChangeRequest = () => {
-    if ( iconPickerRef.current ){
+  const onIconClick = () => {
+    if ( iconPickerRef.current ) {
       iconPickerRef.current.openModal();
     }
   }
 
-  useEffect(() => {
-    let mainEle = null;
-    if ( mainEleRef.current ) {
-      mainEleRef.current.addEventListener('updated', onMainEleUpdated);
-      mainEleRef.current.addEventListener('icon-change', onIconChangeRequest);
-      mainEle = mainEleRef.current;
-    }
-    return () => {
-      if ( mainEle ) {
-        mainEle.removeEventListener('updated', onMainEleUpdated);
-        mainEle.removeEventListener('icon-change', onIconChangeRequest);
-      }
-    };
+  const classes = classnames({
+    "panel": true,
+    "panel--icon": true,
+    "panel--icon-custom": true,
+    "o-box": true,
+    [`o-box--${attributes.padding}`]: attributes.padding,
   });
-
-  const mainEleProps = () => {
-    let p = {ref: mainEleRef};
-    if ( attributes.brandColor ) p.color = attributes.brandColor;
-    if ( attributes.icon ) p.icon = attributes.icon;
-    if ( attributes.moreText ) p['more-text'] = attributes.moreText;
-    if ( attributes.hideMoreLink ) p['hide-more-link'] = true;
-    if ( attributes.title ) p.title = attributes.title;
-    p.padding = attributes.padding;
-
-    return p;
-  }
+  const iconClasses = classnames({
+    "panel__custom-icon": true,
+    "clickable": true,
+    [attributes.brandColor]: attributes.brandColor
+  });
 
   // set up section hider
   const onSectionToggle = (section) => {
@@ -87,7 +63,7 @@ export default ( props ) => {
     if ( value.kind == 'post-type' ){
       attrs.postId = value.id;
     } else if ( value.kind == 'taxonomy' ) {
-      attrs.taxId = value.id 
+      attrs.taxId = value.id
     }
     setAttributes(attrs);
   }
@@ -95,7 +71,7 @@ export default ( props ) => {
     let value = {opensInNewTab: attributes.newTab, url: ""};
     if ( attributes.href ) {
       value.url = attributes.href;
-    } 
+    }
     return value;
   })();
 
@@ -108,7 +84,7 @@ export default ( props ) => {
   <div ...${ blockProps }>
     <${BlockControls} group="block">
       <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
-      <${ToolbarColorPicker} 
+      <${ToolbarColorPicker}
         onChange=${onColorChange}
         value=${attributes.brandColor}
         ucdBlock="panel-with-icon"/>
@@ -119,18 +95,47 @@ export default ( props ) => {
         sections=${cardSections}
         onChange=${onSectionToggle}/>
     </${BlockControls}>
-    <${IconPicker} 
+    <${IconPicker}
       ref=${iconPickerRef}
       onChange=${onIconSelect}
       selectedIcon=${attributes.icon}
-      ></${IconPicker}>
-    <ucd-wp-panel-with-icon ...${ mainEleProps() }>
-      <div slot="title" contentEditable="true"></div>
-      <div slot="more" contentEditable="true"></div>
-      <div slot="content">
-          <${InnerBlocks} />
-      </div>
-    </ucd-wp-panel-with-icon>
+      >
+    </${IconPicker}>
+    <div className=${classes}>
+      <h2 className="panel__title">
+        <ucdlib-icon
+          onClick=${onIconClick}
+          icon=${attributes.icon}
+          class=${iconClasses}>
+        </ucdlib-icon>
+        <${RichText}
+          tagName="span"
+          value=${attributes.title}
+          onChange=${(title) => setAttributes({title})}
+          withoutInteractiveFormatting
+          allowedFormats=${[]}
+          placeholder="Write a title..."
+        />
+      </h2>
+      <section>
+        <${InnerBlocks} />
+        ${!attributes.hideMoreLink && html`
+          <a className="icon-ucdlib">
+            <ucdlib-icon icon="ucd-public:fa-circle-chevron-right" class=${attributes.brandColor || ''}></ucdlib-icon>
+            <span>
+            <${RichText}
+              tagName="span"
+              value=${attributes.moreText}
+              onChange=${(moreText) => setAttributes({moreText})}
+              withoutInteractiveFormatting
+              allowedFormats=${[]}
+              placeholder="Write a link text..."
+            />
+            </span>
+          </a>
+        `}
+      </section>
+    </div>
 
   </div>
   `
