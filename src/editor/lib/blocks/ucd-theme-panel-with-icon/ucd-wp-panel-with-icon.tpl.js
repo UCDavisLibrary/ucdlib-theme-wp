@@ -30,9 +30,16 @@ export function styles() {
       display: flex;
       align-items: center;
     }
+    .forced-contrast a.icon--circle-arrow-right::before {
+      color: var(--forced-contrast, inherit);
+    }
 
     a.icon--circle-arrow-right::before {
       color: var(--category-brand, #73abdd);
+    }
+
+    .forced-contrast ucdlib-icon.panel__custom-icon {
+      color: var(--forced-contrast, inherit);
     }
 
     ucdlib-icon.panel__custom-icon {
@@ -45,7 +52,7 @@ export function styles() {
       min-width: 1.6055rem;
     }
     .panel {
-      background-color: transparent;
+      background-color: var(--panel-bg, #fff);
     }
     .panel--icon .panel__title {
       align-items: center;
@@ -72,19 +79,19 @@ export function styles() {
   ];
 }
 
-export function render() { 
+export function render() {
 return html`
 <div class=${classMap(this._getBaseClasses())}>
   <h2 class="panel__title">
-    <ucdlib-icon 
+    <ucdlib-icon
       @click=${this.dispatchIconChangeRequest}
-      icon=${this.icon} 
+      icon=${this.icon}
       class="panel__custom-icon ${this.color}">
     </ucdlib-icon>
-    <slot 
+    <slot
       id="title-slot"
       class=${this.title ? '' : 'show-placeholder'}
-      name="title" 
+      name="title"
       placeholder="Write a title..."
       @input=${this._onTitleInput}>${this.title}</slot>
   </h2>
@@ -92,10 +99,10 @@ return html`
     <slot name="content"></slot>
     ${!this.hideMoreLink ? html`
       <a class="icon icon--circle-arrow-right ${this.color ? `category-brand--${this.color}` : ''}">
-      <slot 
+      <slot
         id="more-slot"
         class=${this.moreText ? '' : 'show-placeholder'}
-        name="more" 
+        name="more"
         placeholder="See More..."
         @input=${this._onMoreTextInput}>${this.moreText}</slot>
       </a>

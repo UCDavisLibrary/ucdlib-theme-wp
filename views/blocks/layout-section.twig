@@ -11,6 +11,9 @@
 {% if color.isBrandColor and not hasImage %}
   {% set classes = classes|merge(['layout-section--'~color.slug]) %}
 {% endif %}
+{% if not color.isBrandColor and not hasImage and not color.isDark %}
+  {% set classes = classes|merge(['layout-section--non-brand-light']) %}
+{% endif %}
 {% if color.isDark and not hasImage %}
   {% set classes = classes|merge(['layout-section--light-on-dark']) %}
 {% endif %}

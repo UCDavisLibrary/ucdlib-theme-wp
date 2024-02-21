@@ -24,6 +24,7 @@ export default ( props ) => {
     'layout-section': true,
     'layout-section--force-contrast': !attributes.disableForceContrast,
     [`layout-section--${color.slug}`]: color.isBrandColor && !hasImage,
+    'layout-section--non-brand-light': !color.isBrandColor && !color.isDark && !hasImage,
     'layout-section--light-on-dark': color?.isDark && !hasImage,
     'layout-section--light-on-dark': hasImage && attributes.imageTextColor === 'light',
     'layout-section--dark-on-light': (color.value && !color.isBrandColor && !color.isDark) && !hasImage,
@@ -73,7 +74,14 @@ export default ( props ) => {
 
   // set up background color picker
   const onColorChange = (value) => {
-    setAttributes( {backgroundColor: value ? value: {} } );
+    value = value || {};
+    const attr = {
+      backgroundColor: value,
+    };
+    if ( !value.isBrandColor && !value.isDark && !hasImage ) {
+      attr.disableForceContrast = true;
+    }
+    setAttributes( attr );
   }
   const backgroundColorLabel = hasImage ? 'You Must Remove the Background Image To Use a Background Color' : 'Change Background Color';
 

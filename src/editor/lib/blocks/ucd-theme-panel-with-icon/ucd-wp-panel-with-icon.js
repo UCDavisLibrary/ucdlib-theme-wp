@@ -9,9 +9,10 @@ export default class UcdWpPanelWithIcon extends Mixin(LitElement)
     return {
       title: {type: String},
       icon: {type: String},
-      color: {type: String}, 
+      color: {type: String},
       moreText: {type: String, attribute: "more-text"},
       hideMoreLink: {type: Boolean, attribute: "hide-more-link"},
+      forcedContrast: {type: Boolean, attribute: "forced-contrast"},
       padding: {type: String}
     }
   }
@@ -29,6 +30,7 @@ export default class UcdWpPanelWithIcon extends Mixin(LitElement)
     this.moreText = "";
     this.hideMoreLink = false;
     this.padding = "";
+    this.forcedContrast = false;
   }
 
   updated(props){
@@ -45,6 +47,9 @@ export default class UcdWpPanelWithIcon extends Mixin(LitElement)
     };
     if ( this.padding ){
       classes[`o-box--${this.padding}`] = true;
+    }
+    if ( this.forcedContrast ){
+      classes['forced-contrast'] = true;
     }
 
     return classes;
