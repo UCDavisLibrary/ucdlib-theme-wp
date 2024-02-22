@@ -467,8 +467,10 @@ hr.y2 {
 	background-color: var(--category-brand, #fff);
 	opacity: var(--layout-section-colored-film-opacity, 0.25);
 }
-.layout-section--force-contrast ucdlib-icon {
-  color: var(--forced-contrast, inherit) !important;
+.layout-section--force-contrast {
+  :where(.panel__title, .icon-ucdlib) ucdlib-icon {
+    color: var(--forced-contrast, inherit) !important;
+  }
 }
 .layout-section--non-brand-light {
   --panel-bg: transparent;

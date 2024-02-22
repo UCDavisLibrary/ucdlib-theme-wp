@@ -1,46 +1,33 @@
 import { html, BlockSettings, SelectUtils, UCDIcons } from "../../utils";
 import { ImagePicker, ToolbarPostReset, ToolbarColorPicker, ToolbarSectionDisplay, ToolbarLinkPicker } from "../../block-components";
-import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import "./ucd-theme-marketing-highlight-horizontal";
-import { useRef, useEffect } from "@wordpress/element";
+import { useBlockProps, BlockControls, InspectorControls, RichText } from '@wordpress/block-editor';
 import { ToolbarButton } from "@wordpress/components";
+
+import classnames from 'classnames';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
-  const mainEleRef = useRef();
 
   // retrieve needed wp data
   const { customImage, post, postImage, postTitle } = SelectUtils.card(attributes);
   let customPostImage = post && post.meta ? post.meta.ucd_thumbnail_4x3 : 0;
   customPostImage = SelectUtils.image(customPostImage);
 
-  // Listen to changes in component body
-  const onMainEleUpdated = (e) => {
-    const propName = e.detail.propName;
-    const propValue = e.detail.propValue;
+  const onTextUpdate = (propName, propValue) => {
     let reset = false;
     if ( propName === 'title'){
       if (postTitle && !propValue ) return;
       if ( propValue === postTitle ) reset = true;
+    } else if (propName === 'excerpt') {
+      if (postExcerpt && !propValue ) return;
+      if ( propValue === postExcerpt ) reset = true;
     }
+
     const newAttrs = {};
     newAttrs[propName] = reset ? "" : propValue;
     setAttributes(newAttrs);
-
   }
-  useEffect(() => {
-    let mainEle = null;
-    if ( mainEleRef.current ) {
-      mainEleRef.current.addEventListener('updated', onMainEleUpdated);
-      mainEle = mainEleRef.current;
-    }
-    return () => {
-      if ( mainEle ) {
-        mainEle.removeEventListener('updated', onMainEleUpdated);
-      }
-    };
-  });
 
   // set up link picker
   const onHrefChange = (value) => {
@@ -102,32 +89,24 @@ export default ( props ) => {
     setAttributes({imageId: 0});
   }
 
-  const mainEleProps = () => {
-    let p = {ref: mainEleRef};
-
-    if ( attributes.brandColor ) p['brand-color'] = attributes.brandColor;
-    if ( attributes.hideTitle ) p['hide-title'] = "true";
-    if ( attributes.overlay ) p.overlay = "true";
-    if ( attributes.href || post ) p.href = attributes.href ? attributes.href : post.link;
-
-    if ( attributes.title ){
-      p.title = attributes.title;
-    } else if ( postTitle ){
-      p.title = postTitle;
-    } else {p.title = ""}
-
-    if ( customImage ) {
-      p['img-src'] = customImage.source_url;
-    } else if ( customPostImage ){
-      p['img-src'] = customPostImage.source_url;
-    } else if ( postImage ){
-      p['img-src'] = postImage.source_url;
-    } else {
-      p['img-src'] = BlockSettings.getImage('marketing-highlight-horizontal');
-    }
-
-    return p
+  let title = '';
+  if ( attributes.title ){
+    title = attributes.title;
+  } else if ( postTitle ){
+    title = postTitle;
   }
+  let imgSrc = BlockSettings.getImage('marketing-highlight-horizontal');
+  if ( customImage ) {
+    imgSrc = customImage.source_url;
+  } else if ( postImage ){
+    imgSrc = postImage.source_url;
+  }
+
+  const classes = classnames({
+    'marketing-highlight-horizontal': true,
+    [`category-brand--${attributes.brandColor}`]: attributes.brandColor,
+    'marketing-highlight-horizontal--overlay': attributes.overlay
+  });
 
   return html`
     <div ...${ blockProps }>
@@ -166,9 +145,25 @@ export default ( props ) => {
           panelAttributes=${{title: 'Custom Image'}}
         />
       </${InspectorControls}>
-      <ucd-theme-marketing-highlight-horizontal ...${ mainEleProps() }>
-        <div slot="title" contentEditable="true"></div>
-      </ucd-theme-marketing-highlight-horizontal>
+      <div className=${classes}>
+        <div className="marketing-highlight-horizontal__image">
+          <div className="u-background-image aspect--16x9" style=${{backgroundImage: `url(${imgSrc})`}}></div>
+        </div>
+        ${!attributes.hideTitle && html`
+          <div className="marketing-highlight-horizontal__body">
+            <h5 className="marketing-highlight-horizontal__title">
+              <${RichText}
+                tagName="span"
+                value=${title}
+                onChange=${ (value) => onTextUpdate('title', value)}
+                withoutInteractiveFormatting
+                allowedFormats=${[]}
+                placeholder="Write a title..."
+              />
+            </h5>
+          </div>
+        `}
+      </div>
     </div>
   `;
 };

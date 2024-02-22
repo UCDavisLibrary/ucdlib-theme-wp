@@ -1,15 +1,14 @@
-import { UCDIcons } from "../../utils";
+import { UCDIcons, Save } from "../../utils";
 import Edit from './edit';
-import Save from "./save";
 
 const name = 'ucd-theme/column';
 const settings = {
   api_version: 2,
 	title: "Column",
   parent: [
-    "ucd-theme/layout-basic", 
-    "ucd-theme/layout-columns", 
-    "ucd-theme/layout-container", 
+    "ucd-theme/layout-basic",
+    "ucd-theme/layout-columns",
+    "ucd-theme/layout-container",
     "ucd-theme/layout-quad"],
 	description: "A column used by layout blocks",
 	icon: UCDIcons.renderBlockIcon('column'),

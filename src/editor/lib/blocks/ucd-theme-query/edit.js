@@ -3,7 +3,6 @@ import { AuthorPicker, TermPicker, DebouncedText, OrderPicker } from "../../bloc
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { RangeControl, PanelBody, SelectControl, Spinner } from '@wordpress/components';
 import { decodeEntities } from "@wordpress/html-entities";
-import "../ucd-theme-media-link/ucd-wp-media-link";
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -22,7 +21,7 @@ export default ( props ) => {
     };
     if ( attributes.author ) q.author = attributes.author;
     if ( attributes.search ) q.search = attributes.search;
-    
+
     for (const tax in attributes.terms) {
       const v = attributes.terms[tax].join(",");
       if ( !v ) continue;
@@ -46,7 +45,7 @@ export default ( props ) => {
 
 
   const { postTypesTaxonomiesMap, postTypesSelectOptions } = SelectUtils.postTypes();
-  
+
   // get all taxonomies registered to the selected post type(s)
   const taxonomies = [];
   if ( postTypesTaxonomiesMap && attributes.postType ) {
@@ -61,7 +60,7 @@ export default ( props ) => {
 
     });
   }
-  
+
   const onPostTypeChange = ( postType ) => {
     const terms = {};
     postTypesTaxonomiesMap[postType].forEach(taxonomy => {
@@ -73,36 +72,42 @@ export default ( props ) => {
 
   const onTermChange = ( v ) => {
     const terms = {
-      ...attributes.terms, 
+      ...attributes.terms,
       [ v.taxonomy ]: v.terms
     };
     setAttributes({terms})
   }
 
+  const renderMediaLink = (post, i) => {
 
-  const postProps = (post, i) => {
-    let p = {key: i};
+    let title = '';
+    let excerpt = '';
+    let imgSrc = BlockSettings.getImage('media-link');
 
     if ( post ){
-      p.href = post.link;
-      p.title = decodeEntities(post.title.rendered);
-      
+      title = decodeEntities(post.title.rendered);
       if ( post.excerpt ){
-        p.excerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
-        p.excerpt = decodeEntities(p.excerpt).replace(/(?:\r\n|\r|\n)/g, '');
+        excerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
+        excerpt = decodeEntities(excerpt).replace(/(?:\r\n|\r|\n)/g, '');
       }
-
       if ( post.customImage ) {
-        p['img-src'] = post.customImage.source_url;
+        imgSrc = post.customImage.source_url;
       }else if ( post.image ) {
-        p['img-src'] = post.image.source_url;
-      } else {
-        p['img-src'] = BlockSettings.getImage('media-link');
+        imgSrc = post.image.source_url;
       }
     }
 
-    return p
-  }
+    return html`
+      <a className="media-link" key=${post.id || i}>
+        <div className="media-link__figure" style=${{maxWidth: '135px', width: '25%'}}>
+          <div className="u-background-image aspect--1x1" style=${{backgroundImage: `url(${imgSrc})`}}></div>
+        </div>
+        <div className="media-link__body">
+          <h3 className="media-link__title">${title}</h3>
+          <p>${excerpt}</p>
+        </div>
+      </a>`;
+  };
 
   return html`
     <div ...${ blockProps }>
@@ -116,18 +121,18 @@ export default ( props ) => {
             label='Post Type'
             onChange=${ onPostTypeChange }
           />
-          <${AuthorPicker} 
+          <${AuthorPicker}
             value=${attributes.author}
             onChange=${(author) => setAttributes({author})}
           />
           ${taxonomies.map(t => html`
-            <${TermPicker} 
-              key=${t} 
+            <${TermPicker}
+              key=${t}
               onChange=${onTermChange}
               value=${attributes.terms[t]}
               taxonomy=${t}/>
           `)}
-          <${DebouncedText} 
+          <${DebouncedText}
             label="Keyword"
             value=${attributes.search}
             onChange=${(search) => setAttributes({search})}
@@ -135,12 +140,12 @@ export default ( props ) => {
           </${PanelBody}>
 
           <${PanelBody} title="Display">
-            <${OrderPicker} 
+            <${OrderPicker}
               value=${{order: attributes.order, orderBy: attributes.orderBy}}
               onChange=${(v) => setAttributes(v)}
               postType=${postType}
             />
-            <${RangeControl} 
+            <${RangeControl}
               label="Number of posts"
               value=${attributes.postCt}
               onChange=${(postCt) => setAttributes({postCt})}
@@ -153,9 +158,7 @@ export default ( props ) => {
       ${!posts.length && html`
         <${Spinner} />
       `}
-      ${posts.map((p, i) => html`
-        <ucd-wp-media-link ...${ postProps(p, i) }></ucd-wp-media-link>
-      `)}
+      ${posts.map((p, i) => renderMediaLink(p, i))}
     </div>
 
   `;

@@ -1,50 +1,33 @@
 import { html, BlockSettings, SelectUtils, UCDIcons } from "../../utils";
 import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarSectionDisplay, ToolbarLinkPicker } from "../../block-components";
-import "./ucd-wp-marketing-highlight";
-import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
+import { useBlockProps, BlockControls, InspectorControls, RichText } from '@wordpress/block-editor';
 import { ToolbarButton } from "@wordpress/components";
-import { useRef, useEffect } from "@wordpress/element";
+
+import classnames from 'classnames';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
-  const mainEleRef = useRef();
+
+  const onTextUpdate = (propName, propValue) => {
+    let reset = false;
+    if ( propName === 'title'){
+      if (postTitle && !propValue ) return;
+      if ( propValue === postTitle ) reset = true;
+    } else if (propName === 'excerpt') {
+      if (postExcerpt && !propValue ) return;
+      if ( propValue === postExcerpt ) reset = true;
+    }
+
+    const newAttrs = {};
+    newAttrs[propName] = reset ? "" : propValue;
+    setAttributes(newAttrs);
+  }
 
   // retrieve needed wp data
   const {customImage, post, postTitle, postExcerpt, postImage} = SelectUtils.card(attributes);
   let customPostImage = post && post.meta ? post.meta.ucd_thumbnail_4x3 : 0;
   customPostImage = SelectUtils.image(customPostImage);
-
-  // Listen to changes in component body
-  const onMainEleUpdated = (e) => {
-    const propName = e.detail.propName;
-    const propValue = e.detail.propValue;
-    let reset = false;
-    if ( propName === 'title'){
-      if (postTitle && !propValue ) return;
-      if ( propValue === postTitle ) reset = true;
-    } else if (postExcerpt && propName === 'excerpt') {
-      if (postExcerpt && !propValue ) return;
-      if ( propValue === postExcerpt ) reset = true;
-    }
-    
-    const newAttrs = {};
-    newAttrs[propName] = reset ? "" : propValue;
-    setAttributes(newAttrs);
-
-  }
-  useEffect(() => {
-    let mainEle = null;
-    if ( mainEleRef.current ) {
-      mainEleRef.current.addEventListener('updated', onMainEleUpdated);
-      mainEle = mainEleRef.current;
-    }
-    return () => {
-      if ( mainEle ) {
-        mainEle.removeEventListener('updated', onMainEleUpdated);
-      }
-    };
-  });
 
   // set up image picker
   const onSelectImage = (image) => {
@@ -67,7 +50,7 @@ export default ( props ) => {
   const postParts = (() => {
     return [
       {slug: "thumbnail", isDisabled: !attributes.imageId || !postImage},
-      {slug: 'title', isDisabled: !attributes.title}, 
+      {slug: 'title', isDisabled: !attributes.title},
       {slug: 'excerpt', isDisabled: !attributes.excerpt}]
   })();
 
@@ -82,7 +65,7 @@ export default ( props ) => {
     return [
       {slug: 'badge', title: "Badge", icon: "picture-in-picture-alt", isHidden: attributes.hideBadge},
       {slug: "title", isHidden: attributes.hideTitle},
-      {slug: 'excerpt', isHidden: attributes.hideExcerpt}, 
+      {slug: 'excerpt', isHidden: attributes.hideExcerpt},
       {slug: 'button', isHidden: attributes.hideButton}
     ]
   })();
@@ -112,53 +95,41 @@ export default ( props ) => {
     setAttributes( {brandColor: value ? value.slug : "" } );
   }
 
-  const mainEleProps = () => {
-    let p = {ref: mainEleRef, "button-text": attributes.buttonText};
+  const classes = classnames({
+    "marketing-highlight": true,
+    [`category-brand--${attributes.brandColor}`]: attributes.brandColor,
+    [`marketing-highlight--featured`]: attributes.featured
+  });
 
-    if ( attributes.featured ) p.featured = "true";
-    if ( attributes.brandColor ) p.color = attributes.brandColor;
-    if ( attributes.href || post ) p.href = attributes.href ? attributes.href : post.link;
-    if ( attributes.hideTitle ) p['hide-title'] = "true";
-    if ( attributes.hideExcerpt ) p['hide-excerpt'] = "true";
-    if ( attributes.hideBadge ) p['hide-badge'] = "true";
-    if ( attributes.hideButton ) p['hide-button'] = "true";
-    if ( attributes.badge ) p['badge'] = attributes.badge;
-
-    if ( attributes.title ){
-      p.title = attributes.title;
-    } else if ( postTitle ){
-      p.title = postTitle;
-    } else {p.title = ""}
-
-    if ( attributes.excerpt ){
-      p.excerpt = attributes.excerpt;
-    } else if ( postExcerpt ){
-      p.excerpt = postExcerpt;
-    } else {p.excerpt = ""}
-
-    if ( customImage ) {
-      p['img-src'] = customImage.source_url;
-    } else if ( customPostImage ){
-      p['img-src'] = customPostImage.source_url;
-    } else if ( postImage ){
-      p['img-src'] = postImage.source_url;
-    } else {
-      p['img-src'] = BlockSettings.getImage('marketing-highlight');
-    }
-
-    return p
+  let title = '';
+  if ( attributes.title ){
+    title = attributes.title;
+  } else if ( postTitle ){
+    title = postTitle;
+  }
+  let excerpt = '';
+  if ( attributes.excerpt ){
+    excerpt = attributes.excerpt;
+  } else if ( postExcerpt ){
+    excerpt = postExcerpt;
+  }
+  let imgSrc = BlockSettings.getImage('marketing-highlight');
+  if ( customImage ) {
+    imgSrc = customImage.source_url;
+  } else if ( postImage ){
+    imgSrc = postImage.source_url;
   }
 
   return html`
     <div ...${ blockProps }>
       <${BlockControls} group="block">
         <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
-        <${ToolbarButton} 
-          icon=${UCDIcons.render("color.fill")} 
-          onClick=${ () => {setAttributes({'featured': !attributes.featured})}} 
+        <${ToolbarButton}
+          icon=${UCDIcons.render("color.fill")}
+          onClick=${ () => {setAttributes({'featured': !attributes.featured})}}
           isPressed=${attributes.featured}
           label="Toggle 'Featured' Display Setting"/>
-        <${ToolbarColorPicker} 
+        <${ToolbarColorPicker}
           onChange=${onColorChange}
           value=${attributes.brandColor}
           ucdBlock="marketing-highlight"
@@ -175,7 +146,7 @@ export default ( props ) => {
         `}
       </${BlockControls}>
       <${InspectorControls}>
-        <${ImagePicker} 
+        <${ImagePicker}
           imageId=${attributes.imageId}
           image=${customImage}
           onSelect=${onSelectImage}
@@ -186,12 +157,60 @@ export default ( props ) => {
           panelAttributes=${{title: 'Custom Card Image'}}
         />
       </${InspectorControls}>
-      <ucd-wp-marketing-highlight ...${ mainEleProps() }>
-        <div slot="title" contentEditable="true"></div>
-        <div slot="excerpt" contentEditable="true"></div>
-        <div slot="badge" contentEditable="true"></div>
-        <div slot="button" contentEditable="true"></div>
-      </ucd-wp-marketing-highlight>
+      <div className=${classes}>
+        <div className="marketing-highlight__image aspect--4x3 u-background-image" role="img" style=${{backgroundImage: `url(${imgSrc})`}}>
+          ${!attributes.hideBadge && html`
+            <h3 className="marketing-highlight__type">
+              <${RichText}
+                tagName="span"
+                value=${attributes.badge}
+                onChange=${(badge) => setAttributes({badge})}
+                withoutInteractiveFormatting
+                allowedFormats=${[]}
+                placeholder="Write text..."
+              />
+            </h3>
+          `}
+        </div>
+        <div className="marketing-highlight__body">
+          ${!attributes.hideTitle && html`
+            <h3 className="marketing-highlight__title">
+              <${RichText}
+                tagName="span"
+                value=${title}
+                onChange=${(value) => onTextUpdate('title', value)}
+                withoutInteractiveFormatting
+                allowedFormats=${[]}
+                placeholder="Write a title..."
+              />
+            </h3>
+          `}
+          ${!attributes.hideExcerpt && html`
+            <p>
+              <${RichText}
+                tagName="span"
+                value=${excerpt}
+                onChange=${(value) => onTextUpdate('excerpt', value)}
+                withoutInteractiveFormatting
+                allowedFormats=${[]}
+                placeholder="Write text..."
+              />
+            </p>
+          `}
+          ${!attributes.hideButton && html`
+            <span className="marketing-highlight__cta">
+              <${RichText}
+                tagName="span"
+                value=${attributes.buttonText}
+                onChange=${(value) => setAttributes({buttonText: value})}
+                withoutInteractiveFormatting
+                allowedFormats=${[]}
+                placeholder="Write text..."
+              />
+            </span>
+          `}
+        </div>
+      </div>
     </div>
 
   `;

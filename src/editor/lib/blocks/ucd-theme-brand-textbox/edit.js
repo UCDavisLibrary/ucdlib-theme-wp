@@ -3,6 +3,8 @@ import { useBlockProps, BlockControls, InnerBlocks } from '@wordpress/block-edit
 import { ToolbarColorPicker, ToolbarFloat } from "../../block-components";
 import { ToolbarButton } from '@wordpress/components';
 
+import classnames from 'classnames';
+
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -15,6 +17,12 @@ export default ( props ) => {
     return p;
   }
 
+  const classes = classnames({
+    "brand-textbox": true,
+    "category-brand__background": true,
+    [`category-brand--${attributes.brandColor}`]: attributes.brandColor
+  });
+
   // set up color picker
   const onColorChange = (value) => {
     setAttributes( {brandColor: value ? value.slug : "" } );
@@ -23,24 +31,31 @@ export default ( props ) => {
   return html`
   <div ...${ blockProps }>
     <${BlockControls} group="block">
-      <${ToolbarColorPicker} 
+      <${ToolbarColorPicker}
         onChange=${onColorChange}
         value=${attributes.brandColor}
         ucdBlock="brand-textbox"
       />
-      <${ToolbarButton} 
-          icon=${html`<span>X</span>`} 
-          onClick=${ () => {setAttributes({'collapsible': !attributes.collapsible})}} 
+      <${ToolbarButton}
+          icon=${html`<span>X</span>`}
+          onClick=${ () => {setAttributes({'collapsible': !attributes.collapsible})}}
           isPressed=${attributes.collapsible}
           label="Make textbox collapsible"/>
-      <${ToolbarFloat} 
+      <${ToolbarFloat}
         value=${attributes.float}
         onChange=${(v) => setAttributes({float: v.slug})}
       />
     </${BlockControls}>
-    <ucd-theme-brand-textbox ...${ mainEleProps() }>
-      <${InnerBlocks} />
-    </ucd-theme-brand-textbox>
+    ${attributes.collapsible ? html`
+      <ucd-theme-brand-textbox ...${ mainEleProps() }>
+        <${InnerBlocks} />
+      </ucd-theme-brand-textbox>` :
+      html`
+        <div className=${classes}>
+          <${InnerBlocks} />
+        </div>
+      `}
+
   </div>
   `
 }

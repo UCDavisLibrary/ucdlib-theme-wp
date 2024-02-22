@@ -1,13 +1,11 @@
-import { UCDIcons } from "../../utils";
+import { UCDIcons, Save } from "../../utils";
 import Edit from './edit';
-import Save from './save';
 
 const name = 'ucd-theme/faq-item';
 const settings = {
   api_version: 2,
 	title: "FAQ Item",
-  parent: [
-    "ucd-theme/faq"],
+  parent: ["ucd-theme/faq"],
 	description: "Add a question and answer to a faq section",
 	icon: UCDIcons.renderBlockIcon('faq-individual'),
 	category: 'text',

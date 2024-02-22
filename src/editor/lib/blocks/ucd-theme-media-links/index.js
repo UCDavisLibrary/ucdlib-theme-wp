@@ -1,6 +1,5 @@
-import { UCDIcons } from "../../utils";
+import { UCDIcons, Save } from "../../utils";
 import Edit from './edit';
-import Save from "./save";
 
 const name = 'ucd-theme/media-links';
 const settings = {
