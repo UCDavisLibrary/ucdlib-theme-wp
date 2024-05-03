@@ -1,4 +1,5 @@
 <?php
+
 // load Timber
 require_once( __DIR__ . '/includes/timber.php' );
 if ( ! class_exists( 'Timber' ) ) return;
