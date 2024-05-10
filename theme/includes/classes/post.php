@@ -194,6 +194,7 @@ class UcdThemePost extends Timber\Post {
       return $this->breadcrumbs;
     }
     $customParent = get_post_meta($this->ID, 'ucd_nav_parent', true);
+    $customParent = apply_filters( 'ucd-theme/post/breadcrumbs/custom_parent', $customParent, $this );
     $in_nav = UcdThemeMenu::getDirectHierarchyinMenu( $primary_nav, $this->id );
 
     // user manually selected the breadcrumb parent
