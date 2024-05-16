@@ -1,0 +1,28 @@
+// IET doubled the gap for all grid layouts because they removed o-box class
+// we will stay with the original gap value
+html {
+  --l-gap-override: 1.5rem;
+}
+
+// IET changed this value to 2.25rem. We will stay with the original value
+@media (max-width: 991px) {
+  .l-2col > :where(* + *) {
+    margin-top: 1rem;
+  }
+  .l-3col > :where(* + *) {
+    margin-top: 1rem;
+  }
+  .l-4col > :where(* + *) {
+    margin-top: 1rem;
+  }
+}
+
+// nested container width was changed to 100%. We will stay with the original value
+.l-container :where(.l-container) {
+  width: 92%;
+}
+
+// IET changed the margin-bottom value to 2.25rem. We will stay with the original value
+.panel {
+  margin-bottom: 1.5rem;
+}
