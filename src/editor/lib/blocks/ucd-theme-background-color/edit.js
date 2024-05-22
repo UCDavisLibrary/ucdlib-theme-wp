@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 
-import { html, BlockSettings } from "../../utils";
+import { html, BlockSettings, showBlockDeprecationWarning } from "../../utils";
 import { ToolbarColorPicker, ToolbarFloat } from "../../block-components";
 import { blueTints, goldTints } from "@ucd-lib/theme-sass/colors";
 import { useBlockProps,
@@ -29,6 +29,8 @@ export default ( props ) => {
     className: classes,
     style: styles
   } );
+
+  const showDeprecationWarning = showBlockDeprecationWarning();
 
   const innerBlocksProps = useInnerBlocksProps( blockProps, {
     templateLock: false,
@@ -98,9 +100,11 @@ export default ( props ) => {
           `}
         </${PanelBody}>
       </${InspectorControls}>
-      <div className='brand-textbox category-brand--double-decker category-brand__background'>
-        This block has been deprecated, and will be removed in a future release. Please use the "Section" block instead.
-      </div>
+      ${showDeprecationWarning && html`
+        <div className='brand-textbox category-brand--double-decker category-brand__background'>
+          This block has been deprecated, and will be removed in a future release. Please use the "Section" block instead.
+        </div>
+      `}
       <div ...${ innerBlocksProps } >
       </div>
     </${Fragment}>
