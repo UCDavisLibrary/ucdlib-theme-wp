@@ -6,8 +6,8 @@ import transformToSection from "./transform-to-section.js";
 const name = 'ucd-theme/background-image';
 const settings = {
   api_version: 2,
-	title: "Background Image",
-	description: "Add any content on top of a background image",
+	title: "Background Image (Deprecated)",
+	description: "This block has been deprecated. Please use the 'Section' block instead.",
 	icon: UCDIcons.renderBlockIcon('background-image'),
 	category: 'media',
 	keywords: [ 'post', 'page', 'banner', 'image', 'hero' ],

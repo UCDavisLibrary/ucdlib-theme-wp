@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 
-import { html, SelectUtils } from "../../utils";
+import { html, SelectUtils, showBlockDeprecationWarning } from "../../utils";
 import { ImagePicker, ToolbarColorPicker } from "../../block-components";
 import { useBlockProps, BlockControls, InspectorControls, InnerBlocks } from '@wordpress/block-editor';
 import { ToolbarButton } from '@wordpress/components';
@@ -25,6 +25,8 @@ export default ( props ) => {
   const onColorChange = (value) => {
     setAttributes( {brandColor: value ? value.slug : "" } );
   }
+
+  const showDeprecationWarning = showBlockDeprecationWarning();
 
   const classes = classnames({
     'hero-banner': true,
@@ -66,9 +68,11 @@ export default ( props ) => {
           panelAttributes=${{title: 'Background Image'}}
         />
       </${InspectorControls}>
-      <div className='brand-textbox category-brand--double-decker category-brand__background'>
-        This block has been deprecated, and will be removed in a future release. Please use the "Section" block instead.
-      </div>
+      ${showDeprecationWarning && html`
+        <div className='brand-textbox category-brand--double-decker category-brand__background'>
+          This block has been deprecated, and will be removed in a future release. Please use the "Section" block instead.
+        </div>
+      `}
       ${(Image !== undefined ) && html`
         <div className=${classes}>
           <div className="hero-banner__image u-background-image" style=${imgStyles}></div>
