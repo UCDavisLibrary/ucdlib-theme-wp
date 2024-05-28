@@ -131,7 +131,7 @@ export default ( props ) => {
       />
     </${InspectorControls}>
 
-    <a className=${classes}>
+    <a className=${classes} style=${{width:'100%', margin: 0}}>
       <div className="aspect--16x9 u-background-image" style=${{backgroundImage: `url(${imgSrc})`}}></div>
       <div className="vm-poster__body">
         <div className="vm-poster__body-text">
