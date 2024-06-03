@@ -164,6 +164,7 @@ class UcdThemePost extends Timber\Post {
     if ( !$this->breadcrumbText ) {
       $this->breadcrumbText = $this->title();
     }
+    $this->breadcrumbText = apply_filters( 'ucd-theme/post/breadcrumbs/text', $this->breadcrumbText, $this );
     return $this->breadcrumbText;
   }
 
