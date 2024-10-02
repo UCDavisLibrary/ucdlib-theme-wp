@@ -12,7 +12,7 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "@ucd-lib/theme-elements": "^2.0.1",
+    "@ucd-lib/theme-elements": "^3.0.4",
     "@ucd-lib/theme-sass": "^6.0.1",
     "@wordpress/api-fetch": "^6.0.1",
     "@wordpress/block-editor": "^7.0.2",
