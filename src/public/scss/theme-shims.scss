@@ -26,3 +26,8 @@ html {
 .panel {
   margin-bottom: 1.5rem;
 }
+
+// hot fix for bug in chrome 129
+.marketing-highlight-horizontal--overlay {
+  position: relative;
+}
