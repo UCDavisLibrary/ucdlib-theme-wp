@@ -26,3 +26,10 @@ html {
 .panel {
   margin-bottom: 1.5rem;
 }
+
+// l-gutter class has this same after pseudo element. ensure consistency
+.layout-section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
