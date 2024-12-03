@@ -613,7 +613,7 @@ kwargs:
     {% set author = kwargs.post.author.name %}
   {% endif %}
 
-  <div class="search-result">
+  <div class="search-result search-result--{{kwargs.post.post_type}}">
     <h3 class="search-result__title"><a href="{{ href }}">{{ title }}</a></h3>
     <p>{{excerpt}}</p>
     {% if author and not kwargs.hideByline %}
