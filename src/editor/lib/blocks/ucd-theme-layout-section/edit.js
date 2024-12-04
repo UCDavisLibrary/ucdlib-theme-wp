@@ -2,7 +2,6 @@ import classnames from 'classnames';
 
 import { html, BlockSettings, UCDIcons, SelectUtils } from "../../utils";
 import { ToolbarColorPicker, ImagePicker } from "../../block-components";
-import backgroundColors from "./colors.js";
 import { useBlockProps,
   InspectorControls,
   BlockControls,
@@ -10,6 +9,9 @@ import { useBlockProps,
 } from '@wordpress/block-editor';
 import { ToolbarButton, ToggleControl, PanelBody, SelectControl, RangeControl, ColorPalette } from '@wordpress/components';
 import { Fragment } from "@wordpress/element";
+
+import backgroundColors from "./colors.js";
+const filmColors = BlockSettings.getBlockColors('layout-section').map(c => Object({name: c.title, slug: c.id, color: c.hex}));
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -19,6 +21,7 @@ export default ( props ) => {
   const hasImage = Image ? true : false;
 
   const color = attributes.backgroundColor ? attributes.backgroundColor : {};
+  const filmColorSlug = (filmColors.find(c => c.slug === attributes.imageBrandFilmColor) || {}).slug || '';
 
   const classes = classnames({
     'layout-section': true,
@@ -75,15 +78,17 @@ export default ( props ) => {
   // set up background color picker
   const onColorChange = (value) => {
     value = value || {};
+    const imageBrandFilmColor = (filmColors.find(c => c.color === value.color) || {}).slug || '';
     const attr = {
       backgroundColor: value,
+      imageBrandFilmColor
     };
+
     if ( !value.isBrandColor && !value.isDark && !hasImage ) {
       attr.disableForceContrast = true;
     }
     setAttributes( attr );
   }
-  const backgroundColorLabel = hasImage ? 'You Must Remove the Background Image To Use a Background Color' : 'Change Background Color';
 
   // set up image picker
   const onSelectImage = (image) => {
@@ -132,24 +137,34 @@ export default ( props ) => {
   ];
 
   // set up image film color picker
-  const filmColors = BlockSettings.getBlockColors('layout-section').map(c => Object({name: c.title, slug: c.id, color: c.hex}));
-  const filmColorValue = (filmColors.find(c => c.slug === attributes.imageBrandFilmColor) || {}).color || '';
   const onFilmColorChange = (value) => {
-    const imageBrandFilmColor = (filmColors.find(c => c.color === value) || {}).slug || '';
-    setAttributes( {imageBrandFilmColor } );
+    value = value || {};
+    const backgroundColor = backgroundColors.find(c => c.color === value.color) || {};
+    const imageBrandFilmColor = (filmColors.find(c => c.color === value.color) || {}).slug || '';
+    setAttributes( {imageBrandFilmColor, backgroundColor } );
   }
 
   return html`
     <${Fragment}>
       <${BlockControls} group="block">
-        <${ToolbarColorPicker}
-          onChange=${onColorChange}
-          value=${color.slug}
-          colors=${backgroundColors}
-          buttonLabel=${backgroundColorLabel}
-          disabled=${hasImage}
-          popoverTitle="Background Color Options"
-        />
+      ${hasImage ? html`
+          <${ToolbarColorPicker}
+            onChange=${onFilmColorChange}
+            value=${filmColorSlug}
+            colors=${filmColors}
+            buttonLabel="Change Image Film Color"
+            popoverTitle="Image Film Color Options"
+          />
+        ` : html`
+          <${ToolbarColorPicker}
+            onChange=${onColorChange}
+            value=${color.slug}
+            colors=${backgroundColors}
+            buttonLabel="Change Background Color"
+            popoverTitle="Background Color Options"
+          />
+        `}
+
         <${ToolbarButton}
           icon=${UCDIcons.renderPublic('fa-droplet-slash')}
           onClick=${ () => {setAttributes({'disableForceContrast': !attributes.disableForceContrast})}}
@@ -210,13 +225,6 @@ export default ( props ) => {
             />
             ${attributes.imageBrandFilm && html`
               <div style=${{marginTop: '1rem'}}>
-                <${ColorPalette}
-                    colors=${ filmColors }
-                    value=${ filmColorValue }
-                    disableCustomColors
-                    clearable
-                    onChange=${ onFilmColorChange }
-                    />
                 <${RangeControl}
                   label="Film Opacity"
                   value=${attributes.imageBrandFilmOpacity || 25}
@@ -247,13 +255,13 @@ export default ( props ) => {
         </${PanelBody}>
         <${PanelBody} title="Section Layout">
           <${SelectControl}
-            label="Gutters"
+            label="Content Width"
             value=${gutterValue}
             options=${gutterOptions}
             onChange=${onGutterChange}
           />
           <${SelectControl}
-            label="Width"
+            label="Section Width"
             value=${attributes.width}
             options=${widthOptions}
             onChange=${(v) => setAttributes({'width': v})}
