@@ -1,23 +1,12 @@
 import { html, BlockSettings, SelectUtils } from "../../utils";
 import { ImagePicker, ToolbarPostReset, ToolbarLinkPicker } from "../../block-components";
-import "./ucd-wp-media-link";
-import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { useRef, useEffect } from "@wordpress/element";
+import { useBlockProps, BlockControls, InspectorControls, RichText } from '@wordpress/block-editor';
 
 export default ( props ) => {
   const { attributes, setAttributes, context } = props;
   const blockProps = useBlockProps();
-  const mainEleRef = useRef();
 
-  // retrieve needed wp data
-  const {customImage, post, postTitle, postExcerpt, postImage} = SelectUtils.card(attributes);
-  let customPostImage = post && post.meta ? post.meta.ucd_thumbnail_1x1 : 0;
-  customPostImage = SelectUtils.image(customPostImage);
-
-  // Listen to changes in component body
-  const onMainEleUpdated = (e) => {
-    const propName = e.detail.propName;
-    const propValue = e.detail.propValue;
+  const onTextUpdate = (propName, propValue) => {
     let reset = false;
     if ( propName === 'title'){
       if (postTitle && !propValue ) return;
@@ -26,24 +15,16 @@ export default ( props ) => {
       if (postExcerpt && !propValue ) return;
       if ( propValue === postExcerpt ) reset = true;
     }
-    
+
     const newAttrs = {};
     newAttrs[propName] = reset ? "" : propValue;
     setAttributes(newAttrs);
-
   }
-  useEffect(() => {
-    let mainEle = null;
-    if ( mainEleRef.current ) {
-      mainEleRef.current.addEventListener('updated', onMainEleUpdated);
-      mainEle = mainEleRef.current;
-    }
-    return () => {
-      if ( mainEle ) {
-        mainEle.removeEventListener('updated', onMainEleUpdated);
-      }
-    };
-  });
+
+  // retrieve needed wp data
+  const {customImage, post, postTitle, postExcerpt, postImage} = SelectUtils.card(attributes);
+  let customPostImage = post && post.meta ? post.meta.ucd_thumbnail_1x1 : 0;
+  customPostImage = SelectUtils.image(customPostImage);
 
   // set up image picker
   const onSelectImage = (image) => {
@@ -66,7 +47,7 @@ export default ( props ) => {
   const postParts = (() => {
     return [
       {slug: "thumbnail", isDisabled: !attributes.imageId || !postImage},
-      {slug: 'title', isDisabled: !attributes.title}, 
+      {slug: 'title', isDisabled: !attributes.title},
       {slug: 'excerpt', isDisabled: !attributes.excerpt}]
   })();
 
@@ -95,39 +76,25 @@ export default ( props ) => {
     return value;
   })();
 
-  const mainEleProps = () => {
-    let p = {ref: mainEleRef};
+  const hideImage = attributes.hideImage || context['media-links/hideImage'] || false;
 
-    if ( attributes.href || post ) p.href = attributes.href ? attributes.href : post.link;
-    if ( attributes.hideImage) p['hide-image'] = "true";
-
-    if ( attributes.title ){
-      p.title = attributes.title;
-    } else if ( postTitle ){
-      p.title = postTitle;
-    } else {p.title = ""}
-
-    if ( attributes.excerpt ){
-      p.excerpt = attributes.excerpt;
-    } else if ( postExcerpt ){
-      p.excerpt = postExcerpt;
-    } else {p.excerpt = ""}
-
-    if ( context['media-links/hideImage'] ){
-      p['hide-image'] = true;
-    }
-
-    if ( customImage ) {
-      p['img-src'] = customImage.source_url;
-    } else if ( customPostImage ){
-      p['img-src'] = customPostImage.source_url;
-    } else if ( postImage ){
-      p['img-src'] = postImage.source_url;
-    } else {
-      p['img-src'] = BlockSettings.getImage('media-link');
-    }
-
-    return p
+  let title = '';
+  if ( attributes.title ){
+    title = attributes.title;
+  } else if ( postTitle ){
+    title = postTitle;
+  }
+  let excerpt = '';
+  if ( attributes.excerpt ){
+    excerpt = attributes.excerpt;
+  } else if ( postExcerpt ){
+    excerpt = postExcerpt;
+  }
+  let imgSrc = BlockSettings.getImage('media-link');
+  if ( customImage ) {
+    imgSrc = customImage.source_url;
+  } else if ( postImage ){
+    imgSrc = postImage.source_url;
   }
 
   return html`
@@ -142,7 +109,7 @@ export default ( props ) => {
         `}
       </${BlockControls}>
       <${InspectorControls}>
-        <${ImagePicker} 
+        <${ImagePicker}
           imageId=${attributes.imageId}
           image=${customImage}
           onSelect=${onSelectImage}
@@ -153,10 +120,35 @@ export default ( props ) => {
           panelAttributes=${{title: 'Custom Image'}}
         />
       </${InspectorControls}>
-      <ucd-wp-media-link ...${ mainEleProps() }>
-        <div slot="title" contentEditable="true"></div>
-        <div slot="excerpt" contentEditable="true"></div>
-      </ucd-wp-media-link>
+      <a className="media-link">
+        ${ !hideImage && html`
+          <div className="media-link__figure" style=${{maxWidth: '135px', width: '25%'}}>
+            <div className="u-background-image aspect--1x1" style=${{backgroundImage: `url(${imgSrc})`}}></div>
+          </div>
+        `}
+        <div className="media-link__body">
+          <h3 className="media-link__title">
+            <${RichText}
+              tagName="span"
+              value=${title}
+              onChange=${(value) => onTextUpdate('title', value)}
+              withoutInteractiveFormatting
+              allowedFormats=${[]}
+              placeholder="Write a title..."
+            />
+          </h3>
+          <p>
+          <${RichText}
+            tagName="span"
+            value=${excerpt}
+            onChange=${(value) => onTextUpdate('excerpt', value)}
+            withoutInteractiveFormatting
+            allowedFormats=${[]}
+            placeholder="Write text..."
+          />
+          </p>
+        </div>
+      </a>
     </div>
 
   `;

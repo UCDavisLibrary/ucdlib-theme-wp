@@ -1,0 +1,5 @@
+{% from getUcdMacro('cards') import photo_card %}
+{% if not attributes.brandColor %}
+  {% set attributes = attributes|merge({brandColor: 'primary'})%}
+{% endif %}
+{{ photo_card(attributes) }}

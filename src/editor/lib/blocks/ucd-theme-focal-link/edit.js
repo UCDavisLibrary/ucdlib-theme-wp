@@ -1,53 +1,25 @@
 import { html } from "../../utils";
-import "./ucd-wp-focal-link";
 import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker } from "../../block-components";
-import { useBlockProps, BlockControls } from '@wordpress/block-editor';
+import { useBlockProps, BlockControls, RichText } from '@wordpress/block-editor';
 import { useRef, useEffect, createRef } from "@wordpress/element";
+
+import classnames from 'classnames';
 
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
-  const mainEleRef = useRef();
   const iconPickerRef = createRef();
 
+  const classes = classnames({
+    "focal-link": true,
+    [`category-brand--${attributes.brandColor}`]: attributes.brandColor
+  });
 
-  // Wire up the main component
-  const onMainEleUpdated = (e) => {
-    const propName = e.detail.propName;
-    const propValue = e.detail.propValue;
-    const newAttrs = {};
-    newAttrs[propName] = propValue;
-    setAttributes(newAttrs);
-  }
-  const onIconChangeRequest = () => {
+  const onIconClick = () => {
     if ( iconPickerRef.current ){
       iconPickerRef.current.openModal();
     }
-  }
-
-  useEffect(() => {
-    let mainEle = null;
-    if ( mainEleRef.current ) {
-      mainEleRef.current.addEventListener('updated', onMainEleUpdated);
-      mainEleRef.current.addEventListener('icon-change', onIconChangeRequest);
-      mainEle = mainEleRef.current;
-    }
-    return () => {
-      if ( mainEle ) {
-        mainEle.removeEventListener('updated', onMainEleUpdated);
-        mainEle.removeEventListener('icon-change', onIconChangeRequest);
-      }
-    };
-  });
-
-  const mainEleProps = () => {
-    let p = {ref: mainEleRef};
-    if ( attributes.brandColor ) p.color = attributes.brandColor;
-    if ( attributes.icon ) p.icon = attributes.icon;
-    if ( attributes.text ) p.text = attributes.text;
-
-    return p;
   }
 
   // set up icon picker
@@ -65,7 +37,7 @@ export default ( props ) => {
     if ( value.kind == 'post-type' ){
       attrs.postId = value.id;
     } else if ( value.kind == 'taxonomy' ) {
-      attrs.taxId = value.id 
+      attrs.taxId = value.id
     }
     setAttributes(attrs);
   }
@@ -73,7 +45,7 @@ export default ( props ) => {
     let value = {opensInNewTab: attributes.newTab, url: ""};
     if ( attributes.href ) {
       value.url = attributes.href;
-    } 
+    }
     return value;
   })();
 
@@ -86,20 +58,34 @@ export default ( props ) => {
   <div ...${ blockProps }>
     <${BlockControls} group="block">
       <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
-      <${ToolbarColorPicker} 
+      <${ToolbarColorPicker}
           onChange=${onColorChange}
           value=${attributes.brandColor}
           ucdBlock="focal-link"
       />
     </${BlockControls}>
-    <${IconPicker} 
+    <${IconPicker}
       ref=${iconPickerRef}
       onChange=${onIconSelect}
       selectedIcon=${attributes.icon}
       ></${IconPicker}>
-    <ucd-wp-focal-link ...${ mainEleProps() }>
-      <div slot="text" contentEditable="true"></div>
-    </ucd-wp-focal-link>
+    <a className=${classes}>
+      <div className='focal-link__figure focal-link__icon clickable' onClick=${onIconClick}>
+        <ucdlib-icon icon=${attributes.icon}></ucdlib-icon>
+      </div>
+      <div className="focal-link__body">
+        <strong>
+          <${RichText}
+            tagName="span"
+            value=${attributes.text}
+            onChange=${(v) => setAttributes({text: v})}
+            withoutInteractiveFormatting
+            allowedFormats=${[]}
+            placeholder="Enter link text..."
+          />
+        </strong>
+      </div>
+    </a>
   </div>
   `
 }

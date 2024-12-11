@@ -1,24 +1,14 @@
 import { html, BlockSettings, SelectUtils } from "../../utils";
 import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarLinkPicker } from "../../block-components";
-import "./ucd-wp-poster";
-import { useRef, useEffect } from "@wordpress/element";
-import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
+import { useBlockProps, BlockControls, InspectorControls, RichText } from '@wordpress/block-editor';
+
+import classnames from 'classnames';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps({className: "vm-poster"});
-  const mainEleRef = useRef();
 
-  // retrieve needed wp data
-  const {customImage, post, postTitle, postExcerpt, postImage} = SelectUtils.card(attributes);
-  let customPostImage = post && post.meta ? post.meta.ucd_thumbnail_4x3 : 0;
-  customPostImage = SelectUtils.image(customPostImage);
-
-
-  // Listen to changes in component body
-  const onMainEleUpdated = (e) => {
-    const propName = e.detail.propName;
-    const propValue = e.detail.propValue;
+  const onTextUpdate = (propName, propValue) => {
     let reset = false;
     if ( propName === 'title'){
       if (postTitle && !propValue ) return;
@@ -27,24 +17,16 @@ export default ( props ) => {
       if (postExcerpt && !propValue ) return;
       if ( propValue === postExcerpt ) reset = true;
     }
-    
+
     const newAttrs = {};
     newAttrs[propName] = reset ? "" : propValue;
     setAttributes(newAttrs);
-
   }
-  useEffect(() => {
-    let mainEle = null;
-    if ( mainEleRef.current ) {
-      mainEleRef.current.addEventListener('updated', onMainEleUpdated);
-      mainEle = mainEleRef.current;
-    }
-    return () => {
-      if ( mainEle ) {
-        mainEle.removeEventListener('updated', onMainEleUpdated);
-      }
-    };
-  });
+
+  // retrieve needed wp data
+  const {customImage, post, postTitle, postExcerpt, postImage} = SelectUtils.card(attributes);
+  let customPostImage = post && post.meta ? post.meta.ucd_thumbnail_4x3 : 0;
+  customPostImage = SelectUtils.image(customPostImage);
 
   // set up link picker
   const onHrefChange = (value) => {
@@ -92,46 +74,39 @@ export default ( props ) => {
   const postParts = (() => {
     return [
       {slug: "thumbnail", isDisabled: !attributes.imageId || !postImage},
-      {slug: 'title', isDisabled: !attributes.title}, 
+      {slug: 'title', isDisabled: !attributes.title},
       {slug: 'excerpt', isDisabled: !attributes.excerpt}]
   })();
 
-  const mainEleProps = () => {
-    let p = {ref: mainEleRef};
-
-    if ( attributes.href || post ) p.href = attributes.href ? attributes.href : post.link;
-    if ( attributes.brandColor ) p.color = attributes.brandColor;
-
-    if ( attributes.title ){
-      p.title = attributes.title;
-    } else if ( postTitle ){
-      p.title = postTitle;
-    } else {p.title = ""}
-
-    if ( attributes.excerpt ){
-      p.excerpt = attributes.excerpt;
-    } else if ( postExcerpt ){
-      p.excerpt = postExcerpt;
-    } else {p.excerpt = ""}
-
-    if ( customImage ) {
-      p['img-src'] = customImage.source_url;
-    } else if ( customPostImage ){
-      p['img-src'] = customPostImage.source_url;
-    } else if ( postImage ){
-      p['img-src'] = postImage.source_url;
-    } else {
-      p['img-src'] = BlockSettings.getImage('poster');
-    }
-
-    return p;
+  let title = '';
+  if ( attributes.title ){
+    title = attributes.title;
+  } else if ( postTitle ){
+    title = postTitle;
   }
+  let excerpt = '';
+  if ( attributes.excerpt ){
+    excerpt = attributes.excerpt;
+  } else if ( postExcerpt ){
+    excerpt = postExcerpt;
+  }
+  let imgSrc = BlockSettings.getImage('poster');
+  if ( customImage ) {
+    imgSrc = customImage.source_url;
+  } else if ( postImage ){
+    imgSrc = postImage.source_url;
+  }
+
+  const classes = classnames({
+    "vm-poster": true,
+    [`category-brand--${attributes.brandColor}`]: attributes.brandColor
+  });
 
   return html`
   <div ...${ blockProps }>
     <${BlockControls} group="block">
       <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
-      <${ToolbarColorPicker} 
+      <${ToolbarColorPicker}
           onChange=${onColorChange}
           value=${attributes.brandColor}
           ucdBlock="poster"
@@ -144,7 +119,7 @@ export default ( props ) => {
       `}
     </${BlockControls}>
     <${InspectorControls}>
-      <${ImagePicker} 
+      <${ImagePicker}
         imageId=${attributes.imageId}
         image=${customImage}
         onSelect=${onSelectImage}
@@ -155,11 +130,35 @@ export default ( props ) => {
         panelAttributes=${{title: 'Custom Card Image'}}
       />
     </${InspectorControls}>
-    <ucd-wp-poster ...${ mainEleProps()}>
-      <div slot="title" contentEditable="true"></div>
-      <div slot="excerpt" contentEditable="true"></div>
-    </ucd-wp-poster>
-    
+
+    <a className=${classes} style=${{width:'100%', margin: 0}}>
+      <div className="aspect--16x9 u-background-image" style=${{backgroundImage: `url(${imgSrc})`}}></div>
+      <div className="vm-poster__body">
+        <div className="vm-poster__body-text">
+          <h2 className="vm-poster__title">
+            <${RichText}
+              tagName="span"
+              value=${title}
+              onChange=${(v) => onTextUpdate('title', v)}
+              withoutInteractiveFormatting
+              allowedFormats=${[]}
+              placeholder="Write a title..."
+            />
+          </h2>
+          <p>
+            <${RichText}
+              tagName="span"
+              value=${excerpt}
+              onChange=${(v) => onTextUpdate('excerpt', v)}
+              withoutInteractiveFormatting
+              allowedFormats=${[]}
+              placeholder="Write a summary..."
+            />
+          </p>
+        </div>
+      </div>
+    </a>
+
   </div>
   `;
 }

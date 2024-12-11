@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 
-import { html, SelectUtils } from "../../utils";
+import { html, SelectUtils, showBlockDeprecationWarning } from "../../utils";
 import { ImagePicker, ToolbarColorPicker } from "../../block-components";
 import { useBlockProps, BlockControls, InspectorControls, InnerBlocks } from '@wordpress/block-editor';
 import { ToolbarButton } from '@wordpress/components';
@@ -26,6 +26,8 @@ export default ( props ) => {
     setAttributes( {brandColor: value ? value.slug : "" } );
   }
 
+  const showDeprecationWarning = showBlockDeprecationWarning();
+
   const classes = classnames({
     'hero-banner': true,
     [`category-brand--${attributes.brandColor}`]: attributes.brandColor,
@@ -42,21 +44,21 @@ export default ( props ) => {
       <${BlockControls} group="block">
       ${(Image !== undefined) && html`
         <${Fragment}>
-          <${ToolbarColorPicker} 
+          <${ToolbarColorPicker}
             onChange=${onColorChange}
             value=${attributes.brandColor}
             ucdBlock="hero-banner"
           />
-          <${ToolbarButton} 
+          <${ToolbarButton}
             icon=${html`<span>P</span>`}
-            onClick=${ () => {setAttributes({'noPadding': !attributes.noPadding})}} 
+            onClick=${ () => {setAttributes({'noPadding': !attributes.noPadding})}}
             isPressed=${attributes.noPadding}
             label="Toggle padding"/>
         </${Fragment}>
         `}
       </${BlockControls}>
       <${InspectorControls}>
-        <${ImagePicker} 
+        <${ImagePicker}
           imageId=${attributes.imageId}
           image=${Image}
           onSelect=${onSelectImage}
@@ -66,6 +68,11 @@ export default ( props ) => {
           panelAttributes=${{title: 'Background Image'}}
         />
       </${InspectorControls}>
+      ${showDeprecationWarning && html`
+        <div className='brand-textbox category-brand--double-decker category-brand__background'>
+          This block has been deprecated, and will be removed in a future release. Please use the "Section" block instead.
+        </div>
+      `}
       ${(Image !== undefined ) && html`
         <div className=${classes}>
           <div className="hero-banner__image u-background-image" style=${imgStyles}></div>

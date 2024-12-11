@@ -1,4 +1,6 @@
 <?php
+use Timber\Site;
+
 require_once( __DIR__ . '/api.php' );
 require_once( __DIR__ . '/views.php' );
 require_once( __DIR__ . '/meta-data.php' );
@@ -23,7 +25,7 @@ require_once( __DIR__ . '/thumbnails.php' );
  * All necessary actions and filters are hooked on instantiation.
  * Can be access directly from the twig context as the 'site' property.
  */
-class UcdThemeSite extends Timber\Site {
+class UcdThemeSite extends Site {
 
   public $version;
   public $directories;
@@ -132,6 +134,7 @@ class UcdThemeSite extends Timber\Site {
     add_filter( 'timber/post/classmap', array($this, 'extend_post'), 4 );
     add_filter( 'post_type_labels_post', array($this, 'change_post_labels') );
     add_filter( 'wp_robots', [$this, 'robots_noindex'], 101 );
+    add_filter( 'timber/twig/environment/options', [ $this, 'update_twig_environment_options' ] );
 
     parent::__construct();
     }
@@ -269,6 +272,11 @@ class UcdThemeSite extends Timber\Site {
       $twig->addFunction( new Twig\TwigFunction( 'isBasicPostsQuery', array( $this, 'isBasicPostsQuery' ) ) );
 
       return $twig;
+    }
+
+    public function update_twig_environment_options($options){
+      $options['autoescape'] = false;
+      return $options;
     }
 
 }

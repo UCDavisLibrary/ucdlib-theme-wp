@@ -65,6 +65,7 @@ kwargs:
   href {String} - Url for card link. Will override 'post' permalink
   newTab {Boolean} - Opens card link in new tab
   brandColor {String} - UCD alt color slug
+  overlay {Boolean} - Overlays title over image
 #}
 {% macro marketing_highlight_horizontal( kwargs ) %}
 
@@ -101,8 +102,11 @@ kwargs:
   {% if kwargs.panel %}
     {% set classes = classes ~ " panel" %}
   {% endif %}
-  {% if kwargs.oBox %}
+  {% if kwargs.oBox and not kwargs.overlay %}
     {% set classes = classes ~ " o-box" %}
+  {% endif %}
+  {% if kwargs.overlay %}
+    {% set classes = classes ~ " marketing-highlight-horizontal--overlay" %}
   {% endif %}
 
 
@@ -239,9 +243,14 @@ kwargs:
   newTab {Boolean} - If link opens in new tab
 #}
 {% macro priority_link( kwargs={} ) %}
-  {% set classes = ['vertical-link', 'vertical-link--circle'] %}
+  {% set classes = ['vertical-link'] %}
   {% if kwargs.brandColor %}
     {% set classes = classes|merge(['category-brand--' ~ kwargs.brandColor]) %}
+  {% endif %}
+  {% if kwargs.tiltCircle %}
+    {% set classes = classes|merge(['vertical-link--tilt-circle']) %}
+  {% else %}
+    {% set classes = classes|merge(['vertical-link--circle']) %}
   {% endif %}
   {% set classes = classes|join(' ') %}
 
@@ -257,6 +266,47 @@ kwargs:
       <div class="vertical-link__title">{{kwargs.text}}</div>
     {% endif %}
   </a>
+{% endmacro %}
+
+{#
+http://webstyleguide.ucdavis.edu/?p=molecules-factoid-brackets
+kwargs:
+  href {String}: link
+  icon {String}: icon parameter of a ucdlib-icon element
+  bigText {String}: Text to display below icon
+  smallText {String}: Text to display below bigText
+  brandColor {String} - UCD alt color slug
+  newTab {Boolean} - If link opens in new tab
+  brackets {Boolean} - If true, the icon will be displayed in brackets
+#}
+{% macro factoid( kwargs={} ) %}
+  {% set classes = ['factoid'] %}
+  {% if kwargs.brandColor %}
+    {% set classes = classes|merge(['category-brand--' ~ kwargs.brandColor]) %}
+  {% endif %}
+  {% if kwargs.brackets %}
+    {% set classes = classes|merge(['factoid--brackets']) %}
+  {% endif %}
+  {% set classes = classes|join(' ') %}
+
+  {% set target = kwargs.newTab ? "target='_blank'" : "" %}
+  {% set icon = kwargs.icon ? kwargs.icon : 'ucd-public:fa-percent' %}
+
+  <div class="{{classes}}">
+    <a class="factoid__link" href="{{kwargs.href}}" {{target}}>
+      <div class="factoid__bracket-one"></div>
+      <div class="factoid__bracket-wrapper">
+        <div class="factoid__figure factoid__icon">
+          <ucdlib-icon icon="{{icon}}"></ucdlib-icon>
+        </div>
+        <div class="factoid__body">
+          <h2 class="factoid__big-text">{{kwargs.bigText}}</h2>
+          <h3 class="factoid__small-text">{{kwargs.smallText}}</h3>
+        </div>
+      </div>
+      <div class="factoid__bracket-two"></div>
+    </a>
+  </div>
 {% endmacro %}
 
 {#

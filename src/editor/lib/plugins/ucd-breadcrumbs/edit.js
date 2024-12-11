@@ -18,10 +18,10 @@ export default () => {
   const [ primaryNavItems, setPrimaryNavItems ] = useState( [] );
   useEffect(() => {
     const path = '/ucd/menu/primary';
-    apiFetch( {path} ).then( 
+    apiFetch( {path} ).then(
       ( r ) => {
         setPrimaryNavItems(r);
-      }, 
+      },
       (error) => {
         console.warn('Unable to retrieve nav items')
       })
@@ -44,14 +44,15 @@ export default () => {
     <${Fragment}>
       ${!isPost && html`
         <${PluginDocumentSettingPanel}
+          name="ucd-breadcrumbs"
           className="ucd-breadcrumbs"
           icon=${html`<ucdlib-icon style=${{marginLeft: '8px', width: '15px', minWidth: '15px'}} icon="ucd-public:fa-ellipsis"></ucdlib-icon>`}
           title="Breadcrumbs">
-            <${ToggleControl} 
+            <${ToggleControl}
               label="Hide Breadcrumbs"
               checked=${meta.ucd_hide_breadcrumbs}
               onChange="${ucd_hide_breadcrumbs => {editPost({meta: {ucd_hide_breadcrumbs}})}}" />
-            <${TextControl} 
+            <${TextControl}
               label="Custom Text"
               value=${meta.ucd_custom_breadcrumb_text}
               onChange="${ucd_custom_breadcrumb_text => {editPost({meta: {ucd_custom_breadcrumb_text}})}}"

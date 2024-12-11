@@ -12,8 +12,8 @@
   "license": "ISC",
   "private": true,
   "dependencies": {
-    "@ucd-lib/theme-elements": "^1.2.9",
-    "@ucd-lib/theme-sass": "^5.0.14",
+    "@ucd-lib/theme-elements": "^3.0.5",
+    "@ucd-lib/theme-sass": "^6.0.1",
     "@wordpress/api-fetch": "^6.0.1",
     "@wordpress/block-editor": "^7.0.2",
     "@wordpress/block-library": "^7.0.2",

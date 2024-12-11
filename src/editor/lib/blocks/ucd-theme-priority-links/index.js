@@ -15,6 +15,10 @@ const settings = {
     "customClassName": false
   },
   attributes: {
+    boxedOffset: {
+      type: 'boolean',
+      default: false
+    }
   },
   edit: Edit,
   save: Save

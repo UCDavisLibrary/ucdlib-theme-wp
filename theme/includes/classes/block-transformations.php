@@ -25,6 +25,10 @@ class UCDThemeBlockTransformations {
       $new['post'] = Timber::get_post( $post_id );
       $attrs = array_merge($attrs, $new);
     }
+
+    if ( !empty($attrs['secondaryButtonPost']) && array_key_exists('id', $attrs['secondaryButtonPost']) ){
+      $attrs['secondaryButtonPost'] = Timber::get_post( $attrs['secondaryButtonPost']['id'] );
+    }
     return $attrs;
   }
 
@@ -67,6 +71,13 @@ class UCDThemeBlockTransformations {
       $args['tax_query'] = $tax_query;
     }
     $attrs['posts'] = Timber::get_posts( $args );
+    return $attrs;
+  }
+
+  public static function setDefaultFactoidIcon($attrs){
+    if ( !array_key_exists('icon', $attrs) ) {
+      $attrs['icon'] = 'ucd-public:fa-percent';
+    }
     return $attrs;
   }
 

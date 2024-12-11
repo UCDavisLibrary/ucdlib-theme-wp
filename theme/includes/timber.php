@@ -30,8 +30,3 @@ if ( ! class_exists( 'Timber' ) ) {
 	);
 	return;
 }
-
-/**
- * Timber settings
- */
-Timber::$autoescape = false;

@@ -28,6 +28,9 @@
   .priority-links {
     background-color: transparent;
   }
+  .priority-links.priority-links--boxed-offset {
+    background-color: #fff;
+  }
 }
 
 // Ensure that, if the priority links are placed inside a colored brand-box,

@@ -1,7 +1,6 @@
-import { html } from "../../utils";
+import { html, Save } from "../../utils";
 import { people } from '@wordpress/icons';
 import Edit from './edit';
-import Save from "./save";
 
 const name = 'ucd-theme/careers';
 const settings = {

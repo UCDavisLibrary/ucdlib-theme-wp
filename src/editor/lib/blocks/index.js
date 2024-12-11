@@ -1,3 +1,4 @@
+import alignablePromo from "./ucd-theme-alignable-promo";
 import backgroundColor from "./ucd-theme-background-color";
 import backgroundImage from "./ucd-theme-background-image";
 import brandTextbox from "./ucd-theme-brand-textbox";
@@ -6,6 +7,7 @@ import career from "./ucd-theme-career";
 import careers from "./ucd-theme-careers";
 import categoryFilter from "./ucd-theme-category-filter";
 import contactList from "./ucd-theme-contact-list";
+import factoid from "./ucd-theme-factoid";
 import faq from "./ucd-theme-faq";
 import faqItem from "./ucd-theme-faq-item";
 import featuredArticle from "./ucd-theme-featured-article";
@@ -22,7 +24,9 @@ import landerNav from "./ucd-theme-lander-nav";
 import layoutColumn from "./ucd-theme-layout-column";
 import layoutColumns from "./ucd-theme-layout-columns";
 import layoutContainer from "./ucd-theme-layout-container";
+import layoutGutters from "./ucd-theme-layout-gutters";
 import layoutBasic from "./ucd-theme-layout-basic";
+import layoutSection from "./ucd-theme-layout-section";
 import layoutShrink from "./ucd-theme-layout-shrink";
 import layoutQuad from "./ucd-theme-layout-quad";
 import manualSubnav from "./ucd-theme-manual-subnav";
@@ -32,6 +36,7 @@ import mediaLink from "./ucd-theme-media-link";
 import mediaLinks from "./ucd-theme-media-links";
 import objectBox from "./ucd-theme-object-box";
 import panelWithIcon from "./ucd-theme-panel-with-icon";
+import photoCard from "./ucd-theme-photo-card";
 import poster from "./ucd-theme-poster";
 import posterList from "./ucd-theme-poster-list";
 import prefixedIconLink from "./ucd-theme-prefixed-icon-link";
@@ -49,11 +54,13 @@ import socialMedia from "./ucd-theme-social-media";
 import spacer from "./ucd-theme-spacer";
 import teaser from "./ucd-theme-teaser";
 import teasers from "./ucd-theme-teasers";
+import tileLink from "./ucd-theme-tile-link";
 import trumba from "./ucd-theme-trumba";
 import trumbaUpcoming from "./ucd-theme-trumba-upcoming";
 import trumbaFilter from "./ucd-theme-trumba-filter";
 
 export default [
+  alignablePromo,
   backgroundColor,
   backgroundImage,
   brandTextbox,
@@ -62,6 +69,7 @@ export default [
   careers,
   categoryFilter,
   contactList,
+  factoid,
   faq,
   faqItem,
   featuredArticle,
@@ -78,7 +86,9 @@ export default [
   layoutColumn,
   layoutColumns,
   layoutContainer,
+  layoutGutters,
   layoutBasic,
+  layoutSection,
   layoutShrink,
   layoutQuad,
   manualSubnav,
@@ -88,6 +98,7 @@ export default [
   mediaLinks,
   objectBox,
   panelWithIcon,
+  photoCard,
   poster,
   posterList,
   prefixedIconLink,
@@ -105,6 +116,7 @@ export default [
   spacer,
   teaser,
   teasers,
+  tileLink,
   trumba,
   trumbaUpcoming,
   trumbaFilter

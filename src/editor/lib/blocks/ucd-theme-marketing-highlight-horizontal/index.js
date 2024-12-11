@@ -41,6 +41,10 @@ const settings = {
     hideTitle: {
       type: "boolean",
       default: false
+    },
+    overlay: {
+      type: "boolean",
+      default: false
     }
   },
   edit: Edit,
