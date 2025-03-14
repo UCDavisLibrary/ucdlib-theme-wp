@@ -3,7 +3,6 @@
   "description": "Wordpress theme port of the UC Davis SiteFarm One Theme ",
   "type":"wordpress-theme",
   "license": "MIT",
-  "minimum-stability" : "dev",
   "authors": [
     {
       "email": "spelkey@ucdavis.edu",
@@ -17,6 +16,6 @@
     }
   ],
   "require": {
-    "timber/timber": "2.0.0"
+    "timber/timber": "2.3.1"
   }
 }
