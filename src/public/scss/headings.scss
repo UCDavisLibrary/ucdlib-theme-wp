@@ -1,0 +1,158 @@
+.h1 {
+  margin: 0.75em 0 0.25em;
+  padding: 0;
+  color: var(--forced-contrast-heading-primary, #022851);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+  font-size: 1.91rem;
+}
+:where(:not([class*=block-field-])) > .h1:first-child {
+  margin-top: 0;
+}
+.h1 a {
+  color: var(--forced-contrast, #022851);
+  text-decoration: underline;
+}
+.h1 a:hover, .h1 a:focus {
+  color: var(--forced-contrast, #022851);
+  text-decoration: none;
+}
+@media (min-width: 768px) {
+  .h1 {
+    font-size: 2.94rem;
+  }
+}
+
+.h2 {
+  margin: 0.75em 0 0.25em;
+  padding: 0;
+  color: var(--forced-contrast-heading-primary, #022851);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--forced-contrast-heading-primary, #13639e);
+  font-size: 1.6055rem;
+}
+:where(:not([class*=block-field-])) > .h2:first-child {
+  margin-top: 0;
+}
+@media (min-width: 768px) {
+  .h2 {
+    font-size: 2.0995rem;
+  }
+}
+.h2 a {
+  color: var(--forced-contrast, #13639e);
+  text-decoration: underline;
+}
+.h2 a:hover, .h2 a:focus {
+  color: var(--forced-contrast, #13639e);
+  text-decoration: none;
+}
+
+.h3 {
+  margin: 0.75em 0 0.25em;
+  padding: 0;
+  color: var(--forced-contrast-heading-primary, #022851);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--forced-contrast-heading-secondary, #666);
+  font-size: 1.3325rem;
+}
+:where(:not([class*=block-field-])) > .h3:first-child {
+  margin-top: 0;
+}
+@media (min-width: 768px) {
+  .h3 {
+    font-size: 1.7425rem;
+  }
+}
+.h3 a {
+  color: var(--forced-contrast, #666);
+  text-decoration: underline;
+}
+.h3 a:hover, .h3 a:focus {
+  color: var(--forced-contrast, #666);
+  text-decoration: none;
+}
+
+.h4 {
+  margin: 0.75em 0 0.25em;
+  padding: 0;
+  color: var(--forced-contrast-heading-primary, #022851);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+  font-size: 1.092rem;
+}
+:where(:not([class*=block-field-])) > .h4:first-child {
+  margin-top: 0;
+}
+.h4 a {
+  color: var(--forced-contrast, #022851);
+  text-decoration: underline;
+}
+.h4 a:hover, .h4 a:focus {
+  color: var(--forced-contrast, #022851);
+  text-decoration: none;
+}
+@media (min-width: 768px) {
+  .h4 {
+    font-size: 1.428rem;
+  }
+}
+
+.h5 {
+  margin: 0.75em 0 0.25em;
+  padding: 0;
+  color: var(--forced-contrast-heading-primary, #022851);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+  font-size: 1rem;
+}
+:where(:not([class*=block-field-])) > .h5:first-child {
+  margin-top: 0;
+}
+.h5 a {
+  color: var(--forced-contrast, #022851);
+  text-decoration: underline;
+}
+.h5 a:hover, .h5 a:focus {
+  color: var(--forced-contrast, #022851);
+  text-decoration: none;
+}
+@media (min-width: 768px) {
+  .h5 {
+    font-size: 1.207rem;
+  }
+}
+
+.h6 {
+  margin: 0.75em 0 0.25em;
+  padding: 0;
+  color: var(--forced-contrast-heading-primary, #022851);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+  font-size: 1rem;
+}
+:where(:not([class*=block-field-])) > .h6:first-child {
+  margin-top: 0;
+}
+.h6 a {
+  color: var(--forced-contrast, #022851);
+  text-decoration: underline;
+}
+.h6 a:hover, .h6 a:focus {
+  color: var(--forced-contrast, #022851);
+  text-decoration: none;
+}
