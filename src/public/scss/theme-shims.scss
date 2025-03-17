@@ -38,13 +38,3 @@ html {
 .marketing-highlight-horizontal--overlay {
   position: relative;
 }
-
-// to allow us to use div instead of h5
-.marketing-highlight-horizontal__title {
-  font-weight: 800;
-}
-@media (max-width: 479px) {
-  .marketing-highlight-horizontal__title {
-    line-height: 1.2;
-  }
-}

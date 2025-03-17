@@ -1,4 +1,5 @@
 import { html, StyleUtils, UCDIcons } from "../../utils";
+import { ToolbarHeaderLevel } from "../../block-components";
 import { RichText, useBlockProps, BlockControls, AlignmentControl } from '@wordpress/block-editor';
 import { ToolbarDropdownMenu } from '@wordpress/components';
 import altStyles from "./styles";
@@ -10,7 +11,7 @@ export default ({ attributes, setAttributes }) => {
   let classes = StyleUtils.extractStyleModifiers(blockProps.className);
   classes = classes.split(" ").map(c => c ? `heading--${c}`: '').join(" ");
   if ( !classes ) classes = 'heading--underline';
-  
+
   classes = attributes.classSuffix ? `heading--${attributes.classSuffix}` : classes;
   const selectedStyle = classes.replace('heading--', '');
   if ( attributes.textAlign === 'center') {
@@ -27,24 +28,33 @@ export default ({ attributes, setAttributes }) => {
     if ( _in.name === selectedStyle ){
       out.icon = UCDIcons.render("selected", {style:{marginRight: "5px"}});
       out.isDisabled = true;
-    } 
+    }
     return out;
   });
-  const levelControls = getHeaderLevels().map(level => Object({title: level.tag, onClick: () => {setAttributes({level: level.level})}}));
-  
+
+  // set up header level picker
+  const onHeaderLevelChange = (level) => {
+    setAttributes({level});
+  }
+
   return html`
     <div ...${ blockProps }>
       <${BlockControls} group="block">
-        <${ToolbarDropdownMenu} icon=${html`<span>h${attributes.level}</span>`} label="Change header level" controls=${levelControls}/>
+        <${ToolbarHeaderLevel}
+          value=${attributes.level}
+          onChange=${onHeaderLevelChange}
+          defaultValue=${2}
+          label="Set header level"
+        />
         <${ToolbarDropdownMenu} icon=${UCDIcons.renderPublic('fa-paintbrush')} label="Change header style" controls=${classOptions}/>
         <${AlignmentControl}
 			    value=${ attributes.textAlign }
 			    onChange=${ ( nextAlign ) => {setAttributes( { textAlign: nextAlign } );} }
 		    />
       </${BlockControls}>
-      <${RichText}  
+      <${RichText}
         tagName=${'h'+ attributes.level}
-        value=${attributes.content} 
+        value=${attributes.content}
         disableLineBreaks
         className=${classes}
         allowedFormats=${ [ 'core/link', 'ucd-theme/bold-heading' ] }
@@ -53,11 +63,4 @@ export default ({ attributes, setAttributes }) => {
         />
     </div>
   `;
-}
-
-const getHeaderLevels = () => {
-  return [1,2,3,4,5,6].map(level => {
-    const tag = `h${level}`;
-    return {tag, level};
-})
 }

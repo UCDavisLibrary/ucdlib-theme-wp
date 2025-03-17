@@ -1,3 +1,4 @@
+import { head } from "lodash";
 import { UCDIcons, Save } from "../../utils";
 import Edit from './edit';
 
@@ -53,6 +54,10 @@ const settings = {
     padding: {
       type: "string",
       default: ""
+    },
+    headingLevel: {
+      type: "number",
+      default: 2
     }
   },
   edit: Edit,

@@ -68,13 +68,13 @@ kwargs:
     <div class="marketing-highlight__image">
       <div class="aspect--4x3 u-background-image" aria-label='{{alt}}' style="background-image:url({{src}});"></div>
       {% if kwargs.badge and not kwargs.hideBadge %}
-        <h3 class="marketing-highlight__type"><span>{{kwargs.badge}}</span></h3>
+        <div class="marketing-highlight__type"><span>{{kwargs.badge}}</span></div>
       {% endif %}
     </div>
     {% if not (kwargs.hideTitle and kwargs.hideExcerpt and kwargs.hideButton) %}
       <div class="marketing-highlight__body">
         {% if title and not kwargs.hideTitle %}
-          <h3 class="marketing-highlight__title">{{title}}</h3>
+          <div class="marketing-highlight__title">{{title}}</div>
         {% endif %}
         {% if excerpt and not kwargs.hideExcerpt %}
           <p>{{excerpt}}</p>
@@ -84,7 +84,6 @@ kwargs:
         {% endif %}
       </div>
     {% endif %}
-
   </a>
 {% endmacro %}
 
@@ -171,14 +170,14 @@ kwargs:
         <div class="aspect--4x3 u-background-image" style="background-image:url({{src}});"></div>
       </div>
       <div class="alignable-promo__body">
-        <h2 class="alignable-promo__title">
+        <div class="alignable-promo__title">
           {% if not kwargs.hideTitle %}
             <span class="alignable-promo__line1">{{title}}</span>
           {% endif %}
           {% if kwargs.subTitle and not kwargs.hideSubTitle %}
             <span class="alignable-promo__line2">{{kwargs.subTitle}}</span>
           {% endif %}
-        </h2>
+        </div>
 
         {% if not kwargs.hideExcerpt %}
         <div class="alignable-promo__text">
@@ -341,7 +340,7 @@ kwargs:
       <div class="aspect--1x1 u-background-image" style="background-image:url({{src}});"></div>
     </div>
     {% if title and not kwargs.hideTitle %}
-      <h3 class="photo-card__title">{{title}}</h3>
+      <div class="photo-card__title">{{title}}</div>
     {% endif %}
   </a>
 {% endmacro %}
@@ -392,10 +391,10 @@ kwargs:
       </div>
       {% endif %}
       {% if title %}
-        <h2 class="vm-featured-article__title">{{title}}</h2>
+        <div class="vm-featured-article__title h2">{{title}}</div>
       {% endif %}
       {% if subTitle %}
-        <h3 class="vm-featured-article__subtitle">{{subTitle}}</h3>
+        <div class="vm-featured-article__subtitle h3">{{subTitle}}</div>
       {% endif %}
     </a>
   </div>
@@ -524,7 +523,7 @@ kwargs:
    <div class="aspect--16x9 u-background-image" style="background-image:url({{src}});"></div>
     <div class="vm-poster__body">
       <div class="vm-poster__body-text">
-        <h2 class="vm-poster__title">{{title}}</h2>
+        <div class="h2 vm-poster__title">{{title}}</div>
         <p>{{excerpt}}</p>
       </div>
     </div>
@@ -651,10 +650,16 @@ kwargs:
   {% set moreText = attributes.moreText ? attributes.moreText : 'See More' %}
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
 
+  {% if attributes.headingLevel in [1,2,3,4,5,6,"1","2","3","4","5","6"] %}
+    {% set level=attributes.headingLevel %}
+  {% else %}
+    {% set level=2 %}
+  {% endif %}
+
   <div class="{{classes|join(' ')}}">
-    <h2 class="panel__title">
+    <h{{level}} class="panel__title">
       <ucdlib-icon icon="{{icon}}" class="panel__custom-icon {{attributes.brandColor}}"></ucdlib-icon>{{attributes.title}}
-    </h2>
+    </h{{level}}>
     <section>
       {{content}}
       {% if not attributes.hideMoreLink %}

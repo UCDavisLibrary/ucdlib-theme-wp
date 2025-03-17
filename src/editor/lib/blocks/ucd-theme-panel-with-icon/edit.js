@@ -1,5 +1,5 @@
 import { html } from "../../utils";
-import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker, ToolbarPaddingPicker, ToolbarSectionDisplay } from "../../block-components";
+import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker, ToolbarPaddingPicker, ToolbarSectionDisplay, ToolbarHeaderLevel } from "../../block-components";
 import { useBlockProps, BlockControls, InnerBlocks, RichText } from '@wordpress/block-editor';
 import { createRef } from "@wordpress/element";
 
@@ -53,6 +53,11 @@ export default ( props ) => {
     setAttributes({padding});
   }
 
+  // set up header level picker
+  const onHeaderLevelChange = (level) => {
+    setAttributes({headingLevel: level});
+  }
+
   // set up link picker
   const onHrefChange = (value) => {
     let attrs = {
@@ -84,6 +89,11 @@ export default ( props ) => {
   <div ...${ blockProps }>
     <${BlockControls} group="block">
       <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
+      <${ToolbarHeaderLevel}
+        value=${attributes.headingLevel}
+        onChange=${onHeaderLevelChange}
+        defaultValue=${2}
+      />
       <${ToolbarColorPicker}
         onChange=${onColorChange}
         value=${attributes.brandColor}

@@ -1,5 +1,5 @@
 import { html } from "../../utils";
-import { ToolbarColorPicker, IconPicker } from "../../block-components";
+import { ToolbarColorPicker, IconPicker, ToolbarHeaderLevel } from "../../block-components";
 import { useBlockProps, BlockControls, RichText } from '@wordpress/block-editor';
 import { createRef } from "@wordpress/element";
 
@@ -25,17 +25,27 @@ export default ( props ) => {
     setAttributes( {brandColor: value ? value.slug : "" } );
   }
 
+  // set up header level picker
+  const onHeaderLevelChange = (level) => {
+    setAttributes({headingLevel: level});
+  }
+
   const titleClass = `panel__custom-icon ${attributes.brandColor ? attributes.brandColor : ''}`;
 
   return html`
   <div ...${ blockProps }>
     <${BlockControls} group="block">
-      <${ToolbarColorPicker} 
+      <${ToolbarColorPicker}
         onChange=${onColorChange}
         value=${attributes.brandColor}
         ucdBlock="heading-with-icon"/>
+      <${ToolbarHeaderLevel}
+        value=${attributes.headingLevel}
+        onChange=${onHeaderLevelChange}
+        defaultValue=${2}
+      />
     </${BlockControls}>
-    <${IconPicker} 
+    <${IconPicker}
       ref=${iconPickerRef}
       onChange=${onIconSelect}
       selectedIcon=${attributes.icon}
@@ -43,7 +53,7 @@ export default ( props ) => {
     <div className="panel--icon panel--icon-custom">
       <h2 className="panel__title">
         <ucdlib-icon style=${{cursor: 'pointer'}} icon=${attributes.icon} class=${titleClass} onClick=${ onIconChangeRequest }></ucdlib-icon>
-        <${RichText} 
+        <${RichText}
           tagName='span'
           value=${attributes.text}
           disableLineBreaks

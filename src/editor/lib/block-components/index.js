@@ -10,6 +10,7 @@ import TermPicker from "./term-picker";
 import ToolbarLinkPicker from "./toolbar-link-picker";
 import ToolbarColorPicker from "./toolbar-color-picker";
 import ToolbarFloat from "./toolbar-float";
+import ToolbarHeaderLevel from "./toolbar-header-level";
 import ToolbarPostReset from "./toolbar-post-reset";
 import ToolbarSectionDisplay from "./toolbar-section-display";
 import ToolbarSelectMenu from "./toolbar-select-menu";
@@ -18,18 +19,19 @@ import ToolbarSizePicker from "./toolbar-size-picker";
 import ToolbarPaddingPicker from "./toolbar-padding-picker";
 import ToolbarVerticalAlignPicker from "./toolbar-vertical-align-picker";
 
-export { 
+export {
   AuthorPicker,
   ContactListEdit,
   ContactListDisplay,
   DebouncedText,
   IconPicker,
-  ImagePicker, 
+  ImagePicker,
   MenuPicker,
   OrderPicker,
   TermPicker,
   ToolbarColorPicker,
   ToolbarFloat,
+  ToolbarHeaderLevel,
   ToolbarSectionDisplay,
   ToolbarSelectMenu,
   ToolbarSeparatorStyle,

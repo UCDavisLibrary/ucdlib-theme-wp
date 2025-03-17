@@ -1,0 +1,61 @@
+// Many ucd theme blocks use heading tags, which often cause issues with the page heading hierarchy.
+// Moreover, using heading tags for these blocks typically doesn't provide any semantic meaning.
+// To avoid these issues, we will use a div instead of heading tags where possible.
+
+// alignable-promo
+.alignable-promo__title {
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+// factoid
+.factoid__big-text {
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--forced-contrast-heading-primary, #13639e);
+}
+.factoid__small-text {
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+// featured article
+.vm-featured-article__title.h2 {
+  color: var(--forced-contrast-heading-secondary, #022851);
+}
+.vm-featured-article__subtitle.h3 {
+  color: var(--forced-contrast-heading-secondary, #13639e);
+  font-style: italic;
+}
+
+// marketing-highlight
+.marketing-highlight__type {
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+// marketing-highlight-horizontal
+.marketing-highlight-horizontal__title {
+  font-weight: 800;
+}
+@media (max-width: 479px) {
+  .marketing-highlight-horizontal__title {
+    line-height: 1.2;
+  }
+}
+
+// photo card
+.photo-card__title {
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+// poster
+.h2.vm-poster__title {
+  color: var(--category-brand-contrast-color, #fff);
+}

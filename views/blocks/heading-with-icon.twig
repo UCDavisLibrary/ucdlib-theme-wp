@@ -1,6 +1,11 @@
+{% if attributes.headingLevel in [1,2,3,4,5,6,"1","2","3","4","5","6"] %}
+    {% set level=attributes.headingLevel %}
+  {% else %}
+    {% set level=2 %}
+{% endif %}
 <div class="ucd-block-heading-with-icon panel--icon panel--icon-custom" {{attributes.anchor ? "id='"~attributes.anchor~"'"}}>
-  <h2 class="panel__title u-space-mb--flush">
-  <ucdlib-icon icon="{{attributes.icon ? attributes.icon : 'ucd-public:fa-star'}}" class="panel__custom-icon {{attributes.brandColor}}"></ucdlib-icon>
-  <span>{{attributes.text}}</span>
-  </h2>
+  <h{{level}} class="panel__title u-space-mb--flush">
+    <ucdlib-icon icon="{{attributes.icon ? attributes.icon : 'ucd-public:fa-star'}}" class="panel__custom-icon {{attributes.brandColor}}"></ucdlib-icon>
+    <span>{{attributes.text}}</span>
+  </h{{level}}>
 </div>
