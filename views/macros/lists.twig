@@ -129,7 +129,7 @@ kwargs:
       </div>
     {% endif %}
     <div class="vm-teaser__body">
-      <h3 class="vm-teaser__title"><a href="{{href}}">{{title}}</a></h3>
+      <div class="vm-teaser__title"><a href="{{href}}">{{title}}</a></div>
       {% if kwargs.post and not kwargs.hideByline %}
         <ul class="vm-teaser__byline">
           {% if kwargs.post.author.first_name and kwargs.post.author.last_name %}
