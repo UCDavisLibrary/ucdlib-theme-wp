@@ -26,11 +26,11 @@
           <h2 class="panel__title">{{latest_news_title}}</h2>
         {% endif %}
         <section class="latest-news">
-          
+
           {% if posts.found_posts %}
             {% for post in posts %}
               {% if not post.is_sticky %}
-                {{ teaser({post, partOfQuery: true, hideExcerpt: true}) }}
+                {{ teaser({post, partOfQuery: true, hideExcerpt: teaserSettings.hideExcerpt, hideImage: teaserSettings.hideImage}) }}
               {% endif %}
             {% endfor %}
 
@@ -55,7 +55,7 @@
           {{sidebar}}
          {% else %}
           {% include getUcdSidebarDefault('post-archive') %}
-         {% endif %} 
+         {% endif %}
       </div>
     {% endif %}
 
