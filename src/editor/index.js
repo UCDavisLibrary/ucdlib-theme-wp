@@ -31,7 +31,7 @@ UcdThemeBlocks.forEach(block => {
 });
 
 UcdThemePlugins.forEach(plugin => {
-  if ( select('core/editor') ){
+  if ( select('core/edit-post') ){
     registerPlugin( plugin.name, plugin.settings );
   }
 });
