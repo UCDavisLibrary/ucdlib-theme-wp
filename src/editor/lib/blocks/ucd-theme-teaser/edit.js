@@ -1,6 +1,5 @@
 import { html, BlockSettings, SelectUtils, UCDIcons } from "../../utils";
 import { ImagePicker, ToolbarColorPicker, ToolbarPostReset, ToolbarLinkPicker } from "../../block-components";
-import "./ucd-wp-teaser";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { ToolbarButton } from "@wordpress/components";
 import { useRef, useEffect } from "@wordpress/element";
@@ -31,7 +30,7 @@ export default ( props ) => {
       if (postExcerpt && !propValue ) return;
       if ( propValue === postExcerpt ) reset = true;
     }
-    
+
     const newAttrs = {};
     newAttrs[propName] = reset ? "" : propValue;
     setAttributes(newAttrs);
@@ -71,7 +70,7 @@ export default ( props ) => {
   const postParts = (() => {
     return [
       {slug: "thumbnail", isDisabled: !attributes.imageId || !postImage},
-      {slug: 'title', isDisabled: !attributes.title}, 
+      {slug: 'title', isDisabled: !attributes.title},
       {slug: 'excerpt', isDisabled: !attributes.excerpt}]
   })();
 
@@ -160,12 +159,12 @@ export default ( props ) => {
     <div ...${ blockProps }>
       <${BlockControls} group="block">
         <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
-        <${ToolbarButton} 
-          icon=${UCDIcons.render("highlight")} 
-          onClick=${ () => {setAttributes({'featured': !attributes.featured})}} 
+        <${ToolbarButton}
+          icon=${UCDIcons.render("highlight")}
+          onClick=${ () => {setAttributes({'featured': !attributes.featured})}}
           isPressed=${attributes.featured}
           label="Toggle 'Featured' Display Setting"/>
-        ${attributes.featured && html`<${ToolbarColorPicker} 
+        ${attributes.featured && html`<${ToolbarColorPicker}
           onChange=${onColorChange}
           value=${attributes.brandColor}
           ucdBlock="teaser"
@@ -178,7 +177,7 @@ export default ( props ) => {
         `}
       </${BlockControls}>
       <${InspectorControls}>
-        <${ImagePicker} 
+        <${ImagePicker}
           imageId=${attributes.imageId}
           image=${customImage}
           onSelect=${onSelectImage}

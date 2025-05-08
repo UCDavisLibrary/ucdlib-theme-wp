@@ -1,5 +1,5 @@
 import { html, UCDIcons } from "../../utils";
-import "./ucd-wp-priority-link";
+//import "./ucd-wp-priority-link";
 import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker } from "../../block-components";
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { useRef, useEffect, createRef } from "@wordpress/element";

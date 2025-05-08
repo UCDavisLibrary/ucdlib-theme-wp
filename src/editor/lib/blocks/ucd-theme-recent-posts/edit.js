@@ -1,7 +1,6 @@
 import { html, BlockSettings, SelectUtils } from "../../utils";
 import { AuthorPicker, TermPicker, DebouncedText, ToolbarSectionDisplay } from "../../block-components";
 import { RangeControl, PanelBody, Spinner, SelectControl } from '@wordpress/components';
-import "../ucd-theme-teaser/ucd-wp-teaser";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { decodeEntities } from "@wordpress/html-entities";
 

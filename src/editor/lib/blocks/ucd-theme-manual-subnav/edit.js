@@ -20,6 +20,8 @@ import {
   edit
 } from '@wordpress/icons';
 
+import UcdThemeSubnav from '@ucd-lib/theme-elements/brand/ucd-theme-subnav/ucd-theme-subnav';
+
 const {__experimentalLinkControl } = wp.blockEditor;
 const LinkControl = __experimentalLinkControl;
 
@@ -353,6 +355,17 @@ export default ( props ) => {
       `}
     `
   }
+
+  useEffect(() => {
+    const tagName = 'ucd-theme-subnav';
+    const elementClass = UcdThemeSubnav;
+    const iframe = document.querySelector('iframe[name="editor-canvas"]');
+    if ( !iframe?.contentWindow ) return;
+    if ( iframe.contentWindow.customElements.get(tagName) ) {
+      return;
+    }
+    //iframe.contentWindow.customElements.define(tagName, elementClass);
+  }, []);
 
   return html`
   <div ...${ blockProps }>

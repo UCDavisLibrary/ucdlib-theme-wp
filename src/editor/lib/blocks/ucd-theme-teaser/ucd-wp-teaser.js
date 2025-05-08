@@ -1,7 +1,8 @@
 import { LitElement } from 'lit';
 import {render, styles} from "./ucd-wp-teaser.tpl.js";
 
-import { MainComponentElement, Mixin } from '../../utils';
+import { MainComponentElement } from '../../utils/main-component-element.js';
+import Mixin from '../../utils/mixin.js';
 
 export default class UcdWpTeaser extends Mixin(LitElement)
   .with(MainComponentElement) {
