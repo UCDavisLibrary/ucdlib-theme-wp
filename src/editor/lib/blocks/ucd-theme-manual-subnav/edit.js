@@ -356,21 +356,14 @@ export default ( props ) => {
     `
   }
 
-  useEffect(() => {
-    const tagName = 'ucd-theme-subnav';
-    const elementClass = UcdThemeSubnav;
-    const iframe = document.querySelector('iframe[name="editor-canvas"]');
-    if ( !iframe?.contentWindow ) return;
-    if ( iframe.contentWindow.customElements.get(tagName) ) {
-      return;
-    }
-    //iframe.contentWindow.customElements.define(tagName, elementClass);
-  }, []);
-
   return html`
   <div ...${ blockProps }>
     <${BlockControls} group="block">
       <${Dropdown} position="bottom right" renderToggle=${titleButton} renderContent=${titleContent}/>
+      <${ToolbarButton}
+        icon='plus'
+        onClick=${() => onAddNavItem()}
+        label="Add Nav Item"/>
       ${hasFocusedData && html`
         <${DropdownMenu}
           icon=${chevronDown}
@@ -384,7 +377,6 @@ export default ( props ) => {
       ${attributes.links.map((link, i) => renderLink(link, [i]))}
     </ucd-theme-subnav>
     <${Button} icon='plus' onClick=${() => onAddNavItem()}>Add Nav Item</${Button}>
-
     ${modalIsOpen && html`
       <${Modal} title=${modalMode + " Nav Item"} onRequestClose=${closeModal}>
         <div>
