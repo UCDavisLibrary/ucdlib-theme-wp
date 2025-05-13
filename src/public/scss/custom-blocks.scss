@@ -12,3 +12,36 @@
   padding-left: var(--o-box-spacer);
   --o-box-spacer: var(--o-box-spacer-default, 0.75rem);
 }
+
+.ucd-link-list-item {
+
+  & + .ucd-link-list-item {
+    margin-top: 1rem;
+  }
+  .ucd-link-list-item--title {
+    display: block;
+    color: var(--ucd-blue-80, #13639E);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.6rem;
+  }
+  .ucd-link-list-item--title:hover {
+    text-decoration: underline;
+  }
+  .ucd-link-list-item--excerpt {
+    display: block;
+    color: var(--ucd-black-70, #4C4C4C);
+    font-size: 0.875rem;
+    line-height: 1.3rem;
+    font-weight: 400;
+  }
+  .icon-ucdlib {
+    align-items: flex-start;
+  }
+  ucdlib-icon {
+    margin-top: 5px;
+  }
+
+}
+

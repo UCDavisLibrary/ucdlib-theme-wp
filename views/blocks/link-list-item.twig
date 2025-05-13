@@ -1,0 +1,21 @@
+{% set attributesFromParent = {
+    hideExcerpt: block.context['ucdLinkList/hideExcerpt'],
+    brandColor: block.context['ucdLinkList/brandColor']
+} %}
+{% set attributes = attributes|merge(attributesFromParent)%}
+{% set title = attributes.title ? attributes.title : attributes.post.title %}
+{% set title = title|striptags %}
+{% set excerpt = attributes.excerpt ? attributes.excerpt : attributes.post.excerpt({ read_more: '' }) %}
+{% set href = attributes.href ? attributes.href : attributes.post.link %}
+
+<div class="ucd-link-list-item">
+  <span class='icon-ucdlib category-brand--{{attributes.brandColor}}'>
+    <ucdlib-icon icon="ucd-public:fa-circle-chevron-right"></ucdlib-icon>
+    <span>
+      <a class='ucd-link-list-item--title' href="{{href}}">{{title}}</a>
+        {% if not attributes.hideExcerpt %}
+          <span class='ucd-link-list-item--excerpt'>{{ excerpt }}</span>
+        {% endif %}
+    </span>
+  </span>
+</div>

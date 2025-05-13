@@ -365,7 +365,8 @@ class UcdThemeCustomizer {
       array("slug" => "tile-link", "label" => "Tile Link Palette"),
       ['slug' => 'factoid', 'label' => 'Factoid Palette'],
       ['slug' => 'photo-card', 'label' => 'Photo Card Palette'],
-      ['slug' => 'alignable-promo', 'label' => 'Alignable Promo Palette']
+      ['slug' => 'alignable-promo', 'label' => 'Alignable Promo Palette'],
+      ['slug' => 'link-list', 'label' => 'Link List Palette']
     );
     $blocks_with_colors = apply_filters( 'ucd-theme/customizer/block-colors', $blocks_with_colors );
     foreach ($blocks_with_colors as $block) {
