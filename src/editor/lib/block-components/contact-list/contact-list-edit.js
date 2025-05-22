@@ -59,8 +59,6 @@ const ContactListEdit = forwardRef((props, ref) => {
       iconPickerRef.current.openModal();
     }
   }
-
-  // set up icon picker
   const onIconSelect = (icon) => {
     setWebsite(icon, iconWebsiteIndex, 'icon');
   }
