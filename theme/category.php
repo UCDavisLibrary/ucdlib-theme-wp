@@ -25,6 +25,12 @@ $context['rightSidebar'] = get_theme_mod('layout_category_sidebar_flipped');
 $views = $GLOBALS['UcdSite']->views;
 $templates = array( $views->getTemplate('single-category'));
 
+// teaser settings
+$context['teaserSettings'] = [
+  'hideImage' => get_theme_mod('layout_posts_teaser_hide_image') ? true : false,
+  'hideExcerpt' => get_theme_mod('layout_posts_teaser_show_excerpt') ? false : true
+];
+
 // Filters
 $context = apply_filters( 'ucd-theme/context/category', $context );
 $templates = apply_filters( 'ucd-theme/templates/category', $templates, $context );
