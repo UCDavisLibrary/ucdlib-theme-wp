@@ -3,10 +3,8 @@ import { useBlockProps, BlockControls, AlignmentControl, RichText } from '@wordp
 import { ToolbarButton, Dropdown, ToolbarDropdownMenu } from '@wordpress/components';
 import { link } from '@wordpress/icons';
 import classnames from 'classnames';
+import { LinkControl } from '@wordpress/block-editor';
 
-// Still experimental component. Looks to be close to release though.
-const {__experimentalLinkControl } = wp.blockEditor;
-const LinkControl = __experimentalLinkControl;
 
 export default ({ attributes, setAttributes }) => {
   const blockProps = useBlockProps();
@@ -31,7 +29,7 @@ export default ({ attributes, setAttributes }) => {
     if ( value.kind == 'post-type' ){
       attrs.postId = value.id;
     } else if ( value.kind == 'taxonomy' ) {
-      attrs.taxId = value.id 
+      attrs.taxId = value.id
     }
     setAttributes(attrs);
   }
@@ -62,9 +60,9 @@ export default ({ attributes, setAttributes }) => {
       <${Dropdown} position="bottom right" renderToggle=${hrefButton} renderContent=${hrefContent}/>
       <${ToolbarDropdownMenu} icon=${html`<span>${attributes.size ? attributes.size : 'md'}</span>`} label="Change button size" controls=${sizeControls}/>
       <${ToolbarDropdownMenu} icon=${UCDIcons.render(attributes.shape ? "shapes.circle" : "shapes.square")} label="Change button shape" controls=${shapeControls}/>
-      <${ToolbarButton} 
-        icon=${html`<span>100%</span>`} 
-        onClick=${ () => {setAttributes({'display': attributes.display ? '' : 'block'})}} 
+      <${ToolbarButton}
+        icon=${html`<span>100%</span>`}
+        onClick=${ () => {setAttributes({'display': attributes.display ? '' : 'block'})}}
         isPressed=${attributes.display ? true : false}
         label="Change width"/>
       <${AlignmentControl}
@@ -74,9 +72,9 @@ export default ({ attributes, setAttributes }) => {
     </${BlockControls}>
     <p className='u-text-align--${attributes.textAlign}'>
       <a className=${buttonClasses}>
-        <${RichText}  
+        <${RichText}
           tagName='span'
-          value=${attributes.content} 
+          value=${attributes.content}
           disableLineBreaks
           allowedFormats=${ [ ] }
           onChange=${ (content) => setAttributes({content}) }

@@ -22,8 +22,7 @@ import {
 
 import UcdThemeSubnav from '@ucd-lib/theme-elements/brand/ucd-theme-subnav/ucd-theme-subnav';
 
-const {__experimentalLinkControl } = wp.blockEditor;
-const LinkControl = __experimentalLinkControl;
+import { LinkControl } from '@wordpress/block-editor';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
