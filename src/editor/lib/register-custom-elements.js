@@ -12,30 +12,23 @@ export default () => {
     let scriptPath = window?.ucdTheme?.editorScript;
     if ( !scriptPath ) return;
     let scriptUrl = new URL(scriptPath);
-    scriptUrl.searchParams.set('reload', 'true');
 
     if ( !window.location.pathname.includes('site-editor.php') ) return;
+    let waitTime = 3000;
 
-    const maxAttempts = 10;
-    let attempts = 0;
-    let waitTime = 1000;
-    let iframe = document.querySelector("iframe[name='editor-canvas']");
-    while ( !iframe?.contentWindow && attempts < maxAttempts ) {
-      attempts++;
-      console.log(`Attempt ${attempts} to find iframe`);
+    do {
+      let iframe = document.querySelector("iframe[name='editor-canvas']");
+      if ( iframe?.contentWindow && !iframe.hasAttribute('data-ucd-script-loaded') ) {
+        console.log("Found iframe, injecting script. This may trigger an error, but that's okay.");
+        iframe.setAttribute('data-ucd-script-loaded', 'true');
+        scriptUrl.searchParams.set('iframe-version', Date.now().toString());
+        const script = iframe.contentWindow.document.createElement('script');
+        script.src = scriptUrl.href;
+        script.type = 'module';
+        iframe.contentWindow.document.head.appendChild(script);
+      }
       await new Promise(resolve => setTimeout(resolve, waitTime));
-      iframe = document.querySelector("iframe[name='editor-canvas']");
-      waitTime *= 2;
-    }
 
-    if ( !iframe?.contentWindow ) {
-      console.error("Could not find iframe");
-      return;
-    }
-
-    const script = iframe.contentWindow.document.createElement('script');
-    script.src = scriptUrl.href;
-    script.type = 'module';
-    iframe.contentWindow.document.head.appendChild(script);
+    } while (true);
   });
 }
