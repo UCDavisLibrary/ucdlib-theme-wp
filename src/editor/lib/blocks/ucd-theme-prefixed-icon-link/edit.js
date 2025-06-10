@@ -1,5 +1,4 @@
 import { html } from "../../utils";
-import "./ucd-wp-prefixed-icon-link"
 import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker } from "../../block-components";
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { useRef, useEffect, createRef } from "@wordpress/element";
@@ -66,7 +65,7 @@ export default ( props ) => {
     if ( value.kind == 'post-type' ){
       attrs.postId = value.id;
     } else if ( value.kind == 'taxonomy' ) {
-      attrs.taxId = value.id 
+      attrs.taxId = value.id
     }
     setAttributes(attrs);
   }
@@ -74,7 +73,7 @@ export default ( props ) => {
     let value = {opensInNewTab: attributes.newTab, url: ""};
     if ( attributes.href ) {
       value.url = attributes.href;
-    } 
+    }
     return value;
   })();
 
@@ -87,13 +86,13 @@ export default ( props ) => {
   <div ...${ blockProps }>
     <${BlockControls} group="block">
       <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} allowEmail allowPhone />
-      <${ToolbarColorPicker} 
+      <${ToolbarColorPicker}
           onChange=${onColorChange}
           value=${attributes.brandColor}
           ucdBlock="prefixed-icon-link"
       />
     </${BlockControls}>
-    <${IconPicker} 
+    <${IconPicker}
       ref=${iconPickerRef}
       onChange=${onIconSelect}
       selectedIcon=${attributes.icon}

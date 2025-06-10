@@ -44,7 +44,26 @@ class UCDThemeAssets {
     }
     add_action('wp_head', array($this, 'add_styles_to_head'));
     add_action('admin_head', array($this, 'change_admin_logo_bg'));
+    add_action('admin_head', array($this, 'add_variables_to_head'));
 
+  }
+
+  public function add_variables_to_head(){
+
+    $editorScript = $this->uris['js'];
+    if ( $this->isDevEnv ){
+      $editorScript .= "/editor/dev/index.js";
+    } else {
+      $editorScript .= "/editor/dist/index.js";
+    }
+    $editorScript .= "?v=" . $this->version;
+    $editorScript = apply_filters('ucd-theme/admin-variable/editor-script', $editorScript);
+
+    echo "<script>
+    var ucdTheme = {
+      editorScript: '$editorScript',
+    };
+    </script>";
   }
 
   public function add_styles_to_head(){

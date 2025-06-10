@@ -1,10 +1,10 @@
 import { html } from "../../utils";
 import "./ucd-wp-icon-picker";
 import { Modal } from '@wordpress/components';
-import { 
-  useState, 
-  Fragment, 
-  forwardRef, 
+import {
+  useState,
+  Fragment,
+  forwardRef,
   useRef,
   useEffect,
   useImperativeHandle } from '@wordpress/element';

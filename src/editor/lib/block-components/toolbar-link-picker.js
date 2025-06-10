@@ -1,10 +1,7 @@
 import { html, UCDIcons } from "../utils";
 import { ToolbarButton, Dropdown, Button, ToggleControl } from "@wordpress/components";
+import { LinkControl } from '@wordpress/block-editor';
 import { useState } from '@wordpress/element';
-
-// Still experimental component. Looks to be close to release though.
-const {__experimentalLinkControl } = wp.blockEditor;
-const LinkControl = __experimentalLinkControl;
 
 function ToolbarLinkPicker({
   onChange,

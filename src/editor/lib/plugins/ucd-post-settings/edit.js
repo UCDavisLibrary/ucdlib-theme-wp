@@ -1,6 +1,6 @@
 import { html, SelectUtils, BlockSettings } from "../../utils";
 import { ToggleControl, TextControl, ColorPalette, BaseControl } from '@wordpress/components';
-import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
+import { PluginDocumentSettingPanel } from '@wordpress/editor';
 import { useDispatch } from "@wordpress/data";
 
 /**

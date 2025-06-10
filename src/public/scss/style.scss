@@ -1,10 +1,12 @@
 @use '@ucd-lib/theme-sass/style-ucdlib.scss' as style;
 @use './fonts.scss' as fonts;
 @use './temp.scss' as temp;
+@use './headings.scss' as headings;
 
 // move to style-ucdlib.scss in theme-sass
 @use '@ucd-lib/theme-sass/css-properties.scss' as cssProps;
 
+@use './accessibility-shims.scss' as accessibilityShims;
 @use './block-shims.scss' as blockShims;
 @use './custom-blocks.scss' as customBlocks;
 @use './watercolors.scss' as waterColors;

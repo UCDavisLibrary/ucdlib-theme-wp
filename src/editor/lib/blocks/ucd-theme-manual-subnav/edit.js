@@ -20,8 +20,9 @@ import {
   edit
 } from '@wordpress/icons';
 
-const {__experimentalLinkControl } = wp.blockEditor;
-const LinkControl = __experimentalLinkControl;
+import UcdThemeSubnav from '@ucd-lib/theme-elements/brand/ucd-theme-subnav/ucd-theme-subnav';
+
+import { LinkControl } from '@wordpress/block-editor';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -358,6 +359,10 @@ export default ( props ) => {
   <div ...${ blockProps }>
     <${BlockControls} group="block">
       <${Dropdown} position="bottom right" renderToggle=${titleButton} renderContent=${titleContent}/>
+      <${ToolbarButton}
+        icon='plus'
+        onClick=${() => onAddNavItem()}
+        label="Add Nav Item"/>
       ${hasFocusedData && html`
         <${DropdownMenu}
           icon=${chevronDown}
@@ -371,7 +376,6 @@ export default ( props ) => {
       ${attributes.links.map((link, i) => renderLink(link, [i]))}
     </ucd-theme-subnav>
     <${Button} icon='plus' onClick=${() => onAddNavItem()}>Add Nav Item</${Button}>
-
     ${modalIsOpen && html`
       <${Modal} title=${modalMode + " Nav Item"} onRequestClose=${closeModal}>
         <div>

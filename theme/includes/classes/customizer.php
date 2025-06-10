@@ -252,6 +252,22 @@ class UcdThemeCustomizer {
       ));
     }
 
+    $wp_customize->add_setting('layout_posts_teaser_hide_image');
+    $wp_customize->add_control('layout_posts_teaser_hide_image', array(
+      'type' => "checkbox",
+      'section' => 'layout_posts',
+      'label' => 'Hide Teaser Image',
+      'description' => 'Will hide images on post teaser blocks'
+    ));
+
+    $wp_customize->add_setting('layout_posts_teaser_show_excerpt');
+    $wp_customize->add_control('layout_posts_teaser_show_excerpt', array(
+      'type' => "checkbox",
+      'section' => 'layout_posts',
+      'label' => 'Show Teaser Excerpt',
+      'description' => 'Will show excerpt on post teaser blocks'
+    ));
+
     // single author
     $wp_customize->add_section( 'layout_author', array(
       'title' => 'Author',
@@ -349,7 +365,8 @@ class UcdThemeCustomizer {
       array("slug" => "tile-link", "label" => "Tile Link Palette"),
       ['slug' => 'factoid', 'label' => 'Factoid Palette'],
       ['slug' => 'photo-card', 'label' => 'Photo Card Palette'],
-      ['slug' => 'alignable-promo', 'label' => 'Alignable Promo Palette']
+      ['slug' => 'alignable-promo', 'label' => 'Alignable Promo Palette'],
+      ['slug' => 'link-list', 'label' => 'Link List Palette']
     );
     $blocks_with_colors = apply_filters( 'ucd-theme/customizer/block-colors', $blocks_with_colors );
     foreach ($blocks_with_colors as $block) {

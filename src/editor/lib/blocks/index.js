@@ -29,6 +29,8 @@ import layoutBasic from "./ucd-theme-layout-basic";
 import layoutSection from "./ucd-theme-layout-section";
 import layoutShrink from "./ucd-theme-layout-shrink";
 import layoutQuad from "./ucd-theme-layout-quad";
+import linkListItem from './ucd-theme-link-list-item';
+import linkList from './ucd-theme-link-list';
 import manualSubnav from "./ucd-theme-manual-subnav";
 import marketingHighlight from "./ucd-theme-marketing-highlight";
 import marketingHighlightHorizontal from "./ucd-theme-marketing-highlight-horizontal";
@@ -91,6 +93,8 @@ export default [
   layoutSection,
   layoutShrink,
   layoutQuad,
+  linkList,
+  linkListItem,
   manualSubnav,
   marketingHighlight,
   marketingHighlightHorizontal,

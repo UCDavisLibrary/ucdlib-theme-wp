@@ -174,6 +174,22 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
       "twig" => "@ucd/blocks/lander-nav.twig",
       "transform" => array("getCurrentPost", "getNavOrPageChildren", "addSpacing")
     ),
+    'ucd-theme/link-list' => [
+      'twig' => '@ucd/blocks/link-list.twig',
+      "hasBrandColors" => true,
+      "provides_context" => [
+        'ucdLinkList/hideExcerpt' => 'hideExcerpt',
+        'ucdLinkList/brandColor' => 'brandColor'
+      ]
+    ],
+    'ucd-theme/link-list-item' => [
+      'twig' => '@ucd/blocks/link-list-item.twig',
+      'transform' => ['getPost'],
+      'uses_context' => [
+        'ucdLinkList/hideExcerpt',
+        'ucdLinkList/brandColor'
+      ]
+    ],
     "ucd-theme/layout-basic" => array("twig" => "@ucd/blocks/layout-basic.twig"),
     "ucd-theme/column" => array("twig" => "@ucd/blocks/layout-column.twig"),
     "ucd-theme/layout-columns" => array("twig" => "@ucd/blocks/layout-columns.twig"),

@@ -1,7 +1,7 @@
 import { html, SelectUtils } from "../../utils";
 import { ImagePicker } from "../../block-components";
 import { BaseControl, ToggleControl, SelectControl } from '@wordpress/components';
-import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
+import { PluginDocumentSettingPanel } from '@wordpress/editor';
 import { useDispatch } from "@wordpress/data";
 import { decodeEntities } from "@wordpress/html-entities";
 import { Fragment, useEffect, useState } from "@wordpress/element";

@@ -2,7 +2,7 @@
 /**
  * The home.php template is the post archive.
  * It is the homepage by default, hence the name.
- * However, the user can select a specific route/page in Admin > Settings > Reading, 
+ * However, the user can select a specific route/page in Admin > Settings > Reading,
  * which will render this file instead of page.php.
  */
 
@@ -25,6 +25,12 @@ if ( $page_for_posts_id ) {
 $context['is_paged']= is_paged();
 $context['breadcrumbs'] = true;
 $context['latest_news_title'] = get_theme_mod('layout_posts_list_title', 'Latest News');
+
+// teaser settings
+$context['teaserSettings'] = [
+  'hideImage' => get_theme_mod('layout_posts_teaser_hide_image') ? true : false,
+  'hideExcerpt' => get_theme_mod('layout_posts_teaser_show_excerpt') ? false : true
+];
 
 // sidebar content
 $context['sidebar'] = Timber::get_widgets( 'post-archive' );

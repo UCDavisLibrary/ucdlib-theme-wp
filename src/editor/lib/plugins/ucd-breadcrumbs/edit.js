@@ -1,6 +1,6 @@
 import { html, SelectUtils } from "../../utils";
 import { ToggleControl, SelectControl, TextControl } from '@wordpress/components';
-import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
+import { PluginDocumentSettingPanel } from '@wordpress/editor';
 import { useDispatch } from "@wordpress/data";
 import { Fragment, useEffect, useState } from "@wordpress/element";
 import apiFetch from '@wordpress/api-fetch';

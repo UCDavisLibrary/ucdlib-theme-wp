@@ -1,7 +1,9 @@
 import { LitElement, html } from 'lit';
 import {render, styles} from "./ucd-wp-prefixed-icon-link.tpl.js";
 
-import { MainComponentElement, Mixin } from '../../utils';
+//import { MainComponentElement, Mixin } from '../../utils';
+import { MainComponentElement } from '../../utils/main-component-element.js';
+import Mixin from '../../utils/mixin.js';
 
 export default class UcdWpPrefixedIconLink extends Mixin(LitElement)
 .with(MainComponentElement) {
@@ -45,10 +47,10 @@ export default class UcdWpPrefixedIconLink extends Mixin(LitElement)
     return html`
       <ucdlib-icon icon=${this.icon} @click=${this.dispatchIconChangeRequest}></ucdlib-icon>
       <div class="text-container">
-        <slot 
+        <slot
           id="text-slot"
           class=${this.text ? '' : 'show-placeholder'}
-          name="text" 
+          name="text"
           placeholder="Write text..."
           @input=${this._onTextInput}>${this.text}</slot>
       </div>

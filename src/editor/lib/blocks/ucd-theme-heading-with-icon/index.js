@@ -31,6 +31,10 @@ const settings = {
       type: "string",
       default: ""
     },
+    headingLevel: {
+      type: 'number',
+      default: 2
+    }
   },
 	edit: Edit,
 };
