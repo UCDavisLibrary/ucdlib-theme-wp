@@ -1,10 +1,6 @@
 import "./lib/iconsets/wp-editor/wp-editor";
 import "./lib/iconsets/blocks/blocks";
 
-// import "@ucd-lib/theme-elements/ucdlib/ucdlib-sils-search-redirect/ucdlib-sils-search-redirect";
-// import '@ucd-lib/theme-elements/brand/ucd-theme-brand-textbox/ucd-theme-brand-textbox';
-// import '@ucd-lib/theme-elements/brand/ucd-theme-subnav/ucd-theme-subnav';
-
 // editor custom elements
 import './lib/blocks/ucd-theme-prefixed-icon-link/ucd-wp-prefixed-icon-link.js';
 import './lib/blocks/ucd-theme-priority-link/ucd-wp-priority-link.js';
