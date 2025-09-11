@@ -4,5 +4,6 @@ export default [
   {value: 'linkedin', label: 'LinkedIn', icon: 'ucd-public:fa-linkedin'},
   {value: 'orcid', label: 'ORCID', icon: 'ucd-public:fa-orcid'},
   {value: 'twitter', label: 'Twitter', icon: 'ucd-public:x-twitter'},
+  {value:'blue-sky', label: 'Blue Sky', icon: 'ucd-public:bluesky'},
   {value: 'other', label: 'Other', icon: "ucd-public:fa-network-wired"}
 ];

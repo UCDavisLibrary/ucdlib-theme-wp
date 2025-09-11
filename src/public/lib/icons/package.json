@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.1.1"
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "@ucd-lib/cork-icon-set-generator": "^0.2.4"
   }
 }

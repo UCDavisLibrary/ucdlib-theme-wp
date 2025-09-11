@@ -43,7 +43,7 @@ const settings = {
       default: ""
     }
   },
-	edit: Edit
+	edit: Edit,
 };
 
 export default { name, settings };

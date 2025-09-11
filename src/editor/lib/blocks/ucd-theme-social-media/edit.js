@@ -61,9 +61,9 @@ export default ( props ) => {
   return html`
     <div ...${ blockProps }>
       <${BlockControls} group="block">
-        <${ToolbarButton} 
-            icon=${UCDIcons.render('link')} 
-            onClick=${() => onAddLinks()} 
+        <${ToolbarButton}
+            icon=${UCDIcons.render('link')}
+            onClick=${() => onAddLinks()}
             isPressed=${modalIsOpen}
             label="Add Social Media Links"
         />
@@ -96,32 +96,32 @@ export default ( props ) => {
       ${modalIsOpen && html`
         <${Modal} title=${modalMode + " Social Media Links"} onRequestClose=${closeModal}>
           <div>
-            <${TextControl} 
+            <${TextControl}
               label="Facebook Url"
               value=${modalData.facebookUrl}
               onChange=${onFacebookUrlChange}
             />
-            <${TextControl} 
-              label="Twitter Url"
+            <${TextControl}
+              label="Blue Sky Url"
               value=${modalData.twitterUrl}
               onChange=${onTwitterUrlChange}
             />
-            <${TextControl} 
+            <${TextControl}
               label="Instagram Url"
               value=${modalData.instagramUrl}
               onChange=${onInstagramUrlChange}
             />
-            <${TextControl} 
+            <${TextControl}
               label="YouTube Url"
               value=${modalData.youtubeUrl}
               onChange=${onYoutubeUrlChange}
             />
-            <${TextControl} 
+            <${TextControl}
               label="LinkedIn Url"
               value=${modalData.linkedinUrl}
               onChange=${onLinkedinUrlChange}
             />
-            <${Button} 
+            <${Button}
               onClick=${onModalSave}
               variant='primary'>Save Links</${Button}>
           </div>
