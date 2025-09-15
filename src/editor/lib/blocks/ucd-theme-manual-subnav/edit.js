@@ -20,8 +20,6 @@ import {
   edit
 } from '@wordpress/icons';
 
-import UcdThemeSubnav from '@ucd-lib/theme-elements/brand/ucd-theme-subnav/ucd-theme-subnav';
-
 import { LinkControl } from '@wordpress/block-editor';
 
 export default ( props ) => {

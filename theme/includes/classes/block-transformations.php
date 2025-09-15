@@ -397,6 +397,7 @@ class UCDThemeBlockTransformations {
       'linkedin' => 'ucd-public:fa-linkedin',
       'orcid' => 'ucd-public:fa-orcid',
       'twitter' => 'ucd-public:x-twitter',
+      'blue-sky' => 'ucd-public:bluesky',
       'other' => $defaultIcon
     ];
     $attrs['icons'] = [];

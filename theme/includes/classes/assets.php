@@ -35,6 +35,7 @@ class UCDThemeAssets {
     add_action( 'admin_footer', array($this, 'loadAllIcons') );
 
     add_action( 'enqueue_block_editor_assets', array($this, "enqueue_block_editor_assets"), 4);
+    add_action( 'enqueue_block_assets', array($this, "enqueue_block_assets"), 4 );
     add_action( 'wp_enqueue_scripts', array($this, "wp_enqueue_scripts"), 4);
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ), 4 );
     if ( $this->isDevEnv ){
@@ -44,26 +45,35 @@ class UCDThemeAssets {
     }
     add_action('wp_head', array($this, 'add_styles_to_head'));
     add_action('admin_head', array($this, 'change_admin_logo_bg'));
-    add_action('admin_head', array($this, 'add_variables_to_head'));
 
   }
 
-  public function add_variables_to_head(){
+  /**
+   * @description Enqueue scripts needed for rendering custom elements in the editor-canvas iframe
+   * All custom elements needed to be redefined in the iframe to work properly
+   */
+  public function enqueue_block_assets(){
+    if ( is_admin() ) {
+      wp_enqueue_script(
+        'ucd-editor-iconset-mover',
+        $this->uris['base'] . "/move-iconsets-to-iframe.js",
+        ['wp-dom-ready'],
+        $this->version,
+        true
+      );
 
-    $editorScript = $this->uris['js'];
-    if ( $this->isDevEnv ){
-      $editorScript .= "/editor/dev/index.js";
-    } else {
-      $editorScript .= "/editor/dist/index.js";
+      $publicScriptUrl = $this->isDevEnv ?
+        $this->uris['js'] . "/dev/bundle.js" :
+        $this->uris['js'] . "/dist/bundle.js";
+
+      wp_enqueue_script(
+        'ucd-editor-public',
+        $publicScriptUrl,
+        array(),
+        $this->version,
+        true
+      );
     }
-    $editorScript .= "?v=" . $this->version;
-    $editorScript = apply_filters('ucd-theme/admin-variable/editor-script', $editorScript);
-
-    echo "<script>
-    var ucdTheme = {
-      editorScript: '$editorScript',
-    };
-    </script>";
   }
 
   public function add_styles_to_head(){
@@ -92,6 +102,10 @@ class UCDThemeAssets {
         display: none;
       }
     }
+    .edit-site-editor__view-mode-toggle .edit-site-editor__view-mode-toggle-icon img {
+      background-color: #f2f2f2;
+    }
+
     </style>";
   }
 

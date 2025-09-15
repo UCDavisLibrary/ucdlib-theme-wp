@@ -1,8 +1,18 @@
 <!DOCTYPE html>
-<html {{ site.language_attributes }}> 
+<html {{ site.language_attributes }}>
 <head>
     <meta charset="{{ site.charset }}" />
-    <meta name="description" content="{{ site.description }}">
+
+    {% set meta_desc = '' %}
+    {% if post.excerpt %}
+      {% set meta_desc = post.excerpt|striptags|trim %}
+    {% elseif site.description %}
+      {% set meta_desc = site.description|striptags|trim %}
+    {% endif %}
+    {% if meta_desc %}
+      <meta name="description" content="{{ meta_desc|e('html') }}">
+    {% endif %}
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">

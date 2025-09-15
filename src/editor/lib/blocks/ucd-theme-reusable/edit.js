@@ -15,8 +15,6 @@ export default ( props ) => {
   useEffect(() => {
     setFilteredOptions(options);
   }, [options.length])
-  
-  console.log(attributes.blockId);
 
   return html`
   <div ...${ blockProps }>
