@@ -130,9 +130,9 @@ export default ( props ) => {
       <div className='aspect--16x9'>
         <img src=${p['img-src']} />
       </div>
-      <h2 className="vm-featured-article__title">${p.title}</h2>
+      <div className="vm-featured-article__title h2">${p.title}</div>
       ${p.subtitle != undefined && html`
-        <h3 className="vm-featured-article__subtitle">${p.subtitle}</h3>
+        <div className="vm-featured-article__subtitle h3">${p.subtitle}</div>
       `}
     </div>
     `;
