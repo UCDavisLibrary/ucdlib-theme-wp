@@ -130,7 +130,7 @@ export default ( props ) => {
     }
 
     if ( categories && categories.length ) {
-      p.categories = JSON.stringify(categories.map(c => Object({link: c.link, name: c.name, color: c.brandColor})));
+      p.categories = categories.map(c => Object({link: c.link, name: c.name, color: c.brandColor}));
     }
 
     if ( post ) {
