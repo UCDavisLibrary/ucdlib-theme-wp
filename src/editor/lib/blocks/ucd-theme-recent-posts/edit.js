@@ -198,7 +198,7 @@ export default ( props ) => {
       `}
       ${posts.map((p, i) => html`
         <div key=${i}>
-          <${Teaser} ...${ teaserProps(p, i) }></${Teaser}>
+          ${isTeaser && html`<${Teaser} ...${ teaserProps(p, i) }></${Teaser}>`}
           ${isFeatured && featuredArticle(p)}
         </div>
       `)}
