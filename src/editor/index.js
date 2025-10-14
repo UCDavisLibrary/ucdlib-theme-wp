@@ -1,9 +1,6 @@
 import "./lib/iconsets/wp-editor/wp-editor";
 import "./lib/iconsets/blocks/blocks";
 
-// editor custom elements
-import './lib/blocks/ucd-theme-teaser/ucd-wp-teaser.js';
-
 import { registerBlockType } from '@wordpress/blocks';
 import { registerFormatType } from '@wordpress/rich-text';
 import { registerPlugin } from '@wordpress/plugins';
