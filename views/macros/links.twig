@@ -382,9 +382,10 @@ kwargs:
 
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
 
-
-  <{{kwargs.href ? 'a' : 'span'}} class="{{classes}}" href="{{kwargs.href}}" {{target}}>
-    <ucdlib-icon icon="{{icon}}"></ucdlib-icon>
-    <div>{{kwargs.text}}</div>
-  </{{kwargs.href ? 'a' : 'span'}} >
+  <div>
+    <{{kwargs.href ? 'a' : 'span'}} class="{{classes}}" href="{{kwargs.href}}" {{target}}>
+      <ucdlib-icon icon="{{icon}}"></ucdlib-icon>
+      <div>{{kwargs.text}}</div>
+    </{{kwargs.href ? 'a' : 'span'}} >
+  </div>
 {% endmacro %}

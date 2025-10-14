@@ -2,7 +2,6 @@ import "./lib/iconsets/wp-editor/wp-editor";
 import "./lib/iconsets/blocks/blocks";
 
 // editor custom elements
-import './lib/blocks/ucd-theme-prefixed-icon-link/ucd-wp-prefixed-icon-link.js';
 import './lib/blocks/ucd-theme-priority-link/ucd-wp-priority-link.js';
 import './lib/blocks/ucd-theme-teaser/ucd-wp-teaser.js';
 
