@@ -1,7 +1,7 @@
 import { html } from "../../utils";
 import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker } from "../../block-components";
 import { useBlockProps, BlockControls, RichText } from '@wordpress/block-editor';
-import { useRef, useEffect, createRef } from "@wordpress/element";
+import { createRef } from "@wordpress/element";
 
 
 export default ( props ) => {

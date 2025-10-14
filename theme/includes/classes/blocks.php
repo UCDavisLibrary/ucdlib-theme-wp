@@ -24,7 +24,8 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
 
     $this->iconsUsed = [
       'ucd-public:fa-star',
-      'ucd-public:fa-circle-chevron-right'
+      'ucd-public:fa-circle-chevron-right',
+      'ucd-public:fa-plus'
     ];
 
     add_filter( 'timber/twig', array( $this, 'add_to_twig' ) );
