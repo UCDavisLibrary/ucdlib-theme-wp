@@ -40,12 +40,10 @@ const settings = {
       default: ""
     },
     title: {
-      type: "string",
-      default: ""
+      type: "string"
     },
     excerpt: {
-      type: "string",
-      default: ""
+      type: "string"
     },
     hideImage: {
       type: "boolean",

@@ -103,7 +103,7 @@ export default ( props ) => {
           <div className="u-background-image aspect--1x1" style=${{backgroundImage: `url(${imgSrc})`}}></div>
         </div>
         <div className="media-link__body">
-          <h3 className="media-link__title">${title}</h3>
+          <div className="media-link__title">${title}</div>
           <p>${excerpt}</p>
         </div>
       </a>`;

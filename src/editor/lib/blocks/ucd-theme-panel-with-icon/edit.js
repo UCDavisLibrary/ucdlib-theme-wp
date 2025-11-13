@@ -112,7 +112,7 @@ export default ( props ) => {
       >
     </${IconPicker}>
     <div className=${classes}>
-      <h2 className="panel__title">
+      <${'h' + attributes.headingLevel} className="panel__title">
         <ucdlib-icon
           onClick=${onIconClick}
           icon=${attributes.icon}
@@ -126,7 +126,7 @@ export default ( props ) => {
           allowedFormats=${[]}
           placeholder="Write a title..."
         />
-      </h2>
+      </${'h' + attributes.headingLevel}>
       <section>
         <${InnerBlocks} />
         ${!attributes.hideMoreLink && html`

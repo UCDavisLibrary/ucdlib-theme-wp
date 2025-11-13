@@ -36,7 +36,7 @@ const settings = {
     },
     icon: {
       type: 'string',
-      default: ''
+      default: 'ucd-public:fa-plus'
     },
     brandColor: {
       type: "string",

@@ -663,10 +663,12 @@ kwargs:
     <section>
       {{content}}
       {% if not attributes.hideMoreLink %}
-        <a class="icon-ucdlib" href="{{attributes.href}}" {{target}}>
-          <ucdlib-icon class="{{attributes.brandColor ? attributes.brandColor}}" icon="ucd-public:fa-circle-chevron-right"></ucdlib-icon>
-          <span>{{moreText}}</span>
-        </a>
+        <div>
+          <a class="icon-ucdlib" href="{{attributes.href}}" {{target}}>
+            <ucdlib-icon class="{{attributes.brandColor ? attributes.brandColor}}" icon="ucd-public:fa-circle-chevron-right"></ucdlib-icon>
+            <span>{{moreText}}</span>
+          </a>
+        </div>
       {% endif %}
     </section>
   </div>

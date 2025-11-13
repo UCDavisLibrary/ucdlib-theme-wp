@@ -160,7 +160,7 @@ export default ( props ) => {
       <div className=${classes}>
         <div className="marketing-highlight__image aspect--4x3 u-background-image" role="img" style=${{backgroundImage: `url(${imgSrc})`}}>
           ${!attributes.hideBadge && html`
-            <h3 className="marketing-highlight__type">
+            <div className="marketing-highlight__type">
               <${RichText}
                 tagName="span"
                 value=${attributes.badge}
@@ -169,12 +169,12 @@ export default ( props ) => {
                 allowedFormats=${[]}
                 placeholder="Write text..."
               />
-            </h3>
+          </div>
           `}
         </div>
         <div className="marketing-highlight__body">
           ${!attributes.hideTitle && html`
-            <h3 className="marketing-highlight__title">
+            <div className="marketing-highlight__title">
               <${RichText}
                 tagName="span"
                 value=${title}
@@ -183,7 +183,7 @@ export default ( props ) => {
                 allowedFormats=${[]}
                 placeholder="Write a title..."
               />
-            </h3>
+          </div>
           `}
           ${!attributes.hideExcerpt && html`
             <p>

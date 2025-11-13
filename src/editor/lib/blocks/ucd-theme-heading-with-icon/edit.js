@@ -51,7 +51,7 @@ export default ( props ) => {
       selectedIcon=${attributes.icon}
       ></${IconPicker}>
     <div className="panel--icon panel--icon-custom">
-      <h2 className="panel__title">
+      <${'h' + attributes.headingLevel} className="panel__title">
         <ucdlib-icon style=${{cursor: 'pointer'}} icon=${attributes.icon} class=${titleClass} onClick=${ onIconChangeRequest }></ucdlib-icon>
         <${RichText}
           tagName='span'
@@ -61,7 +61,7 @@ export default ( props ) => {
           onChange=${ (text) => setAttributes({text}) }
           placeholder='Write heading...'
         />
-      </h2>
+      </${'h' + attributes.headingLevel}>
     </div>
 
   </div>

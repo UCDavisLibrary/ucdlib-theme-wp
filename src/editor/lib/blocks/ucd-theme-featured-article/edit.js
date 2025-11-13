@@ -127,7 +127,7 @@ export default ( props ) => {
         <div className='aspect--16x9'>
           <img src=${displayedValues.imgSrc} />
         </div>
-        <h2 className="vm-featured-article__title">
+        <div className="vm-featured-article__title h2">
           <${RichText} 
             tagName='span'
             value=${displayedValues.title}
@@ -136,8 +136,8 @@ export default ( props ) => {
             onChange=${ onTitleChange }
             placeholder='Write a title...'
           />
-        </h2>
-        <h3 className="vm-featured-article__subtitle">
+        </div>
+        <div className="vm-featured-article__subtitle h3">
           <${RichText} 
             tagName='span'
             value=${displayedValues.subTitle}
@@ -146,7 +146,7 @@ export default ( props ) => {
             onChange=${ onSubTitleChange }
             placeholder='Write a subtitle...'
           />
-        </h3>
+        </div>
       </div>
     </div>
 
