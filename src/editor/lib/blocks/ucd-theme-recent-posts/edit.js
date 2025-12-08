@@ -1,5 +1,5 @@
 import { html, BlockSettings, SelectUtils } from "../../utils";
-import { AuthorPicker, TermPicker, DebouncedText, ToolbarSectionDisplay } from "../../block-components";
+import { AuthorPicker, TermPicker, DebouncedText, ToolbarSectionDisplay, Teaser } from "../../block-components";
 import { RangeControl, PanelBody, Spinner, SelectControl } from '@wordpress/components';
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { decodeEntities } from "@wordpress/html-entities";
@@ -82,10 +82,10 @@ export default ( props ) => {
   const teaserProps = (post, i) => {
     let p = {key: i};
 
-    if ( attributes.hideExcerpt ) p['hide-excerpt'] = "true";
-    if ( attributes.hideByline) p['hide-byline'] = "true";
-    if ( attributes.hideCategories) p['hide-categories'] = "true";
-    if ( attributes.hideImage) p['hide-image'] = "true";
+    if ( attributes.hideExcerpt ) p.hideExcerpt = true;
+    if ( attributes.hideByline) p.hideByline = true;
+    if ( attributes.hideCategories) p.hideCategories = true;
+    if ( attributes.hideImage) p.hideImage = true;
 
     if ( post ){
       p.href = post.link;
@@ -99,11 +99,11 @@ export default ( props ) => {
       p.date = new Date(post.date_gmt + "Z").toLocaleDateString('en-US', dateOptions);
 
       if ( post.customImage ) {
-        p['img-src'] = post.customImage.source_url;
+        p.imgSrc = post.customImage.source_url;
       } else if ( post.image ) {
-        p['img-src'] = post.image.source_url;
+        p.imgSrc = post.image.source_url;
       } else {
-        p['img-src'] = BlockSettings.getImage('teaser');
+        p.imgSrc = BlockSettings.getImage('teaser');
       }
 
       if ( post.authorData ){
@@ -113,7 +113,7 @@ export default ( props ) => {
       if ( post.meta && post.meta.ucd_subtitle ) p.subtitle = post.meta.ucd_subtitle;
 
       if ( post.categoriesData && post.categoriesData.length ){
-        p.categories = JSON.stringify(post.categoriesData.map(c => Object({link: c.link, name: c.name, color: c.themeColor})));
+        p.categories = post.categoriesData.map(c => ({link: c.link, name: c.name, color: c.brandColor}));
       }
     }
     if ( i ) {
@@ -128,11 +128,11 @@ export default ( props ) => {
     return html`
     <div className='vm-featured-article u-space-mb--large'>
       <div className='aspect--16x9'>
-        <img src=${p['img-src']} />
+        <img src=${p.imgSrc} />
       </div>
-      <h2 className="vm-featured-article__title">${p.title}</h2>
+      <div className="vm-featured-article__title h2">${p.title}</div>
       ${p.subtitle != undefined && html`
-        <h3 className="vm-featured-article__subtitle">${p.subtitle}</h3>
+        <div className="vm-featured-article__subtitle h3">${p.subtitle}</div>
       `}
     </div>
     `;
@@ -198,7 +198,7 @@ export default ( props ) => {
       `}
       ${posts.map((p, i) => html`
         <div key=${i}>
-          ${isTeaser && html`<ucd-wp-teaser ...${ teaserProps(p, i) }></ucd-wp-teaser>`}
+          ${isTeaser && html`<${Teaser} ...${ teaserProps(p, i) }></${Teaser}>`}
           ${isFeatured && featuredArticle(p)}
         </div>
       `)}

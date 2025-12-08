@@ -127,7 +127,7 @@ export default ( props ) => {
           </div>
         `}
         <div className="media-link__body">
-          <h3 className="media-link__title">
+          <div className="media-link__title">
             <${RichText}
               tagName="span"
               value=${title}
@@ -136,7 +136,7 @@ export default ( props ) => {
               allowedFormats=${[]}
               placeholder="Write a title..."
             />
-          </h3>
+          </div>
           <p>
           <${RichText}
             tagName="span"

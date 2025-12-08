@@ -256,10 +256,15 @@ kwargs:
 
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
 
+  {% set icon = 'ucd-public:fa-plus' %}
+  {% if kwargs.icon %}
+    {% set icon = kwargs.icon %}
+  {% endif %}
+
   <a class="{{classes}}" href="{{kwargs.href}}" {{target}}>
     <div class="vertical-link__figure">
-      {% if kwargs.icon %}
-        <ucdlib-icon class="vertical-link__image" icon="{{kwargs.icon}}"></ucdlib-icon>
+      {% if icon %}
+        <ucdlib-icon class="vertical-link__image" icon="{{icon}}"></ucdlib-icon>
       {% endif %}
     </div>
     {% if kwargs.text %}
@@ -382,9 +387,10 @@ kwargs:
 
   {% set target = kwargs.newTab ? "target='_blank'" : "" %}
 
-
-  <{{kwargs.href ? 'a' : 'span'}} class="{{classes}}" href="{{kwargs.href}}" {{target}}>
-    <ucdlib-icon icon="{{icon}}"></ucdlib-icon>
-    <div>{{kwargs.text}}</div>
-  </{{kwargs.href ? 'a' : 'span'}} >
+  <div>
+    <{{kwargs.href ? 'a' : 'span'}} class="{{classes}}" href="{{kwargs.href}}" {{target}}>
+      <ucdlib-icon icon="{{icon}}"></ucdlib-icon>
+      <div>{{kwargs.text}}</div>
+    </{{kwargs.href ? 'a' : 'span'}} >
+  </div>
 {% endmacro %}

@@ -1,55 +1,19 @@
 import { html, UCDIcons } from "../../utils";
-//import "./ucd-wp-priority-link";
 import { ToolbarColorPicker, ToolbarLinkPicker, IconPicker } from "../../block-components";
-import { useBlockProps, BlockControls } from '@wordpress/block-editor';
-import { useRef, useEffect, createRef } from "@wordpress/element";
+import { useBlockProps, BlockControls, RichText } from '@wordpress/block-editor';
+import { createRef } from "@wordpress/element";
 import { ToolbarButton } from "@wordpress/components";
-
+import classnames from 'classnames';
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
-  const mainEleRef = useRef();
   const iconPickerRef = createRef();
 
-
-  // Wire up the main component
-  const onMainEleUpdated = (e) => {
-    const propName = e.detail.propName;
-    const propValue = e.detail.propValue;
-    const newAttrs = {};
-    newAttrs[propName] = propValue;
-    setAttributes(newAttrs);
-  }
   const onIconChangeRequest = () => {
     if ( iconPickerRef.current ){
       iconPickerRef.current.openModal();
     }
-  }
-
-  useEffect(() => {
-    let mainEle = null;
-    if ( mainEleRef.current ) {
-      mainEleRef.current.addEventListener('updated', onMainEleUpdated);
-      mainEleRef.current.addEventListener('icon-change', onIconChangeRequest);
-      mainEle = mainEleRef.current;
-    }
-    return () => {
-      if ( mainEle ) {
-        mainEle.removeEventListener('updated', onMainEleUpdated);
-        mainEle.removeEventListener('icon-change', onIconChangeRequest);
-      }
-    };
-  });
-
-  const mainEleProps = () => {
-    let p = {ref: mainEleRef};
-    if ( attributes.brandColor ) p.color = attributes.brandColor;
-    if ( attributes.icon ) p.icon = attributes.icon;
-    if ( attributes.text ) p.text = attributes.text;
-    if ( attributes.tiltCircle ) p['tilt-circle'] = true;
-
-    return p;
   }
 
   // set up icon picker
@@ -86,6 +50,13 @@ export default ( props ) => {
     setAttributes( {brandColor: value ? value.slug : "" } );
   }
 
+  const classes = classnames({
+    'vertical-link': true,
+    [`category-brand--${attributes.brandColor}`]: attributes.brandColor ? true : false,
+    'vertical-link--circle': !attributes.tiltCircle,
+    'vertical-link--tilt-circle': attributes.tiltCircle
+  });
+
   return html`
   <div ...${ blockProps }>
     <${BlockControls} group="block">
@@ -107,9 +78,23 @@ export default ( props ) => {
       onChange=${onIconSelect}
       selectedIcon=${attributes.icon}
       ></${IconPicker}>
-    <ucd-wp-priority-link ...${ mainEleProps() }>
-      <div slot="text" contentEditable="true"></div>
-    </ucd-wp-priority-link>
+      <div>
+        <a className='${classes}'>
+          <div className='vertical-link__figure' onClick=${onIconChangeRequest}>
+            <ucdlib-icon class='vertical-link__image' icon='${attributes.icon}'></ucdlib-icon>
+          </div>
+          <div className='vertical-link__title'>
+            <${RichText}
+              tagName="span"
+              value=${attributes.text}
+              withoutInteractiveFormatting
+              allowedFormats=${[]}
+              placeholder="Text..."
+              onChange=${ ( text ) => setAttributes({text}) }
+            />
+          </div>
+        </a>
+      </div>
   </div>
   `
 }

@@ -241,7 +241,7 @@ ucdlib-icon.panel__custom-icon {
 
 // for the icon class
 a.icon-ucdlib, span.icon-ucdlib {
-  display: flex;
+  display: inline-flex;
   align-items: center;
 
   ucdlib-icon {

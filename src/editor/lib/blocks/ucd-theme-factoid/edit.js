@@ -89,7 +89,7 @@ export default ( props ) => {
             <ucdlib-icon icon=${attributes.icon}></ucdlib-icon>
           </div>
           <div className="factoid__body">
-            <h2 className="factoid__big-text">
+            <div className="factoid__big-text">
               <${RichText}
                 tagName="span"
                 value=${attributes.bigText}
@@ -98,8 +98,8 @@ export default ( props ) => {
                 allowedFormats=${[]}
                 placeholder="Big Text..."
               />
-            </h2>
-            <h3 className="factoid__small-text">
+            </div>
+            <div className="factoid__small-text">
               <${RichText}
                 tagName="span"
                 value=${attributes.smallText}
@@ -108,7 +108,7 @@ export default ( props ) => {
                 allowedFormats=${[]}
                 placeholder="Small Text..."
               />
-            </h3>
+            </div>
           </div>
         </div>
         <div className="factoid__bracket-two"></div>

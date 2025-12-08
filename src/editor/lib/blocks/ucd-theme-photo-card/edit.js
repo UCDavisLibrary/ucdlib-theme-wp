@@ -155,7 +155,7 @@ export default ( props ) => {
         <div className="aspect--1x1 u-background-image" role='img' style=${ {backgroundImage: 'url(' + imgSrc + ')'} }></div>
       </div>
       ${(!attributes.hideTitle) && html`
-        <h3 className="photo-card__title">
+        <div className="photo-card__title">
           <${RichText}
             tagName="span"
             value=${title}
@@ -164,7 +164,7 @@ export default ( props ) => {
             onChange=${ ( title ) => setAttributes({title}) }
             placeholder="Write a title..."
           />
-        </h3>
+        </div>
       `}
     </a>
   </div>

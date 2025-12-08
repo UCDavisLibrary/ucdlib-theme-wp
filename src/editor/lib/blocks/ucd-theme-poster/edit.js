@@ -135,7 +135,7 @@ export default ( props ) => {
       <div className="aspect--16x9 u-background-image" style=${{backgroundImage: `url(${imgSrc})`}}></div>
       <div className="vm-poster__body">
         <div className="vm-poster__body-text">
-          <h2 className="vm-poster__title">
+          <div className="vm-poster__title h2">
             <${RichText}
               tagName="span"
               value=${title}
@@ -144,7 +144,7 @@ export default ( props ) => {
               allowedFormats=${[]}
               placeholder="Write a title..."
             />
-          </h2>
+          </div>
           <p>
             <${RichText}
               tagName="span"

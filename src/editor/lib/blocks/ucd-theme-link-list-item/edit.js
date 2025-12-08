@@ -60,11 +60,11 @@ export default ( props ) => {
            />
         `}
       </${BlockControls}>
-      <div class="ucd-link-list-item">
-        <span class='icon-ucdlib category-brand--${brandColor}'>
+      <div className="ucd-link-list-item">
+        <span className='icon-ucdlib category-brand--${brandColor}'>
           <ucdlib-icon icon="ucd-public:fa-circle-chevron-right"></ucdlib-icon>
           <span>
-            <a class='ucd-link-list-item--title'>
+            <a className='ucd-link-list-item--title'>
               <${RichText}
                 tagName="span"
                 value=${title}
@@ -75,7 +75,7 @@ export default ( props ) => {
               />
             </a>
             ${!hideExcerpt && html`
-              <span class='ucd-link-list-item--excerpt'>
+              <span className='ucd-link-list-item--excerpt'>
                 <${RichText}
                   tagName="p"
                   value=${excerpt}

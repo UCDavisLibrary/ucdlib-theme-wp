@@ -154,7 +154,7 @@ export default ( props ) => {
           value=${ alignment }
           onChange=${ onAlignmentChange }
         />
-        <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} />
+        <${ToolbarLinkPicker} onChange=${onHrefChange} value=${hrefContent} label='Primary Button Link' />
         <${ToolbarColorPicker}
           onChange=${onColorChange}
           value=${attributes.brandColor}
@@ -173,8 +173,9 @@ export default ( props ) => {
         ${!attributes.hideSecondaryButton && html`
           <${ToolbarLinkPicker}
             onChange=${onSecondaryButtonHrefChange}
+            label='Secondary Button Link'
             value=${secondaryButtonHrefContent}
-            icon=${html`<span>Secondary Button Link</span>`}
+            icon=${html`<span>Link2</span>`}
            />
         `}
       </${BlockControls}>
@@ -197,7 +198,7 @@ export default ( props ) => {
             <div className="aspect--4x3 u-background-image" role='img' style=${ {backgroundImage: 'url(' + imgSrc + ')'} }></div>
           </div>
           <div className="alignable-promo__body">
-            <h2 className="alignable-promo__title">
+            <div className="alignable-promo__title">
               ${!attributes.hideTitle && html`
                 <span className="alignable-promo__line1">
                   <${RichText}
@@ -222,7 +223,7 @@ export default ( props ) => {
                   />
                 </span>
               `}
-            </h2>
+              </div>
             ${!attributes.hideExcerpt && html`
               <div className="alignable-promo__text">
                 <${RichText}

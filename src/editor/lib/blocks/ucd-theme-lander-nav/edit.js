@@ -11,7 +11,7 @@ const mediaLink = (title, body, key="0", hideImage=false) => html`
       <div className="media-link__figure u-background-image" style=${{'backgroundImage': `url(${img})`}}></div>
     `}
     <div className="media-link__body">
-      <h3 className="media-link__title">${title}</h3>
+      <div className="media-link__title">${title}</div>
       <p>${body}</p>
     </div>
   </div>

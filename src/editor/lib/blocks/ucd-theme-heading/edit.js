@@ -57,7 +57,7 @@ export default ({ attributes, setAttributes }) => {
         value=${attributes.content}
         disableLineBreaks
         className=${classes}
-        allowedFormats=${ [ 'core/link', 'ucd-theme/bold-heading' ] }
+        allowedFormats=${ [ 'core/link', 'core/bold', 'core/italic', 'ucd-theme/bold-heading' ] }
         onChange=${ (content) => setAttributes({content}) }
         placeholder='Write heading...'
         />
