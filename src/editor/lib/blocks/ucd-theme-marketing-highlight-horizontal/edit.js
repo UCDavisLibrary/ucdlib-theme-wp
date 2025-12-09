@@ -151,7 +151,7 @@ export default ( props ) => {
         </div>
         ${!attributes.hideTitle && html`
           <div className="marketing-highlight-horizontal__body">
-            <h5 className="marketing-highlight-horizontal__title">
+            <div className="marketing-highlight-horizontal__title">
               <${RichText}
                 tagName="span"
                 value=${title}
@@ -160,7 +160,7 @@ export default ( props ) => {
                 allowedFormats=${[]}
                 placeholder="Write a title..."
               />
-            </h5>
+        </div>
           </div>
         `}
       </div>

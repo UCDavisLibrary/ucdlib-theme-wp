@@ -165,7 +165,7 @@ export default ( props ) => {
     <a className="${classes}">
       ${(!attributes.hideTitle) && html`
         <div className="tile-link__title">
-          <h3 className="tile-link__title-heading">
+          <div className="tile-link__title-heading">
             <${RichText}
               tagName="span"
               value=${title}
@@ -174,7 +174,7 @@ export default ( props ) => {
               onChange=${ ( title ) => setAttributes({title}) }
               placeholder="Add a title"
             />
-          </h3>
+          </div>
         </div>
       `}
       ${(!attributes.hideExcerpt) && html`
