@@ -65,3 +65,38 @@
   margin-bottom: .25em;
   font-style: normal;
 }
+
+// update focus styles to make it clear when links are focused
+.vm-teaser__title a:focus {
+  color: var(--forced-contrast-heading-primary, #022851);
+  text-decoration: underline;
+}
+.vm-teaser__categories a:focus {
+    text-decoration: underline;
+}
+.breadcrumbs a:focus {
+  text-decoration: underline;
+}
+.social-follow a:focus {
+  opacity: 0.6;
+}
+.marketing-highlight:focus {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+
+  .marketing-highlight__image .u-background-image {
+    transform: scale(1.1);
+  }
+  .marketing-highlight__type {
+    right: -1.6rem;
+    padding-left: 2rem;
+  }
+  .marketing-highlight__cta {
+    color: var(--category-brand-contrast-color, #fff);
+  }
+  .marketing-highlight__cta:before {
+    opacity: 1;
+    transform: translateX(-45%);
+  }
+}

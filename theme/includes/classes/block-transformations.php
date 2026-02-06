@@ -410,7 +410,8 @@ class UCDThemeBlockTransformations {
             'value' => $email['value'],
             'link' => 'mailto:' . $email['value'],
             'label' => array_key_exists('label', $email) && $email['label'] ? $email['label'] : $email['value'],
-            'icon' => $icons['email']
+            'icon' => $icons['email'],
+            'ariaLabel' => array_key_exists('ariaLabel', $email) ? $email['ariaLabel'] : ''
           ];
         }
       }
@@ -432,7 +433,8 @@ class UCDThemeBlockTransformations {
             'value' => $phone['value'],
             'link' => 'tel:' .  $phone['value'],
             'label' => $label,
-            'icon' => $icons['phone']
+            'icon' => $icons['phone'],
+            'ariaLabel' => array_key_exists('ariaLabel', $phone) ? $phone['ariaLabel'] : ''
           ];
         }
       }
@@ -464,7 +466,8 @@ class UCDThemeBlockTransformations {
             'value' => $website['value'],
             'link' => $website['value'],
             'label' => array_key_exists('label', $website) && $website['label'] ? $website['label'] : $website['value'],
-            'icon' => $icon
+            'icon' => $icon,
+            'ariaLabel' => array_key_exists('ariaLabel', $website) ? $website['ariaLabel'] : ''
           ];
         }
       }

@@ -131,6 +131,9 @@ kwargs:
 #}
 {% macro tag( kwargs={} ) %}
 
+  {% set text = null %}
+  {% set href = null %}
+
   {% if kwargs.term %}
     {% set text = kwargs.term.name %}
     {% set href = kwargs.term.link %}
@@ -145,7 +148,7 @@ kwargs:
   {% endif %}
 
   {% if text and href %}
-    <a href="{{ href }}" class="tags__tag">{{ text }}</a>
+    <a href="{{ href }}" class="tags__tag" aria-label="Site Content Related to {{ text }}">{{ text }}</a>
   {% endif %}
 
 {% endmacro %}
