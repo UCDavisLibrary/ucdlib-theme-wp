@@ -102,7 +102,14 @@ kwargs:
   {% set classes = classes ~ " o-box" %}
 {% endif %}
 
-  <ucd-theme-subnav class="{{classes}}" nav-title="{{title}}" title-href="{{link}}" {{ kwargs.navAriaLabel ? 'nav-aria-label="' ~ kwargs.navAriaLabel ~ '"' : '' }}>
+  <ucd-theme-subnav 
+    class="{{classes}}" 
+    nav-title="{{title}}" 
+    title-href="{{link}}" 
+    {% if kwargs.navAriaLabel %}
+      nav-aria-label="{{ kwargs.navAriaLabel|e('html_attr') }}"
+    {% endif %}
+    >
     {{ _self._wp_menu_to_ucd_menu(items, show_grandchildren, show_children) }}
   </ucd-theme-subnav>
 

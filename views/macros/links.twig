@@ -110,7 +110,7 @@ kwargs:
   {% endif %}
 
 
-  <a href="{{href}}" class="{{classes}}" {{target}} aria-label='{{title}}'>
+  <a href="{{href}}" class="{{classes}}" {{target}} aria-label='{{title|e('html_attr')}}'>
     <div class="marketing-highlight-horizontal__image">
       <div class="aspect--16x9 u-background-image" style="background-image:url({{src}});"></div>
     </div>
@@ -148,7 +148,7 @@ kwargs:
   {% endif %}
 
   {% if text and href %}
-    <a href="{{ href }}" class="tags__tag" aria-label="Site Content Related to {{ text }}">{{ text }}</a>
+    <a href="{{ href }}" class="tags__tag" aria-label="Site Content Related to {{ text|e('html_attr') }}">{{ text }}</a>
   {% endif %}
 
 {% endmacro %}
