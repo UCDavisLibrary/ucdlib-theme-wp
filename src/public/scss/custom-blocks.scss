@@ -26,7 +26,7 @@
     font-size: 1rem;
     line-height: 1.6rem;
   }
-  .ucd-link-list-item--title:hover {
+  .ucd-link-list-item--title:hover, .ucd-link-list-item--title:focus {
     text-decoration: underline;
   }
   .ucd-link-list-item--excerpt {
