@@ -148,7 +148,12 @@ kwargs:
   {% endif %}
 
   {% if text and href %}
-    <a href="{{ href }}" class="tags__tag" aria-label="Site Content Related to {{ text|e('html_attr') }}">{{ text }}</a>
+    {% if kwargs.term.taxonomy %}
+      {% set ariaLabel = kwargs.term.taxonomy ~ ': ' ~ text|e('html_attr') %}
+    {% else %}
+      {% set ariaLabel = "Site Content Related to " ~ text|e('html_attr') %}
+    {% endif %}
+    <a href="{{ href }}" class="tags__tag" aria-label="{{ ariaLabel }}">{{ text }}</a>
   {% endif %}
 
 {% endmacro %}
