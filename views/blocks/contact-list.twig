@@ -1,7 +1,13 @@
 <ul class="list--pipe u-space-mb">
   {% for contact in attributes.contact %}
     <li>
-      <a class="icon-ucdlib" href="{{contact.link}}">
+      <a 
+        class="icon-ucdlib" 
+        href="{{contact.link}}"
+        {% if contact.ariaLabel %}
+          aria-label="{{ contact.ariaLabel|e('html_attr') }}"
+        {% endif %}
+        >
         <ucdlib-icon icon="{{contact.icon}}"></ucdlib-icon><div>{{contact.label}}</div>
       </a>
     </li>

@@ -2,7 +2,7 @@
     {% set salaryFrequency = attributes.salaryFrequency is null ? 'HOUR' : attributes.salaryFrequency %}
     {% set employmentType = attributes.employmentType is null ? 'FULL_TIME' : attributes.employmentType %}
     <li class="job-posting">
-        <a href="{{attributes.link}}" target="_blank"><strong>{{attributes.title}}</strong></a><br/>
+        <a href="{{attributes.link}}"><strong>{{attributes.title}}</strong></a><br/>
         {% if attributes.description %} 
             <span class="subtext" style="padding-bottom: 0.5rem; display: inline-block;">{{attributes.description}}</span>
         {% endif %}
