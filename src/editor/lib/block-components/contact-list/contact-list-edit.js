@@ -36,7 +36,7 @@ const ContactListEdit = forwardRef((props, ref) => {
   allowAdditionalText = allowAdditionalText ? true : false;
 
   const baseContactStructure = (() => {
-    const x = {value: '', label: ''};
+    const x = {value: '', label: '', ariaLabel: ''};
     if ( allowAdditionalText ) x['additionalText'] = '';
     return x;
   })();
@@ -151,47 +151,52 @@ const ContactListEdit = forwardRef((props, ref) => {
 
   const phoneSection = () => html`
     <div>
-    ${modalSectionHeader("Phone", addNewPhone)}
+      ${modalSectionHeader("Phone", addNewPhone)}
       ${_phones.length > 0 ? html`
-        <div style=${{display: 'table'}}>
-          <div style=${{display: 'table-header-group'}}>
-            <div style=${{display: 'table-row', fontWeight: '700'}}>
-              <div style=${{display: 'table-cell', paddingBottom: '10px'}}>Number</div>
-              <div style=${{display: 'table-cell'}}>Link Label (optional)</div>
-              ${allowAdditionalText && html`<div style=${{display: 'table-cell'}}>Additional Text (optional)</div>`}
-              <div style=${{display: 'table-cell'}}></div>
-            </div>
-          </div>
-          <div style=${{display: 'table-row-group'}}>
-            ${_phones.map((phone, i) => html`
-              <div style=${{display: 'table-row'}} key=${i}>
-                <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+        <div>
+          ${_phones.map((phone, i) => html`
+            <div className='contact-list-edit__row' key=${i}>
+              <div className='contact-list-edit__row-content'>
+                <div>
                   <${TextControl}
                     type="tel"
+                    label="Number"
                     value=${phone.value}
                     onChange=${v => setPhone(v, i, 'value')}
                   />
                 </div>
-                <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+                <div>
                   <${TextControl}
+                    label="Link Label"
+                    placeholder="Optional"
                     value=${phone.label}
                     onChange=${v => setPhone(v, i, 'label')}
                   />
                 </div>
+                <div>
+                  <${TextControl}
+                    label="Aria Label"
+                    placeholder="Optional"
+                    value=${phone.ariaLabel || ''}
+                    onChange=${v => setPhone(v, i, 'ariaLabel')}
+                  />
+                </div>
                 ${allowAdditionalText && html`
-                  <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+                  <div>
                     <${TextControl}
+                      label="Additional Text"
+                      placeholder="Optional"
                       value=${phone.additionalText}
                       onChange=${v => setPhone(v, i, 'additionalText')}
                     />
                   </div>
                 `}
-                <div style=${{display: 'table-cell'}}>
-                  <${Button} isDestructive=${true} onClick=${() => removePhone(i)} variant='link'>delete</${Button}>
-                </div>
               </div>
-            `)}
-          </div>
+              <div>
+                <${Button} isDestructive=${true} onClick=${() => removePhone(i)} variant='link'>delete</${Button}>
+              </div>
+            </div>
+          `)}
         </div>
       ` : html`
       <div>
@@ -210,45 +215,50 @@ const ContactListEdit = forwardRef((props, ref) => {
   <div>
     ${modalSectionHeader("Email", addNewEmail)}
       ${_emails.length > 0 ? html`
-        <div style=${{display: 'table'}}>
-          <div style=${{display: 'table-header-group'}}>
-            <div style=${{display: 'table-row', fontWeight: '700'}}>
-              <div style=${{display: 'table-cell', paddingBottom: '10px'}}>Address</div>
-              <div style=${{display: 'table-cell'}}>Link Label (optional)</div>
-              ${allowAdditionalText && html`<div style=${{display: 'table-cell'}}>Additional Text (optional)</div>`}
-              <div style=${{display: 'table-cell'}}></div>
-            </div>
-          </div>
-          <div style=${{display: 'table-row-group'}}>
-            ${_emails.map((email, i) => html`
-              <div style=${{display: 'table-row'}} key=${i}>
-                <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+        <div>
+          ${_emails.map((email, i) => html`
+            <div className='contact-list-edit__row' key=${i}>
+              <div className='contact-list-edit__row-content'>
+                <div>
                   <${TextControl}
                     type="email"
+                    label="Email Address"
                     value=${email.value}
                     onChange=${v => setEmail(v, i, 'value')}
                   />
                 </div>
-                <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+                <div>
                   <${TextControl}
+                    label="Link Label"
+                    placeholder="Optional"
                     value=${email.label}
                     onChange=${v => setEmail(v, i, 'label')}
                   />
                 </div>
+                <div>
+                  <${TextControl}
+                    label="Aria Label"
+                    placeholder="Optional"
+                    value=${email.ariaLabel || ''}
+                    onChange=${v => setEmail(v, i, 'ariaLabel')}
+                  />
+                </div>
                 ${allowAdditionalText && html`
-                  <div style=${{display: 'table-cell', paddingRight: '15px'}}>
+                  <div>
                     <${TextControl}
+                      label="Additional Text"
+                      placeholder="Optional"
                       value=${email.additionalText}
                       onChange=${v => setEmail(v, i, 'additionalText')}
                     />
                   </div>
                 `}
-                <div style=${{display: 'table-cell'}}>
-                  <${Button} isDestructive=${true} onClick=${() => removeEmail(i)} variant='link'>delete</${Button}>
-                </div>
               </div>
-            `)}
-          </div>
+              <div>
+                <${Button} isDestructive=${true} onClick=${() => removeEmail(i)} variant='link'>delete</${Button}>
+              </div>
+            </div>
+          `)}
         </div>
       ` : html`
       <div>
@@ -273,77 +283,81 @@ const websiteSection = () => {
     return '';
   };
   return html`
-<div>
-${modalSectionHeader("Websites", addNewWebsite)}
-  ${_websites.length > 0 ? html`
-    <div style=${{display: 'table'}}>
-      <div style=${{display: 'table-header-group'}}>
-        <div style=${{display: 'table-row', fontWeight: '700'}}>
-          <div style=${{display: 'table-cell'}}>Type</div>
-          <div style=${{display: 'table-cell', paddingBottom: '10px'}}>URL</div>
-          <div style=${{display: 'table-cell'}}>Link Label (optional)</div>
-          ${allowAdditionalText && html`<div style=${{display: 'table-cell'}}>Additional Text (optional)</div>`}
-          <div style=${{display: 'table-cell'}}></div>
-        </div>
-      </div>
-      <div style=${{display: 'table-row-group'}}>
+  <div>
+    ${modalSectionHeader("Websites", addNewWebsite)}
+    ${_websites.length > 0 ? html`
+      <div>
         ${_websites.map((website, i) => html`
-          <div style=${{display: 'table-row'}} key=${i}>
-            <div style=${{display: 'table-cell', paddingRight: '15px', verticalAlign: 'middle'}}>
-              <${SelectControl}
-                options=${websiteTypes}
-                value=${website.type}
-                onChange=${v => setWebsite(v, i, 'type')}
-              />
-            </div>
-            <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-              <${TextControl}
-                value=${website.value}
-                onChange=${v => setWebsite(v, i, 'value')}
-              />
-            </div>
-            <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-              <${TextControl}
-                value=${website.label}
-                onChange=${v => setWebsite(v, i, 'label')}
-              />
-            </div>
-            ${allowAdditionalText && html`
-              <div style=${{display: 'table-cell', paddingRight: '15px'}}>
-                <${TextControl}
-                  value=${website.additionalText}
-                  onChange=${v => setWebsite(v, i, 'additionalText')}
+          <div className='contact-list-edit__row' key=${i}>
+            <div className='contact-list-edit__row-content'>
+              <div>
+                <${SelectControl}
+                  options=${websiteTypes}
+                  label="Type"
+                  value=${website.type}
+                  onChange=${v => setWebsite(v, i, 'type')}
                 />
               </div>
-            `}
-            ${website.type == 'other' ? html`
-              <div style=${{display: 'table-cell', paddingRight: '15px'}} >
-                ${hasIcon(website) ? html`
-                  <div onClick=${() => onIconPickerClick(i)}>
-                    <ucdlib-icon icon=${iconString(website)} style=${{cursor: 'pointer'}}></ucdlib-icon>
-                  </div>
-                ` : html`
-                  <${Button} variant="primary" onClick=${() => onIconPickerClick(i)}>Icon</${Button}>
-                `}
+              <div>
+                <${TextControl}
+                  label="URL"
+                  value=${website.value}
+                  onChange=${v => setWebsite(v, i, 'value')}
+                />
+              </div>
+              <div>
+                <${TextControl}
+                  label="Link Label"
+                  placeholder="Optional"
+                  value=${website.label}
+                  onChange=${v => setWebsite(v, i, 'label')}
+                />
+              </div>
+              <div>
+                <${TextControl}
+                  label="Aria Label"
+                  placeholder="Optional"
+                  value=${website.ariaLabel || ''}
+                  onChange=${v => setWebsite(v, i, 'ariaLabel')}
+                />
+              </div>
+              ${allowAdditionalText && html`
+                <div>
+                  <${TextControl}
+                    label="Additional Text"
+                    placeholder="Optional"
+                    value=${website.additionalText}
+                    onChange=${v => setWebsite(v, i, 'additionalText')}
+                  />
+                </div>
+              `}
+              ${website.type == 'other' ? html`
+                <div>
+                  ${hasIcon(website) ? html`
+                    <div onClick=${() => onIconPickerClick(i)}>
+                      <ucdlib-icon icon=${iconString(website)} style=${{cursor: 'pointer'}}></ucdlib-icon>
+                    </div>
+                  ` : html`
+                    <${Button} variant="primary" onClick=${() => onIconPickerClick(i)}>Icon</${Button}>
+                  `}
+                </div>
+              `: html``}
             </div>
-            `: html``}
-            <div style=${{display: 'table-cell'}}>
+            <div>
               <${Button} isDestructive=${true} onClick=${() => removeWebsite(i)} variant='link'>delete</${Button}>
             </div>
-
           </div>
         `)}
       </div>
+    ` : html`
+    <div>
+        <${Text} isBlock=${true} variant="muted" style=${{marginBottom: '15px'}}>
+          You don't have any websites listed. <${Button} onClick=${ addNewWebsite } variant='link'>Add one</${Button}>
+        </${Text}>
     </div>
-  ` : html`
-  <div>
-      <${Text} isBlock=${true} variant="muted" style=${{marginBottom: '15px'}}>
-        You don't have any websites listed. <${Button} onClick=${ addNewWebsite } variant='link'>Add one</${Button}>
-      </${Text}>
+    `}
   </div>
-  `}
-</div>
-`};
+  `};
 
 const appointmentSection = () => html`
   <div>
@@ -363,6 +377,21 @@ const appointmentSection = () => html`
     <${Fragment}>
       ${isOpen && html`
       <${Modal} title=${modalTitle} onRequestClose=${ _onClose }>
+        <style>
+          .contact-list-edit__row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+          }
+          .contact-list-edit__row-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+          }
+        </style>
         <div>
           ${allowPhones && phoneSection()}
           ${allowEmails && emailSection()}
