@@ -149,11 +149,11 @@ kwargs:
 
   {% if text and href %}
     {% if kwargs.term.taxonomy %}
-      {% set ariaLabel = kwargs.term.taxonomy ~ ': ' ~ text|e('html_attr') %}
+      {% set ariaLabel = kwargs.term.taxonomy ~ ': ' ~ text %}
     {% else %}
-      {% set ariaLabel = "Site Content Related to " ~ text|e('html_attr') %}
+      {% set ariaLabel = 'Site Content Related to ' ~ text %}
     {% endif %}
-    <a href="{{ href }}" class="tags__tag" aria-label="{{ ariaLabel }}">{{ text }}</a>
+    <a href="{{ href }}" class="tags__tag" aria-label="{{ ariaLabel|entity_decode|e('html_attr') }}">{{ text }}</a>
   {% endif %}
 
 {% endmacro %}
