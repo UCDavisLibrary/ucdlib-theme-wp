@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/footer-columns';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Footer Columns",
 	description: "Column layout for the site footer",
 	icon: UCDIcons.renderBlockIcon('columns'),

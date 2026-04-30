@@ -4,7 +4,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/career';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Career",
   parent: [ "ucd-theme/careers" ],
 	description: "Create a career section with basic job information",

@@ -5,7 +5,7 @@ import transformToSection from "./transform-to-section.js";
 
 const name = 'ucd-theme/background-color';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Section with a Background Color",
 	description: "Create a section with a splash of color w/ optional watercolor effect.",
 	icon: UCDIcons.renderBlockIcon('background-watercolor'),

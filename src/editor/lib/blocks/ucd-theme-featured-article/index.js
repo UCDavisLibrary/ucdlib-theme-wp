@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/featured-article';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Featured News Article",
 	description: "Display a news article in a simple card",
 	icon: UCDIcons.renderPublic('fa-newspaper'),

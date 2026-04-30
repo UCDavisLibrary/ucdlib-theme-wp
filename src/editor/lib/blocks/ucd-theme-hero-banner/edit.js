@@ -168,7 +168,7 @@ export default ( props ) => {
             </p>
           </div>
           <div className="hero-banner__button-group">
-            <a class="hero-banner__button">
+            <a className="hero-banner__button">
               <${RichText}
                 tagName="span"
                 value=${attributes.buttonText}

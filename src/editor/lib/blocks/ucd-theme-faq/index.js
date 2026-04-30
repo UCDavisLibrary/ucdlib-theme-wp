@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/faq';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "FAQ Section",
 	description: "Add a FAQ section where the answers are collapsable ",
 	icon: UCDIcons.renderBlockIcon('faq-section'),

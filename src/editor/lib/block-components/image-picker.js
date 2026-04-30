@@ -54,7 +54,7 @@ function ImagePicker({
 
   const { defaultImage } = useSelect( (select) => {
     let defaultImage = undefined;
-    if ( defaultImageId ) defaultImage = select('core').getMedia(defaultImageId);
+    if ( defaultImageId ) defaultImage = select('core').getEntityRecords('postType', 'attachment', {include: [defaultImageId], context: 'view'})?.[0];
 
     return { defaultImage }
   });
@@ -66,7 +66,7 @@ function ImagePicker({
 
   const _onClose = () => {
     if ( imageId ) {
-      invalidateResolution('core', 'getMedia', [imageId]);
+      invalidateResolution('core', 'getEntityRecords', ['postType', 'attachment', {include: [imageId], context: 'view'}]);
       //dispatch('core').saveMedia(imageId);
     }
     if ( onClose ){

@@ -4,7 +4,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/google-maps';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Google Maps",
 	description: "Add a map for a given location",
 	icon: html`${mapMarker}`,

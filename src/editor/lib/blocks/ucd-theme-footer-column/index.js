@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/footer-column';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Footer Column",
 	description: "A single footer column",
   parent: ['ucd-theme/footer-columns'],

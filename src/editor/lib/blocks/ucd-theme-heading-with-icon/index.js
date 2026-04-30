@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/heading-with-icon';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Heading with Icon",
 	description: "Add a section heading with an Icon",
 	icon: UCDIcons.renderBlockIcon('heading-fancy'),

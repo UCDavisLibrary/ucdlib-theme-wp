@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/hero-banner';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Hero Banner",
 	description: "Preview content on another webpage with text overlayed on a background image",
 	icon: UCDIcons.renderBlockIcon('hero-banner'),

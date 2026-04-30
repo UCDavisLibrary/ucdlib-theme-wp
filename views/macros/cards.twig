@@ -657,7 +657,7 @@ kwargs:
   {% endif %}
 
   <div class="{{classes|join(' ')}}">
-    <h{{level}} class="panel__title">
+    <h{{level}} class="panel__title" {{attributes.anchor ? "id='"~attributes.anchor~"'"}}>
       <ucdlib-icon icon="{{icon}}" class="panel__custom-icon {{attributes.brandColor}}"></ucdlib-icon>{{attributes.title}}
     </h{{level}}>
     <section>
