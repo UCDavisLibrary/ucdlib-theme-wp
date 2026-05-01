@@ -3,6 +3,7 @@ import { html, BlockSettings, SelectUtils } from "../../utils";
 import { ImagePicker, ToolbarLinkPicker } from "../../block-components";
 import { useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { ToolbarDropdownMenu } from '@wordpress/components';
+import { decodeEntities } from "@wordpress/html-entities";
 
 export default ( props ) => {
   const { attributes, setAttributes } = props;
@@ -25,6 +26,7 @@ export default ( props ) => {
   } else if ( Image && Image.caption.rendered ) {
     captionText = Image.caption.rendered.replace(/(<([^>]+)>)/gi, "");
   } 
+  captionText = decodeEntities(captionText);
 
   const aspectRatioControls = ["4x3", "16x9"].map(ar => 
     Object({
@@ -48,7 +50,7 @@ export default ( props ) => {
     if ( value.kind == 'post-type' ){
       attrs.postId = value.id;
     } else if ( value.kind == 'taxonomy' ) {
-      attrs.taxId = value.id 
+      attrs.taxId = value.id
     }
     setAttributes(attrs);
   }
@@ -56,7 +58,7 @@ export default ( props ) => {
     let value = {opensInNewTab: attributes.newTab, url: ""};
     if ( attributes.href ) {
       value.url = attributes.href;
-    } 
+    }
     return value;
   })();
 
@@ -87,9 +89,6 @@ export default ( props ) => {
           <figcaption style=${{display:'block'}}>${captionText}</figcaption>
         `}
       </figure>
-      
-      
-
     </div>
   `;
 }

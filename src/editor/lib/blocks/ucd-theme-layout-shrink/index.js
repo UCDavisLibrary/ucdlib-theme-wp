@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/layout-shrink';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Shrink and Center",
 	description: "Place content in a centered, decreased-width container",
 	icon: UCDIcons.renderBlockIcon('shrink'),
@@ -17,7 +17,7 @@ const settings = {
   attributes: {
     width: {
       type: 'number',
-      value: 0
+      default: 0
     },
     anchor: {
       type: "string",

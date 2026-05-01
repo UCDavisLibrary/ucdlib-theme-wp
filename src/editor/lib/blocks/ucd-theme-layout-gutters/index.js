@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/layout-gutters';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Gutters",
 	description: "Adds spacing to the left and right of the content.",
 	icon: UCDIcons.renderPublic('fa-arrows-left-right-to-line'),

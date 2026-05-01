@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/layout-columns';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Columns",
 	description: "Arrange content into 2-4 columns",
 	icon: UCDIcons.renderBlockIcon('columns'),

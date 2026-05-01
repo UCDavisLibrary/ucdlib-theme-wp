@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/link-list';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
   title: "Link List",
   description: "Link to other pages using a simple list format.",
   icon: UCDIcons.renderPublic('fa-list-ul'),

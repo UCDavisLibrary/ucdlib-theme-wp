@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/lander-nav';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
   title: "Lander Navigation",
   description: "Displays auto-generated navigation links for children of this post",
   icon: UCDIcons.renderBlockIcon('lander-nav'),

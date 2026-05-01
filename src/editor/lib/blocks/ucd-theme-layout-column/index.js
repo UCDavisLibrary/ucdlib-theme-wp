@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/column';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Column",
   parent: [
     "ucd-theme/layout-basic",
