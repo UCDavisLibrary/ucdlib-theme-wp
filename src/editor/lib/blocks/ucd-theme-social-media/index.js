@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/social-media';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Social Media",
 	description: "Add social media links",
 	icon: UCDIcons.renderBlockIcon('social-link'),

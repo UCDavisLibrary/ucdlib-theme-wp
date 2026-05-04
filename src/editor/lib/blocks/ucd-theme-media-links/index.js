@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/media-links';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Media Links",
 	description: "Simple listings that preview content on another webpage.",
 	icon: UCDIcons.renderBlockIcon('media-link-list'),

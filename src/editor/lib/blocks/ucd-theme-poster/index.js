@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/poster';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Poster",
 	description: "Preview content on another webpage with a basic card.",
 	icon: UCDIcons.renderBlockIcon('poster'),

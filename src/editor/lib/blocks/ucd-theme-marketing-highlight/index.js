@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/marketing-highlight';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Marketing Highlight",
 	description: "Preview content on another webpage with an attention-grabbing card.",
 	icon: UCDIcons.renderBlockIcon('marketing-highlight'),

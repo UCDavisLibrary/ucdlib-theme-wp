@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/trumba-filters';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Trumba Calendar Filters",
 	description: "Free text and event filtering for trumba calendar widget",
 	icon: UCDIcons.renderPublic('fa-filter'),

@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/tile-link';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Tile Link",
 	description: "Preview content on another webpage with an image and hover description.",
 	icon: UCDIcons.renderPublic('fa-circle-right'),

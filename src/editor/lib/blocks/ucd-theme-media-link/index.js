@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/media-link';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Media Link",
   parent: ['ucd-theme/media-links'],
 	description: "Preview content on another webpage with a simple listing.",

@@ -4,7 +4,7 @@ import Save from "./save";
 
 const name = 'ucd-theme/priority-links';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Priority Links",
 	description: "Arrange a set of priorty links in a row",
 	icon: UCDIcons.renderBlockIcon('priority-link-set'),
