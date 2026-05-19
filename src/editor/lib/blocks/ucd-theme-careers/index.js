@@ -4,7 +4,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/careers';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Careers",
 	description: "Container to hold one or more Career sections",
 	icon: html`${people}`,

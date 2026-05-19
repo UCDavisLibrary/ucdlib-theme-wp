@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/focal-link';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Focal Link",
 	description: "Add a stylized block link with an icon",
 	icon: UCDIcons.renderBlockIcon('focal-link'),

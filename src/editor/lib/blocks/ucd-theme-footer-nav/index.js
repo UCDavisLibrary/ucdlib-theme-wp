@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/footer-nav';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Footer Nav",
 	description: "Display an existing nav menu styled like a footer menu.",
 	icon: UCDIcons.renderPublic('fa-bars'),

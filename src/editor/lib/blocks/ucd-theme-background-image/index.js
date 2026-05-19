@@ -5,7 +5,7 @@ import transformToSection from "./transform-to-section.js";
 
 const name = 'ucd-theme/background-image';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Background Image",
 	description: "Add any content on top of a background image.",
 	icon: UCDIcons.renderBlockIcon('background-image'),

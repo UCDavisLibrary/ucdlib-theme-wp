@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/contact-list';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Contact List",
 	description: "Display phone numbers, email addresses, and websites in a stylized list.",
 	icon: UCDIcons.renderPublic('fa-at'),

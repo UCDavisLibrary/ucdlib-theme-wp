@@ -244,6 +244,11 @@ class UcdThemeSite extends Site {
     public function add_to_twig( $twig ) {
       $twig->addExtension( new Twig\Extension\StringLoaderExtension() );
 
+      // Custom filter to decode html entities in strings, helpful to ensure aria-labels are not decoded twice
+      $twig->addFilter(new Twig\TwigFilter('entity_decode', function ($string) {
+        return html_entity_decode($string, ENT_QUOTES, 'UTF-8');
+      }));
+
       // Gets pagenum_link object from Timber\Pagination pages object
       $twig->addFilter( new Twig\TwigFilter( 'pagenum_link', function($pages){
         $link = '';

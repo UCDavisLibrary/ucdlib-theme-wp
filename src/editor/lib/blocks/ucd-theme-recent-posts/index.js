@@ -4,7 +4,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/recent-posts';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Recent News",
 	description: "Display recent news items",
 	icon: html`${postList}`,

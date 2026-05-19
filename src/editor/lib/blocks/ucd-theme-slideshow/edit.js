@@ -5,7 +5,7 @@ import { useBlockProps,
   MediaPlaceholder,
   MediaReplaceFlow,
 } from '@wordpress/block-editor';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState, useRef } from '@wordpress/element';
 import { useDispatch } from "@wordpress/data";
 import 'slick-carousel';
 import { ToolbarButton } from "@wordpress/components";
@@ -16,9 +16,8 @@ export default ( props ) => {
   const { attributes, setAttributes } = props;
   const { invalidateResolution } = useDispatch('core/data');
   const hasImages = attributes.hasImages || false;
-  const blockProps = useBlockProps();
-  const sliderSelector = `#${blockProps.id} .slideshow`;
-  const navSelector = `#${blockProps.id} .slider-nav`;
+  const blockRef = useRef();
+  const blockProps = useBlockProps({ ref: blockRef });
 
   const ALLOWED_MEDIA_TYPES = [ 'image' ];
   const uploadInstructions = attributes.hasImages ? 
@@ -41,39 +40,67 @@ export default ( props ) => {
   // initialize slideshow
   useEffect( () => {
     (($) => {
-      if ( !$ || !typeof $.fn.slick === 'function') return;
+      if ( !$ || typeof $.fn.slick !== 'function') {
+        console.warn('jQuery or slick not found, slideshow block will not initialize');
+        return;
+      };
+      if ( !blockRef.current ) return;
+      const $wrapper = $(blockRef.current);
+      const $slider = $wrapper.find('.slideshow');
+      const $nav = $wrapper.find('.slider-nav');
       const mainOptions = {
         lazyLoad: 'ondemand',
         slidesToShow: 1,
         slidesToScroll: 1,
         fade: true,
         dots: true,
-        asNavFor: navSelector
+        asNavFor: $nav
       };
-      $(sliderSelector).slick(mainOptions);
+      $slider.slick(mainOptions);
 
-      $(navSelector).slick({
+      $nav.slick({
         lazyLoad: 'ondemand',
         slidesToShow: 3,
         slidesToScroll: 1,
-        asNavFor: sliderSelector,
+        asNavFor: $slider,
         dots: false,
         centerMode: true,
         centerPadding: '70px',
         focusOnSelect: true,
         arrows: false
       });
-    })(jQuery)
+    })(jQuery);
+
+    return () => {
+      (($) => {
+        if ( !blockRef.current ) return;
+        try {
+          const $wrapper = $(blockRef.current);
+          const $slider = $wrapper.find('.slideshow');
+          const $nav = $wrapper.find('.slider-nav');
+          if ( $slider.hasClass('slick-initialized') ) {
+            $slider.slick('unslick');
+          }
+          if ( $nav.hasClass('slick-initialized') ) {
+            $nav.slick('unslick');
+          }
+        } catch(e) {}
+      })(jQuery);
+    };
 	},  [] );
 
 
   // update slides
   useEffect( () => {
     ( ($) => {
-      if ( !$ || !typeof $.fn.slick === 'function') return;
-
-      const s = $(sliderSelector);
-      const n = $(navSelector);
+      if ( !$ || typeof $.fn.slick !== 'function') {
+        console.warn('jQuery or slick not found, slideshow block will not update');
+        return;
+      }
+      if ( !blockRef.current ) return;
+      const $wrapper = $(blockRef.current);
+      const s = $wrapper.find('.slideshow');
+      const n = $wrapper.find('.slider-nav');
       const aspectRatio = attributes.aspectRatio != 'inherit' ? `aspect--${attributes.aspectRatio}` : '';
 
       // remove existing slides

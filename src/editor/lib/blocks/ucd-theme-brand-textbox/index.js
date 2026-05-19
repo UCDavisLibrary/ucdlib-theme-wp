@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/brand-textbox';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Brand textbox",
 	description: "Section with a background color that can be made collapsible",
 	icon: UCDIcons.render('color.fill2'),

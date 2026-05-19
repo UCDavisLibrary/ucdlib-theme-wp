@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/spacer';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Spacer",
 	description: "Add a blank, transparent block",
 	icon: UCDIcons.renderBlockIcon('spacer'),

@@ -4,7 +4,7 @@ import styleClasses from "./styles";
 
 const name = 'ucd-theme/button-link';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Button Link",
 	description: "Link to a webpage with a stylized button",
 	icon: UCDIcons.renderBlockIcon('button'),

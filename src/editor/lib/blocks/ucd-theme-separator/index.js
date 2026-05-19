@@ -4,7 +4,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/separator';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Separator",
 	description: "Add a separator line with style and colors",
 	icon: html`${separator}`,

@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/layout-section';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Section (New)",
 	description: "Add a stylized section to the page, including a background color, image, or watercolor effect.",
 	icon: UCDIcons.renderPublic('fa-section'),

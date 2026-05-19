@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/slideshow';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Slideshow",
 	description: "Display a photo gallery as a dynamic slideshow",
 	icon: UCDIcons.renderPublic('fa-panorama'),

@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/photo-card';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Photo Card",
 	description: "Preview content on another webpage with an image and overlayed title.",
 	icon: UCDIcons.renderPublic('fa-circle-right'),

@@ -57,7 +57,7 @@ export default ({ attributes, setAttributes }) => {
   return html`
   <div ...${ blockProps }>
     <${BlockControls} group="block">
-      <${Dropdown} position="bottom right" renderToggle=${hrefButton} renderContent=${hrefContent}/>
+      <${Dropdown} renderToggle=${hrefButton} renderContent=${hrefContent}/>
       <${ToolbarDropdownMenu} icon=${html`<span>${attributes.size ? attributes.size : 'md'}</span>`} label="Change button size" controls=${sizeControls}/>
       <${ToolbarDropdownMenu} icon=${UCDIcons.render(attributes.shape ? "shapes.circle" : "shapes.square")} label="Change button shape" controls=${shapeControls}/>
       <${ToolbarButton}

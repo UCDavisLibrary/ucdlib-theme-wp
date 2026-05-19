@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/layout-quad';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Quad Layout",
 	description: "Place content in 4 columns that are responsive to screen width",
 	icon: UCDIcons.renderBlockIcon('quad-layout'),

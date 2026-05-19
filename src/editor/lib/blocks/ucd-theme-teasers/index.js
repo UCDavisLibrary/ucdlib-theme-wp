@@ -4,7 +4,7 @@ import Save from './save';
 
 const name = 'ucd-theme/teasers';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Teasers",
 	description: "Link to other pages on this site with a preview block",
 	icon: UCDIcons.renderBlockIcon('teaser-list'),

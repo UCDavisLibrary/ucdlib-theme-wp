@@ -195,6 +195,10 @@ figure.aligncenter {
 .caption {
   color: #4c4c4c;
   font-size: 0.875rem;
-  font-style: italic;
   line-height: 1.5;
+}
+
+// override display:table from core styles to fix smush lazy load issue
+figure.wp-block-media-text__media {
+  display: block;
 }

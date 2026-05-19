@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/reusable';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Reusable Block Widget",
 	description: "Display an existing reusable block in a wordpress widget area.",
 	icon: UCDIcons.renderPublic('fa-recycle'),

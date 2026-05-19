@@ -62,24 +62,21 @@ kwargs:
 
   <div class="{{classes}}">
     <figure style="display:block;">
+      {% if kwargs.href %}
+        <a {{href}} {{target}}>
+      {% endif %}
       <div
-        class="aspect--{{aspectRatio}} u-background-image"
-        style="background-image:url({{src}}}"
-        {{target}}
-        {{href}}>
+        class="aspect--{{aspectRatio}}">
+        <img src="{{src}}" alt="{{alt}}" width="{{width}}" height="{{height}}" class="object-fit--cover" />
       </div>
+      {% if kwargs.href %}
+        </a>
+      {% endif %}
       {% if kwargs.caption.show and caption %}
         <figcaption style="display:block;">{{caption}}</figcaption>
       {% endif %}
-
     </figure>
   </div>
-
-  {#
-  <div class="aspect--{{kwargs.aspectRatio}}">
-    <img src="{{src}}" alt="{{alt}}" width="{{width}}" height="{{height}}" loading="lazy" />
-  </div>
-  #}
 
 {% endmacro %}
 

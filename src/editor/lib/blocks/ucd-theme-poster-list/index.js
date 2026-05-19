@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/poster-list';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Poster List",
 	description: "Arrange a set of poster components in a grid",
 	icon: UCDIcons.renderBlockIcon('poster-list'),
