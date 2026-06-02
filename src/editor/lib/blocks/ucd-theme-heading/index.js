@@ -4,7 +4,7 @@ import styleClasses from "./styles";
 
 const name = 'ucd-theme/heading';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Fancy Heading",
 	description: "Add a section heading with a little extra pizazz.",
 	icon: UCDIcons.renderBlockIcon('heading-fancy'),

@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/alignable-promo';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Alignable Promo",
 	description: "Preview content on another webpage with a large section-like card.",
 	icon: UCDIcons.renderPublic('fa-bullhorn'),

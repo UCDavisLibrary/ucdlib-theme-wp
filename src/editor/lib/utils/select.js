@@ -17,7 +17,7 @@ export default class SelectUtils {
   static card(attributes) {
     return useSelect((select) => {
       if (!attributes) return {};
-      const customImage = attributes.imageId ? select('core').getMedia(attributes.imageId, {context: 'view'}) : undefined;
+      const customImage = attributes.imageId ? select('core').getEntityRecords('postType', 'attachment', {include: [attributes.imageId], context: 'view'})?.[0] : undefined;
       const post = attributes.post.id ? select('core').getEntityRecord('postType', attributes.post.type, attributes.post.id) : undefined;
 
       let postTitle = undefined;
@@ -26,8 +26,7 @@ export default class SelectUtils {
       }
 
       let postImage = undefined;
-      if ( post && post.featured_media ) postImage = select('core').getMedia(post.featured_media, {context: 'view'});
-
+      if ( post && post.featured_media ) postImage = select('core').getEntityRecords('postType', 'attachment', {include: [post.featured_media], context: 'view'})?.[0];
       let postExcerpt = undefined;
       if ( post && post.excerpt && post.excerpt.rendered ) {
         postExcerpt = post.excerpt.rendered.replace(/(<([^>]+)>)/gi, "").replace(" [&hellip;]", "...");
@@ -39,7 +38,7 @@ export default class SelectUtils {
 
   static image(imageId, force=0) {
     return useSelect( ( select ) => {
-      const Image = imageId && imageId != 0 ? select('core').getMedia(imageId, {context: 'view'}) : undefined;
+      const Image = imageId && imageId != 0 ? select('core').getEntityRecords('postType', 'attachment', {include: [imageId], context: 'view'})?.[0] : undefined;
       return Image;
     }, [imageId, force] );
   }
@@ -57,7 +56,7 @@ export default class SelectUtils {
         } else if ( post.featured_media ) {
           imageId = post.featured_media;
         }
-        const image = select('core').getMedia(imageId, {context: 'view'}) || undefined;
+        const image = select('core').getEntityRecords('postType', 'attachment', {include: [imageId], context: 'view'})?.[0] || undefined;
         if ( image ) url = image.source_url;
       }
       return url;
@@ -124,15 +123,15 @@ export default class SelectUtils {
       if ( extra_fields.length ){
         posts = posts.map(p => {
           if ( extra_fields.includes('image') ){
-            if ( p.featured_media ) p.image = select('core').getMedia(p.featured_media, {context: 'view'});
+            if ( p.featured_media ) p.image = select('core').getEntityRecords('postType', 'attachment', {include: [p.featured_media], context: 'view'})?.[0];
           }
 
           if ( extra_fields.includes('thumbnail_1x1')){
-            if ( p.meta.ucd_thumbnail_1x1 ) p.customImage = select('core').getMedia(p.meta.ucd_thumbnail_1x1, {context: 'view'});
+            if ( p.meta.ucd_thumbnail_1x1 ) p.customImage = select('core').getEntityRecords('postType', 'attachment', {include: [p.meta.ucd_thumbnail_1x1], context: 'view'})?.[0];
           }
 
           if ( extra_fields.includes('thumbnail_4x3')){
-            if ( p.meta.ucd_thumbnail_4x3 ) p.customImage = select('core').getMedia(p.meta.ucd_thumbnail_4x3, {context: 'view'});
+            if ( p.meta.ucd_thumbnail_4x3 ) p.customImage = select('core').getEntityRecords('postType', 'attachment', {include: [p.meta.ucd_thumbnail_4x3], context: 'view'})?.[0];
           }
 
           if ( extra_fields.includes('author') ){

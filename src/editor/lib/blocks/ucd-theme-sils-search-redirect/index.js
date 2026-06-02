@@ -4,7 +4,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/sils-search-redirect';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "SILS Search Widget",
 	description: "A form that redirects a user's search to Primo",
 	icon: html`${search}`,

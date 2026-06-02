@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/faq-item';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "FAQ Item",
   parent: ["ucd-theme/faq"],
 	description: "Add a question and answer to a faq section",

@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/object-box';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Object Box",
 	description: "Box off Similar Content with Padding",
 	icon: UCDIcons.renderBlockIcon('object-box'),

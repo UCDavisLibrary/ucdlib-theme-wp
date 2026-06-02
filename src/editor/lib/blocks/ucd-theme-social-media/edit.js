@@ -75,21 +75,21 @@ export default ( props ) => {
           <div style=${{backgroundColor: '#f00075', width: '40px', height: '40px', display: 'inline-block'}}></div>
         </div>
       `}
-      <div class="social-follow">
+      <div className="social-follow">
         ${attributes.facebookUrl ? html`
-          <a alt="Facebook icon link" class="social-follow__facebook media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
+          <a alt="Facebook icon link" className="social-follow__facebook media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
         ` : html``}
         ${attributes.twitterUrl ? html`
-          <a alt="Twitter icon link" class="social-follow__twitter media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
+          <a alt="Twitter icon link" className="social-follow__twitter media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
         ` : html``}
         ${attributes.instagramUrl ? html`
-          <a alt="Instagram icon link" class="social-follow__instagram media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
+          <a alt="Instagram icon link" className="social-follow__instagram media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
         ` : html``}
         ${attributes.youtubeUrl ? html`
-          <a alt="YouTube icon link" class="social-follow__youtube media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
+          <a alt="YouTube icon link" className="social-follow__youtube media-icon" style=${{ marginRight: '.5em' }} target="_blank"></a>
         ` : html``}
         ${attributes.linkedinUrl ? html`
-          <a alt="LinkedIn icon link" class="social-follow__linkedin" style=${{ marginRight: '.5em' }} target="_blank"></a>
+          <a alt="LinkedIn icon link" className="social-follow__linkedin" style=${{ marginRight: '.5em' }} target="_blank"></a>
         ` : html``}
       </div>
 

@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/link-list-item';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
   title: "Link List Item",
   parent: ['ucd-theme/link-list'],
   description: "List item that links to another page.",

@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/prefixed-icon-link';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Prefixed Icon Link",
 	description: "Add a stylized link preceded by a small inline icon.",
 	icon: UCDIcons.renderBlockIcon('prefixed-icon-link'),

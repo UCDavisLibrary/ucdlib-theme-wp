@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/category-filter';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Category Filter",
 	description: "Display list of links to categories on this site",
 	icon: UCDIcons.renderBlockIcon('category'),

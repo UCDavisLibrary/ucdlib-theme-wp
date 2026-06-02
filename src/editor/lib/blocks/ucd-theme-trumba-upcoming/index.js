@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/trumba-upcoming';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Trumba Upcoming Events",
 	description: "Basic list of upcoing events",
 	icon: UCDIcons.renderPublic('fa-rectangle-list'),

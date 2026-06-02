@@ -1,10 +1,9 @@
-import { head } from "lodash";
 import { UCDIcons, Save } from "../../utils";
 import Edit from './edit';
 
 const name = 'ucd-theme/panel-with-icon';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Panel With Icon",
 	description: "Place content within a panel that has an icon in its title",
 	icon: UCDIcons.renderBlockIcon('panel-with-icon'),
@@ -12,7 +11,8 @@ const settings = {
 	keywords: [ "panel", 'icon', 'color', 'box' ],
   supports: {
     "html": false,
-    "customClassName": false
+    "customClassName": false,
+    "anchor": true
   },
   attributes: {
     icon: {
@@ -58,6 +58,10 @@ const settings = {
     headingLevel: {
       type: "number",
       default: 2
+    },
+    anchor: {
+      type: "string",
+      default: ""
     }
   },
   edit: Edit,

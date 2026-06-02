@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/priority-link';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Priority Link",
 	description: "Add a link with an icon in a colored circle",
 	icon: UCDIcons.renderBlockIcon('priority-link'),

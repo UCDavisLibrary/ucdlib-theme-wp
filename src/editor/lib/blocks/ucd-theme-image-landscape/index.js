@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/image-landscape';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Landscape Image",
 	description: "Display a basic landscape image",
 	icon: UCDIcons.render("photo"),
@@ -26,6 +26,10 @@ const settings = {
       type: 'object',
       default: {}
     },
+    href: {
+      type: 'string',
+      default: ''
+    },
     postId: {
       type: 'number',
       default: 0
@@ -35,7 +39,7 @@ const settings = {
       default: 0
     },
     newTab: {
-      type: 'boolean',
+      type: "boolean",
       default: false
     }
   },

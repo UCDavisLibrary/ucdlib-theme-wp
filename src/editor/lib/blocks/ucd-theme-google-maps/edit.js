@@ -56,11 +56,11 @@ export default ( props ) => {
     </${BlockControls}>
     <iframe
       title="Google Maps"
-      class="google-maps-embed"
-      frameborder="0"
-      referrerpolicy="no-referrer-when-downgrade"
+      className="google-maps-embed"
+      frameBorder="0"
+      referrerPolicy="no-referrer-when-downgrade"
       src="https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${attributes.markerLocation}&zoom=18"
-      allowfullscreen>
+      allowFullScreen>
     </iframe>
 
     ${modalIsOpen && html`

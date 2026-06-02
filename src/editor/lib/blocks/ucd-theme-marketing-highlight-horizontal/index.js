@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/marketing-highlight-horizontal';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Marketing Highlight Horizontal",
 	description: "Link to another webpage with a landscape image and stylized short caption.",
 	icon: UCDIcons.renderBlockIcon('marketing-highlight-hor'),

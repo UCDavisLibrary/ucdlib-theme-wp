@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/layout-container';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Container",
 	description: "Slightly shrinks the width of its innercontent",
 	icon: UCDIcons.renderBlockIcon('container'),

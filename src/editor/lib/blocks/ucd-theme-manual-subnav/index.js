@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/manual-subnav';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
   title: "Build Your Own Subnav",
   description: "Displays a sidebar navigation widget from links that you select.",
   icon: UCDIcons.renderBlockIcon('subnav'),

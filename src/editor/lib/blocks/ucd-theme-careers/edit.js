@@ -3,16 +3,12 @@ import { lock, paragraph } from '@wordpress/icons';
 import { useBlockProps, InnerBlocks, BlockControls } from '@wordpress/block-editor';
 import { ToolbarButton, Modal, Button, TextControl } from '@wordpress/components';
 import { Fragment, useState } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
 
 export default ( props ) => {
-  const { clientId, attributes, setAttributes } = props;
+  const { attributes, setAttributes } = props;
   const blockProps = useBlockProps();
   const allowedBlocks = ['ucd-theme/career']
   const template = [['ucd-theme/career', {}]];
-  const { innerBlocksCount} = useSelect(select => ({
-    innerBlocksCount: select("core/block-editor").getBlockCount(clientId)
-  }));
 
   // modal state
   const startingModalData = {
@@ -59,7 +55,7 @@ export default ( props ) => {
         <${ToolbarButton} 
           icon=${html`${lock}`} 
           onClick=${ () => {setAttributes({'lock': { 'move': !attributes.lock.move, 'remove': !attributes.lock.remove}})}} 
-          isPressed=${attributes.lock.move ? true : false} && ${attributes.lock.remove ? true : false}
+          isPressed=${attributes.lock.move && attributes.lock.remove ? true : false}
           label="Lock"
         />
         <${ToolbarButton} 
@@ -84,21 +80,12 @@ export default ( props ) => {
         </div>
       </${Modal}>
     `}
-
       <div ...${ blockProps }>
         <ul className="list--arrow">
-          ${innerBlocksCount > 0 && html`
-            <${InnerBlocks} 
-              allowedBlocks=${allowedBlocks}
-              template=${template}
-            />
-          `}
-          ${innerBlocksCount === 0 && html`
-            <${InnerBlocks}
-              allowedBlocks=${allowedBlocks}
-              template=${template}
-            />
-          `}
+          <${InnerBlocks} 
+            allowedBlocks=${allowedBlocks}
+            template=${template}
+          />
         </ul>
       </div>
     </${Fragment}>

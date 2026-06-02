@@ -3,7 +3,7 @@ import Edit from './edit';
 
 const name = 'ucd-theme/query';
 const settings = {
-  api_version: 2,
+  apiVersion: 3,
 	title: "Basic Query",
 	description: "Display a list of posts on this site based on a query you construct.",
 	icon: UCDIcons.renderBlockIcon('basic-query'),
