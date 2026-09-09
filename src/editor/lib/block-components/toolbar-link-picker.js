@@ -1,5 +1,5 @@
 import { html, UCDIcons } from "../utils";
-import { ToolbarButton, Dropdown, Button, ToggleControl } from "@wordpress/components";
+import { ToolbarButton, Dropdown, Button, ToggleControl, TextControl } from "@wordpress/components";
 import { LinkControl } from '@wordpress/block-editor';
 import { useState } from '@wordpress/element';
 
@@ -29,46 +29,58 @@ function ToolbarLinkPicker({
     v = v.replace('http://', '').replace('https://');
     return v;
   }
-  const _onChange = (v) => {
-    if ( ( isEmail || isPhone ) && v && v.url ) {
-      v.url = stripProtocol(v.url);
+
+  /**
+   * Returns the raw email/phone text to display in the plain text input,
+   * stripped of its mailto:/tel: prefix.
+   *
+   * @return {string} the value to show in the text control.
+   */
+  const getTextInputValue = () => {
+    if ( !hasValue ) return '';
+    if ( isEmail && hasMailTo ) return value.url.slice(7);
+    if ( isPhone && hasTel ) return value.url.slice(4);
+    return value.url;
+  }
+
+  /**
+   * Handles changes from the plain text input used for email/phone entry,
+   * prefixing the value with mailto:/tel: as appropriate.
+   *
+   * @param {string} text the raw email or phone number entered.
+   */
+  const _onChangeText = (text) => {
+    let url = text;
+    if ( isEmail && text && !text.startsWith('mailto:') ) {
+      url = 'mailto:' + text;
+    } else if ( isPhone && text && !text.startsWith('tel:') ) {
+      url = 'tel:' + text;
     }
-    if ( isEmail && v && v.url && !v.url.startsWith('mailto:') ) {
-      v.url = 'mailto:' + v.url;
-    } else if ( isPhone && v && v.url && !v.url.startsWith('tel:')) {
-      v.url = 'tel:' + v.url;
-    }
-    onChange(v)
+    onChange({...value, url});
   }
 
   const toggleEmail = () => {
-    //remove
-    if ( isEmail && hasValue && hasMailTo ) {
-      value.url = value.url.slice(7);
-      onChange(value);
-    }
     //add
-    if ( !isEmail && hasValue && !hasMailTo ) {
+    if ( !isEmail ) {
       setIsPhone(false);
-      if ( hasTel ) value.url = value.url.slice(4);
-      value.url = stripProtocol('mailto:' + value.url);
-      onChange(value);
+      if ( hasValue && !hasMailTo ) {
+        if ( hasTel ) value.url = value.url.slice(4);
+        value.url = stripProtocol('mailto:' + value.url);
+        onChange(value);
+      }
     }
     setIsEmail(!isEmail);
   }
 
   const togglePhone = () => {
-    //remove
-    if ( isPhone && hasValue && hasTel ) {
-      value.url = value.url.slice(4);
-      onChange(value);
-    }
     //add
-    if ( !isPhone && hasValue && !hasTel ) {
+    if ( !isPhone ) {
       setIsEmail(false);
-      if ( hasMailTo ) value.url = value.url.slice(7);
-      value.url = stripProtocol('tel:' + value.url);
-      onChange(value);
+      if ( hasValue && !hasTel ) {
+        if ( hasMailTo ) value.url = value.url.slice(7);
+        value.url = stripProtocol('tel:' + value.url);
+        onChange(value);
+      }
     }
     setIsPhone(!isPhone);
   }
@@ -81,8 +93,18 @@ function ToolbarLinkPicker({
   }
   const Content = () => {
     return html`
-      <div>
-        <${LinkControl} value=${value} onChange=${_onChange}/>
+      <div style=${{minWidth: '360px'}}>
+        ${ ( isEmail || isPhone ) ? html`
+          <div style=${{marginLeft: '16px', marginRight: '16px', marginTop: '16px'}}>
+            <${TextControl}
+              label=${isEmail ? 'Email Address' : 'Phone Number'}
+              value=${getTextInputValue()}
+              onChange=${_onChangeText}
+            />
+          </div>
+        ` : html`
+          <${LinkControl} value=${value} onChange=${onChange}/>
+        `}
         <div style=${{marginLeft: '16px', marginRight: '16px'}}>
           ${allowEmail && html`
             <${ToggleControl} label="Is Email Address" checked=${isEmail} onChange=${toggleEmail}/>
