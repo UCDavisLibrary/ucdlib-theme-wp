@@ -47,6 +47,9 @@ class UCDThemeBlockRenderer {
       if ( array_key_exists('provides_context', $block) ) {
         $settings['provides_context'] = $block['provides_context'];
       };
+      if ( array_key_exists('supports', $block) ) {
+        $settings['supports'] = $block['supports'];
+      }
       register_block_type(
         $name,
         $settings
