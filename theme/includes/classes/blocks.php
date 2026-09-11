@@ -236,7 +236,8 @@ class UCDThemeBlocks extends UCDThemeBlockRenderer {
     "ucd-theme/sils-search-redirect" => array("twig" => "@ucd/blocks/sils-search-redirect.twig"),
     "ucd-theme/separator" => array(
       "twig" => "@ucd/blocks/separator.twig",
-      "hasBrandColors" => true
+      "hasBrandColors" => true,
+      "supports" => array( "customCSS" => false )
     ),
     "ucd-theme/slideshow" => [
       'twig' => '@ucd/blocks/slideshow.twig',
