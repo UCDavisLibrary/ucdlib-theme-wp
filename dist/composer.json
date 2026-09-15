@@ -16,6 +16,6 @@
     }
   ],
   "require": {
-    "timber/timber": "2.4.0"
+    "timber/timber": "2.5.1"
   }
 }
